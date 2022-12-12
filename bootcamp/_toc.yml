@@ -1,0 +1,58 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: Introduction
+    chapters:
+    - file: pages/introduction
+  - caption: PDK
+    chapters:
+    - file: pages/what_is_a_pdk
+    - file: pages/gds
+    - file: pages/components
+    - file: common_components
+      sections:
+        - file: pages/waveguides
+        - file: pages/y_junctions
+        - file: pages/directional_couplers
+        - file: pages/ring_resonators
+        - file: pages/tapers
+        - file: pages/mmis
+        - file: pages/grating_couplers
+        - file: pages/edge_couplers
+        - file: pages/phase_shifters_heaters
+        - file: pages/voas
+    - file: pages/subcircuits
+  - caption: Designing Circuits
+    chapters:
+    - file: pages/the_mach_zehnder_interferometer
+    - file: pages/design_for_testing
+    - file: pages/layout
+  - caption: Testing
+    chapters:
+    - file: pages/equipment
+    - file: pages/sweeps
+    - file: pages/analyzing_circuits
+  - caption: Software References
+    chapters:
+    - file: pages/computer_setup
+    - file: pages/git_and_github
+    - file: pages/vs_code
+    - file: pages/makefiles
+    - file: pages/cmake
+    - file: pages/python_environments_and_conda
+    - file: pages/open_source
+    - file: pages/git_and_github
+    - file: pages/klayout
+    - file: pages/gdsfactory
+    - file: pages/meep
+    - file: pages/cookiecutter
+  - caption: Other References
+    numbered: false
+    chapters:
+    - url: https://github.com/BYUCamachoLab/sky130ph
+      title: Repository
+    - url: https://github.com/BYUCamachoLab/sky130ph/docs
+      title: PDK Documentation
