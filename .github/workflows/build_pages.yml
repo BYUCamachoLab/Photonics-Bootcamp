@@ -10,7 +10,7 @@ on:
     # folder has been modified.
     #
     paths:
-    - photonics_bootcamp(1)/**
+    - photonics_bootcamp/**
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
