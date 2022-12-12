@@ -10,5 +10,5 @@ This course was created as a collaboration between
 
 ## Contents
 
-```{tableofcontents}
-```
+<!-- ```{tableofcontents} -->
+<!-- ``` -->
