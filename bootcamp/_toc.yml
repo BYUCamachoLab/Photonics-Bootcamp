@@ -38,7 +38,6 @@ parts:
   - caption: Software References
     chapters:
     - file: pages/computer_setup
-    - file: pages/git_and_github
     - file: pages/vs_code
     - file: pages/makefiles
     - file: pages/cmake
