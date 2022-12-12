@@ -1,0 +1,2 @@
+Heading: pages/components.rst
+=============================
