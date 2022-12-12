@@ -1,6 +1,6 @@
 # Photonics Bootcamp
 
-The CamachoLab Photonics Bootcamp, with support from Google.
+The CamachoLab Photonics Bootcamp, with support from Google. https://byucamacholab.github.io/Photonics-Bootcamp/intro.html
 
 ## Contributors
 
