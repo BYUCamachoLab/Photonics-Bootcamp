@@ -1,2 +1,0 @@
-Heading: pages/layout.rst
-=========================
