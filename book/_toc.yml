@@ -2,11 +2,12 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: index
 parts:
-  - caption: Introduction
+  - caption: Front Matter
     chapters:
     - file: pages/introduction
+    - file: pages/credits
   - caption: PDK
     chapters:
     - file: pages/what_is_a_pdk
