@@ -18,10 +18,10 @@ parts:
       - file: pages/vscode
       - file: pages/python #interpreted_vs_compiled, virtual_environments, package_managers, conda
       - file: pages/code_in_the_cloud
-    - file: pages/meep
-    - file: pages/simphony
     - file: pages/klayout
     - file: pages/gdsfactory
+    - file: pages/meep
+    - file: pages/simphony
   - caption: Passive Device Design and Simulation
     chapters:
     - file: pages/what_is_a_photonic_device
