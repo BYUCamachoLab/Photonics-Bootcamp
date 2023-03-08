@@ -30,6 +30,8 @@ parts:
       section:
       - file: pages/gds
       - file: pages/components
+      - file: pages/gds_to_meep
+      - file: pages/meep_to_gds
     - file: pages/waveguides
       sections:
       - file: pages/fem_solvers

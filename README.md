@@ -2,7 +2,7 @@
 
 The CamachoLab Photonics Bootcamp, with support from Google. 
 
-This book can be viewed [online](https://byucamacholab.github.io/Photonics-Bootcamp/intro.html).
+This book can be viewed [online](https://byucamacholab.github.io/Photonics-Bootcamp/).
 
 ## Installation
 
