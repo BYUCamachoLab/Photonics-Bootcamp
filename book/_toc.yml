@@ -12,7 +12,7 @@ parts:
     chapters:
     - file: pages/open_source
     - file: pages/software
-      section:
+      sections:
       - file: pages/system_configuration
       - file: pages/git_and_github
       - file: pages/vscode
@@ -27,7 +27,7 @@ parts:
     - file: pages/what_is_a_photonic_device
     - file: pages/silicon_on_insulator
     - file: pages/digital_shape_representation
-      section:
+      sections:
       - file: pages/gds
       - file: pages/components
       - file: pages/gds_to_meep
@@ -52,7 +52,7 @@ parts:
     - file: pages/phase_shifters_pn
     - file: pages/voas
     - file: pages/photodetectors
-      section:
+      sections:
       - file: pages/responsivity
       - file: pages/bandwidth
     - file: pages/lasers
@@ -60,7 +60,7 @@ parts:
     chapters:
     - file: pages/photonic_circuit_modeling
     - file: pages/compact_models
-      section:
+      sections:
       - file: pages/scattering_parameters
       - file: pages/passive_models
       - file: pages/active_models
