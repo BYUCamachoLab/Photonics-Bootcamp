@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Directional Couplers &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Supermodes &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -143,7 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Directional Couplers
+   Supermodes
   </a>
  </li>
 </ul>
@@ -295,42 +295,42 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#supermodes">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Supermodes
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#coupling-coefficient">
    Coupling Coefficient
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#beating">
    Beating
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cross-over-length">
    Cross-over Length
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#simulation">
    Simulation
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#graphs-to-show-the-relationship-that-hopefully-they-have-just-observed-in-code">
-   Graphs to show the relationship that hopefully they have just observed in code
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#coupler-gap-dependence">
    Coupler-gap Dependence
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#design-considerations">
+   Design Considerations
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#sources">
      Sources
     </a>
@@ -346,7 +346,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Directional Couplers</h1>
+                <h1>Supermodes</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -356,42 +356,42 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#supermodes">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Supermodes
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#coupling-coefficient">
    Coupling Coefficient
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#beating">
    Beating
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cross-over-length">
    Cross-over Length
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#simulation">
    Simulation
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#graphs-to-show-the-relationship-that-hopefully-they-have-just-observed-in-code">
-   Graphs to show the relationship that hopefully they have just observed in code
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#coupler-gap-dependence">
    Coupler-gap Dependence
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#design-considerations">
+   Design Considerations
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#sources">
      Sources
     </a>
@@ -408,31 +408,39 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="directional-couplers">
-<h1>Directional Couplers<a class="headerlink" href="#directional-couplers" title="Permalink to this headline">#</a></h1>
-<p>Directional couplers move light from one waveguide to another. This is done simply by bringing two waveguides parallel to each other for a certain distance at certain distance apart. The evanescent fields (fields existing outside of the waveguide) of one waveguide interact with another and thus power is transferred. This principle can be used to split or combine light, depending on the coupling length (the length at which the waveguides are sufficiently close to each other) and the phase of the light in the waveguides.</p>
+  <h1 style="text-align: center;"> Directional Couplers</h1>
+<div style="text-align: center;">
+<p><img alt="dir_cplr" src="home/ebang4/Github/Photonics-Bootcamp/book/images/Notebook_Images/dir_cplr.png" /></p>
+</div>
+<p style="text-align: center;"> Layout of a directional coupler in gdsfactory </p>
+<p>Directional couplers move light from one waveguide to another. This is done simply by bringing two waveguides parallel to each other for a certain distance, with a small gap between them. The evanescent fields (fields existing outside of the waveguide) of one waveguide interact with another and thus power is transferred. This principle can be used to split or combine light, depending on the coupling length (the length at which the waveguides are sufficiently close to each other) and the phase of the light in the waveguides.</p>
+<p>Directional couplers can be designed to produce any combination of power at the outputs. This could be a simple 50/50 split, a 60/40 split, or even a 100/0 split where all the input power in one waveguide is coupled to the other. The fraction of power that is coupled from one waveguide to another is dependent on geometric parameters and can be described as:</p>
+<div class="math notranslate nohighlight">
+\[ \kappa ^2 = \frac {P_{cross}}{P_0} = sin^2(CL)\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\kappa\)</span> is the field coupling, <span class="math notranslate nohighlight">\(P_{cross}\)</span> is the coupled power, <span class="math notranslate nohighlight">\(P_0\)</span> is the input power, <span class="math notranslate nohighlight">\(C\)</span> is the coupling coefficient, and <span class="math notranslate nohighlight">\(L\)</span> is the length of the coupler.</p>
+<p>The coupling coefficient is found with supermode analysis.</p>
 <section id="supermodes">
-<h2>Supermodes<a class="headerlink" href="#supermodes" title="Permalink to this headline">#</a></h2>
-<p>Just like there are modes that exist in one waveguide, supermodes are modes that exist in multiple waveguides based on the interaction between them. These modes interact with each other and the combination of these interactions results in what light is propagating in the waveguide.</p>
-<p>An “odd”, or antisymmetric, supermode occurs when light in the two waveguides are <span class="math notranslate nohighlight">\(180\degree\)</span> out of phase i.e. perfectly out of phase. Similarly, an “even”, or symmetric, supermode occurs when the two waveguides are in phase.</p>
-<p>The effective indices (<span class="math notranslate nohighlight">\(n_{eff,even}\)</span>, <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span>) of the supermodes differs from that of the normal mode in the waveguide. <span class="math notranslate nohighlight">\(n_{eff,even}\)</span> increases as the coupling gap decreases, and <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span> decreases as the coupling gap decreases.</p>
+<h1>Supermodes<a class="headerlink" href="#supermodes" title="Permalink to this headline">#</a></h1>
+<p>Just like there are modes that exist in one waveguide, supermodes are modes that exist in multiple waveguides based on the interactions between them. These modes interact with each other and the combination of these interactions results in what light is propagating in the waveguide.</p>
+<p>An “odd”, or antisymmetric, supermode occurs when light in the two waveguides are <span class="math notranslate nohighlight">\(180 \degree\)</span> out of phase i.e. perfectly out of phase. Similarly, an “even”, or symmetric, supermode occurs when the two waveguides are in phase.</p>
+<p><strong>INSERT PICTURE OF MODES</strong></p>
 </section>
 <section id="coupling-coefficient">
-<h2>Coupling Coefficient<a class="headerlink" href="#coupling-coefficient" title="Permalink to this headline">#</a></h2>
+<h1>Coupling Coefficient<a class="headerlink" href="#coupling-coefficient" title="Permalink to this headline">#</a></h1>
+<p>The two supermodes that are used to find the coupling coefficient are the first two modes, which happen to be an even and odd mode, respectively.</p>
 <p>The coupling coefficient is <span class="math notranslate nohighlight">\(C = \frac{\pi\Delta n}{\lambda}\)</span></p>
-<p>Where <span class="math notranslate nohighlight">\(\Delta n = |n_{eff,even} - n_{eff,odd}|\)</span></p>
-<p><strong>NEED PICTURES FOR CLARITY. Also, more intuitive understanding of why the indices do what they do</strong></p>
+<p>Where <span class="math notranslate nohighlight">\(\Delta n = |n_{1} - n_{2}| = |n_{eff,even} - n_{eff,odd}|\)</span></p>
 </section>
 <section id="beating">
-<h2>Beating<a class="headerlink" href="#beating" title="Permalink to this headline">#</a></h2>
-<p>As the supermodes propagate with different propagation constants, the field intensity oscillates between the two waveguides. This is called beating.</p>
-<p>The propagation constants are:
-<span class="math notranslate nohighlight">\(\beta _1 = \frac{2 \pi n_1}{\lambda}\)</span> and
-<span class="math notranslate nohighlight">\(\beta _2 = \frac{2 \pi n_2}{\lambda}\)</span></p>
-<p>The length it takes for one beat (for all of the power to go from one waveguide to the other) is called the cross-over length.</p>
+<h1>Beating<a class="headerlink" href="#beating" title="Permalink to this headline">#</a></h1>
+<p>As seen in the equation above, each supermode has its own effective index (<span class="math notranslate nohighlight">\(n_{eff,even}\)</span>, <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span>) that differs from that of the normal mode in the waveguide and is dependent of the gap between the waveguides. <span class="math notranslate nohighlight">\(n_{eff,even}\)</span> increases as the gap decreases, and <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span> decreases as the gap decreases. The different effective indices also mean that the two modes have different propagation constants.</p>
+<p>The propagation constant is:
+<span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n_eff}{\lambda}\)</span></p>
+<p>Because of this difference in propagation constants, the field intensity oscillates between the two waveguides. This is called beating. As the gap between the waveguides gets smaller, the beating gets faster since <span class="math notranslate nohighlight">\(\Delta n\)</span> gets larger as the difference increases, thus making the cross-over length shorter.</p>
+<p>The cross-over length is the length it takes for all of the power to go from one waveguide to the other (essentially one beat) and is discussed below.</p>
 </section>
 <section id="cross-over-length">
-<h2>Cross-over Length<a class="headerlink" href="#cross-over-length" title="Permalink to this headline">#</a></h2>
+<h1>Cross-over Length<a class="headerlink" href="#cross-over-length" title="Permalink to this headline">#</a></h1>
 <p>The power that one waveguide receives from the other is given by:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -446,7 +454,7 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 \[ L_x[\frac{2 \pi n_1}{\lambda} - \frac{2 \pi n_2}{\lambda}] = \pi \]</div>
 </section>
 <section id="simulation">
-<h2>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">#</a></h2>
+<h1>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">#</a></h1>
 <p>To explore how electric field intensity oscillates between two close waveguides, a meep simulation is provided below that creates two long waveguides with a gap of 0.2um, excites a source at the end of one, and shows the electric field intensity over time in the waveguides. Change the gap distance to observe its affect on the cross-over length. You can also change the lengths of the waveguides to better see the beating. The simulation may take a couple of minutes depending on the length of your waveguide. The plot of the simulation setup and the outputted GIF showing the field intensities for a simulation with a gap of <span class="math notranslate nohighlight">\(0.2 \mu m\)</span> is shown below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -483,7 +491,7 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
             <span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Sx</span><span class="p">,</span><span class="n">wg_width</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">wg_center_y</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">),</span>
             <span class="p">]</span>
 
-<span class="c1"># Put Eigenmode source at beginning of one waveguide</span>
+<span class="c1"># Put a pulse Eigenmode source at beginning of one waveguide</span>
 <span class="n">fcen</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">wvl</span>
 <span class="n">width</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">fwidth</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">fcen</span>
@@ -622,7 +630,7 @@ on time step 23397 (time=584.925), 0.00598429 s/step
 run 0 finished at t = 600.0 (24000 timesteps)
 </pre></div>
 </div>
-<img alt="../_images/directional_couplers_5_1.png" src="../_images/directional_couplers_5_1.png" />
+<img alt="../_images/directional_couplers_6_1.png" src="../_images/directional_couplers_6_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -671,23 +679,31 @@ run 0 finished at t = 600.0 (24000 timesteps)
 </div>
 </div>
 </div>
-</section>
-<section id="graphs-to-show-the-relationship-that-hopefully-they-have-just-observed-in-code">
-<h2>Graphs to show the relationship that hopefully they have just observed in code<a class="headerlink" href="#graphs-to-show-the-relationship-that-hopefully-they-have-just-observed-in-code" title="Permalink to this headline">#</a></h2>
+<p>Image of the simulation set-up:</p>
+<div style="text-align: center;">
+<p><img alt="set-up" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dircplr_sim_setup.png" /></p>
+</div>
+<p>Gif from the meep simulation with a gap of <span class="math notranslate nohighlight">\(0.2 \mu m\)</span>:</p>
+<div style="text-align: center;">
+<p><img alt="gif" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dircplr_ez.gif" /></p>
+</div>
+<p><strong>Graphs to show the relationship that hopefully they have just observed in code</strong></p>
 </section>
 <section id="coupler-gap-dependence">
-<h2>Coupler-gap Dependence<a class="headerlink" href="#coupler-gap-dependence" title="Permalink to this headline">#</a></h2>
-<p>How does the gap between the waveguides affect the coupling coefficient?</p>
+<h1>Coupler-gap Dependence<a class="headerlink" href="#coupler-gap-dependence" title="Permalink to this headline">#</a></h1>
+<p>There is an exponential relationship between the gap and the coupling.</p>
 <div class="math notranslate nohighlight">
 \[C = B\cdot e^{-A \cdot g}\]</div>
-<p><span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are dependent on</p>
+<p><span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are dependent on various parameters of the directional coupler, such as the geometry and the wavelength at which it is being operated.</p>
+</section>
+<section id="design-considerations">
+<h1>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h1>
+<p>So, when designing a directional coupler, you must select a length and gap distance that will give you your desired fraction of the input power at each output port. Also, given the important role that geometry has in determining the characteristics of a directional coupler (such as the coupling coefficient), they are very susceptible to manufacturing variations. This is something to keep in mind as you build circuits that may have strict specifications.</p>
+<p>Another element to consider is that the principles that make a directional coupler work can also mess with the layout of your chip. Parasitic coupling occurs when two waveguides (that are not part of a directional coupler) are placed too close to each other, leading to power “leaking” from one to the other. Waveguides and components should be placed far enough away so that this does not happen.</p>
 <section id="sources">
-<h3>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h3>
+<h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>
 <p>“Silicon Photonics Design” by Lukas Chrostowski</p>
 <p>“Photonic Components: Directional Coupler” by Stefan Preble (slides)</p>
-<p>h5utils                   1.13.1          nompi_h51f32c1_1114    conda-forge
-hdf5                      1.12.2          nompi_h4df4325_100    conda-forge</p>
-</section>
 </section>
 </section>
 
