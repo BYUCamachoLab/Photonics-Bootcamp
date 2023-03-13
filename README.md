@@ -51,6 +51,13 @@ When writing notebooks, if including images, it is best to reference a web
 address instead of a relative file in the repository. This way, when the
 notebook is downloaded independently, the links and images will not be broken.
 
+JupyterBook by default runs all the notebooks within the repository when
+generating the site. Because many of the notebooks contain lengthy simulations
+that we don't want to run on the deployment server, this behavior has been 
+turned off. Therefore, when pushing new notebooks to the repository, you should
+have already run the notebooks from top to bottom in a fresh kernel to ensure
+all the outputs (plots and results) are present.
+
 ## Deployment
 
 By default, pushes or pull requests merged on "master" automatically trigger a
