@@ -10,7 +10,7 @@ This course was created as a collaboration between
 [CamachoLab at Brigham Young University](https://camacholab.byu.edu/) and
 [Google's Skywater Project](https://skywater-pdk.readthedocs.io/en/main/).
 
-## Contents
+## Table of Contents
 
-<!-- ```{tableofcontents} -->
-<!-- ``` -->
+<!-- ```{tableofcontents}
+``` -->

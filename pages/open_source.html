@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Open Source Software &#8212; CamachoLab Photonics Bootcamp</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/open_source.html" />
+    <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
+    <link rel="prev" title="Credits" href="credits.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Front Matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="credits.html">
+   Credits
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Familiar with Code
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Open Source Software
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Passive Device Design and Simulation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="directional_couplers.html">
+   Directional Couplers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">
+   Repository
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">
+   PDK Documentation
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/pages/open_source.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#common-licenses">
+   Common Licenses
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mit-license">
+     MIT License
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apache-2-0-license">
+     Apache 2.0 License
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gplv3-agpl-license">
+     GPLv3+/AGPL License
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Open Source Software</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#common-licenses">
+   Common Licenses
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mit-license">
+     MIT License
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#apache-2-0-license">
+     Apache 2.0 License
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gplv3-agpl-license">
+     GPLv3+/AGPL License
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="open-source-software">
+<h1>Open Source Software<a class="headerlink" href="#open-source-software" title="Permalink to this headline">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This does not constitute legal advice
+The information provided on this website does not, and is not intended to,
+constitute legal advice; instead, all information, content, and materials
+available on this site are for general informational purposes only. Information
+on this website may not constitute the most up-to-date legal or other
+information.</p>
+<p>Especially if in a corporate environment, contact an attorney to be absolutely
+sure about the legal implications of using open source software at your
+organization.</p>
+</div>
+<p>This course is built with software that is known as “open-source software.” But
+what does open source really mean, and what are you legally allowed to do with
+it? This is a particularly important question if you work at a company that is
+writing software to distribute to customers, because depending on the license,
+any code that incorporates it may inherit the requirement to also be
+open-source.</p>
+<p>Free and open source software (FOSS) is software where the source code is
+freely availble to be read by end users or other developers. The open source
+portion refers to the fact that anyone is allowed to inspect, modify, and/or
+enhance the code–it refers more to the design methodology or methods of
+collaboration in the creation of the software. It enables many people of
+different skills or backgrounds to collaborate on a software, often outside of
+the context of a company. While often monetarily free itself (perhaps under
+certain conditions or use restrictions), the “free” part of FOSS refers to the
+freedom to use the software in any way you wish as an end user; it means that
+you have the freedom to run, copy, distribute, study, change, and improve the
+software.</p>
+<p>One advantage of open source software is that you can look under the hood to
+see what’s actually going on. You can extend it for your own specific needs,
+there’s a strong open source community focused on making more software more
+accessible to more people. However, one potential downside is that it’s often
+thanklessly maintained by a few dedicated programmers spending their free time
+on it. Some companies allow their engineers to spend a portion of their time
+contributing to open source software. Some of the software in this course, for
+example, is driven by engineers at Google, PsiQuantum, and other companies.
+Because of its nature of being community driven, depending on the size of the
+project, maintenance and bug fixes can be slower than a commercial software.
+On the other hand, the community is free to submit fixes to the original
+software, meaning that depending on the size of the project and the number of
+users it garners, it can actually become a very actively developed software.</p>
+<p>Some of these software projects are more “friendly” to coporate environments
+based on their licensing scheme; before incorporating any of these into your
+code, you’ll definitely want to confirm with your company’s legal team the
+ability to utilize existing open source software, especially if you’re rolling
+it into another software that you plan to release to customers. We’ll introduce
+a couple of the most commonly seen open source licenses below.</p>
+<section id="common-licenses">
+<h2>Common Licenses<a class="headerlink" href="#common-licenses" title="Permalink to this headline">#</a></h2>
+<section id="mit-license">
+<h3>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">#</a></h3>
+<p>The MIT license is a very permissive license and is extremely short (only 162
+words). It carries with it two requirements; in your own copy of the code
+(whether you modified it or not), you must include <span id="id1">[<a class="reference internal" href="#id9" title="FOSSA Editorial Team. Open source software licenses 101: the mit license. online, Jan 2021. URL: https://fossa.com/blog/open-source-licenses-101-mit-license/.">1</a>]</span>:</p>
+<ol class="simple">
+<li><p>The original copyright notice</p></li>
+<li><p>A copy of the license itself</p></li>
+</ol>
+<p>The MIT License does not require those who modify the original code to also
+release it under the MIT or other open-source license. In other words, your
+version remains proprietary, if you so wish. You can incorporate MIT licensed
+code into commercial software, modify it, and use a different (perhaps
+stricter) license for the derived work. As mentioned in the license text,
+however “the software is ‘as is’, without warranty”.</p>
+<p>Of the licenses mentioned here, this is the most commonly encountered  in the
+open source software world.</p>
+</section>
+<section id="apache-2-0-license">
+<h3>Apache 2.0 License<a class="headerlink" href="#apache-2-0-license" title="Permalink to this headline">#</a></h3>
+<p>The Apache 2.0 License is also a permissive license, carrying few restrictions.
+The requirements when incorporating modified or original code licensed under
+this license are that you must include <span id="id2">[<a class="reference internal" href="#id8" title="FOSSA Editorial Team. Open source licenses 101: apache license 2.0. online, Feb 2021. URL: https://fossa.com/blog/open-source-licenses-101-apache-license-2-0/.">2</a>]</span>:</p>
+<ol class="simple">
+<li><p>The original copyright notice</p></li>
+<li><p>A copy of the license itself</p></li>
+<li><p>If applicable, a statement of any significant changes made to the original code</p></li>
+<li><p>A copy of the NOTICE file with attribution notes (if the original library has one)</p></li>
+</ol>
+<p>Similar to the MIT license, code licensed under the Apache 2.0 license can be
+rereleased under a different license. Where it differs is in the explicit
+grant of patent rights to contributors or users of the code. That means you can
+claim a patent on the portion of contributions you make to the original
+codebase.</p>
+<p>Like the MIT licesnse, you cannot hold contributors legally liable for any
+reason. You’re also not granted any rights to the trademarks of the licensor.
+Of the open source licenses, this is potentially the most permissive.</p>
+</section>
+<section id="gplv3-agpl-license">
+<h3>GPLv3+/AGPL License<a class="headerlink" href="#gplv3-agpl-license" title="Permalink to this headline">#</a></h3>
+<p>These belong to a class of licenses known as “copyleft licenses”, and they
+mandate that distributed works based on any existing copyleft-licensed
+components must use the same license as the original. In other words, a
+derivative work of GPL v3-licensed software must also be licensed under the GPL
+v3.</p>
+<p>This is typically unpopular with companies, and many corporate environments
+(especially software companies) will prohibit the use or inclusion of any
+software under this license to prevent any potential “contamination” of their
+code witih this license, which would technically require them to open-source
+the offending software or open them to legal liability.</p>
+<p>Users of GPLv3 code are required to <span id="id3">[<a class="reference internal" href="#id10" title="FOSSA Editorial Team. Open source software licenses 101: gpl v3. online, Mar 2021. URL: https://fossa.com/blog/open-source-software-licenses-101-gpl-v3/.">3</a>]</span>:</p>
+<ol class="simple">
+<li><p>Include a copy of the full license text</p></li>
+<li><p>State all significant changes made to the original software</p></li>
+<li><p>Make available the original source code when you distribute any binaries
+based on the licensed work</p></li>
+<li><p>Include a copy of the original copyright notice</p></li>
+</ol>
+<p>The GPL license and others like it attempt to force a “pay-it-forward” attitude
+when it comes to open source software. While not necessarily a downside—many
+impressive projects use the GPL license (the GNU project, Notepad++, Wordpress,
+and MySQL, to name a few)—because it would force a company to open source
+their code (and therefore be unable to control its sale), it’s less popular.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<div class="docutils container" id="id4">
+<dl class="citation">
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>FOSSA Editorial Team. Open source software licenses 101: the mit license. online, Jan 2021. URL: <a class="reference external" href="https://fossa.com/blog/open-source-licenses-101-mit-license/">https://fossa.com/blog/open-source-licenses-101-mit-license/</a>.</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>FOSSA Editorial Team. Open source licenses 101: apache license 2.0. online, Feb 2021. URL: <a class="reference external" href="https://fossa.com/blog/open-source-licenses-101-apache-license-2-0/">https://fossa.com/blog/open-source-licenses-101-apache-license-2-0/</a>.</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>FOSSA Editorial Team. Open source software licenses 101: gpl v3. online, Mar 2021. URL: <a class="reference external" href="https://fossa.com/blog/open-source-software-licenses-101-gpl-v3/">https://fossa.com/blog/open-source-software-licenses-101-gpl-v3/</a>.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./pages"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="credits.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Credits</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="directional_couplers.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Directional Couplers</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By CamachoLab and Google<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
