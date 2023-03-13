@@ -4,7 +4,7 @@
 title: CamachoLab Photonics Bootcamp
 author: CamachoLab and Google
 copyright: "2023"
-logo: images/logo.svg
+logo: images/logo.png
 
 exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
 only_build_toc_files: true
@@ -12,7 +12,7 @@ only_build_toc_files: true
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  execute_notebooks: off #force
 
 parse:
   myst_enable_extensions:  # default extensions to enable in the myst parser. See https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html
