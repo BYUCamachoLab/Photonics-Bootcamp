@@ -476,9 +476,9 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 <span class="n">dpml</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">pad</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="c1">## CHANGE GAP DISTANCE ##</span>
-<span class="n">gap</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">gap</span> <span class="o">=</span> <span class="mf">0.07</span>
 <span class="c1">## CHANGE WAVEGUIDE LENGTH ##</span>
-<span class="n">Lx</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">Lx</span> <span class="o">=</span> <span class="mi">30</span>
 
 <span class="n">Sx</span> <span class="o">=</span> <span class="n">dpml</span> <span class="o">+</span> <span class="n">Lx</span> <span class="o">+</span> <span class="n">dpml</span>
 <span class="n">Sy</span> <span class="o">=</span> <span class="n">dpml</span> <span class="o">+</span> <span class="n">pad</span> <span class="o">+</span> <span class="n">wg_width</span> <span class="o">+</span> <span class="n">gap</span> <span class="o">+</span> <span class="n">wg_width</span> <span class="o">+</span> <span class="n">pad</span> <span class="o">+</span> <span class="n">dpml</span>
@@ -520,25 +520,21 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using MPI version 4.0, 1 processes
-     block, center = (0,0,0)
-          size (102,4.2,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
-     block, center = (0,0.35,0)
-          size (102,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-     block, center = (0,-0.35,0)
-          size (102,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/numpy/core/getlimits.py:518: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
-  setattr(self, word, getattr(machar, word).flat[0])
-/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
-  return self._float_to_str(self.smallest_subnormal)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     block, center = (0,0,0)
+          size (32,4.07,0)
+          axes (1,0,0), (0,1,0), (0,0,1)
+          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
+     block, center = (0,0.285,0)
+          size (32,0.5,0)
+          axes (1,0,0), (0,1,0), (0,0,1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+     block, center = (0,-0.285,0)
+          size (32,0.5,0)
+          axes (1,0,0), (0,1,0), (0,0,1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
@@ -556,11 +552,11 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 <span class="c1"># Capture electric field intensity over time and output into a gif</span>
 <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">at_beginning</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">output_epsilon</span><span class="p">),</span>
         <span class="n">mp</span><span class="o">.</span><span class="n">to_appended</span><span class="p">(</span><span class="s2">&quot;ez&quot;</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">at_every</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">output_efield_z</span><span class="p">)),</span>
-        <span class="n">until</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+        <span class="n">until</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
 <span class="c1"># Generate pngs from the simulation output</span>
 <span class="c1"># The line that worked in my workspace</span>
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:299 -R -Zc /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/RdBu -A /home/ebang4/Github/Photonics-Bootcamp/book/pages/eps-000000.00.h5 -a /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/gray /home/ebang4/Github/Photonics-Bootcamp/book/pages/ez.h5&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:99 -R -Zc /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/RdBu -A /home/ebang4/Github/Photonics-Bootcamp/book/pages/eps-000000.00.h5 -a /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/gray /home/ebang4/Github/Photonics-Bootcamp/book/pages/ez.h5&quot;</span><span class="p">)</span>
 
 <span class="c1"># This line assumes that their colormaps are working and that they are in the same directory as the output files</span>
 <span class="c1"># also that h5py is installed</span>
@@ -588,88 +584,47 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
 Initializing structure...
-time for choose_chunkdivision = 0.00101805 s
+time for choose_chunkdivision = 0.00039506 s
 Working in 2D dimensions.
-Computational cell is 102 x 4.2 x 0 with resolution 20
+Computational cell is 32 x 4.05 x 0 with resolution 20
      block, center = (0,0,0)
-          size (102,4.2,0)
+          size (32,4.07,0)
           axes (1,0,0), (0,1,0), (0,0,1)
           dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
-     block, center = (0,0.35,0)
-          size (102,0.5,0)
+     block, center = (0,0.285,0)
+          size (32,0.5,0)
           axes (1,0,0), (0,1,0), (0,0,1)
           dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-     block, center = (0,-0.35,0)
-          size (102,0.5,0)
+     block, center = (0,-0.285,0)
+          size (32,0.5,0)
           axes (1,0,0), (0,1,0), (0,0,1)
           dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-time for set_epsilon = 0.419877 s
+time for set_epsilon = 0.149517 s
 -----------
-MPB solved for frequency_1(1,0,0) = 0.329833 after 15 iters
-MPB solved for frequency_1(2.02363,0,0) = 0.630122 after 9 iters
-MPB solved for frequency_1(2.07637,0,0) = 0.645153 after 6 iters
-MPB solved for frequency_1(2.0764,0,0) = 0.645161 after 3 iters
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MPB solved for frequency_1(1,0,0) = 0.313423 after 16 iters
+MPB solved for frequency_1(2.07931,0,0) = 0.636587 after 10 iters
+MPB solved for frequency_1(2.1086,0,0) = 0.645157 after 7 iters
+MPB solved for frequency_1(2.10862,0,0) = 0.645161 after 2 iters
 creating output file &quot;./eps-000000.00.h5&quot;...
 creating output file &quot;./ez.h5&quot;...
-Meep progress: 18.925/600.0 = 3.2% done in 4.0s, 122.9s to go
-on time step 765 (time=19.125), 0.00523014 s/step
-Meep progress: 40.0/600.0 = 6.7% done in 8.0s, 112.4s to go
-on time step 1604 (time=40.1), 0.00476778 s/step
-Meep progress: 60.975/600.0 = 10.2% done in 12.0s, 106.4s to go
-on time step 2443 (time=61.075), 0.0047716 s/step
-Meep progress: 82.10000000000001/600.0 = 13.7% done in 16.0s, 101.2s to go
-on time step 3288 (time=82.2), 0.00473685 s/step
-Meep progress: 103.4/600.0 = 17.2% done in 20.0s, 96.2s to go
-on time step 4140 (time=103.5), 0.00469803 s/step
-Meep progress: 124.35000000000001/600.0 = 20.7% done in 24.0s, 92.0s to go
-on time step 4978 (time=124.45), 0.00477524 s/step
-Meep progress: 145.8/600.0 = 24.3% done in 28.0s, 87.4s to go
-on time step 5836 (time=145.9), 0.00466566 s/step
-Meep progress: 166.35000000000002/600.0 = 27.7% done in 32.0s, 83.5s to go
-on time step 6659 (time=166.475), 0.00486455 s/step
-Meep progress: 187.57500000000002/600.0 = 31.3% done in 36.0s, 79.3s to go
-on time step 7508 (time=187.7), 0.00471489 s/step
-Meep progress: 208.82500000000002/600.0 = 34.8% done in 40.1s, 75.0s to go
-on time step 8358 (time=208.95), 0.00470809 s/step
-Meep progress: 229.20000000000002/600.0 = 38.2% done in 44.1s, 71.3s to go
-on time step 9173 (time=229.325), 0.00491149 s/step
-Meep progress: 249.875/600.0 = 41.6% done in 48.1s, 67.3s to go
-on time step 10000 (time=250), 0.00488339 s/step
-Meep progress: 270.75/600.0 = 45.1% done in 52.1s, 63.3s to go
-on time step 10844 (time=271.1), 0.00474121 s/step
-Meep progress: 291.975/600.0 = 48.7% done in 56.1s, 59.1s to go
-on time step 11684 (time=292.1), 0.00476382 s/step
-Meep progress: 312.90000000000003/600.0 = 52.2% done in 60.1s, 55.1s to go
-on time step 12530 (time=313.25), 0.00472955 s/step
-Meep progress: 334.0/600.0 = 55.7% done in 64.1s, 51.0s to go
-on time step 13371 (time=334.275), 0.0047605 s/step
-Meep progress: 355.175/600.0 = 59.2% done in 68.1s, 46.9s to go
-on time step 14219 (time=355.475), 0.00472 s/step
-Meep progress: 375.27500000000003/600.0 = 62.5% done in 72.1s, 43.2s to go
-on time step 15021 (time=375.525), 0.00498808 s/step
-Meep progress: 396.0/600.0 = 66.0% done in 76.1s, 39.2s to go
-on time step 15854 (time=396.35), 0.0048073 s/step
-Meep progress: 417.45000000000005/600.0 = 69.6% done in 80.1s, 35.0s to go
-on time step 16711 (time=417.775), 0.00467429 s/step
-Meep progress: 438.45000000000005/600.0 = 73.1% done in 84.1s, 31.0s to go
-on time step 17552 (time=438.8), 0.00475785 s/step
-Meep progress: 459.675/600.0 = 76.6% done in 88.1s, 26.9s to go
-on time step 18400 (time=460), 0.0047615 s/step
-Meep progress: 480.57500000000005/600.0 = 80.1% done in 92.1s, 22.9s to go
-on time step 19245 (time=481.125), 0.00473674 s/step
-Meep progress: 501.875/600.0 = 83.6% done in 96.1s, 18.8s to go
-on time step 20090 (time=502.25), 0.00473598 s/step
-Meep progress: 522.9/600.0 = 87.1% done in 100.1s, 14.8s to go
-on time step 20940 (time=523.5), 0.0047101 s/step
-Meep progress: 543.525/600.0 = 90.6% done in 104.1s, 10.8s to go
-on time step 21760 (time=544), 0.00490459 s/step
-Meep progress: 564.475/600.0 = 94.1% done in 108.1s, 6.8s to go
-on time step 22605 (time=565.125), 0.00473713 s/step
-Meep progress: 585.6750000000001/600.0 = 97.6% done in 112.1s, 2.7s to go
-on time step 23447 (time=586.175), 0.00475359 s/step
-run 0 finished at t = 600.0 (24000 timesteps)
+Meep progress: 76.72500000000001/200.0 = 38.4% done in 4.0s, 6.4s to go
+on time step 3077 (time=76.925), 0.00130015 s/step
+Meep progress: 155.425/200.0 = 77.7% done in 8.0s, 2.3s to go
+on time step 6227 (time=155.675), 0.00126987 s/step
+run 0 finished at t = 200.0 (8000 timesteps)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>h5topng error: invalid slice of HDF5 data
 </pre></div>
 </div>
 </div>
@@ -682,7 +637,7 @@ run 0 finished at t = 600.0 (24000 timesteps)
 <div style="text-align: center;">
 <p><img alt="gif" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dircplr_ez.gif?raw=true" /></p>
 </div>
-<p><strong>Graphs to show the relationship that hopefully they have just observed in code</strong></p>
+<p><strong>CREATE graphs to show the relationship that hopefully they have just observed in code</strong></p>
 </section>
 <section id="coupler-gap-dependence">
 <h2>Coupler-gap Dependence<a class="headerlink" href="#coupler-gap-dependence" title="Permalink to this headline">#</a></h2>
