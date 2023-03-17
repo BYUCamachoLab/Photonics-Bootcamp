@@ -348,7 +348,9 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="gds-to-meep">
 <h1>GDS to Meep<a class="headerlink" href="#gds-to-meep" title="Permalink to this headline">#</a></h1>
-<p>In GDSFactory, there are several functions that can be used to take a GDSFactory component and turn it into a Meep geometry or simulation. When used in conjunction with other GDSFactory functions that allow you to take any gds file and make its contents a GDSFactory component, this means that you can take any component and easily turn it into a Meep geometry.</p>
+<p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory thus has a Meep plugin that can be used to simulate devices using FDTD.</p>
+<p>There are several functions that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the component_from_gds notebook), and easily turn it into a Meep geometry.</p>
+<p>This conversion can be done with a variety of functions provided by GDSFactory’s gmeep. The two most general ones are <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> and <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code>.</p>
 <ul class="simple">
 <li><p>Description of what the functions do (more about how gds works and maybe give a little bit of detail about how the functions are coded)</p></li>
 <li><p>what keywords they accept</p></li>
@@ -356,22 +358,34 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples for all the functions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples for all the functions</span>
 
 <span class="c1"># Library where the functions are from</span>
+<span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep.get_simulation</span> <span class="kn">import</span> <span class="n">get_simulation</span><span class="p">,</span> <span class="n">get_meep_geometry_from_component</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi2x2</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">get_meep_geometry_from_component</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+
+
 <span class="c1"># get_simulation</span>
 
-<span class="c1"># get_meep_geometry_from_component</span>
+
 
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="kn">import</span> <span class="n">write_sparameters_meep</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/gds_to_meep_1_0.png" src="../_images/gds_to_meep_1_0.png" />
+</div>
 </div>
 <section id="finding-s-parameters-through-gmeep">
 <h2>Finding S-parameters through gmeep<a class="headerlink" href="#finding-s-parameters-through-gmeep" title="Permalink to this headline">#</a></h2>
 <p>There are several functions in GDSFactory that allow you to find the S-parameters of a given component.</p>
+<p>Can use run=False in order to simply plot the simulation to make sure the geometry is all fine. This is important when doing 2D vs 3D things.</p>
 </section>
 <section id="adjoint-solver-in-gdsfactory">
 <h2>Adjoint solver in GDSFactory<a class="headerlink" href="#adjoint-solver-in-gdsfactory" title="Permalink to this headline">#</a></h2>

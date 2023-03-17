@@ -90,7 +90,7 @@ grant of patent rights to contributors or users of the code. That means you can
 claim a patent on the portion of contributions you make to the original 
 codebase.
 
-Like the MIT licesnse, you cannot hold contributors legally liable for any
+Like the MIT license, you cannot hold contributors legally liable for any
 reason. You're also not granted any rights to the trademarks of the licensor.
 Of the open source licenses, this is potentially the most permissive.
 
