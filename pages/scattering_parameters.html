@@ -358,9 +358,9 @@ title="Print to PDF"
 <section id="step-1-import-geometry">
 <h3>Step 1 - Import Geometry<a class="headerlink" href="#step-1-import-geometry" title="Permalink to this headline">#</a></h3>
 <p>For our simulation, it makes life easy if we add all of our sources and detectors into our gds before we import it into meep. For this tutorial I have already done this. For your simulations, you can modify your gds file directly in Klayout if you like a GUI, or you can use gdsfactory itself. If you like, you can also use meep to do the same thing, but I won’t be showing how to do that here.</p>
-<p>Here is a picture of the gds we will be using.
-<img alt="Image of splitter file" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mmi2x2_gds_with_ports.png" /></p>
-<p>I’ve added a box around the entire component (in purple) which will become the simulation region, and 8 lines, 2 on each end that will become the sources and detectors. I also added straight waveguides on the ports of the gdsfactory mmi so that my ports could be exactly where the light would enter and exit the component is an actual circuit. My sources are then slightly outside the mmi, in the waveguides.</p>
+<p>Here is a picture of the gds we will be using.</p>
+<p><img alt="Image of splitter file" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mmi2x2_gds_with_ports.png" /></p>
+<p>I’ve added a box around the entire component (in purple) which will become the simulation region, and 8 lines, 2 on each end that will become the sources and detectors. I also added straight waveguides on the ports of the gdsfactory mmi so that my ports could be exactly where the light would enter and exit the component in an actual circuit. My sources are then slightly outside the mmi, in the waveguides.</p>
 <p>So, now that we have a gds, lets import it into meep!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -376,7 +376,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># the resolution of the simulation in pixels/um</span>
-<span class="n">three_d</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Turn this to false for a 2D simulation</span>
+<span class="n">three_d</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Turn this to false for a 2D simulation</span>
 
 <span class="n">gds_file</span> <span class="o">=</span> <span class="s2">&quot;mmi2x2.gds&quot;</span> <span class="c1"># The name of our gds file</span>
 
@@ -391,6 +391,11 @@ title="Print to PDF"
 <span class="n">source2_L</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="n">source3_L</span> <span class="o">=</span> <span class="mi">9</span>
 <span class="n">source4_L</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># The Parameters for the frequencies we&#39;ll be using</span>
+<span class="n">lcen</span> <span class="o">=</span> <span class="mf">1.55</span> <span class="c1"># Center wavelength</span>
+<span class="n">fcen</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">lcen</span> <span class="c1"># Center frequency</span>
+<span class="n">df</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">fcen</span> <span class="c1"># Frequency Diameter</span>
 
 <span class="c1"># The thickness of each material in our simulation (only used in 3D simulations)</span>
 <span class="n">t_oxide</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -434,8 +439,149 @@ title="Print to PDF"
     <span class="n">oxide_size</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">t_oxide</span><span class="p">)</span>
     <span class="n">oxide_layer</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">material</span><span class="o">=</span><span class="n">oxide</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">oxide_center</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">oxide_size</span><span class="p">)]</span>
     <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="o">+</span> <span class="n">oxide_layer</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vector3&lt;35.5, 10.0, 0.0&gt;
+Vector3&lt;2.75, 0.0, 0.0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the sources for the simulation.</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+
+    <span class="p">),</span> 
+    <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source2</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">source2</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+
+    <span class="p">),</span> 
+    <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source3</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">source3</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+
+    <span class="p">),</span> 
+    <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source4</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">source4</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+
+    <span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Simulation</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
+    <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+    <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span>
+    <span class="n">sources</span> <span class="o">=</span> <span class="n">sources</span><span class="p">,</span>
+    <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span>
+<span class="p">)</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     prism, center = (-5,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (0,-1.125,-10)
+          (-10,-0.875,-10)
+          (-10,-0.375,-10)
+          (0,-0.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-5,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (0,0.125,-10)
+          (-10,0.375,-10)
+          (-10,0.875,-10)
+          (0,1.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (10.5,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (5.5,0.125,-10)
+          (5.5,1.125,-10)
+          (15.5,0.875,-10)
+          (15.5,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (10.5,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (5.5,-1.125,-10)
+          (5.5,-0.125,-10)
+          (15.5,-0.375,-10)
+          (15.5,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (2.75,0,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (0,-1.25,-10)
+          (0,1.25,-10)
+          (5.5,1.25,-10)
+          (5.5,-1.25,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-12.5,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-10,-0.375,-10)
+          (-10,-0.875,-10)
+          (-15,-0.875,-10)
+          (-15,-0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-12.5,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-10,0.875,-10)
+          (-10,0.375,-10)
+          (-15,0.375,-10)
+          (-15,0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (18,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (15.5,0.375,-10)
+          (15.5,0.875,-10)
+          (20.5,0.875,-10)
+          (20.5,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (18,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (15.5,-0.875,-10)
+          (15.5,-0.375,-10)
+          (20.5,-0.375,-10)
+          (20.5,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/scattering_parameters_9_2.png" src="../_images/scattering_parameters_9_2.png" />
 </div>
 </div>
 </section>
