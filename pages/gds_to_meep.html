@@ -348,31 +348,38 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="gds-to-meep">
 <h1>GDS to Meep<a class="headerlink" href="#gds-to-meep" title="Permalink to this headline">#</a></h1>
-<p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory thus has a Meep plugin that can be used to simulate devices using FDTD.</p>
-<p>There are several functions that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the component_from_gds notebook), and easily turn it into a Meep geometry.</p>
-<p>This conversion can be done with a variety of functions provided by GDSFactory’s gmeep. The two most general ones are <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> and <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code>.</p>
+<p><a class="reference external" href="https://github.com/gdsfactory/gdsfactory/tree/main/gdsfactory/simulation/gmeep">Gmeep Github</a></p>
+<p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
+<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the component_from_gds notebook), and easily turn it into a Meep geometry. The two most general functions are <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within gmeep.get_simulation.py). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
 <ul class="simple">
 <li><p>Description of what the functions do (more about how gds works and maybe give a little bit of detail about how the functions are coded)</p></li>
-<li><p>what keywords they accept</p></li>
+<li><p>what kwargs they accept</p></li>
 <li><p>pitfalls to avoid</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples for all the functions</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples for the functions in get_simulation</span>
 
-<span class="c1"># Library where the functions are from</span>
+
 <span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">tidy3d</span>
+<span class="c1"># Import the functions</span>
+<span class="c1"># They are both in gmeep.get_simulation.py</span>
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep.get_simulation</span> <span class="kn">import</span> <span class="n">get_simulation</span><span class="p">,</span> <span class="n">get_meep_geometry_from_component</span>
 
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi2x2</span><span class="p">()</span>
 <span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">get_meep_geometry_from_component</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
-
-
-<span class="c1"># get_simulation</span>
-
-
+<span class="c1"># get_simulation implementation example</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">get_simulation</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="kn">import</span> <span class="n">write_sparameters_meep</span>
 </pre></div>
@@ -380,19 +387,55 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/gds_to_meep_1_0.png" src="../_images/gds_to_meep_1_0.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">22</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="kn">import</span> <span class="n">write_sparameters_meep</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/simulation.py:1299,</span> in <span class="ni">Simulation.__init__</span><span class="nt">(self, cell_size, resolution, geometry, sources, eps_averaging, dimensions, boundary_layers, symmetries, force_complex_fields, default_material, m, k_point, kz_2d, extra_materials, material_function, epsilon_func, epsilon_input_file, progress_interval, subpixel_tol, subpixel_maxeval, loop_tile_base_db, loop_tile_base_eh, ensure_periodicity, num_chunks, Courant, accurate_fields_near_cylorigin, filename_prefix, output_volume, output_single_precision, geometry_center, force_all_components, split_chunks_evenly, chunk_layout, collect_stats)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1032</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1033</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1034</span>     <span class="n">cell_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Vector3Type</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1067</span>     <span class="n">collect_stats</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1068</span> <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1069</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1070</span><span class="sd">     All `Simulation` attributes are described in further detail below. In brackets</span>
+<span class="g g-Whitespace">   </span><span class="mi">1071</span><span class="sd">     after each variable is the type of value that it should hold. The classes, complex</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1296</span><span class="sd">       increase the performance of [parallel simulations](Parallel_Meep.md).</span>
+<span class="g g-Whitespace">   </span><span class="mi">1297</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1299</span>     <span class="bp">self</span><span class="o">.</span><span class="n">cell_size</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">cell_size</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1300</span>     <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="k">if</span> <span class="n">geometry</span> <span class="k">else</span> <span class="p">[]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1301</span>     <span class="bp">self</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">sources</span> <span class="k">if</span> <span class="n">sources</span> <span class="k">else</span> <span class="p">[]</span>
+
+<span class="ne">TypeError</span>: Vector3.__init__() takes from 1 to 4 positional arguments but 8 were given
+</pre></div>
+</div>
 </div>
 </div>
 <section id="finding-s-parameters-through-gmeep">
 <h2>Finding S-parameters through gmeep<a class="headerlink" href="#finding-s-parameters-through-gmeep" title="Permalink to this headline">#</a></h2>
-<p>There are several functions in GDSFactory that allow you to find the S-parameters of a given component.</p>
-<p>Can use run=False in order to simply plot the simulation to make sure the geometry is all fine. This is important when doing 2D vs 3D things.</p>
+<p>There are several functions in GDSFactory that allow you to find the S-parameters (scattering parameters) of a given component. S-parameters are useful as they tell you how much light is coming in and out of each of the component’s port. The most general function for this purpose in Gmeep is <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code>. To use this function, you specify a GDSFactory component, the frequencies you want to test it at, if you would like the simulation to be in 3D, and the margins the simulation needs to take into account. This is not a comprehensive list and is only intended to give a general idea of how the function is used.</p>
+<p>Another useful kwarg is “run”. By setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the function plots the simulation geometry instead of running it. This allows you to make sure the geometry is correct before you waste time simulating it. This is especially important when running the simulation in 3D, as sometimes you may accidentally only have a 2D region, so trying to simulate in 3D with lead to errors.</p>
+<p>The function returns a dictionary of s-parameters. The keys take the form of <code class="docutils literal notranslate"><span class="pre">&quot;o1&#64;0,o2&#64;0&quot;</span></code>, where the first part of the key refers to what port the light is coming from and the second refers to where it is going. For however many ports you have in your component, there will be a key corresponding to the s-parameter from that port to every other port.</p>
+<p>Since the relationship between some ports can be the same (i.e. the component may be symmetric), port symmetries can be specified as a keyword argument (kwarg) (<code class="docutils literal notranslate"><span class="pre">port_symmetries</span></code>). This argument takes a dictionary where you specify one s-parameter as the key, and assign as its values the other s-parameters that correspond to it. For example, if you had a 1x2 splitter, where the 2 output ports were symmetric and labeled ports 2 and 3, then you could assign:</p>
+<p><code class="docutils literal notranslate"><span class="pre">port_symmetries</span> <span class="pre">=</span> <span class="pre">{&quot;o2&#64;0,o1&#64;0&quot;:</span> <span class="pre">[&quot;o3&#64;0,o1&#64;0&quot;]}</span></code></p>
+<p>so that the s-parameter for port 2 to 1 will be computed, but the one for port 3 to 1 will not be and will be written with the s-parameter for port 2 to 1. Thus, you save on computation time.</p>
+<p>In addition to this general function, Gmeep also has two functions that can be used to write the s-parameters using parallel processing. These are <code class="docutils literal notranslate"><span class="pre">write_sparamters_meep_mpi</span></code> and <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep_batch</span></code>. <code class="docutils literal notranslate"><span class="pre">write_sparamters_meep_mpi</span></code> has you specify how many cores you want to use as a kwarg. <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep_batch</span></code> takes it a step further and runs multiple simulations in parallel, instead of just one. So, you must specify the number of cores per run in addition to the total number of cores to use.</p>
+<p><code class="docutils literal notranslate"><span class="pre">write_sparameters_grating</span></code> is a more specific instance that can be used to find the s-parameters for a grating coupler with an attached fiber. To plot the set up of this, you can pass in the argument <code class="docutils literal notranslate"><span class="pre">plot=True</span></code>. There is also the option of writing the s-parameters for a grating coupler in parallel or in batches, with <code class="docutils literal notranslate"><span class="pre">write_sparameters_grating_mpi</span></code> and <code class="docutils literal notranslate"><span class="pre">write_sparameters_grating_batch</span></code>. Like the general s-parameter functions above, more kwargs are necessary to define them.</p>
 </section>
 <section id="adjoint-solver-in-gdsfactory">
 <h2>Adjoint solver in GDSFactory<a class="headerlink" href="#adjoint-solver-in-gdsfactory" title="Permalink to this headline">#</a></h2>
 <p>The documentation on this in gdsfactory is slightly better and they have some example code that looks like it functions</p>
-<p>However, it is still rather confined in GDSFactory, the functions there take a bit of finessing in order to have the same flexibility</p>
+<p>However, it is still rather confined in GDSFactory, the functions there take a bit of finessing in order to have the same flexibility. Two functions in meep_adjoint_optimization.py in the GMeep library are used to create an <code class="docutils literal notranslate"><span class="pre">OptimizationProblem</span></code> object and then used to run the optimization. They are <code class="docutils literal notranslate"><span class="pre">get_meep_adjoint_optimizer</span></code> and <code class="docutils literal notranslate"><span class="pre">run_meep_adjoint_optimizer</span></code>, respectively.</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_meep_adjoint_optimizer</span></code> takes in a gdsfactory component along with a host of other parameters necessary to set up the optimization. This includes the design region (which usually will overlay some part of the given component), the objective function specifying what you are actually optimizing for, and the design variables that you are initializing the design region to.</p>
+<p>After calling this function, <code class="docutils literal notranslate"><span class="pre">run_meep_adjoint_optimizer</span></code> can be called to run the adjoint optimization with Meep. This function is where you specify, among other things, the bounds of optimization and what algorithm you are using for optimization.</p>
 <ul class="simple">
-<li><p>How the adjoint solver works with the gmeep plugin</p></li>
+<li><p><strong>EXAMPLE</strong></p></li>
 </ul>
 </section>
 </section>
