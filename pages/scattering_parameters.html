@@ -298,6 +298,21 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-what-are-scattering-parameters">
+   TODO: What are Scattering Parameters?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-why-are-s-parameters-useful">
+   TODO: Why are S-Parameters useful?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">
+   TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">
    How to find S-Parameters for an arbitrary device using a meep simulation
   </a>
@@ -305,6 +320,16 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#step-1-import-geometry">
      Step 1 - Import Geometry
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-run-simulation-for-a-single-source">
+     Step 2: Run simulation for a single source
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-3-run-the-same-simulation-for-each-of-the-other-ports">
+     Step 3: Run the same simulation for each of the other ports
     </a>
    </li>
   </ul>
@@ -329,6 +354,21 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-what-are-scattering-parameters">
+   TODO: What are Scattering Parameters?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-why-are-s-parameters-useful">
+   TODO: Why are S-Parameters useful?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">
+   TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">
    How to find S-Parameters for an arbitrary device using a meep simulation
   </a>
@@ -336,6 +376,16 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#step-1-import-geometry">
      Step 1 - Import Geometry
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-run-simulation-for-a-single-source">
+     Step 2: Run simulation for a single source
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-3-run-the-same-simulation-for-each-of-the-other-ports">
+     Step 3: Run the same simulation for each of the other ports
     </a>
    </li>
   </ul>
@@ -352,6 +402,15 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="scattering-parameters-s-parameters">
 <h1>Scattering Parameters (S-Parameters)<a class="headerlink" href="#scattering-parameters-s-parameters" title="Permalink to this headline">#</a></h1>
+<section id="todo-what-are-scattering-parameters">
+<h2>TODO: What are Scattering Parameters?<a class="headerlink" href="#todo-what-are-scattering-parameters" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="todo-why-are-s-parameters-useful">
+<h2>TODO: Why are S-Parameters useful?<a class="headerlink" href="#todo-why-are-s-parameters-useful" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">
+<h2>TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters<a class="headerlink" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters" title="Permalink to this headline">#</a></h2>
+</section>
 <section id="how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">
 <h2>How to find S-Parameters for an arbitrary device using a meep simulation<a class="headerlink" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation" title="Permalink to this headline">#</a></h2>
 <p>In this section we’ll demonstrate how to find the s-params for any device using a meep simulation. We’ll show both 2D and 3D simulations, but keep in mind that 2D s-params are not very accurate. We’ll run through the steps using gdsfactory’s default 2x2 mmi, and explain on the way how the principles can be applied to any component.</p>
@@ -368,6 +427,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span> 
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">plt</span> 
+<span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 </div>
 </div>
@@ -414,6 +474,10 @@ title="Print to PDF"
 <span class="n">cell_zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">cell_thickness</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="mi">0</span>
 <span class="n">si_zmax</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t_Si</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="mi">10</span> <span class="c1"># In a 2D simulation, the geometry still has to have a thickness or it won&#39;t show up</span>
 <span class="n">si_zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">t_Si</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="o">-</span><span class="mi">10</span>
+
+<span class="c1"># Create a 2D array to hold the S-Parameters for the device</span>
+<span class="n">numPorts</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># The number of ports, also the size of our array</span>
+<span class="n">s_params</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -447,49 +511,405 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vector3&lt;35.5, 10.0, 0.0&gt;
-Vector3&lt;2.75, 0.0, 0.0&gt;
+Vector3&lt;0.0, 0.0, 0.0&gt;
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="step-2-run-simulation-for-a-single-source">
+<h3>Step 2: Run simulation for a single source<a class="headerlink" href="#step-2-run-simulation-for-a-single-source" title="Permalink to this headline">#</a></h3>
+<p>In order to find all the S-Parameters for a device, we have to run a simulation for each port. Each time we switch where the source is, and then get the S-parameters from that port. So, for this component, I’ll run 4 simulations, each time injecting the light into a different port. Then I’ll calculate the S-parameters between the port that has the light, and every other port.</p>
+<p>Because I added geometry for the sources in the gds, we just have to input that geometry into the source instead of constructing it in meep.
+TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and eig_match_freq</p>
+<p>Once we define the source in meep, we can create a simulation object by simply passing all of the necessary parts into the contructor.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the sources for the simulation.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the first source for the simulation. I&#39;ll start with port1 (the lower left)</span>
 <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
             <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
-            <span class="n">size</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">source1</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 
-    <span class="p">),</span> 
+    <span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Create Simulation</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="c1"># The resolution, defined further up</span>
+    <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># The cell size, taken from the gds</span>
+    <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span> <span class="c1"># the perfectly matched layers, with a diameter as defined above</span>
+    <span class="n">sources</span> <span class="o">=</span> <span class="n">sources</span><span class="p">,</span> <span class="c1"># The source(s) we just defined</span>
+    <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="c1"># The geometry, from above</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After creating the simulation object, we can add mode monitors at each of the ports. These will read how much light comes in/out of each port.</p>
+<p>Now that our simulation is completely set up for the first source, I can plot it to make sure everything looks right before running the simulation. We do that using the plot2D() method of the simulation object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adds mode monitors at each of the ports to track the energy that goes in or out</span>
+<span class="n">modePort1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">))</span>
+<span class="n">modePort2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port2</span><span class="p">))</span>
+<span class="n">modePort3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port3</span><span class="p">))</span>
+<span class="n">modePort4</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">))</span>
+
+<span class="c1"># Plot the simulation</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     prism, center = (-7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.125,-10)
+          (-12.75,-0.875,-10)
+          (-12.75,-0.375,-10)
+          (-2.75,-0.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,0.125,-10)
+          (-12.75,0.375,-10)
+          (-12.75,0.875,-10)
+          (-2.75,1.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,0.125,-10)
+          (2.75,1.125,-10)
+          (12.75,0.875,-10)
+          (12.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,-1.125,-10)
+          (2.75,-0.125,-10)
+          (12.75,-0.375,-10)
+          (12.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (0,0,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.25,-10)
+          (-2.75,1.25,-10)
+          (2.75,1.25,-10)
+          (2.75,-1.25,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,-0.375,-10)
+          (-12.75,-0.875,-10)
+          (-17.75,-0.875,-10)
+          (-17.75,-0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,0.875,-10)
+          (-12.75,0.375,-10)
+          (-17.75,0.375,-10)
+          (-17.75,0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,0.375,-10)
+          (12.75,0.875,-10)
+          (17.75,0.875,-10)
+          (17.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,-0.875,-10)
+          (12.75,-0.375,-10)
+          (17.75,-0.375,-10)
+          (17.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/jkart/anaconda3/envs/mp/lib/python3.11/site-packages/numpy/core/getlimits.py:518: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/jkart/anaconda3/envs/mp/lib/python3.11/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/scattering_parameters_14_3.png" src="../_images/scattering_parameters_14_3.png" />
+</div>
+</div>
+<p>As we see from the output of sim.plot2D(), our simulation is set up correctly. The red is our source, the blue are our 4 mode monitors, an the black is the geometry. We are ready to run the simulation! Actually running the simulation is the most computationally intense part of this, so it may take some time. The until_after_sources parameter for sim.run() means the run the simulation until 100 meep time units after the sources have turned off. This makes sure the all of the light has time to propagate through the mmi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Runs the simulation</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
+Initializing structure...
+time for choose_chunkdivision = 0.00560904 s
+Working in 2D dimensions.
+Computational cell is 35.5 x 10 x 0 with resolution 50
+     prism, center = (-7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.125,-10)
+          (-12.75,-0.875,-10)
+          (-12.75,-0.375,-10)
+          (-2.75,-0.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,0.125,-10)
+          (-12.75,0.375,-10)
+          (-12.75,0.875,-10)
+          (-2.75,1.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,0.125,-10)
+          (2.75,1.125,-10)
+          (12.75,0.875,-10)
+          (12.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,-1.125,-10)
+          (2.75,-0.125,-10)
+          (12.75,-0.375,-10)
+          (12.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (0,0,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.25,-10)
+          (-2.75,1.25,-10)
+          (2.75,1.25,-10)
+          (2.75,-1.25,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,-0.375,-10)
+          (-12.75,-0.875,-10)
+          (-17.75,-0.875,-10)
+          (-17.75,-0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,0.875,-10)
+          (-12.75,0.375,-10)
+          (-17.75,0.375,-10)
+          (-17.75,0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,0.375,-10)
+          (12.75,0.875,-10)
+          (17.75,0.875,-10)
+          (17.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,-0.875,-10)
+          (12.75,-0.375,-10)
+          (17.75,-0.375,-10)
+          (17.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+time for set_epsilon = 6.01644 s
+-----------
+MPB solved for frequency_1(2.2349,0,0) = 0.68454 after 25 iters
+MPB solved for frequency_1(2.09412,0,0) = 0.645204 after 16 iters
+MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 3 iters
+MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 1 iters
+Meep progress: 6.43/177.5 = 3.6% done in 4.0s, 106.5s to go
+on time step 643 (time=6.43), 0.00622441 s/step
+Meep progress: 12.97/177.5 = 7.3% done in 8.0s, 101.5s to go
+on time step 1297 (time=12.97), 0.00611759 s/step
+Meep progress: 19.61/177.5 = 11.0% done in 12.0s, 96.7s to go
+on time step 1962 (time=19.62), 0.00602467 s/step
+Meep progress: 26.16/177.5 = 14.7% done in 16.0s, 92.6s to go
+on time step 2617 (time=26.17), 0.00610695 s/step
+Meep progress: 32.7/177.5 = 18.4% done in 20.0s, 88.6s to go
+on time step 3272 (time=32.72), 0.00611587 s/step
+Meep progress: 39.25/177.5 = 22.1% done in 24.0s, 84.6s to go
+on time step 3927 (time=39.27), 0.00611453 s/step
+Meep progress: 45.79/177.5 = 25.8% done in 28.0s, 80.6s to go
+on time step 4581 (time=45.81), 0.00612694 s/step
+Meep progress: 52.2/177.5 = 29.4% done in 32.0s, 76.9s to go
+on time step 5222 (time=52.22), 0.00624505 s/step
+Meep progress: 58.410000000000004/177.5 = 32.9% done in 36.0s, 73.4s to go
+on time step 5844 (time=58.44), 0.00643993 s/step
+Meep progress: 64.7/177.5 = 36.5% done in 40.0s, 69.8s to go
+on time step 6473 (time=64.73), 0.00636358 s/step
+Meep progress: 71.04/177.5 = 40.0% done in 44.0s, 66.0s to go
+on time step 7107 (time=71.07), 0.00631592 s/step
+Meep progress: 77.26/177.5 = 43.5% done in 48.0s, 62.3s to go
+on time step 7729 (time=77.29), 0.0064397 s/step
+Meep progress: 83.36/177.5 = 47.0% done in 52.0s, 58.8s to go
+on time step 8339 (time=83.39), 0.00656298 s/step
+Meep progress: 89.79/177.5 = 50.6% done in 56.0s, 54.7s to go
+on time step 8982 (time=89.82), 0.00622931 s/step
+Meep progress: 96.11/177.5 = 54.1% done in 60.0s, 50.9s to go
+on time step 9614 (time=96.14), 0.00633353 s/step
+Meep progress: 102.47/177.5 = 57.7% done in 64.1s, 46.9s to go
+on time step 10250 (time=102.5), 0.0062967 s/step
+Meep progress: 108.84/177.5 = 61.3% done in 68.1s, 42.9s to go
+on time step 10887 (time=108.87), 0.00628696 s/step
+Meep progress: 115.08/177.5 = 64.8% done in 72.1s, 39.1s to go
+on time step 11511 (time=115.11), 0.00641102 s/step
+Meep progress: 120.86/177.5 = 68.1% done in 76.1s, 35.6s to go
+on time step 12088 (time=120.88), 0.0069329 s/step
+Meep progress: 126.75/177.5 = 71.4% done in 80.1s, 32.1s to go
+on time step 12677 (time=126.77), 0.0067996 s/step
+Meep progress: 131.51/177.5 = 74.1% done in 84.1s, 29.4s to go
+on time step 13154 (time=131.54), 0.00839641 s/step
+Meep progress: 137.78/177.5 = 77.6% done in 88.1s, 25.4s to go
+on time step 13781 (time=137.81), 0.00638493 s/step
+Meep progress: 143.92000000000002/177.5 = 81.1% done in 92.1s, 21.5s to go
+on time step 14395 (time=143.95), 0.00651993 s/step
+Meep progress: 149.99/177.5 = 84.5% done in 96.1s, 17.6s to go
+on time step 15002 (time=150.02), 0.0065919 s/step
+Meep progress: 156.25/177.5 = 88.0% done in 100.1s, 13.6s to go
+on time step 15629 (time=156.29), 0.00638749 s/step
+Meep progress: 162.54/177.5 = 91.6% done in 104.1s, 9.6s to go
+on time step 16259 (time=162.59), 0.00635894 s/step
+Meep progress: 168.84/177.5 = 95.1% done in 108.1s, 5.5s to go
+on time step 16890 (time=168.9), 0.00635027 s/step
+Meep progress: 175.18/177.5 = 98.7% done in 112.1s, 1.5s to go
+on time step 17524 (time=175.24), 0.00631157 s/step
+run 0 finished at t = 177.5 (17750 timesteps)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that our simulation has been run, we’ll quickly compute the s-parameters, store them in our array, and print them out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#############################################################</span>
+<span class="c1"># Finds the S parameters</span>
+<span class="n">port1_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">port2_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">port3_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">port4_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort4</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Store the S parameters in s_params</span>
+<span class="n">s_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">port1_coeff</span><span class="p">,</span> <span class="n">port2_coeff</span><span class="p">,</span> <span class="n">port3_coeff</span><span class="p">,</span> <span class="n">port4_coeff</span><span class="p">]</span>
+
+
+<span class="c1"># Prints out the S parameters</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;S params: Port1(Lower Left, S11): </span><span class="si">{:.6f}</span><span class="s2">  Port2(Upper Left, S12): </span><span class="si">{:.6f}</span><span class="s2">  Port3(Upper Right, S13): </span><span class="si">{:.6f}</span><span class="s2">  Port4(Lower Right, S14): </span><span class="si">{:.6f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">,</span> <span class="n">port2_coeff</span><span class="p">,</span> <span class="n">port3_coeff</span><span class="p">,</span> <span class="n">port4_coeff</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 21 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+
+-----------------------------------------------------------------
+
+S params: Port1(Lower Left, S11): 2.073837+7.487299j  Port2(Upper Left, S12): -0.002118-0.002975j  Port3(Upper Right, S13): 1.861903+0.719637j  Port4(Lower Right, S14): -1.243318-5.965357j
+
+-----------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+<p>Just for fun, we’ll also compute and print the transmittance through each port and the total insertion loss. We won’t do this with the other ports, but it’s a good exercise here.</p>
+<p>We find that this component is actually terrible and would never be used in an actual photonic design. Almost a third of the light is lost, and the light that isn’t lost is not split in any specific ratio. Fortunately, it was never meant to be used, and jsut exists as an example of the basic shape of an mmi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculates the transmittance based off of the S parameters</span>
+<span class="n">port2_trans</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">port2_coeff</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">port3_trans</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">port3_coeff</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">port4_trans</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">port4_coeff</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Calculates the Insertion loss as a percent and in dB</span>
+<span class="n">insertionLoss</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">port2_trans</span> <span class="o">+</span> <span class="n">port3_trans</span> <span class="o">+</span> <span class="n">port4_trans</span><span class="p">)</span>
+<span class="n">insertionLoss_dB</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">insertionLoss</span><span class="p">)</span> 
+
+<span class="c1"># Prints the Transmittance</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;trans: Port2: </span><span class="si">{:.6f}</span><span class="s2">%, Port3: </span><span class="si">{:.6f}</span><span class="s2">%, Port4: </span><span class="si">{:.6f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">port2_trans</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">port3_trans</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">port4_trans</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Insertion Loss: </span><span class="si">{:.6f}</span><span class="s2">% -&gt; </span><span class="si">{:.6f}</span><span class="s2">db&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">insertionLoss</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">insertionLoss_dB</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------------------------------------------------------
+
+trans: Port2: 0.000022%, Port3: 6.601279%, Port4: 61.515984%
+Insertion Loss: 31.882714% -&gt; -4.964447db
+
+-----------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-run-the-same-simulation-for-each-of-the-other-ports">
+<h3>Step 3: Run the same simulation for each of the other ports<a class="headerlink" href="#step-3-run-the-same-simulation-for-each-of-the-other-ports" title="Permalink to this headline">#</a></h3>
+<p>Now, all that’s left to do is to run the simulation for each source. Here, I’ll use a for loop to run the other three simulations. We could have done this for all four, but hopefully this makes the code make more sense.</p>
+<p>For the sources going into port 3 and 4, we have to specify that the light will be propagating backwards. Below, I’ve done this by setting the direction to mp.NO_DIRECTION and using the eig_kpoint parameter to specify the direction. You can use this same method to launch sources in any direction</p>
+<p>It should be noted, that since the 2x2 mmi we are using is symmetrical across both the x and y axies, the S-parameters should be the same for all of the other ports. But for the sake of demonstration, we’ll simulate all of them. Then at then end we can check to see the the S-parameters are actually the same.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the rest of the sources for the simulation. I&#39;ll start with port1 (the lower left)</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
             <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
-            <span class="n">size</span><span class="o">=</span><span class="n">source2</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source2</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">source2</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 
-    <span class="p">),</span> 
+    <span class="p">),</span>
     <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
             <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
-            <span class="n">size</span><span class="o">=</span><span class="n">source3</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source3</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">source3</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">direction</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_DIRECTION</span>
 
-    <span class="p">),</span> 
+    <span class="p">),</span>
     <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
             <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
-            <span class="n">size</span><span class="o">=</span><span class="n">source4</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">source4</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">source4</span><span class="o">.</span><span class="n">center</span><span class="p">,</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">direction</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_DIRECTION</span>
 
     <span class="p">)</span>
 <span class="p">]</span>
@@ -499,91 +919,568 @@ Vector3&lt;2.75, 0.0, 0.0&gt;
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create Simulation</span>
-<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
-    <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-    <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span>
-    <span class="n">sources</span> <span class="o">=</span> <span class="n">sources</span><span class="p">,</span>
-    <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">:</span>
 
-<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">sim</span><span class="o">.</span><span class="n">reset_meep</span><span class="p">()</span> <span class="c1"># resets everything</span>
+
+    <span class="c1"># Create Simulation</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="c1"># The resolution, defined further up</span>
+    <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># The cell size, taken from the gds</span>
+    <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span> <span class="c1"># the perfectly matched layers, with a diameter as defined above</span>
+    <span class="n">sources</span> <span class="o">=</span> <span class="n">source</span><span class="p">,</span> <span class="c1"># The source(s) we just defined</span>
+    <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="c1"># The geometry, from above</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Adds mode monitors at each of the ports to track the energy that goes in or out</span>
+    <span class="n">modePort1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">))</span>
+    <span class="n">modePort2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port2</span><span class="p">))</span>
+    <span class="n">modePort3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port3</span><span class="p">))</span>
+    <span class="n">modePort4</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">))</span>
+
+    <span class="c1"># Runs the simulation</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="c1">#############################################################</span>
+    <span class="c1"># Finds the S parameters</span>
+    <span class="n">port1_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">port2_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">port3_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">port4_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">modePort4</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">three_d</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Store the S parameters in s_params</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">i</span> 
+    <span class="n">s_params</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">port1_coeff</span><span class="p">,</span> <span class="n">port2_coeff</span><span class="p">,</span> <span class="n">port3_coeff</span><span class="p">,</span> <span class="n">port4_coeff</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     prism, center = (-5,-0.625,0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
+Initializing structure...
+time for choose_chunkdivision = 0.00114989 s
+Working in 2D dimensions.
+Computational cell is 35.5 x 10 x 0 with resolution 50
+     prism, center = (-7.75,-0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (0,-1.125,-10)
-          (-10,-0.875,-10)
-          (-10,-0.375,-10)
-          (0,-0.125,-10)
+          (-2.75,-1.125,-10)
+          (-12.75,-0.875,-10)
+          (-12.75,-0.375,-10)
+          (-2.75,-0.125,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-5,0.625,0)
+     prism, center = (-7.75,0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (0,0.125,-10)
-          (-10,0.375,-10)
-          (-10,0.875,-10)
-          (0,1.125,-10)
+          (-2.75,0.125,-10)
+          (-12.75,0.375,-10)
+          (-12.75,0.875,-10)
+          (-2.75,1.125,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (10.5,0.625,0)
+     prism, center = (7.75,0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (5.5,0.125,-10)
-          (5.5,1.125,-10)
-          (15.5,0.875,-10)
-          (15.5,0.375,-10)
+          (2.75,0.125,-10)
+          (2.75,1.125,-10)
+          (12.75,0.875,-10)
+          (12.75,0.375,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (10.5,-0.625,0)
+     prism, center = (7.75,-0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (5.5,-1.125,-10)
-          (5.5,-0.125,-10)
-          (15.5,-0.375,-10)
-          (15.5,-0.875,-10)
+          (2.75,-1.125,-10)
+          (2.75,-0.125,-10)
+          (12.75,-0.375,-10)
+          (12.75,-0.875,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (2.75,0,0)
+     prism, center = (0,0,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (0,-1.25,-10)
-          (0,1.25,-10)
-          (5.5,1.25,-10)
-          (5.5,-1.25,-10)
+          (-2.75,-1.25,-10)
+          (-2.75,1.25,-10)
+          (2.75,1.25,-10)
+          (2.75,-1.25,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-12.5,-0.625,0)
+     prism, center = (-15.25,-0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-10,-0.375,-10)
-          (-10,-0.875,-10)
-          (-15,-0.875,-10)
-          (-15,-0.375,-10)
+          (-12.75,-0.375,-10)
+          (-12.75,-0.875,-10)
+          (-17.75,-0.875,-10)
+          (-17.75,-0.375,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-12.5,0.625,0)
+     prism, center = (-15.25,0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-10,0.875,-10)
-          (-10,0.375,-10)
-          (-15,0.375,-10)
-          (-15,0.875,-10)
+          (-12.75,0.875,-10)
+          (-12.75,0.375,-10)
+          (-17.75,0.375,-10)
+          (-17.75,0.875,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (18,0.625,0)
+     prism, center = (15.25,0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (15.5,0.375,-10)
-          (15.5,0.875,-10)
-          (20.5,0.875,-10)
-          (20.5,0.375,-10)
+          (12.75,0.375,-10)
+          (12.75,0.875,-10)
+          (17.75,0.875,-10)
+          (17.75,0.375,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (18,-0.625,0)
+     prism, center = (15.25,-0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (15.5,-0.875,-10)
-          (15.5,-0.375,-10)
-          (20.5,-0.375,-10)
-          (20.5,-0.875,-10)
+          (12.75,-0.875,-10)
+          (12.75,-0.375,-10)
+          (17.75,-0.375,-10)
+          (17.75,-0.875,-10)
           dielectric constant epsilon diagonal = (12,12,12)
+time for set_epsilon = 6.83669 s
+-----------
+MPB solved for frequency_1(2.2349,0,0) = 0.68454 after 25 iters
+MPB solved for frequency_1(2.09412,0,0) = 0.645204 after 16 iters
+MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 3 iters
+MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 1 iters
+Meep progress: 5.99/177.5 = 3.4% done in 4.0s, 114.7s to go
+on time step 599 (time=5.99), 0.00668631 s/step
+Meep progress: 12.39/177.5 = 7.0% done in 8.0s, 106.8s to go
+on time step 1239 (time=12.39), 0.00625861 s/step
+Meep progress: 18.62/177.5 = 10.5% done in 12.0s, 102.5s to go
+on time step 1862 (time=18.62), 0.00642837 s/step
+Meep progress: 24.89/177.5 = 14.0% done in 16.0s, 98.2s to go
+on time step 2489 (time=24.89), 0.00638771 s/step
+Meep progress: 30.77/177.5 = 17.3% done in 20.0s, 95.5s to go
+on time step 3077 (time=30.77), 0.00680358 s/step
+Meep progress: 35.78/177.5 = 20.2% done in 24.0s, 95.2s to go
+on time step 3578 (time=35.78), 0.00798677 s/step
+Meep progress: 41.12/177.5 = 23.2% done in 28.0s, 93.0s to go
+on time step 4113 (time=41.13), 0.00749072 s/step
+Meep progress: 46.43/177.5 = 26.2% done in 32.0s, 90.4s to go
+on time step 4644 (time=46.44), 0.00754452 s/step
+Meep progress: 52.160000000000004/177.5 = 29.4% done in 36.0s, 86.6s to go
+on time step 5217 (time=52.17), 0.00699048 s/step
+Meep progress: 57.980000000000004/177.5 = 32.7% done in 40.0s, 82.5s to go
+on time step 5799 (time=57.99), 0.00688049 s/step
+Meep progress: 63.230000000000004/177.5 = 35.6% done in 44.1s, 79.6s to go
+on time step 6323 (time=63.23), 0.00763449 s/step
+Meep progress: 68.38/177.5 = 38.5% done in 48.1s, 76.7s to go
+on time step 6838 (time=68.38), 0.00777273 s/step
+Meep progress: 73.96000000000001/177.5 = 41.7% done in 52.1s, 72.9s to go
+on time step 7396 (time=73.96), 0.00717674 s/step
+Meep progress: 79.97/177.5 = 45.1% done in 56.1s, 68.4s to go
+on time step 7997 (time=79.97), 0.0066573 s/step
+Meep progress: 86.10000000000001/177.5 = 48.5% done in 60.1s, 63.8s to go
+on time step 8610 (time=86.1), 0.00653375 s/step
+Meep progress: 92.26/177.5 = 52.0% done in 64.1s, 59.2s to go
+on time step 9226 (time=92.26), 0.00650184 s/step
+Meep progress: 98.47/177.5 = 55.5% done in 68.1s, 54.6s to go
+on time step 9847 (time=98.47), 0.0064465 s/step
+Meep progress: 104.7/177.5 = 59.0% done in 72.1s, 50.1s to go
+on time step 10470 (time=104.7), 0.00642459 s/step
+Meep progress: 110.83/177.5 = 62.4% done in 76.1s, 45.8s to go
+on time step 11083 (time=110.83), 0.00652836 s/step
+Meep progress: 117.09/177.5 = 66.0% done in 80.1s, 41.3s to go
+on time step 11709 (time=117.09), 0.00639332 s/step
+Meep progress: 123.17/177.5 = 69.4% done in 84.1s, 37.1s to go
+on time step 12317 (time=123.17), 0.00658597 s/step
+Meep progress: 129.26/177.5 = 72.8% done in 88.1s, 32.9s to go
+on time step 12926 (time=129.26), 0.00656824 s/step
+Meep progress: 135.43/177.5 = 76.3% done in 92.1s, 28.6s to go
+on time step 13544 (time=135.44), 0.00648386 s/step
+Meep progress: 141.66/177.5 = 79.8% done in 96.1s, 24.3s to go
+on time step 14167 (time=141.67), 0.00642755 s/step
+Meep progress: 147.83/177.5 = 83.3% done in 100.1s, 20.1s to go
+on time step 14785 (time=147.85), 0.00648384 s/step
+Meep progress: 154.01/177.5 = 86.8% done in 104.1s, 15.9s to go
+on time step 15403 (time=154.03), 0.00647886 s/step
+Meep progress: 160.23/177.5 = 90.3% done in 108.1s, 11.7s to go
+on time step 16025 (time=160.25), 0.00643559 s/step
+Meep progress: 166.39000000000001/177.5 = 93.7% done in 112.1s, 7.5s to go
+on time step 16641 (time=166.41), 0.00649634 s/step
+Meep progress: 172.49/177.5 = 97.2% done in 116.1s, 3.4s to go
+on time step 17251 (time=172.51), 0.00656203 s/step
+run 0 finished at t = 177.5 (17750 timesteps)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+-----------
+Initializing structure...
+time for choose_chunkdivision = 0.00128913 s
+Working in 2D dimensions.
+Computational cell is 35.5 x 10 x 0 with resolution 50
+     prism, center = (-7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.125,-10)
+          (-12.75,-0.875,-10)
+          (-12.75,-0.375,-10)
+          (-2.75,-0.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,0.125,-10)
+          (-12.75,0.375,-10)
+          (-12.75,0.875,-10)
+          (-2.75,1.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,0.125,-10)
+          (2.75,1.125,-10)
+          (12.75,0.875,-10)
+          (12.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,-1.125,-10)
+          (2.75,-0.125,-10)
+          (12.75,-0.375,-10)
+          (12.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (0,0,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.25,-10)
+          (-2.75,1.25,-10)
+          (2.75,1.25,-10)
+          (2.75,-1.25,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,-0.375,-10)
+          (-12.75,-0.875,-10)
+          (-17.75,-0.875,-10)
+          (-17.75,-0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,0.875,-10)
+          (-12.75,0.375,-10)
+          (-17.75,0.375,-10)
+          (-17.75,0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,0.375,-10)
+          (12.75,0.875,-10)
+          (17.75,0.875,-10)
+          (17.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,-0.875,-10)
+          (12.75,-0.375,-10)
+          (17.75,-0.375,-10)
+          (17.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+time for set_epsilon = 7.43482 s
+-----------
+MPB solved for frequency_1(-1,0,0) = 0.339081 after 9 iters
+MPB solved for frequency_1(-2.06483,0,0) = 0.637031 after 7 iters
+MPB solved for frequency_1(-2.09396,0,0) = 0.645159 after 12 iters
+MPB solved for frequency_1(-2.09396,0,0) = 0.645161 after 1 iters
+Meep progress: 5.86/177.5 = 3.3% done in 4.0s, 117.3s to go
+on time step 586 (time=5.86), 0.00683437 s/step
+Meep progress: 12.040000000000001/177.5 = 6.8% done in 8.0s, 110.0s to go
+on time step 1204 (time=12.04), 0.0064743 s/step
+Meep progress: 18.04/177.5 = 10.2% done in 12.0s, 106.2s to go
+on time step 1804 (time=18.04), 0.00667422 s/step
+Meep progress: 24.1/177.5 = 13.6% done in 16.0s, 101.9s to go
+on time step 2410 (time=24.1), 0.00660554 s/step
+Meep progress: 30.19/177.5 = 17.0% done in 20.0s, 97.7s to go
+on time step 3019 (time=30.19), 0.0065731 s/step
+Meep progress: 36.2/177.5 = 20.4% done in 24.0s, 93.8s to go
+on time step 3621 (time=36.21), 0.00665717 s/step
+Meep progress: 42.14/177.5 = 23.7% done in 28.0s, 90.0s to go
+on time step 4215 (time=42.15), 0.00674169 s/step
+Meep progress: 48.06/177.5 = 27.1% done in 32.0s, 86.3s to go
+on time step 4807 (time=48.07), 0.00676448 s/step
+Meep progress: 54.08/177.5 = 30.5% done in 36.0s, 82.2s to go
+on time step 5409 (time=54.09), 0.00665186 s/step
+Meep progress: 59.79/177.5 = 33.7% done in 40.0s, 78.8s to go
+on time step 5980 (time=59.8), 0.00700753 s/step
+Meep progress: 65.86/177.5 = 37.1% done in 44.0s, 74.7s to go
+on time step 6587 (time=65.87), 0.00660031 s/step
+Meep progress: 71.88/177.5 = 40.5% done in 48.0s, 70.6s to go
+on time step 7189 (time=71.89), 0.00664822 s/step
+Meep progress: 77.93/177.5 = 43.9% done in 52.0s, 66.5s to go
+on time step 7795 (time=77.95), 0.00661038 s/step
+Meep progress: 83.96000000000001/177.5 = 47.3% done in 56.1s, 62.4s to go
+on time step 8398 (time=83.98), 0.00663952 s/step
+Meep progress: 89.98/177.5 = 50.7% done in 60.1s, 58.4s to go
+on time step 9000 (time=90), 0.006647 s/step
+Meep progress: 96.14/177.5 = 54.2% done in 64.1s, 54.2s to go
+on time step 9616 (time=96.16), 0.0065001 s/step
+Meep progress: 102.06/177.5 = 57.5% done in 68.1s, 50.3s to go
+on time step 10208 (time=102.08), 0.00676061 s/step
+Meep progress: 108.16/177.5 = 60.9% done in 72.1s, 46.2s to go
+on time step 10818 (time=108.18), 0.00655989 s/step
+Meep progress: 114.2/177.5 = 64.3% done in 76.1s, 42.2s to go
+on time step 11422 (time=114.22), 0.00662689 s/step
+Meep progress: 120.26/177.5 = 67.8% done in 80.1s, 38.1s to go
+on time step 12028 (time=120.28), 0.00660401 s/step
+Meep progress: 126.36/177.5 = 71.2% done in 84.1s, 34.0s to go
+on time step 12638 (time=126.38), 0.00656281 s/step
+Meep progress: 132.38/177.5 = 74.6% done in 88.1s, 30.0s to go
+on time step 13240 (time=132.4), 0.00664771 s/step
+Meep progress: 138.45000000000002/177.5 = 78.0% done in 92.1s, 26.0s to go
+on time step 13847 (time=138.47), 0.00659594 s/step
+Meep progress: 144.5/177.5 = 81.4% done in 96.1s, 21.9s to go
+on time step 14453 (time=144.53), 0.00661034 s/step
+Meep progress: 150.34/177.5 = 84.7% done in 100.1s, 18.1s to go
+on time step 15037 (time=150.37), 0.0068566 s/step
+Meep progress: 156.21/177.5 = 88.0% done in 104.1s, 14.2s to go
+on time step 15624 (time=156.24), 0.00682108 s/step
+Meep progress: 162.21/177.5 = 91.4% done in 108.1s, 10.2s to go
+on time step 16224 (time=162.24), 0.00667096 s/step
+Meep progress: 168.07/177.5 = 94.7% done in 112.1s, 6.3s to go
+on time step 16810 (time=168.1), 0.00683263 s/step
+Meep progress: 174.11/177.5 = 98.1% done in 116.1s, 2.3s to go
+on time step 17414 (time=174.14), 0.00662542 s/step
+run 0 finished at t = 177.5 (17750 timesteps)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+-----------
+Initializing structure...
+time for choose_chunkdivision = 0.00160694 s
+Working in 2D dimensions.
+Computational cell is 35.5 x 10 x 0 with resolution 50
+     prism, center = (-7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.125,-10)
+          (-12.75,-0.875,-10)
+          (-12.75,-0.375,-10)
+          (-2.75,-0.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,0.125,-10)
+          (-12.75,0.375,-10)
+          (-12.75,0.875,-10)
+          (-2.75,1.125,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,0.125,-10)
+          (2.75,1.125,-10)
+          (12.75,0.875,-10)
+          (12.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (7.75,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (2.75,-1.125,-10)
+          (2.75,-0.125,-10)
+          (12.75,-0.375,-10)
+          (12.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (0,0,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-2.75,-1.25,-10)
+          (-2.75,1.25,-10)
+          (2.75,1.25,-10)
+          (2.75,-1.25,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,-0.375,-10)
+          (-12.75,-0.875,-10)
+          (-17.75,-0.875,-10)
+          (-17.75,-0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (-15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (-12.75,0.875,-10)
+          (-12.75,0.375,-10)
+          (-17.75,0.375,-10)
+          (-17.75,0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,0.375,-10)
+          (12.75,0.875,-10)
+          (17.75,0.875,-10)
+          (17.75,0.375,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+     prism, center = (15.25,-0.625,0)
+          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
+          (12.75,-0.875,-10)
+          (12.75,-0.375,-10)
+          (17.75,-0.375,-10)
+          (17.75,-0.875,-10)
+          dielectric constant epsilon diagonal = (12,12,12)
+time for set_epsilon = 6.58223 s
+-----------
+MPB solved for frequency_1(-1,0,0) = 0.339081 after 9 iters
+MPB solved for frequency_1(-2.06483,0,0) = 0.637031 after 7 iters
+MPB solved for frequency_1(-2.09396,0,0) = 0.645159 after 12 iters
+MPB solved for frequency_1(-2.09396,0,0) = 0.645161 after 1 iters
+Meep progress: 5.87/177.5 = 3.3% done in 4.0s, 117.1s to go
+on time step 587 (time=5.87), 0.00682018 s/step
+Meep progress: 11.950000000000001/177.5 = 6.7% done in 8.0s, 110.9s to go
+on time step 1195 (time=11.95), 0.00658181 s/step
+Meep progress: 18.080000000000002/177.5 = 10.2% done in 12.0s, 105.9s to go
+on time step 1808 (time=18.08), 0.00652766 s/step
+Meep progress: 24.07/177.5 = 13.6% done in 16.0s, 102.1s to go
+on time step 2407 (time=24.07), 0.00668707 s/step
+Meep progress: 30.04/177.5 = 16.9% done in 20.0s, 98.3s to go
+on time step 3004 (time=30.04), 0.00670792 s/step
+Meep progress: 35.480000000000004/177.5 = 20.0% done in 24.0s, 96.2s to go
+on time step 3548 (time=35.48), 0.00736027 s/step
+Meep progress: 41.54/177.5 = 23.4% done in 28.0s, 91.7s to go
+on time step 4154 (time=41.54), 0.00661104 s/step
+Meep progress: 47.54/177.5 = 26.8% done in 32.0s, 87.6s to go
+on time step 4754 (time=47.54), 0.00667601 s/step
+Meep progress: 53.45/177.5 = 30.1% done in 36.0s, 83.6s to go
+on time step 5346 (time=53.46), 0.00676768 s/step
+Meep progress: 59.47/177.5 = 33.5% done in 40.0s, 79.5s to go
+on time step 5948 (time=59.48), 0.00664797 s/step
+Meep progress: 65.51/177.5 = 36.9% done in 44.0s, 75.3s to go
+on time step 6551 (time=65.51), 0.00663365 s/step
+Meep progress: 71.47/177.5 = 40.3% done in 48.0s, 71.3s to go
+on time step 7147 (time=71.47), 0.00671259 s/step
+Meep progress: 77.51/177.5 = 43.7% done in 52.1s, 67.2s to go
+on time step 7751 (time=77.51), 0.00663077 s/step
+Meep progress: 83.57000000000001/177.5 = 47.1% done in 56.1s, 63.0s to go
+on time step 8357 (time=83.57), 0.00661286 s/step
+Meep progress: 89.69/177.5 = 50.5% done in 60.1s, 58.8s to go
+on time step 8969 (time=89.69), 0.0065407 s/step
+Meep progress: 93.33/177.5 = 52.6% done in 64.1s, 57.8s to go
+on time step 9333 (time=93.33), 0.0110058 s/step
+Meep progress: 96.65/177.5 = 54.5% done in 68.1s, 56.9s to go
+on time step 9665 (time=96.65), 0.0120599 s/step
+Meep progress: 101.48/177.5 = 57.2% done in 72.1s, 54.0s to go
+on time step 10148 (time=101.48), 0.00828807 s/step
+Meep progress: 106.06/177.5 = 59.8% done in 76.1s, 51.2s to go
+on time step 10607 (time=106.07), 0.00872982 s/step
+Meep progress: 110.56/177.5 = 62.3% done in 80.1s, 48.5s to go
+on time step 11057 (time=110.57), 0.00889531 s/step
+Meep progress: 115.25/177.5 = 64.9% done in 84.1s, 45.4s to go
+on time step 11525 (time=115.25), 0.00854835 s/step
+Meep progress: 119.42/177.5 = 67.3% done in 88.1s, 42.8s to go
+on time step 11942 (time=119.42), 0.00960504 s/step
+Meep progress: 123.2/177.5 = 69.4% done in 92.1s, 40.6s to go
+on time step 12320 (time=123.2), 0.0105857 s/step
+Meep progress: 127.48/177.5 = 71.8% done in 96.1s, 37.7s to go
+on time step 12748 (time=127.48), 0.00934695 s/step
+Meep progress: 131.92000000000002/177.5 = 74.3% done in 100.1s, 34.6s to go
+on time step 13192 (time=131.92), 0.00901702 s/step
+Meep progress: 136.18/177.5 = 76.7% done in 104.1s, 31.6s to go
+on time step 13618 (time=136.18), 0.00939911 s/step
+Meep progress: 140.73/177.5 = 79.3% done in 108.1s, 28.2s to go
+on time step 14073 (time=140.73), 0.00879407 s/step
+Meep progress: 145.26/177.5 = 81.8% done in 112.1s, 24.9s to go
+on time step 14526 (time=145.26), 0.00884298 s/step
+Meep progress: 149.63/177.5 = 84.3% done in 116.1s, 21.6s to go
+on time step 14963 (time=149.63), 0.0091587 s/step
+Meep progress: 154.07/177.5 = 86.8% done in 120.1s, 18.3s to go
+on time step 15407 (time=154.07), 0.00902327 s/step
+Meep progress: 158.1/177.5 = 89.1% done in 124.1s, 15.2s to go
+on time step 15810 (time=158.1), 0.0099271 s/step
+Meep progress: 162.49/177.5 = 91.5% done in 128.1s, 11.8s to go
+on time step 16249 (time=162.49), 0.00912046 s/step
+Meep progress: 166.55/177.5 = 93.8% done in 132.1s, 8.7s to go
+on time step 16655 (time=166.55), 0.0098598 s/step
+Meep progress: 170.9/177.5 = 96.3% done in 136.2s, 5.3s to go
+on time step 17090 (time=170.9), 0.00920265 s/step
+Meep progress: 175.09/177.5 = 98.6% done in 140.2s, 1.9s to go
+on time step 17509 (time=175.09), 0.00954686 s/step
+run 0 finished at t = 177.5 (17750 timesteps)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
+MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
+Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;S-Params:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">1: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">  </span><span class="se">\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">2: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">  </span><span class="se">\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">3: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">  </span><span class="se">\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">4: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transmission:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">):</span>
+    <span class="n">trans1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans3</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans4</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.6f}</span><span class="se">\t</span><span class="si">{:.6f}</span><span class="se">\t</span><span class="si">{:.6f}</span><span class="se">\t</span><span class="si">{:.6f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trans1</span><span class="p">,</span> <span class="n">trans2</span><span class="p">,</span> <span class="n">trans3</span><span class="p">,</span> <span class="n">trans4</span><span class="p">))</span>
 </pre></div>
 </div>
-<img alt="../_images/scattering_parameters_9_2.png" src="../_images/scattering_parameters_9_2.png" />
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>S-Params:
+S11: (2.073837079339534+7.487298804641603j)  	S12: (-0.0021176313808567064-0.002975325519346291j)  	S13: (1.8619031796141472+0.7196374542480958j)  	S14: (-1.2433181680066065-5.96535673568779j)
+S21: (-0.0021176318065006775-0.002975326579127314j)  	S22: (2.0738370289807277+7.487298838505997j)  	S23: (-1.2433182965094123-5.965357368445672j)  	S24: (1.8619016826998898+0.7196382157205293j)
+S31: (-0.032441819136782596+0.002082615671862075j)  	S32: (0.00015036956999536785+0.0427242211640301j)  	S33: (0.1498160732597073+0.1807319667346948j)  	S34: (0.10283168723619183+0.35410857505000864j)
+S41: (0.00015037021912440754+0.04272422705403925j)  	S42: (-0.032441813715602376+0.002082615800715164j)  	S43: (0.1028317274169818+0.3541085549307365j)  	S44: (0.14981620140746998+0.1807331866788009j)
+Transmission:
+100.000000	0.000022	6.601279	61.515984
+0.000022	100.000000	61.515997	6.601272
+1.917674	3.312317	100.000000	246.724648
+3.312290	1.917656	246.722491	100.000000
+</pre></div>
 </div>
 </div>
+</div>
+<p>S-Params:
+S11: (2.0738370303823945+7.487298837279579j)<br />
+S12: (-0.0021176313794123163-0.002975325509574002j)<br />
+S13: (1.8619031796472698+0.7196374547358088j)<br />
+S14: (-1.243318391719618-5.965357827133975j)</p>
+<p>S21: (-0.0021176318065006775-0.002975326579127314j)  same as 12
+S22: (2.073837028980713+7.487298838505995j)  same as 11
+S23: (-1.2433182965094123-5.965357368445672j)<br />
+S24: (1.8619044512481993+0.7196367614472267j)</p>
+<p>S31: (0.0005679002481562931-0.00011512741373849618j)<br />
+S32: (0.00019709752311403364-0.0008155852182588672j)<br />
+S33: (-0.0016502616895469194-0.004969999629734143j)  should be 22
+S34: (-0.0008691803285564012-0.007286991706124535j)</p>
+<p>S41: (0.00019709027421615602-0.0008155855866727443j)<br />
+S42: (0.0005678997056942723-0.00011512281425641433j)<br />
+S43: (-0.0008692200218244908-0.00728697581362843j)<br />
+S44: (-0.0016503003316809823-0.0049699701912919595j) should be 22</p>
 </section>
 </section>
 </section>
