@@ -452,34 +452,254 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
 <span class="kn">from</span> <span class="nn">meep</span> <span class="kn">import</span> <span class="n">mpb</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">def MPB_eigenmode():</span>
-<span class="sd">    ms = get_mode_solver_rib(wg_width=0.45, sy=6, sz=6)</span>
-<span class="sd">    modes = find_modes_waveguide(mode_solver=ms, res=50)</span>
-<span class="sd">    m1_MPB = modes[1]</span>
-<span class="sd">    m2_MPB = modes[2]</span>
-<span class="sd">    return m1_MPB, m2_MPB</span>
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
 
-<span class="c1"># Finding modes with functions in gmeep</span>
-<span class="c1"># get_port_eigenmode.py has functions, implementation in test_eigenmode.py</span>
-<span class="c1"># get_port_2Dx_eigenmode()-&gt; Mode object compatible with /modes plugin</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   m1_MEEP = get_port_2Dx_eigenmode(</span>
-<span class="sd">        sim_dict=sim_dict,</span>
-<span class="sd">        source_index=0,</span>
-<span class="sd">        port_name=&quot;o1&quot;,</span>
-<span class="sd">    )</span>
-<span class="sd">    m2_MEEP = get_port_2Dx_eigenmode(</span>
-<span class="sd">        sim_dict=sim_dict,</span>
-<span class="sd">        source_index=0,</span>
-<span class="sd">        port_name=&quot;o1&quot;,</span>
-<span class="sd">        band_num=2,</span>
-<span class="sd">    )</span>
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_coupler</span><span class="p">(</span>
+    <span class="n">wg_widths</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="mf">0.07</span><span class="p">,),</span>
+    <span class="n">ncore</span><span class="o">=</span><span class="mf">3.45</span><span class="p">,</span>
+    <span class="n">nclad</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span>
+    <span class="n">wg_thickness</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">sz</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m3</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">()</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">()</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.492816344674945
+2.4190461250593778
+1.9152530651691275
+</pre></div>
+</div>
+<img alt="../_images/directional_couplers_3_1.png" src="../_images/directional_couplers_3_1.png" />
+<img alt="../_images/directional_couplers_3_2.png" src="../_images/directional_couplers_3_2.png" />
+<img alt="../_images/directional_couplers_3_3.png" src="../_images/directional_couplers_3_3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">coupler</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">()</span>
+<span class="n">gm</span><span class="o">.</span><span class="n">find_modes_waveguide</span><span class="p">()</span>
+<span class="n">gm</span><span class="o">.</span><span class="n">find_neff_vs_width</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 9/12 [00:47&lt;00:15,  5.27s/it]
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:40,</span> in <span class="ni">pydantic.decorator.validate_arguments.validate.wrapper_function</span><span class="nt">()</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:134,</span> in <span class="ni">pydantic.decorator.ValidatedFunction.call</span><span class="nt">()</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:206,</span> in <span class="ni">pydantic.decorator.ValidatedFunction.execute</span><span class="nt">()</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/modes/find_coupling_vs_gap.py:112,</span> in <span class="ni">find_coupling_vs_gap</span><span class="nt">(gap1, gap2, steps, nmodes, wavelength, parity, filepath, overwrite, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span> <span class="n">lc</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="k">for</span> <span class="n">gap</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">gaps</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">112</span>     <span class="n">modes</span> <span class="o">=</span> <span class="n">find_modes_coupler</span><span class="p">(</span><span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="n">gap</span><span class="p">,),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="n">n1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">neff</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="n">n2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">neff</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/modes/find_modes.py:170,</span> in <span class="ni">find_modes_waveguide</span><span class="nt">(tol, wavelength, mode_number, parity, cache, overwrite, single_waveguide, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span> <span class="c1"># Output the x component of the Poynting vector for mode_number bands at omega</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span> <span class="n">disable_print</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">170</span> <span class="n">k</span> <span class="o">=</span> <span class="n">mode_solver</span><span class="o">.</span><span class="n">find_k</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>     <span class="n">parity</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>     <span class="n">omega</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span>     <span class="n">mode_number</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="n">mode_number</span> <span class="o">+</span> <span class="n">nmodes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span>     <span class="n">tol</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="n">omega</span> <span class="o">*</span> <span class="mf">2.02</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>     <span class="n">omega</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="n">omega</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="c1"># mpb.output_poynting_x,</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>     <span class="n">mpb</span><span class="o">.</span><span class="n">display_yparities</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>     <span class="n">mpb</span><span class="o">.</span><span class="n">display_group_velocities</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span> <span class="n">enable_print</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="n">neff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">wavelength</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/solver.py:1098,</span> in <span class="ni">ModeSolver.find_k</span><span class="nt">(self, p, omega, band_min, band_max, korig_and_kdir, tol, kmag_guess, kmag_min, kmag_max, *band_funcs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1095</span>                 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">band_funcs</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1096</span>                     <span class="n">apply_band_func_thunk</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1098</span>         <span class="bp">self</span><span class="o">.</span><span class="n">run_parity</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">bfunc</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1100</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_bands</span> <span class="o">=</span> <span class="n">num_bands_save</span>
+<span class="g g-Whitespace">   </span><span class="mi">1101</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_points</span> <span class="o">=</span> <span class="n">kpoints_save</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/solver.py:929,</span> in <span class="ni">ModeSolver.run_parity</span><span class="nt">(self, p, reset_fields, *band_functions)</span>
+<span class="g g-Whitespace">    </span><span class="mi">927</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_k</span> <span class="o">=</span> <span class="n">k</span>
+<span class="g g-Whitespace">    </span><span class="mi">928</span> <span class="n">solve_kpoint_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">929</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_kpoint</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">930</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode_solver</span><span class="o">.</span><span class="n">get_iterations</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">931</span> <span class="k">if</span> <span class="n">verbosity</span><span class="o">.</span><span class="n">mpb</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/solver.py:889,</span> in <span class="ni">ModeSolver.solve_kpoint</span><span class="nt">(self, k)</span>
+<span class="g g-Whitespace">    </span><span class="mi">888</span> <span class="k">def</span> <span class="nf">solve_kpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">889</span>     <span class="bp">self</span><span class="o">.</span><span class="n">mode_solver</span><span class="o">.</span><span class="n">solve_kpoint</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">890</span>     <span class="bp">self</span><span class="o">.</span><span class="n">freqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_freqs</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/__init__.py:124,</span> in <span class="ni">mode_solver.solve_kpoint</span><span class="nt">(self, kpoint)</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span> <span class="k">def</span> <span class="nf">solve_kpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kpoint</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">124</span>     <span class="k">return</span> <span class="n">_mpb</span><span class="o">.</span><span class="n">mode_solver_solve_kpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kpoint</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">(</span><span class="n">gap1</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 12/12 [00:09&lt;00:00,  1.29it/s]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gap</th>
+      <th>ne</th>
+      <th>no</th>
+      <th>lc</th>
+      <th>dn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.200000</td>
+      <td>2.457895</td>
+      <td>2.437607</td>
+      <td>38.198673</td>
+      <td>0.020289</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.218182</td>
+      <td>2.459030</td>
+      <td>2.441121</td>
+      <td>43.276094</td>
+      <td>0.017908</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.236364</td>
+      <td>2.452193</td>
+      <td>2.437659</td>
+      <td>53.322086</td>
+      <td>0.014534</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.254545</td>
+      <td>2.451947</td>
+      <td>2.439549</td>
+      <td>62.508160</td>
+      <td>0.012398</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.272727</td>
+      <td>2.451248</td>
+      <td>2.441058</td>
+      <td>76.053444</td>
+      <td>0.010190</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.290909</td>
+      <td>2.451498</td>
+      <td>2.442325</td>
+      <td>84.487124</td>
+      <td>0.009173</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.309091</td>
+      <td>2.449446</td>
+      <td>2.441517</td>
+      <td>97.734993</td>
+      <td>0.007930</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.327273</td>
+      <td>2.447256</td>
+      <td>2.440698</td>
+      <td>118.183180</td>
+      <td>0.006558</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.345455</td>
+      <td>2.451721</td>
+      <td>2.446248</td>
+      <td>141.587204</td>
+      <td>0.005474</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.363636</td>
+      <td>2.451128</td>
+      <td>2.446210</td>
+      <td>157.598609</td>
+      <td>0.004918</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.381818</td>
+      <td>2.445594</td>
+      <td>2.441408</td>
+      <td>185.133981</td>
+      <td>0.004186</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>0.400000</td>
+      <td>2.445137</td>
+      <td>2.441678</td>
+      <td>224.057880</td>
+      <td>0.003459</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="beating">
@@ -590,7 +810,7 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/directional_couplers_7_3.png" src="../_images/directional_couplers_7_3.png" />
+<img alt="../_images/directional_couplers_9_3.png" src="../_images/directional_couplers_9_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
