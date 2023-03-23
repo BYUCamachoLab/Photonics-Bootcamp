@@ -305,43 +305,40 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#supermodes">
    Supermodes
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-supermodes">
+     Visualizing Supermodes
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coupling-coefficient">
-   Coupling Coefficient
+  <a class="reference internal nav-link" href="#coupling">
+   Coupling
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coupling-length-and-the-gap-between-waveguides">
+     Coupling Length and the Gap Between Waveguides
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-splitting-ratios">
+     Other Splitting Ratios
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#beating">
-   Beating
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cross-over-length">
-   Cross-over Length
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simulation">
-   Simulation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coupler-gap-dependence">
-   Coupler-gap Dependence
+  <a class="reference internal nav-link" href="#meep-simulation">
+   Meep Simulation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#design-considerations">
    Design Considerations
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-on-h5utils">
-     Note on h5utils
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#sources">
@@ -371,43 +368,40 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#supermodes">
    Supermodes
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-supermodes">
+     Visualizing Supermodes
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coupling-coefficient">
-   Coupling Coefficient
+  <a class="reference internal nav-link" href="#coupling">
+   Coupling
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coupling-length-and-the-gap-between-waveguides">
+     Coupling Length and the Gap Between Waveguides
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-splitting-ratios">
+     Other Splitting Ratios
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#beating">
-   Beating
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cross-over-length">
-   Cross-over Length
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simulation">
-   Simulation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#coupler-gap-dependence">
-   Coupler-gap Dependence
+  <a class="reference internal nav-link" href="#meep-simulation">
+   Meep Simulation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#design-considerations">
    Design Considerations
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-on-h5utils">
-     Note on h5utils
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#sources">
@@ -426,7 +420,6 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="directional-couplers">
 <h1>Directional Couplers<a class="headerlink" href="#directional-couplers" title="Permalink to this headline">#</a></h1>
-<p><strong>TODO: INSERT PICTURE OF MODES</strong></p>
 <p>Directional couplers move light from one waveguide to another. This is done simply by bringing two waveguides parallel to each other for a certain distance, with a small gap between them. The evanescent fields (fields existing outside of the waveguide) of one waveguide interact with another and thus power is transferred. This principle can be used to split or combine light, depending on the coupling length (the length at which the waveguides are sufficiently close to each other) and the phase of the light in the waveguides.</p>
 <div style="text-align: center;">
 <p><img alt="dir_cplr" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dir_cplr.png?raw=true" /></p>
@@ -440,23 +433,16 @@ title="Print to PDF"
 <h2>Supermodes<a class="headerlink" href="#supermodes" title="Permalink to this headline">#</a></h2>
 <p>Just like there are modes that exist in one waveguide, supermodes are modes that exist in multiple waveguides based on the interactions between them. These modes interact with each other and the combination of these interactions results in what light is propagating in the waveguide.</p>
 <p>An “odd”, or antisymmetric, supermode occurs when light in the two waveguides are <span class="math notranslate nohighlight">\(180^\circ\)</span> out of phase i.e. perfectly out of phase. Similarly, an “even”, or symmetric, supermode occurs when the two waveguides are in phase.</p>
-</section>
-<section id="coupling-coefficient">
-<h2>Coupling Coefficient<a class="headerlink" href="#coupling-coefficient" title="Permalink to this headline">#</a></h2>
-<p>The two supermodes that are used to find the coupling coefficient are the first two modes, which happen to be an even and odd mode, respectively.</p>
-<p>The coupling coefficient is <span class="math notranslate nohighlight">\(C = \frac{\pi\Delta n}{\lambda}\)</span></p>
-<p>Where <span class="math notranslate nohighlight">\(\Delta n = |n_{1} - n_{2}| = |n_{eff,even} - n_{eff,odd}|\)</span></p>
+<section id="visualizing-supermodes">
+<h3>Visualizing Supermodes<a class="headerlink" href="#visualizing-supermodes" title="Permalink to this headline">#</a></h3>
+<p>GDSFactory has a function that enables users to find the supermodes in a directional coupler, given the gap and permittivity of the waveguide core and cladding. Use the script below to visualize supermodes and their refractive indices. Change the gap value to see how the refractive indices of the even and odd mode change relative to each other as it increases or decreases. Also, notive how the electric field for an even mode is most intense between the waveguides, while for an odd field, the field is most intense inside of the waveguides.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Potential to calculate supermodes using MPB</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">from</span> <span class="nn">meep</span> <span class="kn">import</span> <span class="n">mpb</span>
-<span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
 
 <span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_coupler</span><span class="p">(</span>
     <span class="n">wg_widths</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
-    <span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="mf">0.07</span><span class="p">,),</span>
+    <span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="mf">0.07</span><span class="p">,),</span> <span class="c1"># CHANGE GAP VALUE</span>
     <span class="n">ncore</span><span class="o">=</span><span class="mf">3.45</span><span class="p">,</span>
     <span class="n">nclad</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span>
     <span class="n">wg_thickness</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
@@ -464,115 +450,56 @@ title="Print to PDF"
     <span class="n">sz</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
     <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">m1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">m2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">m3</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">m3</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
+
+<span class="n">m1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># even mode</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># odd mode</span>
+
+<span class="c1"># Look to see how big of a difference there is between the two refractive indices</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Refractive index of even mode:&quot;</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Refractive index of odd mode:&quot;</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">neff</span><span class="p">)</span>
+
+<span class="c1"># Plot the dielectric, shows index of refraction values in sidebar</span>
 <span class="n">m1</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">()</span>
+
+<span class="c1"># Plot the Electric field intensity of the modes</span>
 <span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">()</span>
 <span class="n">m2</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.492816344674945
-2.4190461250593778
-1.9152530651691275
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Refractive index of even mode: 2.492816344674945
+Refractive index of odd mode: 2.4190461250593778
 </pre></div>
 </div>
-<img alt="../_images/directional_couplers_3_1.png" src="../_images/directional_couplers_3_1.png" />
-<img alt="../_images/directional_couplers_3_2.png" src="../_images/directional_couplers_3_2.png" />
-<img alt="../_images/directional_couplers_3_3.png" src="../_images/directional_couplers_3_3.png" />
+<img alt="../_images/directional_couplers_4_1.png" src="../_images/directional_couplers_4_1.png" />
+<img alt="../_images/directional_couplers_4_2.png" src="../_images/directional_couplers_4_2.png" />
+<img alt="../_images/directional_couplers_4_3.png" src="../_images/directional_couplers_4_3.png" />
 </div>
 </div>
+</section>
+</section>
+<section id="coupling">
+<h2>Coupling<a class="headerlink" href="#coupling" title="Permalink to this headline">#</a></h2>
+<p>The two supermodes that are used to find the coupling coefficient are the first two modes (like we found in the script above), which happen to be an even and odd mode, respectively.</p>
+<p>The coupling coefficient is <span class="math notranslate nohighlight">\(C = \frac{\pi\Delta n}{\lambda}\)</span></p>
+<p>Where <span class="math notranslate nohighlight">\(\Delta n = |n_{1} - n_{2}| = |n_{eff,even} - n_{eff,odd}|\)</span></p>
+<p>So, the coupling coefficient is dependent on the difference in the modes’ refractive indices, which in turn is dependent on the width of the gap between the waveguides.</p>
+<section id="coupling-length-and-the-gap-between-waveguides">
+<h3>Coupling Length and the Gap Between Waveguides<a class="headerlink" href="#coupling-length-and-the-gap-between-waveguides" title="Permalink to this headline">#</a></h3>
+<p>There is a function, <code class="docutils literal notranslate"><span class="pre">find_coupling_vs_gap</span></code>, in GDSFactory that allows you to find the coupling length (or crossover length) given the gap. It outputs a table detailing the gap distance, even and odd mode refractive indices (ne and no, respectively), the coupling length in <span class="math notranslate nohighlight">\(\mu m\)</span> (lc), and the difference between ne and no, <span class="math notranslate nohighlight">\(\Delta n\)</span> (dn).</p>
+<p>From the table, you should also be able to see that there is an exponential relationship between the gap and the coupling:</p>
+<div class="math notranslate nohighlight">
+\[C = B\cdot e^{-A \cdot g}\]</div>
+<p><span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are dependent on various parameters of the directional coupler, such as the geometry and the wavelength at which it is being operated.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">coupler</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">()</span>
-<span class="n">gm</span><span class="o">.</span><span class="n">find_modes_waveguide</span><span class="p">()</span>
-<span class="n">gm</span><span class="o">.</span><span class="n">find_neff_vs_width</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">(</span><span class="n">gap1</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">gap2</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">nmodes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 9/12 [00:47&lt;00:15,  5.27s/it]
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">()</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:40,</span> in <span class="ni">pydantic.decorator.validate_arguments.validate.wrapper_function</span><span class="nt">()</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:134,</span> in <span class="ni">pydantic.decorator.ValidatedFunction.call</span><span class="nt">()</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:206,</span> in <span class="ni">pydantic.decorator.ValidatedFunction.execute</span><span class="nt">()</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/modes/find_coupling_vs_gap.py:112,</span> in <span class="ni">find_coupling_vs_gap</span><span class="nt">(gap1, gap2, steps, nmodes, wavelength, parity, filepath, overwrite, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">109</span> <span class="n">lc</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="k">for</span> <span class="n">gap</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">gaps</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">112</span>     <span class="n">modes</span> <span class="o">=</span> <span class="n">find_modes_coupler</span><span class="p">(</span><span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="n">gap</span><span class="p">,),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span>     <span class="n">n1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">neff</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span>     <span class="n">n2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">neff</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/modes/find_modes.py:170,</span> in <span class="ni">find_modes_waveguide</span><span class="nt">(tol, wavelength, mode_number, parity, cache, overwrite, single_waveguide, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span> <span class="c1"># Output the x component of the Poynting vector for mode_number bands at omega</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span> <span class="n">disable_print</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">170</span> <span class="n">k</span> <span class="o">=</span> <span class="n">mode_solver</span><span class="o">.</span><span class="n">find_k</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span>     <span class="n">parity</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span>     <span class="n">omega</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">173</span>     <span class="n">mode_number</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="n">mode_number</span> <span class="o">+</span> <span class="n">nmodes</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">175</span>     <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span>     <span class="n">tol</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="n">omega</span> <span class="o">*</span> <span class="mf">2.02</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span>     <span class="n">omega</span> <span class="o">*</span> <span class="mf">0.01</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="n">omega</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="c1"># mpb.output_poynting_x,</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>     <span class="n">mpb</span><span class="o">.</span><span class="n">display_yparities</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span>     <span class="n">mpb</span><span class="o">.</span><span class="n">display_group_velocities</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span> <span class="n">enable_print</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="n">neff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="n">wavelength</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/solver.py:1098,</span> in <span class="ni">ModeSolver.find_k</span><span class="nt">(self, p, omega, band_min, band_max, korig_and_kdir, tol, kmag_guess, kmag_min, kmag_max, *band_funcs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1095</span>                 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">band_funcs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1096</span>                     <span class="n">apply_band_func_thunk</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1098</span>         <span class="bp">self</span><span class="o">.</span><span class="n">run_parity</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">bfunc</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1100</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_bands</span> <span class="o">=</span> <span class="n">num_bands_save</span>
-<span class="g g-Whitespace">   </span><span class="mi">1101</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_points</span> <span class="o">=</span> <span class="n">kpoints_save</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/solver.py:929,</span> in <span class="ni">ModeSolver.run_parity</span><span class="nt">(self, p, reset_fields, *band_functions)</span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_k</span> <span class="o">=</span> <span class="n">k</span>
-<span class="g g-Whitespace">    </span><span class="mi">928</span> <span class="n">solve_kpoint_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">929</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_kpoint</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">930</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode_solver</span><span class="o">.</span><span class="n">get_iterations</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">931</span> <span class="k">if</span> <span class="n">verbosity</span><span class="o">.</span><span class="n">mpb</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/solver.py:889,</span> in <span class="ni">ModeSolver.solve_kpoint</span><span class="nt">(self, k)</span>
-<span class="g g-Whitespace">    </span><span class="mi">888</span> <span class="k">def</span> <span class="nf">solve_kpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">889</span>     <span class="bp">self</span><span class="o">.</span><span class="n">mode_solver</span><span class="o">.</span><span class="n">solve_kpoint</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">890</span>     <span class="bp">self</span><span class="o">.</span><span class="n">freqs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_freqs</span><span class="p">()</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/mpb/__init__.py:124,</span> in <span class="ni">mode_solver.solve_kpoint</span><span class="nt">(self, kpoint)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span> <span class="k">def</span> <span class="nf">solve_kpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kpoint</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">124</span>     <span class="k">return</span> <span class="n">_mpb</span><span class="o">.</span><span class="n">mode_solver_solve_kpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kpoint</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">(</span><span class="n">gap1</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 12/12 [00:09&lt;00:00,  1.29it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 12/12 [00:00&lt;00:00, 163.90it/s]
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -611,14 +538,6 @@ title="Print to PDF"
     </tr>
     <tr>
       <th>1</th>
-      <td>0.218182</td>
-      <td>2.459030</td>
-      <td>2.441121</td>
-      <td>43.276094</td>
-      <td>0.017908</td>
-    </tr>
-    <tr>
-      <th>2</th>
       <td>0.236364</td>
       <td>2.452193</td>
       <td>2.437659</td>
@@ -626,31 +545,15 @@ title="Print to PDF"
       <td>0.014534</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>0.254545</td>
-      <td>2.451947</td>
-      <td>2.439549</td>
-      <td>62.508160</td>
-      <td>0.012398</td>
-    </tr>
-    <tr>
-      <th>4</th>
+      <th>2</th>
       <td>0.272727</td>
-      <td>2.451248</td>
+      <td>2.451249</td>
       <td>2.441058</td>
-      <td>76.053444</td>
-      <td>0.010190</td>
+      <td>76.046040</td>
+      <td>0.010191</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>0.290909</td>
-      <td>2.451498</td>
-      <td>2.442325</td>
-      <td>84.487124</td>
-      <td>0.009173</td>
-    </tr>
-    <tr>
-      <th>6</th>
+      <th>3</th>
       <td>0.309091</td>
       <td>2.449446</td>
       <td>2.441517</td>
@@ -658,15 +561,7 @@ title="Print to PDF"
       <td>0.007930</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>0.327273</td>
-      <td>2.447256</td>
-      <td>2.440698</td>
-      <td>118.183180</td>
-      <td>0.006558</td>
-    </tr>
-    <tr>
-      <th>8</th>
+      <th>4</th>
       <td>0.345455</td>
       <td>2.451721</td>
       <td>2.446248</td>
@@ -674,15 +569,7 @@ title="Print to PDF"
       <td>0.005474</td>
     </tr>
     <tr>
-      <th>9</th>
-      <td>0.363636</td>
-      <td>2.451128</td>
-      <td>2.446210</td>
-      <td>157.598609</td>
-      <td>0.004918</td>
-    </tr>
-    <tr>
-      <th>10</th>
+      <th>5</th>
       <td>0.381818</td>
       <td>2.445594</td>
       <td>2.441408</td>
@@ -690,43 +577,82 @@ title="Print to PDF"
       <td>0.004186</td>
     </tr>
     <tr>
+      <th>6</th>
+      <td>0.418182</td>
+      <td>2.448444</td>
+      <td>2.445451</td>
+      <td>258.922097</td>
+      <td>0.002993</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.454545</td>
+      <td>2.445440</td>
+      <td>2.443229</td>
+      <td>350.496899</td>
+      <td>0.002211</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.490909</td>
+      <td>2.446468</td>
+      <td>2.444858</td>
+      <td>481.605747</td>
+      <td>0.001609</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.527273</td>
+      <td>2.446622</td>
+      <td>2.445395</td>
+      <td>631.758579</td>
+      <td>0.001227</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.563636</td>
+      <td>2.444822</td>
+      <td>2.443938</td>
+      <td>876.564477</td>
+      <td>0.000884</td>
+    </tr>
+    <tr>
       <th>11</th>
-      <td>0.400000</td>
-      <td>2.445137</td>
-      <td>2.441678</td>
-      <td>224.057880</td>
-      <td>0.003459</td>
+      <td>0.600000</td>
+      <td>2.447166</td>
+      <td>2.446531</td>
+      <td>1220.921162</td>
+      <td>0.000635</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</section>
-<section id="beating">
-<h2>Beating<a class="headerlink" href="#beating" title="Permalink to this headline">#</a></h2>
-<p>As seen in the equation above, each supermode has its own effective index (<span class="math notranslate nohighlight">\(n_{eff,even}\)</span>, <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span>) that differs from that of the normal mode in the waveguide and is dependent of the gap between the waveguides. <span class="math notranslate nohighlight">\(n_{eff,even}\)</span> increases as the gap decreases, and <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span> decreases as the gap decreases. The different effective indices also mean that the two modes have different propagation constants.</p>
+<p>As seen above, each supermode has its own effective index (<span class="math notranslate nohighlight">\(n_{eff,even}\)</span>, <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span>) that differs from that of the normal mode in the waveguide and is dependent of the gap between the waveguides. <span class="math notranslate nohighlight">\(n_{eff,even}\)</span> increases as the gap decreases, and <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span> decreases as the gap decreases. The different effective indices also mean that the two modes have different propagation constants.</p>
 <p>The propagation constant is:
 <span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n_eff}{\lambda}\)</span></p>
-<p>Because of this difference in propagation constants, the field intensity oscillates between the two waveguides. This is called beating. As the gap between the waveguides gets smaller, the beating gets faster since <span class="math notranslate nohighlight">\(\Delta n\)</span> gets larger as the difference increases, thus making the cross-over length shorter.</p>
-<p>The cross-over length is the length it takes for all of the power to go from one waveguide to the other (essentially one beat) and is discussed below.</p>
-</section>
-<section id="cross-over-length">
-<h2>Cross-over Length<a class="headerlink" href="#cross-over-length" title="Permalink to this headline">#</a></h2>
-<p>The power that one waveguide receives from the other is given by:</p>
+<p>Because of this difference in propagation constants, the modes travel at different speeds down the waveguide and so the field intensity oscillates between the two waveguides. This is called beating. One beat is equivalent to the coupling length, or cross-over length, and it is the length it takes for all of the power from one waveguide to be coupled into the other. As the gap between the waveguides gets smaller, the beating gets faster since <span class="math notranslate nohighlight">\(\Delta n\)</span> gets larger, making the cross-over length shorter.</p>
+<p>This cross-over length <span class="math notranslate nohighlight">\(L\)</span>, that gives 100% power transfer is found with:</p>
 <div class="math notranslate nohighlight">
-\[
-P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
-\]</div>
-<p>and the coupling length, <span class="math notranslate nohighlight">\(L\)</span>, that gives 100% power transfer is $<span class="math notranslate nohighlight">\(L_{cross-over} = \frac {\lambda}{2\Delta n}\)</span>$</p>
+\[L_{cross-over} = \frac {\lambda}{2\Delta n}\]</div>
 <p>This is found from determining what length when multiplied by the propagation constants makes the phase difference <span class="math notranslate nohighlight">\(\pi\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[ \beta _1 L_x - \beta _2 L_x = \pi \]</div>
 <div class="math notranslate nohighlight">
 \[ L_x[\frac{2 \pi n_1}{\lambda} - \frac{2 \pi n_2}{\lambda}] = \pi \]</div>
 </section>
-<section id="simulation">
-<h2>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">#</a></h2>
-<p>To explore how electric field intensity oscillates between two close waveguides, a meep simulation is provided below that creates two long waveguides with a gap of 0.2um, excites a source at the end of one, and shows the electric field intensity over time in the waveguides. Change the gap distance to observe its affect on the cross-over length. You can also change the lengths of the waveguides to better see the beating. The simulation may take a couple of minutes depending on the length of your waveguide. The plot of the simulation setup and the outputted GIF showing the field intensities for a simulation with a gap of <span class="math notranslate nohighlight">\(0.07 \mu m\)</span> is shown below. This gap is much smaller than traditional gaps so that the beating is more easily seen in a Meep simulation.</p>
+<section id="other-splitting-ratios">
+<h3>Other Splitting Ratios<a class="headerlink" href="#other-splitting-ratios" title="Permalink to this headline">#</a></h3>
+<p>Of course, there are many applications for directional couplers that don’t require a complete transfer of power from one waveguide to another. Oftentimes a different splitting ratio is desired, such as a 50/50 or 60/40 ratio. In such cases, you can find the power that one waveguide receives from the other with the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
+\]</div>
+</section>
+</section>
+<section id="meep-simulation">
+<h2>Meep Simulation<a class="headerlink" href="#meep-simulation" title="Permalink to this headline">#</a></h2>
+<p>To further explore how electric field intensity oscillates between two close waveguides, a meep simulation is provided below that creates two long waveguides with a gap of 0.2um, excites a source at the end of one, and shows the electric field intensity over time in the waveguides. Change the gap distance to observe its affect on the cross-over length. You can also change the lengths of the waveguides to better see the beating. The simulation may take a couple of minutes depending on the length of your waveguide. The plot of the simulation setup and the outputted GIF showing the field intensities for a simulation with a gap of <span class="math notranslate nohighlight">\(0.07 \mu m\)</span> is shown below. This gap is much smaller than traditional gaps so that the beating is more easily seen in a Meep simulation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
@@ -900,6 +826,9 @@ run 0 finished at t = 200.0 (8000 timesteps)
 </div>
 </div>
 </div>
+<p><strong>Note on h5utils:</strong>
+Sometimes the colormaps in h5utils are invalid when used with Meep. To circumvent this issue, specify the path to your desired colormap using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">(path</span> <span class="pre">to</span> <span class="pre">h5utils)/h5utils/share/h5utils/colormaps/(desired</span> <span class="pre">colormap)</span></code></p>
 <p>Image of the simulation set-up:</p>
 <div style="text-align: center;">
 <p><img alt="set-up" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dircplr_sim_setup.png?raw=true" /></p>
@@ -907,25 +836,11 @@ run 0 finished at t = 200.0 (8000 timesteps)
 <p>Gif from the meep simulation with a gap of <span class="math notranslate nohighlight">\(0.2 \mu m\)</span>:</p>
 <div style="text-align: center;">
 <p><img alt="gif" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dircplr_ez.gif?raw=true" /></p>
-</div>
-<p><strong>CREATE graphs to show the relationship that hopefully they have just observed in code</strong></p>
-</section>
-<section id="coupler-gap-dependence">
-<h2>Coupler-gap Dependence<a class="headerlink" href="#coupler-gap-dependence" title="Permalink to this headline">#</a></h2>
-<p>There is an exponential relationship between the gap and the coupling.</p>
-<div class="math notranslate nohighlight">
-\[C = B\cdot e^{-A \cdot g}\]</div>
-<p><span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are dependent on various parameters of the directional coupler, such as the geometry and the wavelength at which it is being operated.</p>
-</section>
+</div></section>
 <section id="design-considerations">
 <h2>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h2>
 <p>So, when designing a directional coupler, you must select a length and gap distance that will give you your desired fraction of the input power at each output port. Also, given the important role that geometry has in determining the characteristics of a directional coupler (such as the coupling coefficient), they are very susceptible to manufacturing variations. This is something to keep in mind as you build circuits that may have strict specifications.</p>
 <p>Another element to consider is that the principles that make a directional coupler work can also mess with the layout of your chip. Parasitic coupling occurs when two waveguides (that are not part of a directional coupler) are placed too close to each other, leading to power “leaking” from one to the other. Waveguides and components should be placed far enough away so that this does not happen.</p>
-<section id="note-on-h5utils">
-<h3>Note on h5utils<a class="headerlink" href="#note-on-h5utils" title="Permalink to this headline">#</a></h3>
-<p>Sometimes the colormaps in h5utils are invalid when used with Meep. To circumvent this issue, specify the path to your desired colormap using</p>
-<p><code class="docutils literal notranslate"><span class="pre">(path</span> <span class="pre">to</span> <span class="pre">h5utils)/h5utils/share/h5utils/colormaps/(desired</span> <span class="pre">colormap)</span></code></p>
-</section>
 </section>
 <section id="sources">
 <h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>

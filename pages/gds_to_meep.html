@@ -350,7 +350,7 @@ title="Print to PDF"
 <h1>GDS to Meep<a class="headerlink" href="#gds-to-meep" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://github.com/gdsfactory/gdsfactory/tree/main/gdsfactory/simulation/gmeep">Gmeep Github</a></p>
 <p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
-<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the component_from_gds notebook), and easily turn it into a Meep geometry. The two most general functions are <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within gmeep.get_simulation.py). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
+<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
 <ul class="simple">
 <li><p>Description of what the functions do (more about how gds works and maybe give a little bit of detail about how the functions are coded)</p></li>
 <li><p>what kwargs they accept</p></li>
@@ -358,28 +358,32 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples for the functions in get_simulation</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples with a 2x2 MMI for the functions in get_simulation</span>
 
 <span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">tidy3d</span>
-<span class="c1"># Import the functions</span>
-<span class="c1"># They are both in gmeep.get_simulation.py</span>
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep.get_simulation</span> <span class="kn">import</span> <span class="n">get_simulation</span><span class="p">,</span> <span class="n">get_meep_geometry_from_component</span>
 
+<span class="c1"># Load in the 2x2 MMI from GDSFactory and show layout</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi2x2</span><span class="p">()</span>
 <span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="c1"># get_meep_geometry_from_component implementation example</span>
 <span class="n">get_meep_geometry_from_component</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
 <span class="c1"># get_simulation implementation example</span>
 <span class="n">sim</span> <span class="o">=</span> <span class="n">get_simulation</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
     <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="p">)</span>
-<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">tpml</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">port_source_offset</span><span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">port_monitor_offset</span><span class="o">=</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span>
+    <span class="n">distance_source_to_monitors</span><span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">]</span>
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
-<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+<span class="c1"># sim[&#39;sim&#39;].run(until=200)</span>
 
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="kn">import</span> <span class="n">write_sparameters_meep</span>
 </pre></div>
@@ -388,31 +392,56 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <img alt="../_images/gds_to_meep_1_0.png" src="../_images/gds_to_meep_1_0.png" />
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">22</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
-<span class="ne">---&gt; </span><span class="mi">22</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="kn">import</span> <span class="n">write_sparameters_meep</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">37</span><span class="p">],</span> <span class="n">line</span> <span class="mi">16</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="c1"># get_simulation implementation example</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">get_simulation</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">clad_material</span><span class="o">=</span> <span class="n">SiO2</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">tpml</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">port_source_offset</span><span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="n">port_monitor_offset</span><span class="o">=</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">distance_source_to_monitors</span><span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
 
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/meep/simulation.py:1299,</span> in <span class="ni">Simulation.__init__</span><span class="nt">(self, cell_size, resolution, geometry, sources, eps_averaging, dimensions, boundary_layers, symmetries, force_complex_fields, default_material, m, k_point, kz_2d, extra_materials, material_function, epsilon_func, epsilon_input_file, progress_interval, subpixel_tol, subpixel_maxeval, loop_tile_base_db, loop_tile_base_eh, ensure_periodicity, num_chunks, Courant, accurate_fields_near_cylorigin, filename_prefix, output_volume, output_single_precision, geometry_center, force_all_components, split_chunks_evenly, chunk_layout, collect_stats)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1032</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1033</span>     <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1034</span>     <span class="n">cell_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Vector3Type</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/get_simulation.py:255,</span> in <span class="ni">get_simulation</span><span class="nt">(component, resolution, extend_ports_length, layer_stack, zmargin_top, zmargin_bot, tpml, clad_material, is_3d, wavelength_start, wavelength_stop, wavelength_points, dfcen, port_source_name, port_margin, distance_source_to_monitors, port_source_offset, port_monitor_offset, dispersive, material_name_to_meep, **settings)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span>         <span class="sa">f</span><span class="s2">&quot;Port source </span><span class="si">{</span><span class="n">port_source_name</span><span class="si">!r}</span><span class="s2"> orientation </span><span class="si">{</span><span class="n">port</span><span class="o">.</span><span class="n">orientation</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">234</span>         <span class="s2">&quot;not 0, 90, 180, 270 degrees&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">237</span> <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">238</span>     <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">239</span>         <span class="n">src</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">frequency_width</span><span class="p">),</span>
    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1067</span>     <span class="n">collect_stats</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1068</span> <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1069</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1070</span><span class="sd">     All `Simulation` attributes are described in further detail below. In brackets</span>
-<span class="g g-Whitespace">   </span><span class="mi">1071</span><span class="sd">     after each variable is the type of value that it should hold. The classes, complex</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1296</span><span class="sd">       increase the performance of [parallel simulations](Parallel_Meep.md).</span>
-<span class="g g-Whitespace">   </span><span class="mi">1297</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1299</span>     <span class="bp">self</span><span class="o">.</span><span class="n">cell_size</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">cell_size</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1300</span>     <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="k">if</span> <span class="n">geometry</span> <span class="k">else</span> <span class="p">[]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1301</span>     <span class="bp">self</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">sources</span> <span class="k">if</span> <span class="n">sources</span> <span class="k">else</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span> <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span>     <span class="n">cell_size</span><span class="o">=</span><span class="n">cell_size</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">252</span>     <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">tpml</span><span class="p">)],</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span>     <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">254</span>     <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">255</span>     <span class="n">default_material</span><span class="o">=</span><span class="n">get_material</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>         <span class="n">name</span><span class="o">=</span><span class="n">clad_material</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="n">material_name_to_meep</span><span class="o">=</span><span class="n">material_name_to_meep</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>         <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>     <span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>     <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span>     <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span> <span class="c1"># Add port monitors dict</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span> <span class="n">monitors</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="ne">TypeError</span>: Vector3.__init__() takes from 1 to 4 positional arguments but 8 were given
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/get_material.py:41,</span> in <span class="ni">get_material</span><span class="nt">(name, wavelength, dispersive, material_name_to_meep)</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="n">material_name_to_meep</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">material_name_to_meep_new</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span> <span class="n">materials</span> <span class="o">=</span> <span class="p">[</span><span class="n">material</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">material</span> <span class="ow">in</span> <span class="n">MATERIALS</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">41</span> <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="k">if</span> <span class="n">dispersive</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">material_name_to_meep</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+<span class="ne">AttributeError</span>: &#39;Medium&#39; object has no attribute &#39;lower&#39;
 </pre></div>
 </div>
 </div>
