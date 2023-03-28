@@ -352,8 +352,6 @@ title="Print to PDF"
 <p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
 <p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
 <ul class="simple">
-<li><p>Description of what the functions do (more about how gds works and maybe give a little bit of detail about how the functions are coded)</p></li>
-<li><p>what kwargs they accept</p></li>
 <li><p>pitfalls to avoid</p></li>
 </ul>
 <div class="cell docutils container">
@@ -448,24 +446,232 @@ title="Print to PDF"
 </div>
 <section id="finding-s-parameters-through-gmeep">
 <h2>Finding S-parameters through gmeep<a class="headerlink" href="#finding-s-parameters-through-gmeep" title="Permalink to this headline">#</a></h2>
-<p>There are several functions in GDSFactory that allow you to find the S-parameters (scattering parameters) of a given component. S-parameters are useful as they tell you how much light is coming in and out of each of the component’s port. The most general function for this purpose in Gmeep is <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code>. To use this function, you specify a GDSFactory component, the frequencies you want to test it at, if you would like the simulation to be in 3D, and the margins the simulation needs to take into account. This is not a comprehensive list and is only intended to give a general idea of how the function is used.</p>
-<p>Another useful kwarg is “run”. By setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the function plots the simulation geometry instead of running it. This allows you to make sure the geometry is correct before you waste time simulating it. This is especially important when running the simulation in 3D, as sometimes you may accidentally only have a 2D region, so trying to simulate in 3D with lead to errors.</p>
+<p>In addition to creating general simulations in Meep, there are several functions in GDSFactory that allow you to find the S-parameters (scattering parameters) of a given component. S-parameters are useful as they tell you how much light is coming in and out of each of the component’s port. The most general function for this purpose in Gmeep is <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code>.</p>
+<p>To use this function, you specify a GDSFactory component, the frequencies you want to test it at, if you would like the simulation to be in 3D, and the margins the simulation needs to take into account. Another useful kwarg for this function is “run”. By setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the function plots the simulation geometry instead of running it. So, you can check that the geometry is correct before you waste time simulating it.This is especially important when running the simulation in 3D, as sometimes your geometry may be converted incorrectly from 2D.This is not a comprehensive list of the arguments and is only intended to give a general idea of how the function is used.</p>
 <p>The function returns a dictionary of s-parameters. The keys take the form of <code class="docutils literal notranslate"><span class="pre">&quot;o1&#64;0,o2&#64;0&quot;</span></code>, where the first part of the key refers to what port the light is coming from and the second refers to where it is going. For however many ports you have in your component, there will be a key corresponding to the s-parameter from that port to every other port.</p>
 <p>Since the relationship between some ports can be the same (i.e. the component may be symmetric), port symmetries can be specified as a keyword argument (kwarg) (<code class="docutils literal notranslate"><span class="pre">port_symmetries</span></code>). This argument takes a dictionary where you specify one s-parameter as the key, and assign as its values the other s-parameters that correspond to it. For example, if you had a 1x2 splitter, where the 2 output ports were symmetric and labeled ports 2 and 3, then you could assign:</p>
 <p><code class="docutils literal notranslate"><span class="pre">port_symmetries</span> <span class="pre">=</span> <span class="pre">{&quot;o2&#64;0,o1&#64;0&quot;:</span> <span class="pre">[&quot;o3&#64;0,o1&#64;0&quot;]}</span></code></p>
 <p>so that the s-parameter for port 2 to 1 will be computed, but the one for port 3 to 1 will not be and will be written with the s-parameter for port 2 to 1. Thus, you save on computation time.</p>
 <p>In addition to this general function, Gmeep also has two functions that can be used to write the s-parameters using parallel processing. These are <code class="docutils literal notranslate"><span class="pre">write_sparamters_meep_mpi</span></code> and <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep_batch</span></code>. <code class="docutils literal notranslate"><span class="pre">write_sparamters_meep_mpi</span></code> has you specify how many cores you want to use as a kwarg. <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep_batch</span></code> takes it a step further and runs multiple simulations in parallel, instead of just one. So, you must specify the number of cores per run in addition to the total number of cores to use.</p>
-<p><code class="docutils literal notranslate"><span class="pre">write_sparameters_grating</span></code> is a more specific instance that can be used to find the s-parameters for a grating coupler with an attached fiber. To plot the set up of this, you can pass in the argument <code class="docutils literal notranslate"><span class="pre">plot=True</span></code>. There is also the option of writing the s-parameters for a grating coupler in parallel or in batches, with <code class="docutils literal notranslate"><span class="pre">write_sparameters_grating_mpi</span></code> and <code class="docutils literal notranslate"><span class="pre">write_sparameters_grating_batch</span></code>. Like the general s-parameter functions above, more kwargs are necessary to define them.</p>
+<p><code class="docutils literal notranslate"><span class="pre">write_sparameters_grating</span></code> is a more specific instance that can be used to find the s-parameters for a grating coupler with an attached fiber. To plot the set up of this, you can pass in the argument <code class="docutils literal notranslate"><span class="pre">plot=True</span></code>. There is also the option of writing the s-parameters for a grating coupler in parallel or in batches, with <code class="docutils literal notranslate"><span class="pre">write_sparameters_grating_mpi</span></code> and <code class="docutils literal notranslate"><span class="pre">write_sparameters_grating_batch</span></code>. Like the general s-parameter functions above, more kwargs are necessary to adequately define them.</p>
 </section>
 <section id="adjoint-solver-in-gdsfactory">
 <h2>Adjoint solver in GDSFactory<a class="headerlink" href="#adjoint-solver-in-gdsfactory" title="Permalink to this headline">#</a></h2>
-<p>The documentation on this in gdsfactory is slightly better and they have some example code that looks like it functions</p>
-<p>However, it is still rather confined in GDSFactory, the functions there take a bit of finessing in order to have the same flexibility. Two functions in meep_adjoint_optimization.py in the GMeep library are used to create an <code class="docutils literal notranslate"><span class="pre">OptimizationProblem</span></code> object and then used to run the optimization. They are <code class="docutils literal notranslate"><span class="pre">get_meep_adjoint_optimizer</span></code> and <code class="docutils literal notranslate"><span class="pre">run_meep_adjoint_optimizer</span></code>, respectively.</p>
-<p><code class="docutils literal notranslate"><span class="pre">get_meep_adjoint_optimizer</span></code> takes in a gdsfactory component along with a host of other parameters necessary to set up the optimization. This includes the design region (which usually will overlay some part of the given component), the objective function specifying what you are actually optimizing for, and the design variables that you are initializing the design region to.</p>
-<p>After calling this function, <code class="docutils literal notranslate"><span class="pre">run_meep_adjoint_optimizer</span></code> can be called to run the adjoint optimization with Meep. This function is where you specify, among other things, the bounds of optimization and what algorithm you are using for optimization.</p>
-<ul class="simple">
-<li><p><strong>EXAMPLE</strong></p></li>
-</ul>
+<p>A powerful feature of Meep’s is the adjoint solver, which can be used to optimize the topology of components. Gmeep contains a function that takes in a GDSFactory component and returns a Meep optimization problem, which can then be run with another Gmeep function.</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_meep_adjoint_optimizer</span></code> is the first of these functions and it is the one that takes in a gdsfactory component. You must also specify the design region (which usually will overlay some part of the given component), the objective function specifying what you are actually optimizing for, and the design variables that you are initializing the design region to. An example is provided below showing more of the set-up.</p>
+<p>After calling this function, <code class="docutils literal notranslate"><span class="pre">run_meep_adjoint_optimizer</span></code> is called to run the optimization with Meep. This function is where you specify, among other things, the bounds of optimization and what algorithm you are using for optimization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="kn">import</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="k">as</span> <span class="nn">gm</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">meep.adjoint</span> <span class="k">as</span> <span class="nn">mpa</span>
+<span class="kn">import</span> <span class="nn">autograd.numpy</span> <span class="k">as</span> <span class="nn">npa</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span>  <span class="n">tensor_jacobian_product</span>
+<span class="kn">from</span> <span class="nn">meep.adjoint</span> <span class="kn">import</span> <span class="n">get_conic_radius_from_eta_e</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
+<span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">bend_circular</span><span class="p">()</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">extend_ports</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">design_region_width</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">design_region_height</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">eta_e</span> <span class="o">=</span> <span class="mf">0.55</span>
+<span class="n">minimum_length</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">filter_radius</span> <span class="o">=</span> <span class="n">get_conic_radius_from_eta_e</span><span class="p">(</span><span class="n">minimum_length</span><span class="p">,</span> <span class="n">eta_e</span><span class="p">)</span>
+<span class="n">eta_i</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">eta_d</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">eta_e</span>
+
+<span class="n">resolution</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">design_region_resolution</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">resolution</span><span class="p">)</span>
+
+<span class="n">Nx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">design_region_resolution</span> <span class="o">*</span> <span class="n">design_region_width</span><span class="p">)</span>
+<span class="n">Ny</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">design_region_resolution</span> <span class="o">*</span> <span class="n">design_region_height</span><span class="p">)</span>
+
+<span class="n">pml_size</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">waveguide_length</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">waveguide_width</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">waveguide_length</span> <span class="o">+</span> <span class="n">design_region_width</span>
+<span class="n">Sy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="n">design_region_height</span> <span class="o">+</span> <span class="mf">0.5</span>
+<span class="n">cell_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">Sx</span><span class="p">,</span> <span class="n">Sy</span><span class="p">)</span>
+
+<span class="c1"># define the design region</span>
+<span class="n">design_variables</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">MaterialGrid</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">),</span> <span class="n">SiO2</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="n">grid_type</span><span class="o">=</span><span class="s2">&quot;U_MEAN&quot;</span><span class="p">)</span>
+<span class="n">design_region</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">DesignRegion</span><span class="p">(</span>
+    <span class="n">design_variables</span><span class="p">,</span>
+    <span class="n">volume</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">design_region_width</span><span class="p">,</span> <span class="n">design_region_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">mapping</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+    <span class="c1"># filter</span>
+    <span class="n">filtered_field</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">conic_filter</span><span class="p">(</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">filter_radius</span><span class="p">,</span>
+        <span class="n">design_region_width</span><span class="p">,</span>
+        <span class="n">design_region_height</span><span class="p">,</span>
+        <span class="n">design_region_resolution</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># projection</span>
+    <span class="n">projected_field</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">tanh_projection</span><span class="p">(</span><span class="n">filtered_field</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">eta</span><span class="p">)</span>
+
+    <span class="n">projected_field</span> <span class="o">=</span> <span class="p">(</span><span class="n">npa</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">projected_field</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">projected_field</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="c1"># interpolate to actual materials</span>
+    <span class="k">return</span> <span class="n">projected_field</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">240</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span>
+        <span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">eta_i</span><span class="p">,</span>
+    <span class="mi">128</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">):</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="n">npa</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">top</span> <span class="o">/</span> <span class="n">source</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">npa</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bottom</span> <span class="o">/</span> <span class="n">source</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">npa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+
+<span class="c1"># Use function to get optimization problem</span>
+<span class="n">opt</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">get_meep_adjoint_optimizer</span><span class="p">(</span>
+    <span class="n">c</span><span class="p">,</span>
+    <span class="n">J</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">design_region</span><span class="p">],</span>
+    <span class="p">[</span><span class="n">design_variables</span><span class="p">],</span>
+    <span class="n">x0</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+    <span class="n">cell_size</span><span class="o">=</span><span class="p">(</span>
+        <span class="n">Sx</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">design_region_width</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span><span class="p">,</span>
+        <span class="n">design_region_height</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">tpml</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">extend_ports_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">port_margin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">port_source_offset</span><span class="o">=-</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">port_monitor_offset</span><span class="o">=-</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">wavelength_points</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">evaluation_history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cur_iter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Objective function</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current iteration: </span><span class="si">{</span><span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">f0</span><span class="p">,</span> <span class="n">dJ_du</span> <span class="o">=</span> <span class="n">opt</span><span class="p">([</span><span class="n">mapping</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">eta_i</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">opt</span><span class="o">.</span><span class="n">plot2D</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">plot_sources_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">plot_monitors_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">plot_boundaries_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">gradient</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">gradient</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">tensor_jacobian_product</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="mi">0</span><span class="p">)(</span>
+            <span class="n">v</span><span class="p">,</span> <span class="n">eta_i</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dJ_du</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">evaluation_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">f0</span><span class="p">)))</span>
+
+    <span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">f0</span><span class="p">)</span>
+
+<span class="c1"># Define spatial arrays used to generate bit masks</span>
+<span class="n">x_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">Nx</span><span class="p">)</span>
+<span class="n">y_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Ny</span><span class="p">)</span>
+<span class="n">X_g</span><span class="p">,</span> <span class="n">Y_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_g</span><span class="p">,</span> <span class="n">y_g</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">&quot;ij&quot;</span><span class="p">)</span>
+
+<span class="c1"># Define the core mask</span>
+<span class="n">left_wg_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">==</span> <span class="o">-</span><span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Y_g</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">waveguide_width</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">top_wg_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">waveguide_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">&gt;=</span> <span class="n">waveguide_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Y_g</span> <span class="o">==</span> <span class="n">design_region_height</span><span class="p">)</span>
+
+<span class="n">Si_mask</span> <span class="o">=</span> <span class="n">left_wg_mask</span> <span class="o">|</span> <span class="n">top_wg_mask</span>
+
+<span class="c1"># Define the cladding mask</span>
+<span class="n">border_mask</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">X_g</span> <span class="o">==</span> <span class="o">-</span><span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">==</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">Y_g</span> <span class="o">==</span> <span class="o">-</span><span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="n">Y_g</span> <span class="o">==</span> <span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">SiO2_mask</span> <span class="o">=</span> <span class="n">border_mask</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">SiO2_mask</span><span class="p">[</span><span class="n">Si_mask</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span>  <span class="c1"># number of parameters</span>
+
+<span class="c1"># Initial guess</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,))</span> <span class="o">*</span> <span class="mf">0.5</span>
+<span class="n">x</span><span class="p">[</span><span class="n">Si_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># set the edges of waveguides to silicon</span>
+<span class="n">x</span><span class="p">[</span><span class="n">SiO2_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># set the other edges to SiO2</span>
+
+<span class="c1"># lower and upper bounds</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">,))</span>
+<span class="n">lb</span><span class="p">[</span><span class="n">Si_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">,))</span>
+<span class="n">ub</span><span class="p">[</span><span class="n">SiO2_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">cur_beta</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">beta_scale</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">num_betas</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">update_factor</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">run_optimization</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="k">if</span> <span class="n">run_optimization</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">iters</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_betas</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current beta: &quot;</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">iters</span> <span class="o">!=</span> <span class="n">num_betas</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
+                <span class="n">n</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+                <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+                <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">optimized_component</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
+                <span class="n">n</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+                <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+                <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
+                <span class="n">get_optimized_component</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">opt</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span>
+                <span class="n">threshold_offset_from_max</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">cur_beta</span> <span class="o">=</span> <span class="n">cur_beta</span> <span class="o">*</span> <span class="n">beta_scale</span>
+
+    <span class="n">optimized_component</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="n">final_figure_of_merit</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span>
+        <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">evaluation_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/gds_to_meep_4_0.png" src="../_images/gds_to_meep_4_0.png" />
+</div>
+</div>
 </section>
 </section>
 
