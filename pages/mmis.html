@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/mmis.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -139,6 +141,11 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="what_is_a_photonic_device.html">
+   What is a Photonic Device?
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="directional_couplers.html">
    Directional Couplers
@@ -304,6 +311,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imaging-simulation">
+   Imaging Simulation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mmi-applications">
    MMI Applications
   </a>
@@ -338,6 +350,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#imaging-simulation">
+   Imaging Simulation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mmi-applications">
    MMI Applications
   </a>
@@ -359,23 +376,28 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="multimode-interferometers-mmis">
 <h1>Multimode Interferometers (MMIs)<a class="headerlink" href="#multimode-interferometers-mmis" title="Permalink to this headline">#</a></h1>
-<p>MMIs are devices that are used to combine and split light in a predictable way. They are designed not only to output a certain fraction of the input power, but are also designed so that the outputs have a certain phase difference. The basic design of an MMI includes the multimode region (a.k.a the body of the MMI) which is simple a multimode waveguide. This means, generally, that it will support more than three modes. Tapers that gradually widen the input and output waveguides as they go in and out of this multimode region are also common. MMIs are denoted by the number of input and output ports they have, with an NxM MMI having N input ports and M output ports.</p>
+<p>MMIs are devices that are used to combine and split light in a predictable way. They are designed not only to output a certain fraction of the input power, but are also designed so that the outputs have a certain phase difference.</p>
+<p>The basic design of an MMI includes the multimode region (a.k.a the body of the MMI) which is a multimode waveguide. To support more than three modes and be considered “multimode”, the waveguide is wider than a single mode waveguide. Tapers to gradually widen the input and output waveguides as they go in and out of this multimode region are also common. MMIs are denoted by the number of input and output ports they have, with an NxM MMI having N input ports and M output ports.</p>
 <div style="text-align: center;">
 <p><img alt="1x2mmi" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/mmi1x2.png?raw=true" />
 <img alt="2x2mmi" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/mmi2x2.png?raw=true" /></p>
 </div>
 <div style="text-align: center;">
-<p>A 1x2 and 2x2 MMI</p>
+<p>A 1x2 and 2x2 MMI from GDSFactory</p>
 </div><section id="self-imaging">
 <h2>Self-Imaging<a class="headerlink" href="#self-imaging" title="Permalink to this headline">#</a></h2>
-<p>An “image” is a place where the electric fields are replicas of the electric field of the input. They occur periodically in MMIs at distances determined by the equation:</p>
-<p>** INSERT EQUATION **</p>
+<p>The function of an MMI is based of of self-imaging. An “image” is a place where the electric fields are replicas of the electric field of the input. They occur periodically in MMIs at a distance called the beat length, determined by the equation:</p>
+<div class="math notranslate nohighlight">
+\[L_{\pi} = \pi / (\beta _0 - \beta _1)\]</div>
 <p>The images are created from light reflecting off of the walls of the multimode region and interfering constructively or destructively with other reflections. This self-imaging is how MMIs are able to combine and split light. For example, if you wanted a 2x2 MMI that splits light from one input port into another, you would find the length at which there are two images present in the MMI, and put the output ports there.</p>
 <p>Self-imaging can work in this “forwards” way to split light and it can also work “backwards” to combine light. In other words, if you wanted to combine light with an MMI instead of split it, you could excite waves going into the output ports, and get a combined image of them at an input port based on the same physical mechanism.</p>
+</section>
+<section id="imaging-simulation">
+<h2>Imaging Simulation<a class="headerlink" href="#imaging-simulation" title="Permalink to this headline">#</a></h2>
+<p>In the Meep script below, change the length of the MMI to see how changing the length of the MMI affects the power that goes into each output port</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some sort of MMI simulation so can see self-imaging?</span>
-<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
 <span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 <span class="kn">import</span> <span class="nn">tidy3d</span>
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="kn">import</span> <span class="n">get_simulation</span>
@@ -392,7 +414,8 @@ title="Print to PDF"
 <span class="n">resolution</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">dpml</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">pad</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="c1">## CHANGE THE MMI LENGTH SLIGHTLY TO SEE HOW THE POWER SPLITTING RATIO ##</span>
+
+<span class="c1">## CHANGE THE MMI LENGTH SLIGHTLY TO SEE HOW THE POWER SPLITTING RATIO CHANGES ##</span>
 <span class="n">length_mmi</span> <span class="o">=</span> <span class="mf">5.5</span>
 <span class="n">mmi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi2x2</span><span class="p">(</span><span class="n">length_mmi</span><span class="o">=</span><span class="n">length_mmi</span><span class="p">)</span>
 
@@ -428,8 +451,8 @@ title="Print to PDF"
     <span class="n">port_monitor_offset</span><span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span>
     <span class="n">distance_source_to_monitors</span><span class="o">=</span> <span class="mf">0.3</span><span class="p">,)</span>
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sources&#39;</span><span class="p">]</span>
-<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">Sy</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">Sx</span> <span class="o">+</span> <span class="mi">4</span>
 <span class="c1"># Show simulation set-up</span>
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
 </pre></div>
@@ -439,7 +462,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/mmis_2_1.png" src="../_images/mmis_2_1.png" />
+<img alt="../_images/mmis_3_1.png" src="../_images/mmis_3_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -481,6 +504,35 @@ title="Print to PDF"
 <span class="c1"># Clean up workspace by deleting all generated images</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span> 
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1">## HAVE GRAPH TO ACTUALLY PLOT THE POWER</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "c32e5b326e6942c39ac12c5fcdbadc27", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
+<span class="n">power1</span><span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;meep.simulation.DftFlux object at 0x7f70efb39710&gt;
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">27</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">power1</span><span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="ne">TypeError</span>: unsupported operand type(s) for ** or pow(): &#39;DftFlux&#39; and &#39;int&#39;
 </pre></div>
 </div>
 </div>
@@ -497,6 +549,7 @@ title="Print to PDF"
 <section id="sources">
 <h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>
 <p><a class="reference external" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=372474">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=372474</a></p>
+<p><a class="reference external" href="https://opg.optica.org/ao/fulltext.cfm?uri=ao-33-18-3905&amp;id=41580">https://opg.optica.org/ao/fulltext.cfm?uri=ao-33-18-3905&amp;id=41580</a> (where got MMI length equation from)</p>
 <p><a class="reference external" href="https://opg.optica.org/view_article.cfm?pdfKey=21e37623-43e8-4d94-b871476935a89af0_41580">https://opg.optica.org/view_article.cfm?pdfKey=21e37623-43e8-4d94-b871476935a89af0_41580</a></p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1405.6025.pdf">https://arxiv.org/pdf/1405.6025.pdf</a></p>
 </section>

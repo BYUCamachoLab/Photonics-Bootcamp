@@ -139,6 +139,11 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="what_is_a_photonic_device.html">
+   What is a Photonic Device?
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="directional_couplers.html">
    Directional Couplers
   </a>
@@ -471,15 +476,17 @@ title="Print to PDF"
 <span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span>  <span class="n">tensor_jacobian_product</span>
 <span class="kn">from</span> <span class="nn">meep.adjoint</span> <span class="kn">import</span> <span class="n">get_conic_radius_from_eta_e</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">tidy3d</span>
 
 <span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
 <span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
 
-<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">bend_circular</span><span class="p">()</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">extend_ports</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">bend_circular</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">move</span><span class="p">([</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span><span class="o">-</span><span class="mf">2.5</span><span class="p">])</span>
 
-<span class="n">design_region_width</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">design_region_height</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">design_region_width</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">design_region_height</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">+</span> <span class="mi">1</span>
 
 <span class="n">eta_e</span> <span class="o">=</span> <span class="mf">0.55</span>
 <span class="n">minimum_length</span> <span class="o">=</span> <span class="mf">0.1</span>
@@ -494,10 +501,10 @@ title="Print to PDF"
 <span class="n">Ny</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">design_region_resolution</span> <span class="o">*</span> <span class="n">design_region_height</span><span class="p">)</span>
 
 <span class="n">pml_size</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">waveguide_length</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">extend_length</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">waveguide_width</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">waveguide_length</span> <span class="o">+</span> <span class="n">design_region_width</span>
-<span class="n">Sy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="n">design_region_height</span> <span class="o">+</span> <span class="mf">0.5</span>
+<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="n">design_region_width</span> <span class="o">+</span> <span class="n">extend_length</span>
+<span class="n">Sy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="n">design_region_height</span> <span class="o">+</span> <span class="n">extend_length</span>
 <span class="n">cell_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">Sx</span><span class="p">,</span> <span class="n">Sy</span><span class="p">)</span>
 
 <span class="c1"># define the design region</span>
@@ -505,7 +512,7 @@ title="Print to PDF"
 <span class="n">design_region</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">DesignRegion</span><span class="p">(</span>
     <span class="n">design_variables</span><span class="p">,</span>
     <span class="n">volume</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span>
-        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span>
         <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">design_region_width</span><span class="p">,</span> <span class="n">design_region_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
     <span class="p">),</span>
 <span class="p">)</span>
@@ -528,19 +535,18 @@ title="Print to PDF"
     <span class="c1"># interpolate to actual materials</span>
     <span class="k">return</span> <span class="n">projected_field</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
 
-
+<span class="c1"># Initial guess</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span>  <span class="c1"># number of parameters</span>
 <span class="n">seed</span> <span class="o">=</span> <span class="mi">240</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
 <span class="n">x0</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">(</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span>
-        <span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">,</span>
-    <span class="p">),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
     <span class="n">eta_i</span><span class="p">,</span>
     <span class="mi">128</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="p">):</span>
-    <span class="n">power</span> <span class="o">=</span> <span class="n">npa</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">top</span> <span class="o">/</span> <span class="n">source</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">npa</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bottom</span> <span class="o">/</span> <span class="n">source</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="n">npa</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">output</span> <span class="o">/</span> <span class="n">source</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">npa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
 
 <span class="c1"># Use function to get optimization problem</span>
@@ -552,14 +558,14 @@ title="Print to PDF"
     <span class="n">x0</span><span class="p">,</span>
     <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
     <span class="n">cell_size</span><span class="o">=</span><span class="p">(</span>
-        <span class="n">Sx</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">design_region_width</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span><span class="p">,</span>
-        <span class="n">design_region_height</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">Sx</span><span class="p">,</span>
+        <span class="n">Sy</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="n">tpml</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">extend_ports_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">extend_ports_length</span><span class="o">=</span><span class="n">extend_length</span><span class="p">,</span>
     <span class="n">port_margin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">port_source_offset</span><span class="o">=-</span><span class="mf">5.5</span><span class="p">,</span>
-    <span class="n">port_monitor_offset</span><span class="o">=-</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">port_source_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">port_monitor_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">wavelength_points</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -615,9 +621,7 @@ title="Print to PDF"
 <span class="n">SiO2_mask</span> <span class="o">=</span> <span class="n">border_mask</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">SiO2_mask</span><span class="p">[</span><span class="n">Si_mask</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="n">n</span> <span class="o">=</span> <span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span>  <span class="c1"># number of parameters</span>
-
-<span class="c1"># Initial guess</span>
+<span class="c1"># Set masks for edges</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,))</span> <span class="o">*</span> <span class="mf">0.5</span>
 <span class="n">x</span><span class="p">[</span><span class="n">Si_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># set the edges of waveguides to silicon</span>
 <span class="n">x</span><span class="p">[</span><span class="n">SiO2_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># set the other edges to SiO2</span>
@@ -632,7 +636,7 @@ title="Print to PDF"
 <span class="n">beta_scale</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">num_betas</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="n">update_factor</span> <span class="o">=</span> <span class="mi">12</span>
-<span class="n">run_optimization</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">run_optimization</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">if</span> <span class="n">run_optimization</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">iters</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_betas</span><span class="p">):</span>
@@ -669,7 +673,80 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/gds_to_meep_4_0.png" src="../_images/gds_to_meep_4_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>current beta:  4
+Current iteration: 1
+Starting forward run...
+Starting adjoint run...
+Calculating gradient...
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">177</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current beta: &quot;</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span> <span class="k">if</span> <span class="n">iters</span> <span class="o">!=</span> <span class="n">num_betas</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">177</span>     <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">n</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>         <span class="n">x</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>         <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>         <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="n">optimized_component</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">n</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">threshold_offset_from_max</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/meep_adjoint_optimization.py:229,</span> in <span class="ni">run_meep_adjoint_optimizer</span><span class="nt">(number_of_params, cost_function, update_variable, maximize_cost_function, algorithm, lower_bound, upper_bound, maxeval, get_optimized_component, opt, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="n">solver</span><span class="o">.</span><span class="n">set_min_objective</span><span class="p">(</span><span class="n">cost_function</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="n">solver</span><span class="o">.</span><span class="n">set_maxeval</span><span class="p">(</span><span class="n">maxeval</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">229</span> <span class="n">update_variable</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">update_variable</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">231</span> <span class="k">if</span> <span class="n">get_optimized_component</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="n">fcen</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fcen&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">1.55</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/nlopt.py:328,</span> in <span class="ni">opt.optimize</span><span class="nt">(self, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">328</span>     <span class="k">return</span> <span class="n">_nlopt</span><span class="o">.</span><span class="n">opt_optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<span class="nn">Cell In[2], line 179,</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(a, g)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current beta: &quot;</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span> <span class="k">if</span> <span class="n">iters</span> <span class="o">!=</span> <span class="n">num_betas</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">n</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">179</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>         <span class="n">x</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>         <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>         <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="n">optimized_component</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">n</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">threshold_offset_from_max</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="p">)</span>
+
+<span class="nn">Cell In[2], line 112,</span> in <span class="ni">f</span><span class="nt">(v, gradient, cur_beta)</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current iteration: </span><span class="si">{</span><span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span> <span class="n">f0</span><span class="p">,</span> <span class="n">dJ_du</span> <span class="o">=</span> <span class="n">opt</span><span class="p">([</span><span class="n">mapping</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">eta_i</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)])</span>
+<span class="ne">--&gt; </span><span class="mi">112</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="n">opt</span><span class="o">.</span><span class="n">plot2D</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="n">plot_boundaries_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">120</span> <span class="p">)</span>
+
+<span class="ne">TypeError</span>: &#39;module&#39; object is not callable
+</pre></div>
+</div>
+<img alt="../_images/gds_to_meep_4_2.png" src="../_images/gds_to_meep_4_2.png" />
 </div>
 </div>
 </section>
