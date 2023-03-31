@@ -440,7 +440,7 @@ title="Print to PDF"
 <p>An “odd”, or antisymmetric, supermode occurs when light in the two waveguides are <span class="math notranslate nohighlight">\(180^\circ\)</span> out of phase i.e. perfectly out of phase. Similarly, an “even”, or symmetric, supermode occurs when the two waveguides are in phase.</p>
 <section id="visualizing-supermodes">
 <h3>Visualizing Supermodes<a class="headerlink" href="#visualizing-supermodes" title="Permalink to this headline">#</a></h3>
-<p>GDSFactory has a function that enables users to find the supermodes in a directional coupler, given the gap and permittivity of the waveguide core and cladding. Use the script below to visualize supermodes and their refractive indices. Change the gap value to see how the refractive indices of the even and odd mode change relative to each other as it increases or decreases. Also, notive how the electric field for an even mode is most intense between the waveguides, while for an odd field, the field is most intense inside of the waveguides.</p>
+<p>GDSFactory has a function that enables users to find the supermodes in a directional coupler, given the gap and permittivity of the waveguide core and cladding. Use the script below to visualize supermodes and their refractive indices. Change the gap value to see how the refractive indices of the even and odd mode change relative to each other as it increases or decreases. Also, notice how the electric field for an even mode is most intense between the waveguides, while for an odd field, the field is most intense inside of the waveguides.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
@@ -720,29 +720,6 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     block, center = (0,0,0)
-          size (32,4.07,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
-     block, center = (0,0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-     block, center = (0,-0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/directional_couplers_9_3.png" src="../_images/directional_couplers_9_3.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -785,51 +762,6 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
-Initializing structure...
-time for choose_chunkdivision = 0.00039506 s
-Working in 2D dimensions.
-Computational cell is 32 x 4.05 x 0 with resolution 20
-     block, center = (0,0,0)
-          size (32,4.07,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
-     block, center = (0,0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-     block, center = (0,-0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-time for set_epsilon = 0.149517 s
------------
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MPB solved for frequency_1(1,0,0) = 0.313423 after 16 iters
-MPB solved for frequency_1(2.07931,0,0) = 0.636587 after 10 iters
-MPB solved for frequency_1(2.1086,0,0) = 0.645157 after 7 iters
-MPB solved for frequency_1(2.10862,0,0) = 0.645161 after 2 iters
-creating output file &quot;./eps-000000.00.h5&quot;...
-creating output file &quot;./ez.h5&quot;...
-Meep progress: 76.72500000000001/200.0 = 38.4% done in 4.0s, 6.4s to go
-on time step 3077 (time=76.925), 0.00130015 s/step
-Meep progress: 155.425/200.0 = 77.7% done in 8.0s, 2.3s to go
-on time step 6227 (time=155.675), 0.00126987 s/step
-run 0 finished at t = 200.0 (8000 timesteps)
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>h5topng error: invalid slice of HDF5 data
-</pre></div>
-</div>
-</div>
 </div>
 <p><strong>Note on h5utils:</strong>
 Sometimes the colormaps in h5utils are invalid when used with Meep. To circumvent this issue, specify the path to your desired colormap using:</p>
@@ -846,6 +778,8 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <h2>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h2>
 <p>So, when designing a directional coupler, you must select a length and gap distance that will give you your desired fraction of the input power at each output port. Also, given the important role that geometry has in determining the characteristics of a directional coupler (such as the coupling coefficient), they are very susceptible to manufacturing variations. This is something to keep in mind as you build circuits that may have strict specifications.</p>
 <p>Another element to consider is that the principles that make a directional coupler work can also mess with the layout of your chip. Parasitic coupling occurs when two waveguides (that are not part of a directional coupler) are placed too close to each other, leading to power “leaking” from one to the other. Waveguides and components should be placed far enough away so that this does not happen.</p>
+<p><strong>Practice</strong></p>
+<p>How far apart would two silicon <span class="math notranslate nohighlight">\(0.5\mu m\)</span> waveguides have to be in order for the coupling length of <span class="math notranslate nohighlight">\(20 \mu m\)</span>?</p>
 </section>
 <section id="sources">
 <h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>

@@ -353,12 +353,8 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="gds-to-meep">
 <h1>GDS to Meep<a class="headerlink" href="#gds-to-meep" title="Permalink to this headline">#</a></h1>
-<p><a class="reference external" href="https://github.com/gdsfactory/gdsfactory/tree/main/gdsfactory/simulation/gmeep">Gmeep Github</a></p>
 <p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
 <p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
-<ul class="simple">
-<li><p>pitfalls to avoid</p></li>
-</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples with a 2x2 MMI for the functions in get_simulation</span>

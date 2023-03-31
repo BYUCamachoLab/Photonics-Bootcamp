@@ -390,11 +390,11 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[L_{\pi} = \pi / (\beta _0 - \beta _1)\]</div>
 <p>The images are created from light reflecting off of the walls of the multimode region and interfering constructively or destructively with other reflections. This self-imaging is how MMIs are able to combine and split light. For example, if you wanted a 2x2 MMI that splits light from one input port into another, you would find the length at which there are two images present in the MMI, and put the output ports there.</p>
-<p>Self-imaging can work in this “forwards” way to split light and it can also work “backwards” to combine light. In other words, if you wanted to combine light with an MMI instead of split it, you could excite waves going into the output ports, and get a combined image of them at an input port based on the same physical mechanism.</p>
+<p>Self-imaging can work in this “forwards” way to split light and it can also work “backwards” to combine light. In other words, if you wanted to combine light with an MMI instead of split it, you could excite waves going into the output ports, and get a combined image of them at an input port based on the same principle of imaging.</p>
 </section>
 <section id="imaging-simulation">
 <h2>Imaging Simulation<a class="headerlink" href="#imaging-simulation" title="Permalink to this headline">#</a></h2>
-<p>In the Meep script below, change the length of the MMI to see how changing the length of the MMI affects the power that goes into each output port</p>
+<p>In the Meep script below, change the length of the MMI to see how changing the length of the MMI affects the power that goes into each output port.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
@@ -504,8 +504,6 @@ title="Print to PDF"
 <span class="c1"># Clean up workspace by deleting all generated images</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span> 
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-<span class="c1">## HAVE GRAPH TO ACTUALLY PLOT THE POWER</span>
 </pre></div>
 </div>
 </div>
@@ -514,36 +512,13 @@ title="Print to PDF"
 {"model_id": "c32e5b326e6942c39ac12c5fcdbadc27", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
-<span class="n">power1</span><span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">mp</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;meep.simulation.DftFlux object at 0x7f70efb39710&gt;
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">27</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">power1</span><span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;monitors&#39;</span><span class="p">][</span><span class="s1">&#39;o1&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
-
-<span class="ne">TypeError</span>: unsupported operand type(s) for ** or pow(): &#39;DftFlux&#39; and &#39;int&#39;
-</pre></div>
-</div>
-</div>
-</div>
 <p>The resulting GIF shows how power is split evenly between the two output ports based on the imaging within the MMI.</p>
 <div style="text-align: center;">
 <p><img alt="2x2mmigif" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/2x2mmi_ez.gif?raw=true" /></p>
 </div></section>
 <section id="mmi-applications">
 <h2>MMI Applications<a class="headerlink" href="#mmi-applications" title="Permalink to this headline">#</a></h2>
-<p>MMIs have the advantage of being robust, or not very susceptible to manufacturing errors. In fact, at the optimum length for the MMI, the sensitivity is at a minimum. For example, when compared with directional couplers</p>
+<p>MMIs have the advantage of being robust, or not very susceptible to manufacturing errors. In fact, at the optimum length for the MMI, the sensitivity is at a minimum. For example, when compared with directional couplers they</p>
 <p>Mach-Zehnder optical switches, WDM, optical hybrids, polarization-diversity photodetectors.</p>
 </section>
 <section id="sources">
