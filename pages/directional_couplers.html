@@ -336,13 +336,18 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#meep-simulation">
-   Meep Simulation
+  <a class="reference internal nav-link" href="#simulation-to-show-beating">
+   Simulation to Show Beating
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#design-considerations">
    Design Considerations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practice">
+   Practice
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -399,13 +404,18 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#meep-simulation">
-   Meep Simulation
+  <a class="reference internal nav-link" href="#simulation-to-show-beating">
+   Simulation to Show Beating
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#design-considerations">
    Design Considerations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practice">
+   Practice
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -655,8 +665,8 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
 \]</div>
 </section>
 </section>
-<section id="meep-simulation">
-<h2>Meep Simulation<a class="headerlink" href="#meep-simulation" title="Permalink to this headline">#</a></h2>
+<section id="simulation-to-show-beating">
+<h2>Simulation to Show Beating<a class="headerlink" href="#simulation-to-show-beating" title="Permalink to this headline">#</a></h2>
 <p>To further explore how electric field intensity oscillates between two close waveguides, a meep simulation is provided below that creates two long waveguides with a gap of 0.2um, excites a source at the end of one, and shows the electric field intensity over time in the waveguides. Change the gap distance to observe its affect on the cross-over length. You can also change the lengths of the waveguides to better see the beating. The simulation may take a couple of minutes depending on the length of your waveguide. The plot of the simulation setup and the outputted GIF showing the field intensities for a simulation with a gap of <span class="math notranslate nohighlight">\(0.07 \mu m\)</span> is shown below. This gap is much smaller than traditional gaps so that the beating is more easily seen in a Meep simulation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -778,8 +788,10 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <h2>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h2>
 <p>So, when designing a directional coupler, you must select a length and gap distance that will give you your desired fraction of the input power at each output port. Also, given the important role that geometry has in determining the characteristics of a directional coupler (such as the coupling coefficient), they are very susceptible to manufacturing variations. This is something to keep in mind as you build circuits that may have strict specifications.</p>
 <p>Another element to consider is that the principles that make a directional coupler work can also mess with the layout of your chip. Parasitic coupling occurs when two waveguides (that are not part of a directional coupler) are placed too close to each other, leading to power “leaking” from one to the other. Waveguides and components should be placed far enough away so that this does not happen.</p>
-<p><strong>Practice</strong></p>
-<p>How far apart would two silicon <span class="math notranslate nohighlight">\(0.5\mu m\)</span> waveguides have to be in order for the coupling length of <span class="math notranslate nohighlight">\(20 \mu m\)</span>?</p>
+</section>
+<section id="practice">
+<h2>Practice<a class="headerlink" href="#practice" title="Permalink to this headline">#</a></h2>
+<p>How far apart should two silicon <span class="math notranslate nohighlight">\(0.5\mu m\)</span> waveguides be to have a coupling length of <span class="math notranslate nohighlight">\(20 \mu m\)</span>?</p>
 </section>
 <section id="sources">
 <h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>
