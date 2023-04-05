@@ -31,13 +31,13 @@ provide a [download link](https://git-scm.com/download/win) for git on Windows.
 Git is included with XCode Command Line Tools. These can be installed from the
 terminal with the command:
 
-```
+```{code-block} bash
 xcode-select --install
 ```
 
 You can test the installation by running:
 
-```
+```{code-block} bash
 git --version
 ```
 
@@ -50,13 +50,13 @@ If git is not installed on your machine, you can install it through the terminal
 
 Debian-based distributions (e.g. Ubuntu, Debian):
 
-```
+```{code-block} bash
 sudo apt install git-all
 ```
 
 RPM-based distributions (e.g. Fedora, RHEL, CentOS):
 
-```
+```{code-block} bash
 sudo dnf install git-all
 ```
 
