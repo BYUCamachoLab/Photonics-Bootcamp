@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Compact Models" href="compact_models.html" />
-    <link rel="prev" title="Y-Branches" href="y_branch.html" />
+    <link rel="prev" title="Ring Resonators" href="ring_resonators.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -184,6 +184,11 @@ const thebe_selector_output = ".output, .cell_output"
      GDS to Meep
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="meep_to_gds.html">
+     Meep to GDS
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -194,6 +199,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="y_branch.html">
    Y-Branches
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ring_resonators.html">
+   Ring Resonators
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -546,14 +556,10 @@ title="Print to PDF"
         <span class="n">until</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
 <span class="c1"># Generate pngs from the simulation output</span>
-<span class="c1"># The line that worked in my workspace</span>
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:99 -R -Zc /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/RdBu -A /home/ebang4/Github/Photonics-Bootcamp/book/pages/eps-000000.00.h5 -a /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/gray /home/ebang4/Github/Photonics-Bootcamp/book/pages/ez.h5&quot;</span><span class="p">)</span>
-
 <span class="c1"># This line assumes that their colormaps are working and that they are in the same directory as the output files</span>
 <span class="c1"># also that h5py is installed</span>
 <span class="c1"># If you have a problem with h5utils, see note below</span>
-
-<span class="c1"># os.system(&quot;h5topng -t 0:299 -R -Zc RdBu -A eps-000000.00.h5 -a gray ez.h5&quot;)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:299 -R -Zc RdBu -A eps-000000.00.h5 -a gray ez.h5&quot;</span><span class="p">)</span>
 
 <span class="c1"># Create a gif from the pngs</span>
 <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
@@ -622,11 +628,11 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="y_branch.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="ring_resonators.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Y-Branches</p>
+            <p class="prev-next-title">Ring Resonators</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="compact_models.html" title="next page">

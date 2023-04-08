@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
+    <link rel="next" title="Meep to GDS" href="meep_to_gds.html" />
     <link rel="prev" title="Components" href="components.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -182,6 +182,11 @@ const thebe_selector_output = ".output, .cell_output"
      GDS to Meep
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="meep_to_gds.html">
+     Meep to GDS
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -192,6 +197,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="y_branch.html">
    Y-Branches
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ring_resonators.html">
+   Ring Resonators
   </a>
  </li>
  <li class="toctree-l1">
@@ -377,11 +387,6 @@ title="Print to PDF"
    Finding S-parameters through gmeep
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adjoint-solver-in-gdsfactory">
-   Adjoint solver in GDSFactory
-  </a>
- </li>
 </ul>
 
     </nav>
@@ -406,11 +411,6 @@ title="Print to PDF"
    Finding S-parameters through gmeep
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adjoint-solver-in-gdsfactory">
-   Adjoint solver in GDSFactory
-  </a>
- </li>
 </ul>
 
                         </nav>
@@ -424,7 +424,7 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="gds-to-meep">
 <h1>GDS to Meep<a class="headerlink" href="#gds-to-meep" title="Permalink to this headline">#</a></h1>
 <p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
-<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are <code class="docutils literal notranslate"><span class="pre">get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
+<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are :py:func:<code class="docutils literal notranslate"><span class="pre">~gdsfactory.simulation.gmeep.get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples with a 2x2 MMI for the functions in get_simulation</span>
@@ -524,296 +524,6 @@ title="Print to PDF"
 <p>As seen above, some of the port relationships have the same s-parameters. This means that there is some symmetry in the component. Which ports have the same relationships and why? Modify the code to include these port symmetries by passing in a dictionary to the <code class="docutils literal notranslate"><span class="pre">port_symmetries</span></code> kwarg for <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code>. The dictionary should look like:</p>
 <p><code class="docutils literal notranslate"><span class="pre">port_symmetries</span> <span class="pre">=</span> <span class="pre">{</span>&#160;&#160;&#160;&#160; <span class="pre">port</span> <span class="pre">name:</span> <span class="pre">[list</span> <span class="pre">port</span> <span class="pre">names</span> <span class="pre">that</span> <span class="pre">have</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">s-parameters],</span>&#160;&#160;&#160;&#160; <span class="pre">another</span> <span class="pre">port:</span> <span class="pre">[another</span> <span class="pre">list</span> <span class="pre">of</span> <span class="pre">matching</span> <span class="pre">s-parameters]</span> <span class="pre">}</span></code></p>
 </section>
-<section id="adjoint-solver-in-gdsfactory">
-<h2>Adjoint solver in GDSFactory<a class="headerlink" href="#adjoint-solver-in-gdsfactory" title="Permalink to this headline">#</a></h2>
-<p>A powerful feature of Meep is the adjoint solver, which can be used to optimize the topology of components. Gmeep contains a function that takes in a GDSFactory component and returns a Meep optimization problem, which can then be run with another Gmeep function.</p>
-<p><code class="docutils literal notranslate"><span class="pre">get_meep_adjoint_optimizer</span></code> is the first of these functions and it is the one that takes in a gdsfactory component. You must also specify the design region (which usually will overlay some part of the given component), the objective function specifying what you are actually optimizing for, and the design variables that you are initializing the design region to. An example is provided below showing more of the set-up.</p>
-<p>After calling this function, <code class="docutils literal notranslate"><span class="pre">run_meep_adjoint_optimizer</span></code> is called to run the optimization with Meep. This function is where you specify, among other things, the bounds of optimization and what algorithm you are using for optimization.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
-<span class="kn">import</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="k">as</span> <span class="nn">gm</span>
-<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">meep.adjoint</span> <span class="k">as</span> <span class="nn">mpa</span>
-<span class="kn">import</span> <span class="nn">autograd.numpy</span> <span class="k">as</span> <span class="nn">npa</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span>  <span class="n">tensor_jacobian_product</span>
-<span class="kn">from</span> <span class="nn">meep.adjoint</span> <span class="kn">import</span> <span class="n">get_conic_radius_from_eta_e</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">tidy3d</span>
-
-<span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
-<span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
-
-<span class="n">radius</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">bend_circular</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">move</span><span class="p">([</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span><span class="o">-</span><span class="mf">2.5</span><span class="p">])</span>
-
-<span class="n">design_region_width</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="n">design_region_height</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">+</span> <span class="mi">1</span>
-
-<span class="n">eta_e</span> <span class="o">=</span> <span class="mf">0.55</span>
-<span class="n">minimum_length</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">filter_radius</span> <span class="o">=</span> <span class="n">get_conic_radius_from_eta_e</span><span class="p">(</span><span class="n">minimum_length</span><span class="p">,</span> <span class="n">eta_e</span><span class="p">)</span>
-<span class="n">eta_i</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">eta_d</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">eta_e</span>
-
-<span class="n">resolution</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="n">design_region_resolution</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">resolution</span><span class="p">)</span>
-
-<span class="n">Nx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">design_region_resolution</span> <span class="o">*</span> <span class="n">design_region_width</span><span class="p">)</span>
-<span class="n">Ny</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">design_region_resolution</span> <span class="o">*</span> <span class="n">design_region_height</span><span class="p">)</span>
-
-<span class="n">pml_size</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">extend_length</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">waveguide_width</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="n">design_region_width</span> <span class="o">+</span> <span class="n">extend_length</span>
-<span class="n">Sy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="n">design_region_height</span> <span class="o">+</span> <span class="n">extend_length</span>
-<span class="n">cell_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">Sx</span><span class="p">,</span> <span class="n">Sy</span><span class="p">)</span>
-
-<span class="c1"># define the design region</span>
-<span class="n">design_variables</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">MaterialGrid</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">),</span> <span class="n">SiO2</span><span class="p">,</span> <span class="n">Si</span><span class="p">,</span> <span class="n">grid_type</span><span class="o">=</span><span class="s2">&quot;U_MEAN&quot;</span><span class="p">)</span>
-<span class="n">design_region</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">DesignRegion</span><span class="p">(</span>
-    <span class="n">design_variables</span><span class="p">,</span>
-    <span class="n">volume</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span>
-        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span>
-        <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">design_region_width</span><span class="p">,</span> <span class="n">design_region_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-    <span class="p">),</span>
-<span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">mapping</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
-    <span class="c1"># filter</span>
-    <span class="n">filtered_field</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">conic_filter</span><span class="p">(</span>
-        <span class="n">x</span><span class="p">,</span>
-        <span class="n">filter_radius</span><span class="p">,</span>
-        <span class="n">design_region_width</span><span class="p">,</span>
-        <span class="n">design_region_height</span><span class="p">,</span>
-        <span class="n">design_region_resolution</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># projection</span>
-    <span class="n">projected_field</span> <span class="o">=</span> <span class="n">mpa</span><span class="o">.</span><span class="n">tanh_projection</span><span class="p">(</span><span class="n">filtered_field</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">eta</span><span class="p">)</span>
-
-    <span class="n">projected_field</span> <span class="o">=</span> <span class="p">(</span><span class="n">npa</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">projected_field</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">projected_field</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-
-    <span class="c1"># interpolate to actual materials</span>
-    <span class="k">return</span> <span class="n">projected_field</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="c1"># Initial guess</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span>  <span class="c1"># number of parameters</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="mi">240</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-<span class="n">x0</span> <span class="o">=</span> <span class="n">mapping</span><span class="p">(</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
-    <span class="n">eta_i</span><span class="p">,</span>
-    <span class="mi">128</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">J</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">output</span><span class="p">):</span>
-    <span class="n">power</span> <span class="o">=</span> <span class="n">npa</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">output</span> <span class="o">/</span> <span class="n">source</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="n">npa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
-
-<span class="c1"># Use function to get optimization problem</span>
-<span class="n">opt</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">get_meep_adjoint_optimizer</span><span class="p">(</span>
-    <span class="n">c</span><span class="p">,</span>
-    <span class="n">J</span><span class="p">,</span>
-    <span class="p">[</span><span class="n">design_region</span><span class="p">],</span>
-    <span class="p">[</span><span class="n">design_variables</span><span class="p">],</span>
-    <span class="n">x0</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
-    <span class="n">cell_size</span><span class="o">=</span><span class="p">(</span>
-        <span class="n">Sx</span><span class="p">,</span>
-        <span class="n">Sy</span><span class="p">,</span>
-    <span class="p">),</span>
-    <span class="n">tpml</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">extend_ports_length</span><span class="o">=</span><span class="n">extend_length</span><span class="p">,</span>
-    <span class="n">port_margin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">port_source_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">port_monitor_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">wavelength_points</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">evaluation_history</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">cur_iter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Objective function</span>
-<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">gradient</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current iteration: </span><span class="si">{</span><span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="n">f0</span><span class="p">,</span> <span class="n">dJ_du</span> <span class="o">=</span> <span class="n">opt</span><span class="p">([</span><span class="n">mapping</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">eta_i</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)])</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    <span class="n">opt</span><span class="o">.</span><span class="n">plot2D</span><span class="p">(</span>
-        <span class="kc">False</span><span class="p">,</span>
-        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-        <span class="n">plot_sources_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">plot_monitors_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">plot_boundaries_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">gradient</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">gradient</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">tensor_jacobian_product</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="mi">0</span><span class="p">)(</span>
-            <span class="n">v</span><span class="p">,</span> <span class="n">eta_i</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dJ_du</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="p">)</span>
-
-    <span class="n">evaluation_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">f0</span><span class="p">)))</span>
-
-    <span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">f0</span><span class="p">)</span>
-
-<span class="c1"># Define spatial arrays used to generate bit masks</span>
-<span class="n">x_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">Nx</span><span class="p">)</span>
-<span class="n">y_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Ny</span><span class="p">)</span>
-<span class="n">X_g</span><span class="p">,</span> <span class="n">Y_g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_g</span><span class="p">,</span> <span class="n">y_g</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">&quot;ij&quot;</span><span class="p">)</span>
-
-<span class="c1"># Define the core mask</span>
-<span class="n">left_wg_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">==</span> <span class="o">-</span><span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Y_g</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">waveguide_width</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">top_wg_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">waveguide_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">&gt;=</span> <span class="n">waveguide_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Y_g</span> <span class="o">==</span> <span class="n">design_region_height</span><span class="p">)</span>
-
-<span class="n">Si_mask</span> <span class="o">=</span> <span class="n">left_wg_mask</span> <span class="o">|</span> <span class="n">top_wg_mask</span>
-
-<span class="c1"># Define the cladding mask</span>
-<span class="n">border_mask</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="p">(</span><span class="n">X_g</span> <span class="o">==</span> <span class="o">-</span><span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="o">|</span> <span class="p">(</span><span class="n">X_g</span> <span class="o">==</span> <span class="n">design_region_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="o">|</span> <span class="p">(</span><span class="n">Y_g</span> <span class="o">==</span> <span class="o">-</span><span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="o">|</span> <span class="p">(</span><span class="n">Y_g</span> <span class="o">==</span> <span class="n">design_region_height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">SiO2_mask</span> <span class="o">=</span> <span class="n">border_mask</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">SiO2_mask</span><span class="p">[</span><span class="n">Si_mask</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="c1"># Set masks for edges</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,))</span> <span class="o">*</span> <span class="mf">0.5</span>
-<span class="n">x</span><span class="p">[</span><span class="n">Si_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># set the edges of waveguides to silicon</span>
-<span class="n">x</span><span class="p">[</span><span class="n">SiO2_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># set the other edges to SiO2</span>
-
-<span class="c1"># lower and upper bounds</span>
-<span class="n">lb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">,))</span>
-<span class="n">lb</span><span class="p">[</span><span class="n">Si_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">Nx</span> <span class="o">*</span> <span class="n">Ny</span><span class="p">,))</span>
-<span class="n">ub</span><span class="p">[</span><span class="n">SiO2_mask</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="n">cur_beta</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">beta_scale</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">num_betas</span> <span class="o">=</span> <span class="mi">7</span>
-<span class="n">update_factor</span> <span class="o">=</span> <span class="mi">12</span>
-<span class="n">run_optimization</span> <span class="o">=</span> <span class="kc">True</span>
-
-<span class="k">if</span> <span class="n">run_optimization</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">iters</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_betas</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current beta: &quot;</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">iters</span> <span class="o">!=</span> <span class="n">num_betas</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
-                <span class="n">n</span><span class="p">,</span>
-                <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
-                <span class="n">x</span><span class="p">,</span>
-                <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
-                <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
-                <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">optimized_component</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
-                <span class="n">n</span><span class="p">,</span>
-                <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
-                <span class="n">x</span><span class="p">,</span>
-                <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
-                <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
-                <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
-                <span class="n">get_optimized_component</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">opt</span><span class="o">=</span><span class="n">opt</span><span class="p">,</span>
-                <span class="n">threshold_offset_from_max</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="n">cur_beta</span> <span class="o">=</span> <span class="n">cur_beta</span> <span class="o">*</span> <span class="n">beta_scale</span>
-
-    <span class="n">optimized_component</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-    <span class="n">final_figure_of_merit</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span>
-        <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">evaluation_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>current beta:  4
-Current iteration: 1
-Starting forward run...
-Starting adjoint run...
-Calculating gradient...
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">177</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current beta: &quot;</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span> <span class="k">if</span> <span class="n">iters</span> <span class="o">!=</span> <span class="n">num_betas</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">177</span>     <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">n</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">180</span>         <span class="n">x</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span>         <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span>         <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="n">optimized_component</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">n</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">threshold_offset_from_max</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/meep_adjoint_optimization.py:229,</span> in <span class="ni">run_meep_adjoint_optimizer</span><span class="nt">(number_of_params, cost_function, update_variable, maximize_cost_function, algorithm, lower_bound, upper_bound, maxeval, get_optimized_component, opt, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="n">solver</span><span class="o">.</span><span class="n">set_min_objective</span><span class="p">(</span><span class="n">cost_function</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="n">solver</span><span class="o">.</span><span class="n">set_maxeval</span><span class="p">(</span><span class="n">maxeval</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">229</span> <span class="n">update_variable</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">update_variable</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">231</span> <span class="k">if</span> <span class="n">get_optimized_component</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="n">fcen</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fcen&quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mf">1.55</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/nlopt.py:328,</span> in <span class="ni">opt.optimize</span><span class="nt">(self, *args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">328</span>     <span class="k">return</span> <span class="n">_nlopt</span><span class="o">.</span><span class="n">opt_optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-
-<span class="nn">Cell In[2], line 179,</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(a, g)</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;current beta: &quot;</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span> <span class="k">if</span> <span class="n">iters</span> <span class="o">!=</span> <span class="n">num_betas</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">177</span>     <span class="n">x</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="n">n</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">179</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">180</span>         <span class="n">x</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span>         <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span>         <span class="n">maxeval</span><span class="o">=</span><span class="n">update_factor</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>     <span class="n">optimized_component</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">run_meep_adjoint_optimizer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="n">n</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span>         <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">),</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">195</span>         <span class="n">threshold_offset_from_max</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="p">)</span>
-
-<span class="nn">Cell In[2], line 112,</span> in <span class="ni">f</span><span class="nt">(v, gradient, cur_beta)</span>
-<span class="g g-Whitespace">    </span><span class="mi">108</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Current iteration: </span><span class="si">{</span><span class="n">cur_iter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">110</span> <span class="n">f0</span><span class="p">,</span> <span class="n">dJ_du</span> <span class="o">=</span> <span class="n">opt</span><span class="p">([</span><span class="n">mapping</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">eta_i</span><span class="p">,</span> <span class="n">cur_beta</span><span class="p">)])</span>
-<span class="ne">--&gt; </span><span class="mi">112</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">113</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="n">opt</span><span class="o">.</span><span class="n">plot2D</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span>     <span class="n">plot_boundaries_flag</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span> <span class="p">)</span>
-
-<span class="ne">TypeError</span>: &#39;module&#39; object is not callable
-</pre></div>
-</div>
-<img alt="../_images/gds_to_meep_7_2.png" src="../_images/gds_to_meep_7_2.png" />
-</div>
-</div>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -850,10 +560,10 @@ Calculating gradient...
             <p class="prev-next-title">Components</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="directional_couplers.html" title="next page">
+    <a class='right-next' id="next-link" href="meep_to_gds.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Directional Couplers</p>
+        <p class="prev-next-title">Meep to GDS</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

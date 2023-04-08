@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Y-Branches" href="y_branch.html" />
-    <link rel="prev" title="GDS to Meep" href="gds_to_meep.html" />
+    <link rel="prev" title="Meep to GDS" href="meep_to_gds.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -184,6 +184,11 @@ const thebe_selector_output = ".output, .cell_output"
      GDS to Meep
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="meep_to_gds.html">
+     Meep to GDS
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 current active">
@@ -194,6 +199,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="y_branch.html">
    Y-Branches
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ring_resonators.html">
+   Ring Resonators
   </a>
  </li>
  <li class="toctree-l1">
@@ -509,8 +519,8 @@ title="Print to PDF"
 </div>
 <p style="text-align: center;"> Layout of a directional coupler in gdsfactory </p><p>Directional couplers can be designed to produce any combination of power at the outputs. This could be a simple 50/50 split, a 60/40 split, or even a 100/0 split where all the input power in one waveguide is coupled to the other. The fraction of power that is coupled from one waveguide to another is dependent on geometric parameters and can be described as:</p>
 <div class="math notranslate nohighlight">
-\[ \kappa ^2 = \frac {P_{cross}}{P_0} = sin^2(CL)\]</div>
-<p>Where <span class="math notranslate nohighlight">\(\kappa\)</span> is the field coupling, <span class="math notranslate nohighlight">\(P_{cross}\)</span> is the coupled power, <span class="math notranslate nohighlight">\(P_0\)</span> is the input power, <span class="math notranslate nohighlight">\(C\)</span> is the coupling coefficient, and <span class="math notranslate nohighlight">\(L\)</span> is the length of the coupler.</p>
+\[ \kappa ^2 = \frac {P_{\text{cross}}}{P_0} = \sin^2(CL)\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\kappa\)</span> is the field coupling, <span class="math notranslate nohighlight">\(P_{\text{cross}}\)</span> is the coupled power, <span class="math notranslate nohighlight">\(P_0\)</span> is the input power, <span class="math notranslate nohighlight">\(C\)</span> is the coupling coefficient, and <span class="math notranslate nohighlight">\(L\)</span> is the length of the coupler.</p>
 <p>The coupling coefficient is found with supermode analysis.</p>
 <section id="supermodes">
 <h2>Supermodes<a class="headerlink" href="#supermodes" title="Permalink to this headline">#</a></h2>
@@ -566,7 +576,7 @@ Refractive index of odd mode: 2.4190461250593778
 <h2>Coupling<a class="headerlink" href="#coupling" title="Permalink to this headline">#</a></h2>
 <p>The two supermodes that are used to find the coupling coefficient are the first two modes (like we found in the script above), which happen to be an even and odd mode, respectively.</p>
 <p>The coupling coefficient is <span class="math notranslate nohighlight">\(C = \frac{\pi\Delta n}{\lambda}\)</span></p>
-<p>Where <span class="math notranslate nohighlight">\(\Delta n = |n_{1} - n_{2}| = |n_{eff,even} - n_{eff,odd}|\)</span></p>
+<p>Where <span class="math notranslate nohighlight">\(\Delta n = |n_{1} - n_{2}| = |n_{\text{eff,even}} - n_{\text{eff,odd}}|\)</span></p>
 <p>So, the coupling coefficient is dependent on the difference in the modes’ refractive indices, which in turn is dependent on the width of the gap between the waveguides.</p>
 <section id="coupling-length-and-the-gap-between-waveguides">
 <h3>Coupling Length and the Gap Between Waveguides<a class="headerlink" href="#coupling-length-and-the-gap-between-waveguides" title="Permalink to this headline">#</a></h3>
@@ -711,25 +721,25 @@ Refractive index of odd mode: 2.4190461250593778
 </table>
 </div></div></div>
 </div>
-<p>As seen above, each supermode has its own effective index (<span class="math notranslate nohighlight">\(n_{eff,even}\)</span>, <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span>) that differs from that of the normal mode in the waveguide and is dependent of the gap between the waveguides. <span class="math notranslate nohighlight">\(n_{eff,even}\)</span> increases as the gap decreases, and <span class="math notranslate nohighlight">\(n_{eff,odd}\)</span> decreases as the gap decreases. The different effective indices also mean that the two modes have different propagation constants.</p>
+<p>As seen above, each supermode has its own effective index (<span class="math notranslate nohighlight">\(n_{\text{eff,even}}\)</span>, <span class="math notranslate nohighlight">\(n_{\text{eff,odd}}\)</span>) that differs from that of the normal mode in the waveguide and is dependent of the gap between the waveguides. <span class="math notranslate nohighlight">\(n_{\text{eff,even}}\)</span> increases as the gap decreases, and <span class="math notranslate nohighlight">\(n_{\text{eff,odd}}\)</span> decreases as the gap decreases. The different effective indices also mean that the two modes have different propagation constants.</p>
 <p>The propagation constant is:
-<span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n_eff}{\lambda}\)</span></p>
+<span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n_{\text{eff}}}{\lambda}\)</span></p>
 <p>Because of this difference in propagation constants, the modes travel at different speeds down the waveguide and so the field intensity oscillates between the two waveguides. This is called beating. One beat is equivalent to the coupling length, or cross-over length, and it is the length it takes for all of the power from one waveguide to be coupled into the other. As the gap between the waveguides gets smaller, the beating gets faster since <span class="math notranslate nohighlight">\(\Delta n\)</span> gets larger, making the cross-over length shorter.</p>
 <p>This cross-over length <span class="math notranslate nohighlight">\(L\)</span>, that gives 100% power transfer is found with:</p>
 <div class="math notranslate nohighlight">
-\[L_{cross-over} = \frac {\lambda}{2\Delta n}\]</div>
+\[L_{\text{cross-over}} = \frac {\lambda}{2\Delta n}\]</div>
 <p>This is found from determining what length when multiplied by the propagation constants makes the phase difference <span class="math notranslate nohighlight">\(\pi\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[ \beta _1 L_x - \beta _2 L_x = \pi \]</div>
 <div class="math notranslate nohighlight">
-\[ L_x[\frac{2 \pi n_1}{\lambda} - \frac{2 \pi n_2}{\lambda}] = \pi \]</div>
+\[ L_x \left[\frac{2 \pi n_1}{\lambda} - \frac{2 \pi n_2}{\lambda}\right]  = \pi \]</div>
 </section>
 <section id="other-splitting-ratios">
 <h3>Other Splitting Ratios<a class="headerlink" href="#other-splitting-ratios" title="Permalink to this headline">#</a></h3>
 <p>Of course, there are many applications for directional couplers that don’t require a complete transfer of power from one waveguide to another. Oftentimes a different splitting ratio is desired, such as a 50/50 or 60/40 ratio. In such cases, you can find the power that one waveguide receives from the other with the equation:</p>
 <div class="math notranslate nohighlight">
 \[
-P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
+P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda}L \right)
 \]</div>
 </section>
 </section>
@@ -811,11 +821,9 @@ P_{cross}(L) = P_{initial}sin^2(\frac{\pi\Delta n}{\lambda}L)
         <span class="n">until</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 
 <span class="c1"># Generate pngs from the simulation output</span>
-<span class="c1"># The line that worked in my workspace</span>
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:99 -R -Zc /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/RdBu -A /home/ebang4/Github/Photonics-Bootcamp/book/pages/eps-000000.00.h5 -a /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/gray /home/ebang4/Github/Photonics-Bootcamp/book/pages/ez.h5&quot;</span><span class="p">)</span>
-
-<span class="c1"># This line assumes that their colormaps are working and that they are in the same directory as the output files</span>
-<span class="c1"># also that h5py is installed</span>
+<span class="c1"># This line assumes that colormaps are working, </span>
+<span class="c1"># you are in the same directory as the output files, </span>
+<span class="c1"># and that h5py is installed</span>
 <span class="c1"># If you have a problem with h5utils, see note below</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:299 -R -Zc RdBu -A eps-000000.00.h5 -a gray ez.h5&quot;</span><span class="p">)</span>
 
@@ -895,11 +903,11 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="gds_to_meep.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="meep_to_gds.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">GDS to Meep</p>
+            <p class="prev-next-title">Meep to GDS</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="y_branch.html" title="next page">

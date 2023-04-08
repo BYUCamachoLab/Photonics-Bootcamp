@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Y-Branches &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Ring Resonators &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/y_branch.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/ring_resonators.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ring Resonators" href="ring_resonators.html" />
-    <link rel="prev" title="Directional Couplers" href="directional_couplers.html" />
+    <link rel="next" title="Multimode Interferometers (MMIs)" href="mmis.html" />
+    <link rel="prev" title="Y-Branches" href="y_branch.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -194,13 +194,13 @@ const thebe_selector_output = ".output, .cell_output"
    Directional Couplers
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="y_branch.html">
    Y-Branches
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="ring_resonators.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Ring Resonators
   </a>
  </li>
@@ -323,7 +323,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/y_branch.ipynb"
+        <a href="../_sources/pages/ring_resonators.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -360,100 +360,23 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#splitting-light">
-   Splitting Light
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combining-light">
-   Combining Light
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#design-considerations">
-   Design Considerations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practice">
-   Practice
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sources">
-   Sources
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Y-Branches</h1>
+                <h1>Ring Resonators</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#splitting-light">
-   Splitting Light
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#combining-light">
-   Combining Light
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#design-considerations">
-   Design Considerations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practice">
-   Practice
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sources">
-   Sources
-  </a>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -461,27 +384,16 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="y-branches">
-<h1>Y-Branches<a class="headerlink" href="#y-branches" title="Permalink to this headline">#</a></h1>
-<p>Y-branches are some of the most common types of photonic devices and are used in almost every photonic circuit. They are used to either split light into two waveguides or to combine light from two two waveguides into one.</p>
-<div style="text-align: center;">
-<image src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mmi1x2.png" alt="y_branch" width=60% height=60% title="Default GDSFactory Y Branch">
-</div>
-<p style="text-align: center;"> A y-branch from gdsfactory's default component library </p><section id="splitting-light">
-<h2>Splitting Light<a class="headerlink" href="#splitting-light" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="combining-light">
-<h2>Combining Light<a class="headerlink" href="#combining-light" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="design-considerations">
-<h2>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="practice">
-<h2>Practice<a class="headerlink" href="#practice" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="sources">
-<h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="ring-resonators">
+<h1>Ring Resonators<a class="headerlink" href="#ring-resonators" title="Permalink to this headline">#</a></h1>
+<ul class="simple">
+<li><p>What does it look like</p></li>
+<li><p>Coupling in and out- connect back to directional couplers</p></li>
+<li><p>Round trip loss</p></li>
+<li><p>Simulation- only have a ring to avoid lengthy simulation time</p></li>
+<li><p>Designing/interpreting results</p></li>
+</ul>
+<p>Ok hear me out: a meep simulation showing the electric fields in resonance would be pretty sick. Although have to be careful to make the simulation short so that you don’t get anything weird with it all.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -511,17 +423,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="directional_couplers.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="y_branch.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Directional Couplers</p>
+            <p class="prev-next-title">Y-Branches</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="ring_resonators.html" title="next page">
+    <a class='right-next' id="next-link" href="mmis.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Ring Resonators</p>
+        <p class="prev-next-title">Multimode Interferometers (MMIs)</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
