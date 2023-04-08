@@ -77,3 +77,5 @@ sphinx:
     language: en
     html_theme_options:
       logo_only: true
+  extra_extensions:
+    - intersphinx_mapping
