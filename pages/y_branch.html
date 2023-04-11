@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/y_branch.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -396,21 +398,23 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#combining-light">
    Combining Light
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#design-considerations">
-   Design Considerations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practice">
-   Practice
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sources">
-   Sources
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#design-considerations">
+     Design Considerations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#practice">
+     Practice
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sources">
+     Sources
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -440,21 +444,23 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#combining-light">
    Combining Light
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#design-considerations">
-   Design Considerations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#practice">
-   Practice
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sources">
-   Sources
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#design-considerations">
+     Design Considerations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#practice">
+     Practice
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sources">
+     Sources
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -468,24 +474,32 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="y-branches">
 <h1>Y-Branches<a class="headerlink" href="#y-branches" title="Permalink to this headline">#</a></h1>
-<p>Y-branches are some of the most common types of photonic devices and are used in almost every photonic circuit. They are used to either split light into two waveguides or to combine light from two two waveguides into one.</p>
+<p>Y-branches are some of the most common types of photonic devices and are used in almost every photonic circuit. They are used to either split light into two waveguides or to combine light from two waveguides into one. While y-branches can be created that split light into any arbitrary fraction, in this page we will focus on a 50/50 y-branch.</p>
 <div style="text-align: center;">
 <image src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mmi1x2.png" alt="y_branch" width=60% height=60% title="Default GDSFactory Y Branch">
 </div>
 <p style="text-align: center;"> A y-branch from gdsfactory's default component library </p><section id="splitting-light">
 <h2>Splitting Light<a class="headerlink" href="#splitting-light" title="Permalink to this headline">#</a></h2>
+<p>When splitting light, the y-branch works as expected. Any light input into the side with one waveguide will be split into the 2 output waveguides. In most cases, the splitter is designed to split light evenly and so about 50% of the light will exit each side. In other words, for an input intensity <span class="math notranslate nohighlight">\(I_i\)</span> and output intensities <span class="math notranslate nohighlight">\(I_1\)</span> and <span class="math notranslate nohighlight">\(I_2\)</span>
+$<span class="math notranslate nohighlight">\( I_1=I_2=I_i/2\)</span>$
+It should be kept in mind however, that no y-branch is perfect and so there will always be excess loss. So in a 50/50 splitter, the actual outputs will be slightly less than 50, but should still be equal.</p>
 </section>
 <section id="combining-light">
 <h2>Combining Light<a class="headerlink" href="#combining-light" title="Permalink to this headline">#</a></h2>
-</section>
+<p>When combining light, the y-branch is more complex. For example, if you were to input light with and intensity <span class="math notranslate nohighlight">\(I_i\)</span> into say, the upper right right branch or the y-branch, you might expect almost all of the light to exit the left branch. However, the output intensity <span class="math notranslate nohighlight">\(I_o\)</span> in the left branch will only be half of the input intensity, or
+$<span class="math notranslate nohighlight">\(I_o=I_i/2\)</span>$
+This is because the y-branch splits the light in half going both direction. Going forward, the light is split into the 2 output branches, but going backward the light stays in one branch but is split between the 1st and 2nd order modes</p>
+<p>When light is put in both right ports, if it is in phase, the light coupled into the 2nd order mode will destructively interfere, and the light in the fundamental mode will constructively interfere, resulting in almost all the power exiting the left port in the fundamental mode. On the other hand, if the inputs are out of phase, then the opposite will happen. The power in the fundamental mode will destructively interfere, and constructively interfere in the 2nd order mode, resulting in almost no power in the fundamental mode.</p>
 <section id="design-considerations">
-<h2>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h2>
+<h3>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h3>
 </section>
 <section id="practice">
-<h2>Practice<a class="headerlink" href="#practice" title="Permalink to this headline">#</a></h2>
+<h3>Practice<a class="headerlink" href="#practice" title="Permalink to this headline">#</a></h3>
 </section>
 <section id="sources">
-<h2>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h2>
+<h3>Sources<a class="headerlink" href="#sources" title="Permalink to this headline">#</a></h3>
+<p>Silicon Photonics Design - Chrostoski</p>
+</section>
 </section>
 </section>
 
