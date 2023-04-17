@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/ring_resonators.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -365,12 +367,61 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#on-resonance">
+   On Resonance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#critical-coupling">
+   Critical Coupling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fsr-free-spectral-range">
+   FSR- free spectral range
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quality-factor">
+   Quality Factor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications">
+   Applications
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulation">
+   Simulation
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -382,6 +433,44 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#on-resonance">
+   On Resonance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#critical-coupling">
+   Critical Coupling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fsr-free-spectral-range">
+   FSR- free spectral range
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quality-factor">
+   Quality Factor
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications">
+   Applications
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulation">
+   Simulation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -391,14 +480,364 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="ring-resonators">
 <h1>Ring Resonators<a class="headerlink" href="#ring-resonators" title="Permalink to this headline">#</a></h1>
+<p>A ring resonator is a device that consists of a ring and then one or two waveguides. Light enters the ring via a directional coupler, also called an access waveguide or a bus. There are single and double bus designs. In a single bus design, light is coupled in and out of the ring via the same waveguide. In a double bus design, there are two waveguides, one on each side of the ring, that can couple into or out of the ring. If you remember coupling theory from the directional coupler notebook, you remember that the distance between the ring and the waveguide will affect how much light is coupled into the ring.</p>
+<p>When light propagates around a ring, the fields that overlap from each trip around the ring interfere. When waves overlap perfectly and the interference of the waves is constructive, we say that the ring is in resonance. Resonance is a useful quality because a particular ring can only be in resonance at certain wavelengths. Thus, we can isolate certain wavelengths with the ring. Such isolation has many applications.</p>
+<p>To understand more about ring resonators, let’s build up some of its behavior mathematically. First, we want examine how far the light has to travel around the ring. This is simply the familiar equation for the circumference of a circle if the ring is perfectly round.</p>
+<p><span class="math notranslate nohighlight">\(L = 2\pi r = \text{length of one trip around the ring}\)</span></p>
+<p>Within this one loop around the ring, there is a round trip loss, or some attenuation that occurs. This is referred to as <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(A = e^{-\alpha L}\)</span></p>
+<p>Now that we know how to describe the power within the ring, we’ll want to solve for how much power goes in and out of a ring resonator. For this, you can find the ratio of the electric field at both the input and the output ports. This ratio will tell you if more light is going into the ring or out of it. To find the fields at each of the four ports of the directional coupler (two inside the ring and two in the waveguide), we start by defining the two output ports. We then move on to find the field on the input side of the ring resonator, seen on the right of the diagram. Plugging this into our two original equations and solving can lead us to the transfer function. The two electric fields are:</p>
+<p><span class="math notranslate nohighlight">\(E_{b1} = tE_{a1}+\kappa E_{a2}\)</span></p>
+<p><span class="math notranslate nohighlight">\(E_{b2} = -\kappa E_{a1}+tE_{a2}\)</span></p>
+<p>Where</p>
+<p><span class="math notranslate nohighlight">\(|\kappa|^2\)</span> is the power transferred to and from the ring and <span class="math notranslate nohighlight">\(|t|^2 = 1 - |\kappa|^2\)</span> is the power remaining.</p>
+<p>Remember that <span class="math notranslate nohighlight">\(\alpha\)</span> is the waveguide loss <span class="math notranslate nohighlight">\((cm^{-1})\)</span> and <span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n}{\lambda}\)</span> is the propagation constant <span class="math notranslate nohighlight">\((cm^{-1})\)</span>.</p>
+<p>The Ring Resonator Transfer Function is thus:
+<span class="math notranslate nohighlight">\( T = \left|\frac{E_{b1}}{E_{a1}}\right|^2 = \left|\frac{t-e^{-\alpha L/2}e^{j \beta L}}{1-e^{-\alpha L/2}e^{j \beta L}} \right|^2\)</span></p>
+<section id="on-resonance">
+<h2>On Resonance<a class="headerlink" href="#on-resonance" title="Permalink to this headline">#</a></h2>
+<p>On resonance: <span class="math notranslate nohighlight">\(\beta L = m2\pi\)</span></p>
+<p><span class="math notranslate nohighlight">\(m \frac{\lambda}{n_{\text{eff}(lamba)}} = 2\pi r\)</span></p>
+<p>Optical path length difference (OPD) <span class="math notranslate nohighlight">\(=m \lambda\)</span>. m is the mode number of the ring resonator and <span class="math notranslate nohighlight">\(\lambda\)</span> is the resonant wavelength. Circumference must be an integer multiple of the resonant wavelength, otherwise it will not interfere constructively. Mode number must also be positive.</p>
+</section>
+<section id="critical-coupling">
+<h2>Critical Coupling<a class="headerlink" href="#critical-coupling" title="Permalink to this headline">#</a></h2>
+<p>Critical coupling occurs when all of the light from the waveguide is coupled into the ring and is not coupled back into the waveguide.</p>
+<p>Transmission is 0 when <span class="math notranslate nohighlight">\(t - e^{\frac{-\alpha L}{2}}= 0\)</span></p>
+<p>Or <span class="math notranslate nohighlight">\(t = e^{\frac{-\alpha L}{2}}\)</span> so that <span class="math notranslate nohighlight">\(t^2 = e^{-\alpha L}\)</span> which how much light transmitted around the ring.</p>
+<p>So the loss around the ring is <span class="math notranslate nohighlight">\(1-e^{-\alpha L}\)</span> and since <span class="math notranslate nohighlight">\(|\kappa|^2 = 1 - |t|^2 = \text{loss}\)</span>, then <span class="math notranslate nohighlight">\(|\kappa|^2 = 1-e^{-\alpha L}\)</span>. So, when the coupling loss is equal to the roundtrip loss around the ring, there is critical coupling.</p>
+<p>This is similar to the concept of impedance matching in electrical circuits, where the most power is transferred when the load matches the input impedance. However, it is more complicated in ring resonators.</p>
+<p><strong>Graph showing the behavior of the ring</strong></p>
+</section>
+<section id="fsr-free-spectral-range">
+<h2>FSR- free spectral range<a class="headerlink" href="#fsr-free-spectral-range" title="Permalink to this headline">#</a></h2>
+<p>The space between resonant wavelengths (peak to peak on the graph)</p>
+<p><span class="math notranslate nohighlight">\(FSR \approx \frac{\lambda ^2}{n_{\text{eff}}L}\)</span></p>
+<p>Full-width half-maximum (FWHM) aka bandwidth of resonances, used with the FSR to calculate finesse (ratio of FSR to FWHM, measure of narrowness of peaks/resonances)</p>
+</section>
+<section id="quality-factor">
+<h2>Quality Factor<a class="headerlink" href="#quality-factor" title="Permalink to this headline">#</a></h2>
+<p>The quality factor measures how sharp the resonance peaks are with respect to the operating frequency of the ring. It is the ratio of the resonance frequency to the FWHM. A low quality factor indicates more loss in the resonator. Higher Q means less loss.</p>
+<p>Finesse accounts for FSR when talking about the resonance bandwidth while the Q factor accounts for the frequency.</p>
+</section>
+<section id="applications">
+<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">#</a></h2>
+<p>You can “filter” certain wavelengths through your ring. This has a variety of uses. Tuning. Whispering gallery mode switches.</p>
+<p>gdsfactory has some stuff about applications and they also have a lot of different implementations for the ring resonator</p>
+</section>
+<section id="simulation">
+<h2>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Video</span>
+
+<span class="c1"># Create a ring resonator with a radius of 10um</span>
+
+<span class="c1"># Define materials</span>
+<span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
+<span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
+
+<span class="c1"># Define geometrical parameters</span>
+<span class="n">d_pml</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># thickness of the pml</span>
+<span class="n">d_pad</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># thickness of padding around geometry</span>
+<span class="n">wg_width</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># width of the coupling waveguide</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">10</span>          <span class="c1">## CHANGE RADIUS</span>
+<span class="n">r_in</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">wg_width</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">r_out</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">wg_width</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">wg_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r_out</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pad</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pml</span> <span class="c1"># length of the waveguide</span>
+<span class="n">gap</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="c1"># gap between waveguide and ring</span>
+<span class="n">wvl</span> <span class="o">=</span> <span class="mf">1.55</span>      <span class="c1">## CHANGE WAVELENGTH</span>
+
+<span class="n">pml</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">d_pml</span><span class="p">)]</span>
+<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r_out</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pad</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pml</span> <span class="c1"># width of the cell</span>
+<span class="n">Sy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r_out</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">d_pad</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pml</span> <span class="c1"># length of the cell</span>
+
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Cylinder</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">r_out</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">d_pad</span><span class="o">*</span><span class="mf">1.5</span><span class="p">)),</span>
+            <span class="n">mp</span><span class="o">.</span><span class="n">Cylinder</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">r_in</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">SiO2</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">d_pad</span><span class="o">*</span><span class="mf">1.5</span><span class="p">)),</span>
+            <span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">wg_length</span><span class="p">,</span><span class="n">wg_width</span><span class="p">),</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">r_out</span><span class="o">+</span><span class="n">d_pad</span><span class="o">*</span><span class="mf">1.5</span><span class="o">-</span><span class="n">gap</span><span class="p">),</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">)]</span>
+
+<span class="c1"># Create Eigenmode pulse source</span>
+<span class="n">fcen</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">fwidth</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">fcen</span>
+<span class="n">src</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">fwidth</span><span class="p">)</span>
+<span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mf">0.4</span><span class="o">*</span><span class="n">Sx</span><span class="p">,</span> <span class="o">-</span><span class="n">r_out</span><span class="o">+</span><span class="n">d_pad</span><span class="o">*</span><span class="mf">1.5</span><span class="o">-</span><span class="n">gap</span><span class="p">))</span>
+        <span class="p">]</span>
+
+<span class="c1"># Set up simulation</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">default_material</span><span class="o">=</span><span class="n">SiO2</span><span class="p">,</span>
+    <span class="n">cell_size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Sx</span><span class="p">,</span><span class="n">Sy</span><span class="p">),</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
+    <span class="n">boundary_layers</span><span class="o">=</span><span class="n">pml</span><span class="p">,</span>
+    <span class="n">sources</span><span class="o">=</span><span class="n">source</span>
+<span class="p">)</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     cylinder, center = (0,1.5,0)
+          radius 10.25, height 1e+20, axis (0, 0, 1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+     cylinder, center = (0,1.5,0)
+          radius 9.75, height 1e+20, axis (0, 0, 1)
+          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
+     block, center = (0,-9.05,0)
+          size (24.5,0.5,0)
+          axes (1,0,0), (0,1,0), (0,0,1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/ring_resonators_3_2.png" src="../_images/ring_resonators_3_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Capture electric field intensity over time and output into a gif</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">at_beginning</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">output_epsilon</span><span class="p">),</span>
+        <span class="n">mp</span><span class="o">.</span><span class="n">to_appended</span><span class="p">(</span><span class="s2">&quot;ez&quot;</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">at_every</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">output_efield_z</span><span class="p">)),</span>
+        <span class="n">until</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+<span class="c1"># Generate pngs from the simulation output</span>
+<span class="c1"># This line assumes that colormaps are working, </span>
+<span class="c1"># you are in the same directory as the output files, </span>
+<span class="c1"># and that h5py is installed</span>
+<span class="c1"># If you have a problem with h5utils, see note below</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;h5topng -t 0:299 -R -Zc /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/RdBu -A /home/ebang4/Github/Photonics-Bootcamp/book/pages/eps-000000.00.h5 -a /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/gray /home/ebang4/Github/Photonics-Bootcamp/book/pages/ez.h5&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a gif from the pngs</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">imgs</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;ez.t*&quot;</span><span class="p">)</span>
+<span class="n">imgs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span>
+    <span class="n">new_frame</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_frame</span><span class="p">)</span>
+ 
+<span class="c1"># Save into a GIF file that loops forever</span>
+<span class="n">frames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;ez.gif&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;GIF&#39;</span><span class="p">,</span>
+               <span class="n">append_images</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+               <span class="n">save_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+               <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Clean up workspace by deleting all generated images</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span> 
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
+Initializing structure...
+time for choose_chunkdivision = 0.00481606 s
+Working in 2D dimensions.
+Computational cell is 24.5 x 26.5 x 0 with resolution 20
+     cylinder, center = (0,1.5,0)
+          radius 10.25, height 1e+20, axis (0, 0, 1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+     cylinder, center = (0,1.5,0)
+          radius 9.75, height 1e+20, axis (0, 0, 1)
+          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
+     block, center = (0,-9.05,0)
+          size (24.5,0.5,0)
+          axes (1,0,0), (0,1,0), (0,0,1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+time for set_epsilon = 0.986661 s
+-----------
+MPB solved for frequency_1(1,0,0) = 0.343021 after 15 iters
+MPB solved for frequency_1(0.340933,0,0) = 0.130152 after 7 iters
+MPB solved for frequency_1(0.39538,0,0) = 0.149796 after 6 iters
+MPB solved for frequency_1(0.395952,0,0) = 0.15 after 5 iters
+MPB solved for frequency_1(0.395952,0,0) = 0.15 after 1 iters
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "d159a1ee960540c5a615495772ada5ec", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>creating output file &quot;./eps-000000.00.h5&quot;...
+creating output file &quot;./ez.h5&quot;...
+Meep progress: 16.0/600.0 = 2.7% done in 4.1s, 148.5s to go
+on time step 654 (time=16.35), 0.00611856 s/step
+Meep progress: 32.875/600.0 = 5.5% done in 8.1s, 139.3s to go
+on time step 1328 (time=33.2), 0.00593552 s/step
+Meep progress: 47.825/600.0 = 8.0% done in 12.1s, 139.5s to go
+on time step 1920 (time=48), 0.0068397 s/step
+Meep progress: 64.45/600.0 = 10.7% done in 16.1s, 133.6s to go
+on time step 2600 (time=65), 0.00588971 s/step
+Meep progress: 81.35000000000001/600.0 = 13.6% done in 20.1s, 128.1s to go
+on time step 3276 (time=81.9), 0.00592451 s/step
+Meep progress: 97.875/600.0 = 16.3% done in 24.1s, 123.6s to go
+on time step 3925 (time=98.125), 0.00617059 s/step
+Meep progress: 112.325/600.0 = 18.7% done in 28.1s, 122.0s to go
+on time step 4514 (time=112.85), 0.00679162 s/step
+Meep progress: 128.625/600.0 = 21.4% done in 32.1s, 117.6s to go
+on time step 5170 (time=129.25), 0.00609934 s/step
+Meep progress: 144.82500000000002/600.0 = 24.1% done in 36.1s, 113.4s to go
+on time step 5815 (time=145.375), 0.00620497 s/step
+Meep progress: 161.175/600.0 = 26.9% done in 40.1s, 109.2s to go
+on time step 6472 (time=161.8), 0.00608867 s/step
+Meep progress: 175.025/600.0 = 29.2% done in 44.1s, 107.1s to go
+on time step 7019 (time=175.475), 0.00731496 s/step
+Meep progress: 191.875/600.0 = 32.0% done in 48.1s, 102.3s to go
+on time step 7682 (time=192.05), 0.00603817 s/step
+Meep progress: 208.0/600.0 = 34.7% done in 52.1s, 98.2s to go
+on time step 8341 (time=208.525), 0.00607058 s/step
+Meep progress: 224.375/600.0 = 37.4% done in 56.1s, 94.0s to go
+on time step 8992 (time=224.8), 0.00614666 s/step
+Meep progress: 240.65/600.0 = 40.1% done in 60.1s, 89.8s to go
+on time step 9646 (time=241.15), 0.00612149 s/step
+Meep progress: 258.125/600.0 = 43.0% done in 64.1s, 84.9s to go
+on time step 10344 (time=258.6), 0.00573179 s/step
+Meep progress: 276.0/600.0 = 46.0% done in 68.2s, 80.0s to go
+on time step 11053 (time=276.325), 0.00564632 s/step
+Meep progress: 293.45/600.0 = 48.9% done in 72.2s, 75.4s to go
+on time step 11752 (time=293.8), 0.00572536 s/step
+Meep progress: 310.55/600.0 = 51.8% done in 76.2s, 71.0s to go
+on time step 12435 (time=310.875), 0.00586093 s/step
+Meep progress: 329.975/600.0 = 55.0% done in 80.2s, 65.6s to go
+on time step 13205 (time=330.125), 0.00519866 s/step
+Meep progress: 349.5/600.0 = 58.2% done in 84.2s, 60.3s to go
+on time step 13996 (time=349.9), 0.00506136 s/step
+Meep progress: 368.925/600.0 = 61.5% done in 88.2s, 55.2s to go
+on time step 14774 (time=369.35), 0.00514396 s/step
+Meep progress: 388.05/600.0 = 64.7% done in 92.2s, 50.3s to go
+on time step 15537 (time=388.425), 0.00524535 s/step
+Meep progress: 402.425/600.0 = 67.1% done in 96.2s, 47.2s to go
+on time step 16113 (time=402.825), 0.0069448 s/step
+Meep progress: 418.0/600.0 = 69.7% done in 100.4s, 43.7s to go
+on time step 16720 (time=418), 0.00686727 s/step
+Meep progress: 434.0/600.0 = 72.3% done in 104.6s, 40.0s to go
+on time step 17360 (time=434), 0.00649885 s/step
+Meep progress: 447.125/600.0 = 74.5% done in 108.6s, 37.1s to go
+on time step 17886 (time=447.15), 0.00761302 s/step
+Meep progress: 462.0/600.0 = 77.0% done in 112.6s, 33.6s to go
+on time step 18480 (time=462), 0.00682782 s/step
+Meep progress: 475.25/600.0 = 79.2% done in 116.7s, 30.6s to go
+on time step 19010 (time=475.25), 0.00755262 s/step
+Meep progress: 487.05/600.0 = 81.2% done in 120.7s, 28.0s to go
+on time step 19482 (time=487.05), 0.00848338 s/step
+Meep progress: 499.05/600.0 = 83.2% done in 124.7s, 25.2s to go
+on time step 19962 (time=499.05), 0.00833347 s/step
+Meep progress: 510.0/600.0 = 85.0% done in 128.9s, 22.7s to go
+on time step 20400 (time=510), 0.00964397 s/step
+Meep progress: 521.5500000000001/600.0 = 86.9% done in 132.9s, 20.0s to go
+on time step 20862 (time=521.55), 0.00866118 s/step
+Meep progress: 536.0/600.0 = 89.3% done in 137.2s, 16.4s to go
+on time step 21440 (time=536), 0.00750023 s/step
+Meep progress: 549.575/600.0 = 91.6% done in 141.2s, 13.0s to go
+on time step 21983 (time=549.575), 0.0073681 s/step
+Meep progress: 563.0500000000001/600.0 = 93.8% done in 145.2s, 9.5s to go
+on time step 22522 (time=563.05), 0.0074214 s/step
+Meep progress: 575.1/600.0 = 95.9% done in 149.2s, 6.5s to go
+on time step 23004 (time=575.1), 0.00830613 s/step
+Meep progress: 588.95/600.0 = 98.2% done in 153.2s, 2.9s to go
+on time step 23558 (time=588.95), 0.00722496 s/step
+run 0 finished at t = 600.0 (24000 timesteps)
+</pre></div>
+</div>
+</div>
+</div>
 <ul class="simple">
-<li><p>What does it look like</p></li>
-<li><p>Coupling in and out- connect back to directional couplers</p></li>
-<li><p>Round trip loss</p></li>
-<li><p>Simulation- only have a ring to avoid lengthy simulation time</p></li>
-<li><p>Designing/interpreting results</p></li>
+<li><p>Simulation- only half a ring to avoid lengthy simulation time</p></li>
 </ul>
-<p>Ok hear me out: a meep simulation showing the electric fields in resonance would be pretty sick. Although have to be careful to make the simulation short so that you don’t get anything weird with it all.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Video</span>
+
+<span class="c1"># Create a ring resonator with a radius of 10um</span>
+
+<span class="c1"># Define materials</span>
+<span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
+<span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
+
+<span class="c1"># Define geometrical parameters</span>
+<span class="n">d_pml</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># thickness of the pml</span>
+<span class="n">d_pad</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># thickness of padding around geometry</span>
+<span class="n">wg_width</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1"># width of the coupling waveguide</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">10</span>          <span class="c1">## CHANGE RADIUS</span>
+<span class="n">r_in</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">wg_width</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">r_out</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">wg_width</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">wg_length</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r_out</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pad</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pml</span> <span class="c1"># length of the waveguide</span>
+<span class="n">gap</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="c1"># gap between waveguide and ring</span>
+<span class="n">wvl</span> <span class="o">=</span> <span class="mf">1.55</span>      <span class="c1">## CHANGE WAVELENGTH</span>
+<span class="n">gap</span> <span class="o">=</span> <span class="mf">0.3</span>       <span class="c1">## CHANGE GAP</span>
+
+<span class="n">pml</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">d_pml</span><span class="p">)]</span>
+<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r_out</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pad</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pml</span> <span class="c1"># width of the cell</span>
+<span class="n">Sy</span> <span class="o">=</span> <span class="n">r_out</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">d_pad</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d_pml</span> <span class="c1"># length of the cell</span>
+<span class="n">wg_center</span> <span class="o">=</span> <span class="o">-</span><span class="n">Sy</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">r_out</span> <span class="o">+</span> <span class="n">d_pml</span> <span class="o">+</span> <span class="n">gap</span>
+
+<span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Cylinder</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">r_out</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">Sy</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d_pml</span><span class="p">)),</span>
+            <span class="n">mp</span><span class="o">.</span><span class="n">Cylinder</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">r_in</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">SiO2</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">Sy</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d_pml</span><span class="p">)),</span>
+            <span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">wg_length</span><span class="p">,</span><span class="n">wg_width</span><span class="p">),</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">wg_center</span><span class="p">))]</span>
+
+<span class="c1"># Create Eigenmode pulse source</span>
+<span class="n">fcen</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">fwidth</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">fcen</span>
+<span class="n">src</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">fwidth</span><span class="p">)</span>
+<span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">Sx</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">d_pml</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">wg_center</span><span class="p">))</span>
+        <span class="p">]</span>
+
+<span class="c1"># Ok so these are the things to calculate the power</span>
+<span class="sd">&#39;&#39;&#39;output_lo_mode = sim.add_mode_monitor(freq, fwidth, nfreqs, mp.ModeRegion(center= mp.Vector3(-end_of_input,-wg_center_y,0), size=mon_size, direction=mp.Z))</span>
+<span class="sd">outputLoAlpha = sim.get_eigenmode_coefficients(output_lo_mode,[1],eig_parity=mp.ODD_Z+mp.EVEN_Y, direction=mp.Z).alpha[0,:,0]</span>
+<span class="sd">trans_Lo = abs(outputLoAlpha[:])**2/abs(incident_mode_alpha[:])**2&#39;&#39;&#39;</span>
+
+<span class="c1"># Set up simulation</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">default_material</span><span class="o">=</span><span class="n">SiO2</span><span class="p">,</span>
+    <span class="n">cell_size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Sx</span><span class="p">,</span><span class="n">Sy</span><span class="p">),</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
+    <span class="n">boundary_layers</span><span class="o">=</span><span class="n">pml</span><span class="p">,</span>
+    <span class="n">sources</span><span class="o">=</span><span class="n">source</span>
+<span class="p">)</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     cylinder, center = (0,-7.125,0)
+          radius 10.25, height 1e+20, axis (0, 0, 1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+     cylinder, center = (0,-7.125,0)
+          radius 9.75, height 1e+20, axis (0, 0, 1)
+          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
+     block, center = (0,3.425,0)
+          size (24.5,0.5,0)
+          axes (1,0,0), (0,1,0), (0,0,1)
+          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/ring_resonators_6_2.png" src="../_images/ring_resonators_6_2.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
