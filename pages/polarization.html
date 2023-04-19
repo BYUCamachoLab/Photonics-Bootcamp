@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Git (and GitHub) &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Polarization &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/git_and_github.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/polarization.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Python" href="python.html" />
-    <link rel="prev" title="Software" href="software.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -127,24 +125,24 @@ const thebe_selector_output = ".output, .cell_output"
   Getting Familiar with Code
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="open_source.html">
    Open Source Software
   </a>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="software.html">
    Software
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="git_and_github.html">
      Git (and GitHub)
     </a>
    </li>
@@ -328,7 +326,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/git_and_github.md"
+        <a href="../_sources/pages/polarization.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -339,7 +337,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -377,7 +375,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Git (and GitHub)</h1>
+                <h1>Polarization</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -389,60 +387,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="git-and-github">
-<h1>Git (and GitHub)<a class="headerlink" href="#git-and-github" title="Permalink to this headline">#</a></h1>
-<p>In programming, it is desirable to be able to track changes to your code over
-time. In development environments, it’s not uncommon that changes may need to
-be rolled back if they break something in production code. Version control
-systems (VCS) are also extremely helpful in collaborative environments, as they
-track who changed what and allow for simultaneous edits to be merged together
-rather painlessly.</p>
-<p>Git is the predominant VCS used by programmers today. While git is a command-
-line tool, an entire ecosystem of hosting services, GUI tools, and IDE’s have
-sprung up around it.</p>
-<p>To <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">install git</a> on your machine:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="8474a4fd-cb77-4f11-a909-cff79b900f95" name="20f03ec9-3028-4394-9daf-33cead4a013f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="windows" for="8474a4fd-cb77-4f11-a909-cff79b900f95">
-Windows</label><div class="sd-tab-content docutils">
-<p>While you can install <a class="reference external" href="https://gitforwindows.org/">Git for Windows</a>, because
-the other software packages used in this course are Mac- or Linux-only, you
-will be forced to use WSL to complete this course on Windows. Still, we’ll
-provide a <a class="reference external" href="https://git-scm.com/download/win">download link</a> for git on Windows.</p>
-</div>
-<input id="3679b5d8-8b59-4019-95d5-dac55b710b60" name="20f03ec9-3028-4394-9daf-33cead4a013f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="macos" for="3679b5d8-8b59-4019-95d5-dac55b710b60">
-MacOS</label><div class="sd-tab-content docutils">
-<p>Git is included with XCode Command Line Tools. These can be installed from the
-terminal with the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xcode-select<span class="w"> </span>--install
-</pre></div>
-</div>
-<p>You can test the installation by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>--version
-</pre></div>
-</div>
-</div>
-<input id="45ff4549-7b94-4b8c-9706-271767d387e2" name="20f03ec9-3028-4394-9daf-33cead4a013f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="linux" for="45ff4549-7b94-4b8c-9706-271767d387e2">
-Linux</label><div class="sd-tab-content docutils">
-<p>If git is not installed on your machine, you can install it through the terminal.</p>
-<p>Debian-based distributions (e.g. Ubuntu, Debian):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git-all
-</pre></div>
-</div>
-<p>RPM-based distributions (e.g. Fedora, RHEL, CentOS):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>git-all
-</pre></div>
-</div>
-</div>
-</div>
-<p>GitHub is the most well known hosting service, and it provides free accounts
-(and free private repositories) to all users. This bootcamp, for example, is
-hosted on GitHub, along with many of the most popular open-source Python
-projects (including numpy, scipy, and matplotlib). If you want to version
-control your code, we recommend creating an account on GitHub and keeping your
-source code there.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="polarization">
+<h1>Polarization<a class="headerlink" href="#polarization" title="Permalink to this headline">#</a></h1>
+<p>To understand how an optical waveguide works, it is important to understand what it means for light to be polarized. This is because the polarization of light will affect how it behaves in a waveguide.</p>
+<p>The diagram below describes the motion of a wave of light, which is an electromagnetic wave:</p>
+<p><img alt="Image of splitter file" src="https://i.stack.imgur.com/27cRJ.png" /></p>
+<p>Both the electric and the magnetic components of the wave are moving in the Z-direction. You and think of this as where the light is heading in a waveguide.</p>
+<p>In addition to moving down the waveguide, the electric and magentic components of the wave are oscillating perpendicular to each other. The direction in which this oscillation occurs is where the idea of polarization of light comes from. The polarization of light simply refers to the direction in which the electric componet oscillates. In this case, the electric component of the wave moves vertically in the Y-direction, so we say that the wave is vertically polarized.</p>
+<p>The reason that this is important is because polarized light behaves differently in an optical circuit depending on the direction in which it is polarized. A beam of light polarized in the X direction will behave differently than a beam polarized in the Y-direction.</p>
+<p>This presents a challenged when considering that light typically is not polarized. Unpolarized light is composed of waves of light whose magnetic field components are arranged in random directions. And since the components of light polarized in the X and Y directions is not predictable, the behavior of the unpolarized light is not completely consistent in a waveguide.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -472,20 +425,6 @@ source code there.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="software.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Software</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="python.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Python</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>
