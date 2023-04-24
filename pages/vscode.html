@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Git (and GitHub) &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Visual Studio Code (vscode) &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/git_and_github.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/vscode.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Visual Studio Code (vscode)" href="vscode.html" />
-    <link rel="prev" title="Software" href="software.html" />
+    <link rel="next" title="Python" href="python.html" />
+    <link rel="prev" title="Git (and GitHub)" href="git_and_github.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -143,13 +143,13 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="git_and_github.html">
      Git (and GitHub)
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="vscode.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Visual Studio Code (vscode)
     </a>
    </li>
@@ -338,7 +338,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/git_and_github.md"
+        <a href="../_sources/pages/vscode.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -375,23 +375,60 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configure-vscode">
+   Configure vscode
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Git (and GitHub)</h1>
+                <h1>Visual Studio Code (vscode)</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configure-vscode">
+   Configure vscode
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -399,60 +436,31 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="git-and-github">
-<h1>Git (and GitHub)<a class="headerlink" href="#git-and-github" title="Permalink to this headline">#</a></h1>
-<p>In programming, it is desirable to be able to track changes to your code over
-time. In development environments, it’s not uncommon that changes may need to
-be rolled back if they break something in production code. Version control
-systems (VCS) are also extremely helpful in collaborative environments, as they
-track who changed what and allow for simultaneous edits to be merged together
-rather painlessly.</p>
-<p>Git is the predominant VCS used by programmers today. While git is a command-
-line tool, an entire ecosystem of hosting services, GUI tools, and IDE’s have
-sprung up around it.</p>
-<p>To <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">install git</a> on your machine:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="visual-studio-code-vscode">
+<h1>Visual Studio Code (vscode)<a class="headerlink" href="#visual-studio-code-vscode" title="Permalink to this headline">#</a></h1>
+<p>While you can write computer code using any text editor, some text editors have special features that make writing code easier.  In this course, we will be using <a class="reference external" href="https://code.visualstudio.com">Visual Studio Code</a>, a popular open-source text editor desiged specifically for writing code.</p>
+<p>To <a class="reference external" href="https://code.visualstudio.com/docs/setup/setup-overview">install vscode</a> on your machine,</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="647b20cc-86be-497b-b926-82d443592bca" name="f34cf209-6c7e-44f6-9dad-3fc4cf1948c2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="windows" for="647b20cc-86be-497b-b926-82d443592bca">
+<input checked="checked" id="b08cb61a-fe9c-42fc-8313-9fcd82eed0f0" name="8f409df1-91c6-48af-9ea1-9b61d9c565fe" type="radio">
+</input><label class="sd-tab-label" data-sync-id="windows" for="b08cb61a-fe9c-42fc-8313-9fcd82eed0f0">
 Windows</label><div class="sd-tab-content docutils">
-<p>While you can install <a class="reference external" href="https://gitforwindows.org/">Git for Windows</a>, because
-the other software packages used in this course are Mac- or Linux-only, you
-will be forced to use WSL to complete this course on Windows. Still, we’ll
-provide a <a class="reference external" href="https://git-scm.com/download/win">download link</a> for git on Windows.</p>
+<p>Follow installation steps <a class="reference external" href="https://code.visualstudio.com/docs/setup/windows">here</a></p>
 </div>
-<input id="04c4355a-d94c-4a2b-9aa9-290ca17118b0" name="f34cf209-6c7e-44f6-9dad-3fc4cf1948c2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="macos" for="04c4355a-d94c-4a2b-9aa9-290ca17118b0">
+<input id="18ef6c63-1090-42a8-b3fd-643bfd2fbdab" name="8f409df1-91c6-48af-9ea1-9b61d9c565fe" type="radio">
+</input><label class="sd-tab-label" data-sync-id="macos" for="18ef6c63-1090-42a8-b3fd-643bfd2fbdab">
 MacOS</label><div class="sd-tab-content docutils">
-<p>Git is included with XCode Command Line Tools. These can be installed from the
-terminal with the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>xcode-select<span class="w"> </span>--install
-</pre></div>
+<p>Follow installation steps <a class="reference external" href="https://code.visualstudio.com/docs/setup/mac">here</a></p>
 </div>
-<p>You can test the installation by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>--version
-</pre></div>
-</div>
-</div>
-<input id="c4ccc3be-f6a0-4716-82bd-37b228876e3f" name="f34cf209-6c7e-44f6-9dad-3fc4cf1948c2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="linux" for="c4ccc3be-f6a0-4716-82bd-37b228876e3f">
+<input id="fd88a2d7-7eaa-43c9-9fc2-3d954bcc350b" name="8f409df1-91c6-48af-9ea1-9b61d9c565fe" type="radio">
+</input><label class="sd-tab-label" data-sync-id="linux" for="fd88a2d7-7eaa-43c9-9fc2-3d954bcc350b">
 Linux</label><div class="sd-tab-content docutils">
-<p>If git is not installed on your machine, you can install it through the terminal.</p>
-<p>Debian-based distributions (e.g. Ubuntu, Debian):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git-all
-</pre></div>
-</div>
-<p>RPM-based distributions (e.g. Fedora, RHEL, CentOS):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>git-all
-</pre></div>
+<p>Follow installation steps <a class="reference external" href="https://code.visualstudio.com/docs/setup/linux">here</a></p>
 </div>
 </div>
-</div>
-<p>GitHub is the most well known hosting service, and it provides free accounts
-(and free private repositories) to all users. This bootcamp, for example, is
-hosted on GitHub, along with many of the most popular open-source Python
-projects (including numpy, scipy, and matplotlib). If you want to version
-control your code, we recommend creating an account on GitHub and keeping your
-source code there.</p>
+<section id="configure-vscode">
+<h2>Configure vscode<a class="headerlink" href="#configure-vscode" title="Permalink to this headline">#</a></h2>
+<p>There are several useful extensions in vs code.  Here are some recommendations for this course:</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -482,17 +490,17 @@ source code there.</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="software.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="git_and_github.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Software</p>
+            <p class="prev-next-title">Git (and GitHub)</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="vscode.html" title="next page">
+    <a class='right-next' id="next-link" href="python.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Visual Studio Code (vscode)</p>
+        <p class="prev-next-title">Python</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

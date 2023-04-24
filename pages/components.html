@@ -149,6 +149,11 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="vscode.html">
+     Visual Studio Code (vscode)
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="python.html">
      Python
     </a>
@@ -202,6 +207,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="y_branch.html">
    Y-Branches
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mzi.html">
+   Mach-Zehnder Interferometer
   </a>
  </li>
  <li class="toctree-l1">
@@ -604,7 +614,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="components">
 <h1>Components<a class="headerlink" href="#components" title="Permalink to this headline">#</a></h1>
-<p>In gdsfactory, we create components and then connect them together to create larger, more complicated designs. Components can be simply shapes, or they can contain references to other components, and they usually have ports which allow you to connect the component to other components.</p>
+<p>In gdsfactory, we create components and then connect them together to create larger, more complicated designs. Components can be simply shapes, or they can contain references to other components, and they usually have ports which allow you to connect the component to other components. You can find more information about components in the gdsfactory <a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/00_geometry.html">components page</a>.</p>
 <section id="parts-of-a-component">
 <h2>Parts of a Component<a class="headerlink" href="#parts-of-a-component" title="Permalink to this headline">#</a></h2>
 <section id="todo-add-something-more-here">
@@ -638,7 +648,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span> <span class="c1"># We&#39;ll just be using gdsfactory here</span>
 
-<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;splitter1x2.gds&quot;</span> <span class="c1"># The filename/path of the gds</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;/Users/ryancamacho/code/Photonics-Bootcamp/book/images/splitter1x2.gds&quot;</span> <span class="c1"># The filename/path of the gds</span>
 </pre></div>
 </div>
 </div>
@@ -658,14 +668,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-03-21 11:49:18.108 | WARNING  | gdsfactory.pdk:get_active_pdk:561 - No active PDK. Activating generic PDK.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-04-24 11:48:28.784 | WARNING  | gdsfactory.pdk:get_active_pdk:563 - No active PDK. Activating generic PDK.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
-</pre></div>
-</div>
-<img alt="../_images/components_10_2.png" src="../_images/components_10_2.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>.: uid f1dffe66, ports [], references [&#39;boolean_e75acdba_1&#39;], 0 polygons
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "dc94705c03454d83abea04f8899f8d6c", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>.: uid 28b3efab, ports [], references [&#39;boolean_e75acdba_1&#39;], 0 polygons
 </pre></div>
 </div>
 </div>
@@ -690,11 +698,9 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
-</pre></div>
-</div>
-<img alt="../_images/components_12_1.png" src="../_images/components_12_1.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>.: uid f1dffe66, ports [&#39;o1&#39;, &#39;o2&#39;, &#39;o3&#39;], references [&#39;boolean_e75acdba_1&#39;], 0 polygons
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "dacef0ab1d7a4a498465078d27fea213", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>.: uid 28b3efab, ports [&#39;o1&#39;, &#39;o2&#39;, &#39;o3&#39;], references [&#39;boolean_e75acdba_1&#39;], 0 polygons
 </pre></div>
 </div>
 </div>
