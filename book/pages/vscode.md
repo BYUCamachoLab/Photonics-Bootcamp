@@ -22,10 +22,14 @@ Follow installation steps [here](https://code.visualstudio.com/docs/setup/mac)
 
 :::
 
+:::{tab-item} Linux
+:sync: linux
+
 Follow installation steps [here](https://code.visualstudio.com/docs/setup/linux)
 
 :::
 
 ::::
 
-Within vscode, you can add several 
+## Configure vscode
+There are several useful extensions in vs code.  Here are some recommendations for this course:
