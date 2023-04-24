@@ -27,3 +27,5 @@ Follow installation steps [here](https://code.visualstudio.com/docs/setup/linux)
 :::
 
 ::::
+
+Within vscode, you can add several 
