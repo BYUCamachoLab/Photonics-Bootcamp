@@ -1,0 +1,558 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Waveguide modes &#8212; CamachoLab Photonics Bootcamp</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/mode_solvers.html" />
+    <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Front Matter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="credits.html">
+   Credits
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Familiar with Code
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="open_source.html">
+   Open Source Software
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="software.html">
+   Software
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="git_and_github.html">
+     Git (and GitHub)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="vscode.html">
+     Visual Studio Code (vscode)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="python.html">
+     Python
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Passive Device Design and Simulation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="what_is_a_photonic_device.html">
+   What is a Photonic Device?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="digital_shape_representation.html">
+   Representing Physical Shapes Digitally
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="components.html">
+     Components
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gds_to_meep.html">
+     GDS to Meep
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="meep_to_gds.html">
+     Meep to GDS
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="directional_couplers.html">
+   Directional Couplers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="y_branch.html">
+   Y-Branches
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mzi.html">
+   Mach-Zehnder Interferometer
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ring_resonators.html">
+   Ring Resonators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mmis.html">
+   Multimode Interferometers (MMIs)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Circuit Design and Simulation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="compact_models.html">
+   Compact Models
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="scattering_parameters.html">
+     Scattering Parameters (S-Parameters)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">
+   Repository
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">
+   PDK Documentation
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/pages/mode_solvers.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Waveguide modes</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="waveguide-modes">
+<h1>Waveguide modes<a class="headerlink" href="#waveguide-modes" title="Permalink to this headline">#</a></h1>
+<p>Light travelling down a dielectric waveguide is confined by total internal reflection.  The distribution (shape) of the light within the waveguide is governed by a set of differential equations known as Maxwell’s equations.   Similar to how Newton’s laws of motion determine the shape of the vibrational waves on a violin string or an organ pipe, Maxwell’s equations determine the shape of the light waves in a waveguide.</p>
+<p>A stationary distribution of light in the waveguide (one that doesn’t change as the light propagates) is called a mode.  Let’s plot an example of some waveguide modes.  We will use the electromagnetic solver MPB to solve for the modes of a dielectric waveguide.</p>
+<p>First we import the necessary modules, including the mode simulation tools built into gdsfactory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we’ll define the geometry and material of our waveguide.  We’ll choose a waveguide width of 0.75 microns and a waveguide thickness of 0.5 microns.  The waveguide will be made of silicon, with a refractive index of 3.47, and it will be surrounded (clad) by glass with a refractive index of 1.44.  We’ll use the command “find_modes_waveguide” to calculate 4 different modes.  Each one will be returned as a mode object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_waveguide</span><span class="p">(</span>
+    <span class="n">parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span><span class="p">,</span>
+    <span class="n">wg_width</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">ncore</span><span class="o">=</span><span class="mf">3.47</span><span class="p">,</span>
+    <span class="n">nclad</span><span class="o">=</span><span class="mf">1.44</span><span class="p">,</span>
+    <span class="n">wg_thickness</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+    <span class="n">sy</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">sz</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">m4</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2023-04-25 16:39:34.690</span> | <span class=" -Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class=" -Color -Color-Cyan">gdsfactory.config</span>:<span class=" -Color -Color-Cyan">showwarning</span>:<span class=" -Color -Color-Cyan">60</span> - <span class=" -Color -Color-Bold -Color-Bold-Yellow">Casting complex values to real discards the imaginary part</span>
+/Users/ryancamacho/gdsfactory/envs/photonics_bootcamp/lib/python3.10/site-packages/gdsfactory/typings.py:301: ComplexWarning: Casting complex values to real discards the imaginary part
+  return np.array(val, dtype=cls.inner_type)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s plot these modes.  First we’ll plot the y-component of the elecgtric field of mode 1 and mode 4.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">islice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m4</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m4</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m4</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/mode_solvers_5_0.png" src="../_images/mode_solvers_5_0.png" />
+</div>
+</div>
+<p>Let’s walk through some of the visual features of these modes.</p>
+<ol class="simple">
+<li><p>The first thing to notice is that, just like a violin string, there exists a fundamental mode and higher order modes.  The mode in the upper plot is the fundamental, or 0th order mode.  It has a half-wave distributed along the y-axis inside the waveguide.  The mode in the lower plot is the 1st order mode.  It has a full wavelength distributed along the y-axis inside the waveguide.  Notice that the x-axis is out of the page.  In general, inside the waveguide the spatial distribution of the mode will have a sinusoidal dependence, and the mode order is determined by the number of half waves contained in the waveguide.</p></li>
+<li><p>The second thing to notice is that the mode also has non-zero electric field <em>outside</em> of the waveguide.  This part of the mode is called the evanescent field, and decays exponentially.  In order to visualize both the sinusoidal and exponentially decaying parts of the modes, a slice of the mode is also plotted in blue just above the waveguide.  This slice is the magnitude of the electric field, which can be positive and negative, at <span class="math notranslate nohighlight">\(z=0\)</span>.</p></li>
+<li><p>The third thing to notice is that the electric field is discontinuous in the y-direction when it crosses a dielectric interface.  This turns out to be a boundary condition that is a fundamental property of Maxwell’s equations, but depends on the direction the field is pointing.  Any component of the field perpindicular to the boundary will be discontinous, and any component of the field parallel to the boundar will be continuous.  Since we have plotted just the y-component of the field, it is discontinuous when it crosses vertical boundaries, but continous when it crosses horizontal boundaries.</p></li>
+</ol>
+<p>Modes that are dominately polarized in the y-direction are called transverse electric (TE) modes.  TE modes are polarized parallel to the substrate and perpindicular (transverse) to the direction of propagation.</p>
+<p>Now let’s plot the electric field mode 1 and mode 3, which are mostly polarized in the z-direction:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">islice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">plot_ez</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">m3</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m3</span><span class="o">.</span><span class="n">plot_ez</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m3</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">m3</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/mode_solvers_7_0.png" src="../_images/mode_solvers_7_0.png" />
+</div>
+</div>
+<p>Notice that the slice of the electric field through <span class="math notranslate nohighlight">\(z = 0\)</span> is now continuous at the boundaries.  You can also see a slight numerical error at the boundary that arises from the finite resolution of the mode solver.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./pages"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By CamachoLab and Google<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
