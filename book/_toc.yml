@@ -34,6 +34,7 @@ parts:
       - file: pages/meep_to_gds
     - file: pages/waveguides
       sections:
+      - file: pages/waveguides_tir
       - file: pages/mode_solvers
       - file: pages/fdtd_solvers
       - file: pages/polarization
