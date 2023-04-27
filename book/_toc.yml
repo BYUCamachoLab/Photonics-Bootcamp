@@ -67,6 +67,7 @@ parts:
       - file: pages/active_models
     - file: pages/design_for_testing
     - file: pages/layout
+    - file: pages/drc
   - caption: Product Development and Fabrication
     chapters:
     - file: pages/what_is_a_pdk
