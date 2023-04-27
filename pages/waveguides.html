@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Waveguide modes" href="mode_solvers.html" />
+    <link rel="next" title="Total Internal Reflection" href="waveguides_tir.html" />
     <link rel="prev" title="Meep to GDS" href="meep_to_gds.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
@@ -209,6 +209,11 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="waveguides_tir.html">
+     Total Internal Reflection
+    </a>
+   </li>
    <li class="toctree-l2">
     <a class="reference internal" href="mode_solvers.html">
      Waveguide modes
@@ -424,11 +429,6 @@ title="Print to PDF"
    What is a Waveguide?
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-review-of-total-internal-reflection">
-   A Review of Total Internal Reflection
-  </a>
- </li>
 </ul>
 
     </nav>
@@ -453,11 +453,6 @@ title="Print to PDF"
    What is a Waveguide?
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-review-of-total-internal-reflection">
-   A Review of Total Internal Reflection
-  </a>
- </li>
 </ul>
 
                         </nav>
@@ -469,13 +464,16 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="waveguides">
-<h1>Waveguides<a class="headerlink" href="#waveguides" title="Permalink to this headline">#</a></h1>
+<span id="waveguides-overview-target"></span><h1>Waveguides<a class="headerlink" href="#waveguides" title="Permalink to this headline">#</a></h1>
 <p>Overview:</p>
 <ol class="simple">
-<li><p>What is a Waveguide?</p></li>
-<li><p>Index of Refraction, reflection coefficients, and total internal reflection</p>
+<li><p><a class="reference external" href="#wiaw-target">What is a Waveguide?</a></p></li>
+<li><p><a class="reference external" href="waveguides_tir.html#tir-target">Total Internal Reflection</a></p>
 <ul class="simple">
-<li><p>Total Internal Reflection code demo?</p></li>
+<li><p><a class="reference external" href="waveguides_tir.html#ke1-target">Key Equations</a></p></li>
+<li><p><a class="reference external" href="waveguides_tir.html#rar-target">Reflection and Refraction Demo</a></p></li>
+<li><p><a class="reference external" href="waveguides_tir.html#ca-target">Critical Angles</a></p></li>
+<li><p><a class="reference external" href="waveguides_tir.html#poltw-target">Propagation of Light Through a Waveguide</a></p></li>
 </ul>
 </li>
 <li><p>Polarization overview</p>
@@ -499,75 +497,11 @@ title="Print to PDF"
 </li>
 </ol>
 <section id="what-is-a-waveguide">
-<h2>What is a Waveguide?<a class="headerlink" href="#what-is-a-waveguide" title="Permalink to this headline">#</a></h2>
-<p>Traditional circuits transmit electrical signals via traces, which are typically made of a conductive material like copper. Photonic circuits transmit light signals via waveguides. Waveguides are used to guide light signals to different parts of photonic circuits. Waveguides can also be used to transmit light signals over very long distances. Waveguides used in photonic circuits typically have a rectangular shape, whereas waveguides used for long distance transmission have a round shape.</p>
-<p>A simple waveguide consists of two parts: a core with a high index of refraction, and a material with a low index of refraction that surrounds the core (known as a “cladding”). One of the most popular waveguides in photonic circuits is the Silicon on Insulator (SOI) waveguide. SOI waveguides are favored for their ease of manufacture. A silicon core, with a refractive index of ~3.47, is clad with silicon dioxide, which has a refractive index of ~1.44.</p>
-</section>
-<section id="a-review-of-total-internal-reflection">
-<h2>A Review of Total Internal Reflection<a class="headerlink" href="#a-review-of-total-internal-reflection" title="Permalink to this headline">#</a></h2>
-<p>The indices of refraction for the core material and cladding material of a waveguide are chosen such that total internal reflection can be achieved for a specific optical frequency. When a light wave propagating in a first material strikes a second material, a portion of the light wave reflects off the boundary between the first and second material, while the rest of the light wave goes through the boundary. The portion of the light wave that reflects off the boundary is called the reflected wave, and the portion that goes through the boundary is called the transmitted wave.</p>
-<p>The magnitude of the reflected and transmitted waves, along with the angles of reflection and transmission, are dependent on the refractive indices of the two materials, along with the incident angle of the light wave. The angles of reflection and transmission (also known as refraction) can be determined using Snell’s law. The magnitudes of the reflected and transmitted waves are the products of the incident wave magnitude and the reflection and transmission coefficients respectively. The reflection and transmission coefficients can be calculated using the Fresnel Equations.</p>
-<p>The python code below demonstrates the principle of oblique reflection and transmission. The red vector represents the propagation of the incident wave. The green vector represents the propagation of the reflected wave, and the blue vector represents the propagation of the transmitted wave. The refractive indices of the first and second material are set to 1 (the refractive index of air) and 2, the indices that correspond to an SOI waveguide. The boundary between the two materials is represented by the axis x = 0. Material 1 is represented by the area x &lt; 0, and material 2 is represented by the area x &gt; 0. Experiment by changing the incident angle. Observe how the angles of the reflected wave and transmitted wave change when the incident angle changes.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="c1">#Define incident angle (in degrees)</span>
-<span class="n">incident_angle</span> <span class="o">=</span> <span class="mi">15</span>
-
-<span class="c1">#Convert incident angle to radians</span>
-<span class="n">incident_angle_radians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">incident_angle</span><span class="p">)</span>
-
-<span class="c1">#Define indices of refraction for material 1 and material 2</span>
-<span class="n">n1</span> <span class="o">=</span> <span class="mf">3.47</span>
-<span class="n">n2</span> <span class="o">=</span> <span class="mf">1.44</span>
-
-<span class="c1">#Calculate the reflected and transmitted angles</span>
-<span class="n">reflected_angle</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">incident_angle_radians</span>
-<span class="n">transmitted_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">((</span><span class="n">n1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">incident_angle_radians</span><span class="p">))</span> <span class="o">/</span> <span class="n">n2</span><span class="p">)</span>
-
-<span class="c1">#Create vectors for the incident wave, reflected wave, and transmitted wave</span>
-<span class="n">incident_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">incident_angle_radians</span><span class="p">)])</span>
-<span class="n">reflected_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">reflected_angle</span><span class="p">)])</span>
-<span class="n">transmitted_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">transmitted_angle</span><span class="p">)])</span>
-
-<span class="c1">#Critical Angle Calculation</span>
-<span class="n">display_transmitted</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">if</span> <span class="n">incident_angle_radians</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">n2</span><span class="o">/</span><span class="n">n1</span><span class="p">):</span>
-    <span class="n">display_transmitted</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="c1">#Create Plot</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-
-<span class="c1">#Add vectors to plot</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">incident_wave</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],[</span><span class="n">incident_wave</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Incident Wave&#39;</span><span class="p">)</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">reflected_wave</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],[</span><span class="n">reflected_wave</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reflected Wave&#39;</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">display_transmitted</span><span class="p">:</span>
-  <span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">transmitted_wave</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">transmitted_wave</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Transmitted Wave&#39;</span><span class="p">)</span>
-
-<span class="c1">#Add barriers to plot</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-
-<span class="c1">#Window, label, and display plot</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Reflection and Transmission&#39;</span><span class="p">)</span>
-<span class="n">axis</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/waveguides_3_0.png" src="../_images/waveguides_3_0.png" />
-</div>
-</div>
-<p>Notice how any incident angle greater than 24 degrees returns a runtime error. When an incident angle is greater than the critical angle, no portion of the incident wave is transmitted as the transmitted wave. In these cases, all of the wave is reflected back, a case called “Total Internal Reflection.”</p>
+<span id="wiaw-target"></span><h2>What is a Waveguide?<a class="headerlink" href="#what-is-a-waveguide" title="Permalink to this headline">#</a></h2>
+<p>Traditional circuits transmit electrical signals via traces, which are typically made of a conductive material like copper. Photonic circuits transmit light signals via waveguides. Waveguides are used to guide light signals to different parts of photonic circuits. Waveguides can also be used to transmit light signals over very long distances.</p>
+<p>TODO: Insert picture of waveguide on chip and fiber optic cable</p>
+<p>A simple waveguide consists of two parts: a core with a high index of refraction, and a material with a low index of refraction that surrounds the core (known as a “cladding”). One of the most popular waveguides for photonic circuits is the Silicon on Insulator (SOI) waveguide.  A silicon core, with a refractive index of ~3.47, is clad with silicon dioxide, which has a refractive index of ~1.44. SOI waveguides are favored for their ease of manufacture - the silicon dioxide layer can be deposited onto a silicon wafer, and then traces of silicon can be etched onto the wafer substrate.</p>
+<p>TODO: Insert picture of SOI waveguide</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -607,10 +541,10 @@ title="Print to PDF"
             <p class="prev-next-title">Meep to GDS</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="mode_solvers.html" title="next page">
+    <a class='right-next' id="next-link" href="waveguides_tir.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Waveguide modes</p>
+        <p class="prev-next-title">Total Internal Reflection</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
