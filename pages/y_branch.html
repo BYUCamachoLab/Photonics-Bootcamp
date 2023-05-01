@@ -513,7 +513,7 @@ title="Print to PDF"
 <h1>Y-Branches<a class="headerlink" href="#y-branches" title="Permalink to this headline">#</a></h1>
 <p>Y-branches are some of the most common types of photonic devices and are used in almost every photonic circuit. They are used to either split light into two waveguides or to combine light from two waveguides into one. While y-branches can be created that split light into any arbitrary fraction, in this page we will focus on a 50/50 y-branch.</p>
 <div style="text-align: center;">
-<image src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mmi1x2.png" alt="y_branch" width=60% height=60% title="Default GDSFactory Y Branch">
+<image src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/y_branch_with_s_bend.png" alt="y_branch" width=100% height=100% title="Default GDSFactory Y Branch">
 </div>
 <p style="text-align: center;"> A y-branch from gdsfactory's default component library </p><section id="splitting-light">
 <h2>Splitting Light<a class="headerlink" href="#splitting-light" title="Permalink to this headline">#</a></h2>
@@ -529,6 +529,12 @@ This is because the y-branch splits the light in half going both direction. Goin
 <p>When light is put in both right ports, if it is in phase, the light coupled into the 2nd order mode will destructively interfere, and the light in the fundamental mode will constructively interfere, resulting in almost all the power exiting the left port in the fundamental mode. On the other hand, if the inputs are out of phase, then the opposite will happen. The power in the fundamental mode will destructively interfere, and constructively interfere in the 2nd order mode, resulting in almost no power in the fundamental mode.</p>
 <section id="design-considerations">
 <h3>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Size</p></li>
+<li><p>Loss</p></li>
+<li><p>Splitting Ratio</p></li>
+<li><p>Can it be made?</p></li>
+</ul>
 </section>
 <section id="practice">
 <h3>Practice<a class="headerlink" href="#practice" title="Permalink to this headline">#</a></h3>

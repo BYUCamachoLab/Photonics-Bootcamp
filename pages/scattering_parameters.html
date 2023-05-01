@@ -575,7 +575,7 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span> 
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1">#import math</span>
 </pre></div>
 </div>
 </div>
@@ -583,10 +583,12 @@ title="Print to PDF"
 <p>Next we’ll define a whole bunch of variables so our code is more readable down the line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># the resolution of the simulation in pixels/um</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="mi">40</span> <span class="c1"># the resolution of the simulation in pixels/um</span>
 <span class="n">three_d</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Turn this to false for a 2D simulation</span>
+<span class="k">if</span> <span class="n">three_d</span><span class="p">:</span> <span class="c1"># If three_d, reduce the resolution</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">/</span><span class="mi">2</span>
 
-<span class="n">gds_file</span> <span class="o">=</span> <span class="s2">&quot;mmi2x2.gds&quot;</span> <span class="c1"># The name of our gds file</span>
+<span class="n">gds_file</span> <span class="o">=</span> <span class="s2">&quot;/home/jkart/Work/Photonics-Bootcamp/Photonics-Bootcamp/book/images/mmi2x2.gds&quot;</span> <span class="c1"># The name of our gds file</span>
 
 <span class="c1"># Here we define the layer numbers for each part of our gds</span>
 <span class="n">geometry_L</span> <span class="o">=</span> <span class="mi">1</span>
@@ -625,8 +627,8 @@ title="Print to PDF"
 
 <span class="c1"># Create a 2D array to hold the S-Parameters for the device</span>
 <span class="n">numPorts</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># The number of ports, also the size of our array</span>
-<span class="n">s_params</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">)]</span>
-<span class="n">input_params</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numPorts</span><span class="p">)]</span>
+<span class="c1"># s_params = [[0 for i in range(numPorts)] for j in range(numPorts)]</span>
+<span class="c1"># input_params = [0 for i in range(numPorts)]</span>
 </pre></div>
 </div>
 </div>
@@ -646,10 +648,6 @@ title="Print to PDF"
 <span class="n">source2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GDSII_vol</span><span class="p">(</span><span class="n">fname</span> <span class="o">=</span> <span class="n">gds_file</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">source2_L</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="n">cell_zmax</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="n">cell_zmin</span><span class="p">)</span>
 <span class="n">source3</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GDSII_vol</span><span class="p">(</span><span class="n">fname</span> <span class="o">=</span> <span class="n">gds_file</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">source3_L</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="n">cell_zmax</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="n">cell_zmin</span><span class="p">)</span>
 <span class="n">source4</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GDSII_vol</span><span class="p">(</span><span class="n">fname</span> <span class="o">=</span> <span class="n">gds_file</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">source4_L</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="n">cell_zmax</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="n">cell_zmin</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">three_d</span><span class="p">:</span>
-    <span class="n">cell_plane</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GDSII_vol</span><span class="p">(</span><span class="n">fname</span> <span class="o">=</span> <span class="n">gds_file</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">cell_L</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># the plane of the cell. This is used to plot the simulation when it is three_d</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="n">cell_plane</span> <span class="o">=</span> <span class="n">cell</span>
 
 
 <span class="k">if</span> <span class="n">three_d</span><span class="p">:</span> <span class="c1"># Sets up the oxide cladding for a three d simulation (Not used in a 2D simulation)</span>
@@ -697,7 +695,7 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 </div>
 <p>After creating the simulation object, we can add mode monitors at each of the ports. These will read how much light comes in/out of each port.</p>
 <p>Now that our simulation is completely set up for the first source, I can plot it to make sure everything looks right before running the simulation. We do that using the plot2D() method of the simulation object.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adds mode monitors at each of the ports to track the energy that goes in or out, then adds them to a list</span>
 <span class="n">modeMonitors</span> <span class="o">=</span> <span class="p">[]</span>
@@ -707,7 +705,7 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 <span class="n">modeMonitors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">)))</span>
 
 <span class="c1"># Plot the simulation</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">(</span><span class="n">output_plane</span> <span class="o">=</span> <span class="n">cell_plane</span><span class="p">)</span> <span class="c1"># No parameters are needed for a 2D simulation. </span>
+<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span> <span class="c1"># No parameters are needed for a 2D simulation. </span>
 </pre></div>
 </div>
 </div>
@@ -784,7 +782,7 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 </div>
 </div>
 <p>As we see from the output of sim.plot2D(), our simulation is set up correctly. The red is our source, the blue are our 4 mode monitors, an the black is the geometry. We are ready to run the simulation! Actually running the simulation is the most computationally intense part of this, so it may take some time. The until_after_sources parameter for sim.run() means the run the simulation until 100 meep time units after the sources have turned off. This makes sure the all of the light has time to propagate through the mmi.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Runs the simulation</span>
 <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -794,9 +792,9 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
 Initializing structure...
-time for choose_chunkdivision = 0.00280905 s
+time for choose_chunkdivision = 0.007195 s
 Working in 2D dimensions.
-Computational cell is 35.5 x 10 x 0 with resolution 50
+Computational cell is 35.5 x 10 x 0 with resolution 40
      prism, center = (-7.75,-0.625,0)
           height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
           (-2.75,-1.125,-10)
@@ -860,122 +858,47 @@ Computational cell is 35.5 x 10 x 0 with resolution 50
           (17.75,-0.375,-10)
           (17.75,-0.875,-10)
           dielectric constant epsilon diagonal = (12,12,12)
-subpixel-averaging is 96.7172% done, 0.135776 s remaining
-time for set_epsilon = 11.5322 s
+time for set_epsilon = 5.45294 s
 -----------
-MPB solved for frequency_1(2.2349,0,0) = 0.68454 after 25 iters
-MPB solved for frequency_1(2.09412,0,0) = 0.645204 after 16 iters
-MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 3 iters
-MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 1 iters
-Meep progress: 2.98/177.5 = 1.7% done in 4.0s, 235.0s to go
-on time step 298 (time=2.98), 0.0134603 s/step
-Meep progress: 5.97/177.5 = 3.4% done in 8.0s, 230.5s to go
-on time step 597 (time=5.97), 0.0134066 s/step
-Meep progress: 8.83/177.5 = 5.0% done in 12.0s, 229.9s to go
-on time step 883 (time=8.83), 0.0140208 s/step
-Meep progress: 12.1/177.5 = 6.8% done in 16.0s, 219.2s to go
-on time step 1210 (time=12.1), 0.0122435 s/step
-Meep progress: 15.52/177.5 = 8.7% done in 20.0s, 209.1s to go
-on time step 1553 (time=15.53), 0.0116968 s/step
-Meep progress: 18.45/177.5 = 10.4% done in 24.0s, 207.3s to go
-on time step 1846 (time=18.46), 0.0136749 s/step
-Meep progress: 21.57/177.5 = 12.2% done in 28.1s, 202.8s to go
-on time step 2158 (time=21.58), 0.0128284 s/step
-Meep progress: 24.650000000000002/177.5 = 13.9% done in 32.1s, 198.8s to go
-on time step 2467 (time=24.67), 0.0129641 s/step
-Meep progress: 27.85/177.5 = 15.7% done in 36.1s, 193.8s to go
-on time step 2786 (time=27.86), 0.01254 s/step
-Meep progress: 30.66/177.5 = 17.3% done in 40.1s, 191.9s to go
-on time step 3067 (time=30.67), 0.0142577 s/step
-Meep progress: 33.99/177.5 = 19.1% done in 44.1s, 186.1s to go
-on time step 3400 (time=34), 0.0120136 s/step
-Meep progress: 37.21/177.5 = 21.0% done in 48.1s, 181.3s to go
-on time step 3722 (time=37.22), 0.0124473 s/step
-Meep progress: 40.0/177.5 = 22.5% done in 52.1s, 179.0s to go
-on time step 4001 (time=40.01), 0.0143374 s/step
-Meep progress: 42.97/177.5 = 24.2% done in 56.1s, 175.6s to go
-on time step 4298 (time=42.98), 0.01349 s/step
-Meep progress: 46.27/177.5 = 26.1% done in 60.1s, 170.4s to go
-on time step 4628 (time=46.28), 0.0121307 s/step
-Meep progress: 49.18/177.5 = 27.7% done in 64.1s, 167.3s to go
-on time step 4919 (time=49.19), 0.0137845 s/step
-Meep progress: 52.300000000000004/177.5 = 29.5% done in 68.1s, 163.0s to go
-on time step 5232 (time=52.32), 0.0128172 s/step
-Meep progress: 55.6/177.5 = 31.3% done in 72.1s, 158.1s to go
-on time step 5562 (time=55.62), 0.0121509 s/step
-Meep progress: 58.63/177.5 = 33.0% done in 76.1s, 154.3s to go
-on time step 5868 (time=58.68), 0.013113 s/step
-Meep progress: 61.47/177.5 = 34.6% done in 80.1s, 151.2s to go
-on time step 6154 (time=61.54), 0.0139965 s/step
-Meep progress: 64.83/177.5 = 36.5% done in 84.1s, 146.2s to go
-on time step 6491 (time=64.91), 0.0118742 s/step
-Meep progress: 68.31/177.5 = 38.5% done in 88.1s, 140.9s to go
-on time step 6839 (time=68.39), 0.0114985 s/step
-Meep progress: 71.65/177.5 = 40.4% done in 92.1s, 136.1s to go
-on time step 7172 (time=71.72), 0.0120155 s/step
-Meep progress: 74.66/177.5 = 42.1% done in 96.1s, 132.4s to go
-on time step 7472 (time=74.72), 0.013352 s/step
-Meep progress: 77.87/177.5 = 43.9% done in 100.1s, 128.1s to go
-on time step 7795 (time=77.95), 0.0124169 s/step
-Meep progress: 81.33/177.5 = 45.8% done in 104.1s, 123.1s to go
-on time step 8141 (time=81.41), 0.0115746 s/step
-Meep progress: 84.81/177.5 = 47.8% done in 108.2s, 118.2s to go
-on time step 8489 (time=84.89), 0.0115076 s/step
-Meep progress: 88.11/177.5 = 49.6% done in 112.2s, 113.8s to go
-on time step 8819 (time=88.19), 0.0121374 s/step
-Meep progress: 91.45/177.5 = 51.5% done in 116.2s, 109.3s to go
-on time step 9153 (time=91.53), 0.0119915 s/step
-Meep progress: 94.96000000000001/177.5 = 53.5% done in 120.2s, 104.5s to go
-on time step 9503 (time=95.03), 0.0114419 s/step
-Meep progress: 98.47/177.5 = 55.5% done in 124.2s, 99.7s to go
-on time step 9853 (time=98.53), 0.0114525 s/step
-Meep progress: 101.85000000000001/177.5 = 57.4% done in 128.2s, 95.2s to go
-on time step 10191 (time=101.91), 0.0118396 s/step
-Meep progress: 104.95/177.5 = 59.1% done in 132.2s, 91.4s to go
-on time step 10501 (time=105.01), 0.0129082 s/step
-Meep progress: 108.14/177.5 = 60.9% done in 136.2s, 87.4s to go
-on time step 10819 (time=108.19), 0.0126031 s/step
-Meep progress: 111.37/177.5 = 62.7% done in 140.2s, 83.3s to go
-on time step 11144 (time=111.44), 0.0123347 s/step
-Meep progress: 114.41/177.5 = 64.5% done in 144.2s, 79.5s to go
-on time step 11445 (time=114.45), 0.0132982 s/step
-Meep progress: 117.42/177.5 = 66.2% done in 148.2s, 75.8s to go
-on time step 11749 (time=117.49), 0.013174 s/step
-Meep progress: 120.66/177.5 = 68.0% done in 152.2s, 71.7s to go
-on time step 12072 (time=120.72), 0.0124084 s/step
-Meep progress: 124.18/177.5 = 70.0% done in 156.2s, 67.1s to go
-on time step 12424 (time=124.24), 0.0113899 s/step
-Meep progress: 127.64/177.5 = 71.9% done in 160.2s, 62.6s to go
-on time step 12772 (time=127.72), 0.0115257 s/step
-Meep progress: 131.17000000000002/177.5 = 73.9% done in 164.3s, 58.0s to go
-on time step 13124 (time=131.24), 0.0113771 s/step
-Meep progress: 134.68/177.5 = 75.9% done in 168.3s, 53.5s to go
-on time step 13475 (time=134.75), 0.011416 s/step
-Meep progress: 138.07/177.5 = 77.8% done in 172.3s, 49.2s to go
-on time step 13814 (time=138.14), 0.0118055 s/step
-Meep progress: 141.57/177.5 = 79.8% done in 176.3s, 44.7s to go
-on time step 14164 (time=141.64), 0.0114409 s/step
-Meep progress: 144.92000000000002/177.5 = 81.6% done in 180.3s, 40.5s to go
-on time step 14499 (time=144.99), 0.0119483 s/step
-Meep progress: 148.24/177.5 = 83.5% done in 184.3s, 36.4s to go
-on time step 14832 (time=148.32), 0.0120487 s/step
-Meep progress: 151.59/177.5 = 85.4% done in 188.3s, 32.2s to go
-on time step 15167 (time=151.67), 0.0119575 s/step
-Meep progress: 154.88/177.5 = 87.3% done in 192.3s, 28.1s to go
-on time step 15497 (time=154.97), 0.012141 s/step
-Meep progress: 158.19/177.5 = 89.1% done in 196.3s, 24.0s to go
-on time step 15829 (time=158.29), 0.0120777 s/step
-Meep progress: 161.46/177.5 = 91.0% done in 200.3s, 19.9s to go
-on time step 16155 (time=161.55), 0.0122817 s/step
-Meep progress: 164.79/177.5 = 92.8% done in 204.3s, 15.8s to go
-on time step 16487 (time=164.87), 0.0120851 s/step
-Meep progress: 167.69/177.5 = 94.5% done in 208.3s, 12.2s to go
-on time step 16779 (time=167.79), 0.0137227 s/step
-Meep progress: 170.9/177.5 = 96.3% done in 212.3s, 8.2s to go
-on time step 17099 (time=170.99), 0.0125095 s/step
-Meep progress: 174.33/177.5 = 98.2% done in 216.3s, 3.9s to go
-on time step 17442 (time=174.42), 0.011669 s/step
-run 0 finished at t = 177.5 (17750 timesteps)
+MPB solved for frequency_1(2.2349,0,0) = 0.684193 after 11 iters
+MPB solved for frequency_1(2.09538,0,0) = 0.645192 after 7 iters
+MPB solved for frequency_1(2.09527,0,0) = 0.645161 after 4 iters
+MPB solved for frequency_1(2.09527,0,0) = 0.645161 after 1 iters
+Meep progress: 8.762500000000001/177.5 = 4.9% done in 4.0s, 77.1s to go
+on time step 701 (time=8.7625), 0.00570842 s/step
+Meep progress: 18.5375/177.5 = 10.4% done in 8.0s, 68.6s to go
+on time step 1484 (time=18.55), 0.00511293 s/step
+Meep progress: 28.650000000000002/177.5 = 16.1% done in 12.0s, 62.4s to go
+on time step 2293 (time=28.6625), 0.0049495 s/step
+Meep progress: 38.800000000000004/177.5 = 21.9% done in 16.0s, 57.2s to go
+on time step 3106 (time=38.825), 0.00492156 s/step
+Meep progress: 50.487500000000004/177.5 = 28.4% done in 20.0s, 50.3s to go
+on time step 4041 (time=50.5125), 0.0042806 s/step
+Meep progress: 61.6875/177.5 = 34.8% done in 24.0s, 45.1s to go
+on time step 4937 (time=61.7125), 0.00446826 s/step
+Meep progress: 72.2/177.5 = 40.7% done in 28.0s, 40.9s to go
+on time step 5778 (time=72.225), 0.00475687 s/step
+Meep progress: 81.7625/177.5 = 46.1% done in 32.0s, 37.5s to go
+on time step 6543 (time=81.7875), 0.00523751 s/step
+Meep progress: 90.36250000000001/177.5 = 50.9% done in 36.0s, 34.7s to go
+on time step 7231 (time=90.3875), 0.00581787 s/step
+Meep progress: 99.73750000000001/177.5 = 56.2% done in 40.0s, 31.2s to go
+on time step 7982 (time=99.775), 0.00533166 s/step
+Meep progress: 110.16250000000001/177.5 = 62.1% done in 44.0s, 26.9s to go
+on time step 8817 (time=110.213), 0.00479715 s/step
+Meep progress: 119.91250000000001/177.5 = 67.6% done in 48.0s, 23.1s to go
+on time step 9596 (time=119.95), 0.00514054 s/step
+Meep progress: 129.9125/177.5 = 73.2% done in 52.0s, 19.1s to go
+on time step 10398 (time=129.975), 0.00498952 s/step
+Meep progress: 140.525/177.5 = 79.2% done in 56.0s, 14.7s to go
+on time step 11247 (time=140.588), 0.00471537 s/step
+Meep progress: 150.7375/177.5 = 84.9% done in 60.0s, 10.7s to go
+on time step 12062 (time=150.775), 0.004908 s/step
+Meep progress: 161.9875/177.5 = 91.3% done in 64.0s, 6.1s to go
+on time step 12964 (time=162.05), 0.00443488 s/step
+Meep progress: 172.7125/177.5 = 97.3% done in 68.0s, 1.9s to go
+on time step 13821 (time=172.763), 0.00466831 s/step
+run 0 finished at t = 177.5 (14200 timesteps)
 </pre></div>
 </div>
 </div>
