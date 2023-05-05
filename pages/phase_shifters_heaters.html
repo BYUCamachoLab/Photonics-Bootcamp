@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Mach-Zehnder Interferometer &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Phase Shifters: Heaters &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/mzi.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/phase_shifters_heaters.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ring Resonators" href="ring_resonators.html" />
-    <link rel="prev" title="Y-Branches" href="y_branch.html" />
+    <link rel="next" title="Compact Models" href="compact_models.html" />
+    <link rel="prev" title="Multimode Interferometers (MMIs)" href="mmis.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -171,7 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
   Passive Device Design and Simulation
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is_a_photonic_device.html">
    What is a Photonic Device?
@@ -241,8 +241,8 @@ const thebe_selector_output = ".output, .cell_output"
    Y-Branches
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="mzi.html">
    Mach-Zehnder Interferometer
   </a>
  </li>
@@ -262,9 +262,9 @@ const thebe_selector_output = ".output, .cell_output"
   Active Device Design and Simulation
  </span>
 </p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="phase_shifters_heaters.html">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Phase Shifters: Heaters
   </a>
  </li>
@@ -382,7 +382,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/mzi.ipynb"
+        <a href="../_sources/pages/phase_shifters_heaters.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -441,14 +441,29 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Mach-Zehnder Interferometer
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-phase-shifter">
+   What is a Phase Shifter?
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sweeping">
-   Sweeping
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-does-a-phase-shifter-work">
+   How does a Phase Shifter Work?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advantages-of-thermal-phase-shifters">
+   Advantages of Thermal Phase Shifters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#disadvantages-of-thermal-phase-shifters">
+   Disadvantages of Thermal Phase Shifters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tuning-efficiency-of-thermal-phase-shifters">
+   Tuning Efficiency of Thermal Phase Shifters
   </a>
  </li>
 </ul>
@@ -460,7 +475,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Mach-Zehnder Interferometer</h1>
+                <h1>Phase Shifters: Heaters</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -470,14 +485,29 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Mach-Zehnder Interferometer
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-phase-shifter">
+   What is a Phase Shifter?
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sweeping">
-   Sweeping
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-does-a-phase-shifter-work">
+   How does a Phase Shifter Work?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advantages-of-thermal-phase-shifters">
+   Advantages of Thermal Phase Shifters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#disadvantages-of-thermal-phase-shifters">
+   Disadvantages of Thermal Phase Shifters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tuning-efficiency-of-thermal-phase-shifters">
+   Tuning Efficiency of Thermal Phase Shifters
   </a>
  </li>
 </ul>
@@ -490,20 +520,43 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="mach-zehnder-interferometer">
-<h1>Mach-Zehnder Interferometer<a class="headerlink" href="#mach-zehnder-interferometer" title="Permalink to this headline">#</a></h1>
-<p>An interferometer is just an instrument that utilizes the interference between two beams of light to make precise measurements.</p>
-<p>The Mach-Zehnder Interferometer (MZI) splits a light beam, sends the light down two different paths and recombines the light. We say that the MZI is balanced if the two paths are the same distance or unblanced if the path lengths differ.</p>
-<p><img alt="Image of an MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
-<p>One implementation of this concept is illustrated above. Notice that the inner path of the MZI is shorter than the outer path, therefore the MZI is unbalanced. This implies that the two light beams will be out of phase with each other when they are recombined and interference occurs.</p>
-<p>Since the interference that occurs when the light is recombined is dependent on the the wavelength of the intitial beam of light, the amount of light that leaves the interferometer will be dependent on the initial wavelength.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="phase-shifters-heaters">
+<h1>Phase Shifters: Heaters<a class="headerlink" href="#phase-shifters-heaters" title="Permalink to this headline">#</a></h1>
+<section id="what-is-a-phase-shifter">
+<h2>What is a Phase Shifter?<a class="headerlink" href="#what-is-a-phase-shifter" title="Permalink to this headline">#</a></h2>
+<p>Light signals travelling through photonic circuits propagate at the speed of light and oscillate with a certain amplitude at a certain frequency. In some photonic circuit applications, it may be desirable to adjust the relative phase of a light signal. This kind of optical tuning can be achieved using a <em>phase shifter</em>.</p>
+<p>Phase shifters may be used to compensate for the natural phase dispersion of light as it travels through waveguides over long distances, however, phase shifters are also essential active elements of photonic circuits that are used to manipulate signals.</p>
+<p>For example, let’s say we have two equally polarized light signals travelling through a photonic circuit that are going to be combined using a y-bridge. Depending on the phase difference between the two signals, they may interfere with one another constructively or destructively. The phase of one light signal may be manipulated using a phase shifter, so that the two light signals combine in a desired way.</p>
+<p>TODO: Insert illustration of example.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="sweeping">
-<h1>Sweeping<a class="headerlink" href="#sweeping" title="Permalink to this headline">#</a></h1>
-<p>Imagine we shined a laser into the first grating coupler and then adjusted the wavelength over some range. We then can plot the data from the intensity of the light leaving the MZI against the wavelengths we tested. This is sometimes referred to as “sweeping.”</p>
-<p><img alt="Image of an MZI with labels" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/plot_mzi.webp" /></p>
-<p>Click here for more information about implementing sweeps:
-<a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html</a></p>
+<section id="how-does-a-phase-shifter-work">
+<h2>How does a Phase Shifter Work?<a class="headerlink" href="#how-does-a-phase-shifter-work" title="Permalink to this headline">#</a></h2>
+<p>Phase shifters are regions with indices of refraction that can be changed. When a light signals passes through a materials with a different index of refraction than the material it’s propagating through, the frequency of the light signal “expands” or “compresses” according to the difference between the two refractive indices. The frequency of a light signal travelling from a first material to a second material with a higher index of refraction will compress (i.e. the signal will oscillate more times per unit length within the new material). The frequency of a light signal travelling from a first material to a second material with a lower index of refraction will expand (i.e. the signal will oscillate fewer times per unit length within the new material). For illustrative purposes, see the figure below.</p>
+<p>TODO: Insert figure</p>
+<p>Notice how the relative phase of the signal changes as it passes through the material.</p>
+<p><em>Thermal phase shifters</em> are phase shifters that operate based on the thermo-optic effect. For most materials, as a material increases in temperature, its index of refraction increases. At low temperatures, the relationship between temperature and refractive index is generally linear, but at higher temperatures, the relationship must be approximated using second order differential equations.</p>
+<p>The phase shift of light through a thermal phase shifter is proportional to the index of refraction of the thermal phase shifter, which in turn is proportional to its temperature. Therefore, the phase shift of a thermal phase shifter can be adjusted by changing its temperature.</p>
+<p>There are several ways of implementing a thermal phase shifter. Some thermal phase shifters comprise waveguides in proximity to metal resistors. As an electrical current runs through the resistor, the resistor dissipates power in the form of heat, changing the temperature of the waveguide. The resistor may be placed above the waveguide, within the waveguide itself, or beside the waveguide.</p>
+</section>
+<section id="advantages-of-thermal-phase-shifters">
+<h2>Advantages of Thermal Phase Shifters<a class="headerlink" href="#advantages-of-thermal-phase-shifters" title="Permalink to this headline">#</a></h2>
+<p>There are several advantages to thermal phase shifters, including:</p>
+<ol class="simple">
+<li><p>Precision. The thermo-optic effect that governs the phase shift of a thermal phase shifter is mostly linear at low temperatures, so small changes in temperature correspond to small changes in phase shift.</p></li>
+<li><p>Low loss. Unlike other phase shifters, like the PIN phase shifter, thermal phase shifters don’t introduce optical insertion loss. Because of this, thermal phase shifters can be used to shift the phase of a signal without affecting its amplitude.</p></li>
+<li><p>Ease of manufacture. Thermal phase shifters, especially simple shifters where the heating element is a resistor, are relatively easy to implement using the most common fabrication processes.</p></li>
+</ol>
+</section>
+<section id="disadvantages-of-thermal-phase-shifters">
+<h2>Disadvantages of Thermal Phase Shifters<a class="headerlink" href="#disadvantages-of-thermal-phase-shifters" title="Permalink to this headline">#</a></h2>
+<p>Thermal phase shifters offer many advantages, but the tradeoff is speed. Because phase shifts are dependent on heat transferred between a heating element and a waveguide, the time it takes for the heat to transfer is dependent on the heat capacities of the element, the waveguide, and the material between the two. In tuning applciations, the time it takes for a thermal phase shifter to heat up may not be a problem, but in modulation applications where an index of refraction must constantly change, thermal phase shifters are not as useful as other types of phase shifters.</p>
+</section>
+<section id="tuning-efficiency-of-thermal-phase-shifters">
+<h2>Tuning Efficiency of Thermal Phase Shifters<a class="headerlink" href="#tuning-efficiency-of-thermal-phase-shifters" title="Permalink to this headline">#</a></h2>
+<p>The efficiency of a phase shifter is a measurement of the power supplied to the phase shifter in order to obtain a phase shift of 360 degrees (one complete period of the signal). This measurement is called the <em>tuning efficiency</em> of a phase shifter, and is typically in expressed in units of mW/FSR (Free Spectral Range - the spacing between two maxima in an optical frequency).</p>
+<p>The tuning efficiency of a thermal phase shifter is independent of its length. Shorter thermal phase shifters will require a higher temperature of operation to achieve the phase shift of a longer thermal phase shifter, but both phase shifters will consume the same amount of power.</p>
+<p>To increase the tuning efficiency of a thermal phase shifter, the heating element of a thermal phase shifter may be placed closer to the waveguide, or material between the waveguide and the heating element may be removed. A higher rate of heat transfer will increase a thermal phase shifter’s tuning efficiency.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -533,17 +586,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="y_branch.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="mmis.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Y-Branches</p>
+            <p class="prev-next-title">Multimode Interferometers (MMIs)</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="ring_resonators.html" title="next page">
+    <a class='right-next' id="next-link" href="compact_models.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Ring Resonators</p>
+        <p class="prev-next-title">Compact Models</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
