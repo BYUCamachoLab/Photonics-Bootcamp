@@ -13,6 +13,7 @@ parts:
     - file: pages/open_source
     - file: pages/software
       sections:
+      - file: pages/setup
       - file: pages/system_configuration
       - file: pages/git_and_github
       - file: pages/vscode
