@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/mzi.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -451,6 +453,33 @@ title="Print to PDF"
    Sweeping
   </a>
  </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">
+   Analysis of a Balanced MZI
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#quick-check">
+     Quick Check
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-definitions">
+   Basic Definitions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">
+   Analysis of Imblanced MZI’s
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thermo-optic-effect">
+   Thermo-Optic Effect
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -480,6 +509,33 @@ title="Print to PDF"
    Sweeping
   </a>
  </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">
+   Analysis of a Balanced MZI
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#quick-check">
+     Quick Check
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-definitions">
+   Basic Definitions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">
+   Analysis of Imblanced MZI’s
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thermo-optic-effect">
+   Thermo-Optic Effect
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -504,6 +560,135 @@ title="Print to PDF"
 <p><img alt="Image of an MZI with labels" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/plot_mzi.webp" /></p>
 <p>Click here for more information about implementing sweeps:
 <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html</a></p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="analysis-of-a-balanced-mzi">
+<h1>Analysis of a Balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this headline">#</a></h1>
+<p>You can think of a balanced interferometer as having equal path lengths when the light separates. In ideal conditions, this means that amount of power at the output is the same as the input.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="n">PDK</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">get_generic_pdk</span><span class="p">()</span>
+<span class="n">PDK</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;my_component&quot;</span><span class="p">)</span>
+<span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "f979778f01fc49febbccf2f84c3927a0", "version_major": 2, "version_minor": 0}
+</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_component: uid e7c90c94, ports [], references [&#39;mzi_1&#39;], 0 polygons
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are there three different relevant amplitudes:</p>
+<ol class="simple">
+<li><p>The amplitude of the input light:
+$<span class="math notranslate nohighlight">\(
+ I_{input} = E_{input}^2
+\)</span>$</p></li>
+<li><p>The amplitudes of the beams after the split
+$<span class="math notranslate nohighlight">\(
+ E_{1} = \frac{E_{input}}{\sqrt{2}}
+ E_{2} = \frac{E_{input}}{\sqrt{2}}
+\)</span>$</p></li>
+<li><p>The amplitude of the recombined light
+$<span class="math notranslate nohighlight">\(
+ E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
+\)</span>$</p></li>
+</ol>
+<p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
+<section id="quick-check">
+<h2>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p>If the input power is .5 mW, what is the output power of the MZI described above? (a: .5mW)</p></li>
+<li></li>
+<li></li>
+</ol>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="basic-definitions">
+<h1>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Permalink to this headline">#</a></h1>
+<p>It would be helpful to mathematically model the light in our waveguides. We can start to build a model by considering the equation for a plane wave.</p>
+<div class="math notranslate nohighlight">
+\[    
+    E = E_0 e^{i(\omega t - \beta z)}
+\]</div>
+<ul class="simple">
+<li><p>‘E’ is an electric field</p></li>
+<li><p>‘ω’ is the optical frequency</p></li>
+<li><p>‘t’ is time</p></li>
+<li><p>‘β’ is the propogation constant</p></li>
+<li><p>‘z’ is the position</p></li>
+</ul>
+<p>Propogation Constant of Light:
+$<span class="math notranslate nohighlight">\(
+    \beta = \frac{2 \pi n}{\lambda} 
+\)</span>$</p>
+<ul class="simple">
+<li><p>‘n’ is the index of refraction</p></li>
+<li><p>‘λ’ is the wavelength</p></li>
+</ul>
+<p>This describes a plane wave propogating through a medium in the z-direction. If our the first Y-branch splitter of our MZI split this wave, we could describe the resulting waves like this:</p>
+<div class="math notranslate nohighlight">
+\[
+E_{o1} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{1}L_{1}-\frac{\alpha_{1}}{2}L_{1}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+E_{o2} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{2}L_{2}-\frac{\alpha_{2}}{2}L_{2}}
+\]</div>
+<p>*** As the light travels through the waveguide we can imagine that it will experience some degree of loss. The ‘α’ term that appeared in the exponents is the loss coefficient. For convenience, the following examples will assume that α = 0, or that there is zero loss in our waveguides.</p>
+<p>And finally the intensity of the the recombined light at the end of the MZI can be described like so:</p>
+<div class="math notranslate nohighlight">
+\[
+I_{output} = \frac{I_{input}}{4} \lvert E_{o1} + E_{o2} \lvert ^2 
+\]</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="analysis-of-imblanced-mzi-s">
+<h1>Analysis of Imblanced MZI’s<a class="headerlink" href="#analysis-of-imblanced-mzi-s" title="Permalink to this headline">#</a></h1>
+<p>The equation below is the simplified version of the above expressions assuming no difference in the propogation constants of the two different waveguides and no loss.</p>
+<div class="math notranslate nohighlight">
+\[
+I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="n">PDK</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">get_generic_pdk</span><span class="p">()</span>
+<span class="n">PDK</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;my_component&quot;</span><span class="p">)</span>
+<span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
+</pre></div>
+</div>
+<img alt="../_images/mzi_22_1.png" src="../_images/mzi_22_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_component: uid a71ccce9, ports [], references [&#39;mzi_1&#39;], 0 polygons
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="thermo-optic-effect">
+<h1>Thermo-Optic Effect<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this headline">#</a></h1>
+<p>Varying the path length is not the only way to unbalance a MZI. By utilizing the thermo-optic effect of silicon, we can introduce a phase shift in one of waveguides that can achieve a similar effect.</p>
+<div class="math notranslate nohighlight">
+\[
+I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
+\]</div>
 </section>
 
     <script type="text/x-thebe-config">
