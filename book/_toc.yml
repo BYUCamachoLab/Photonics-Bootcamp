@@ -50,6 +50,7 @@ parts:
     - file: pages/mmis
   - caption: Active Device Design and Simulation
     chapters:
+    - file: pages/phase_shifters
     - file: pages/phase_shifters_heaters
     - file: pages/phase_shifters_pn
     - file: pages/voas
