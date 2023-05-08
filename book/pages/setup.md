@@ -19,7 +19,7 @@ You now need to install VSCode. Refer to the chapter on VSCode [here](/pages/vsc
 
 Open VSCode. You can setup a theme and other things. Open a new Terminal. If you are using WSL, make sure to open the WS terminal. You can do this by clicking on the dropdown menu on the top right of the terminal and selecting "Select Default Profile". Select "Ubuntu" from the list.
 
-To install all the packages, download this [setup script](../scripts/setup.sh).
+To install all the packages, download this [setup script](/scripts/setup.sh).
 
 If you are using Linux, and assuming the script was downloaded to your Downloads folder, run the following command:
 
