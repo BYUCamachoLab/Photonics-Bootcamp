@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Polarization &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Phase Shifters: PN Junctions and PIN Junctions &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/polarization.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/phase_shifters_pn.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
-    <link rel="prev" title="Waveguide modes" href="mode_solvers.html" />
+    <link rel="next" title="Compact Models" href="compact_models.html" />
+    <link rel="prev" title="Phase Shifters: Heaters" href="phase_shifters_heaters.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -171,7 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
   Passive Device Design and Simulation
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is_a_photonic_device.html">
    What is a Photonic Device?
@@ -204,16 +204,16 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="waveguides.html">
    Waveguides
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="waveguides_tir.html">
      Total Internal Reflection
@@ -224,8 +224,8 @@ const thebe_selector_output = ".output, .cell_output"
      Waveguide modes
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="polarization.html">
      Polarization
     </a>
    </li>
@@ -262,7 +262,7 @@ const thebe_selector_output = ".output, .cell_output"
   Active Device Design and Simulation
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="phase_shifters.html">
    Phase Shifters
@@ -273,8 +273,8 @@ const thebe_selector_output = ".output, .cell_output"
    Phase Shifters: Heaters
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="phase_shifters_pn.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Phase Shifters: PN Junctions and PIN Junctions
   </a>
  </li>
@@ -392,7 +392,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/polarization.ipynb"
+        <a href="../_sources/pages/phase_shifters_pn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -429,23 +429,118 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pn-junction-phase-shifters">
+   PN Junction phase shifters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#advantages-of-pn-junction-phase-shifters">
+     Advantages of PN Junction Phase Shifters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#disadvantages-of-pn-junction-phase-shifters">
+     Disadvantages of PN Junction Phase Shifters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pin-phase-shifters">
+   PIN Phase Shifters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#advantages-of-pin-phase-shifters">
+     Advantages of PIN Phase Shifters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#disadvantages-of-pin-phase-shifters">
+     Disadvantages of PIN Phase Shifters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Polarization</h1>
+                <h1>Phase Shifters: PN Junctions and PIN Junctions</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pn-junction-phase-shifters">
+   PN Junction phase shifters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#advantages-of-pn-junction-phase-shifters">
+     Advantages of PN Junction Phase Shifters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#disadvantages-of-pn-junction-phase-shifters">
+     Disadvantages of PN Junction Phase Shifters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pin-phase-shifters">
+   PIN Phase Shifters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#advantages-of-pin-phase-shifters">
+     Advantages of PIN Phase Shifters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#disadvantages-of-pin-phase-shifters">
+     Disadvantages of PIN Phase Shifters
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -453,16 +548,47 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="polarization">
-<h1>Polarization<a class="headerlink" href="#polarization" title="Permalink to this headline">#</a></h1>
-<p>To understand how an optical waveguide works, it is important to understand what it means for light to be polarized. This is because the polarization of light will affect how it behaves in a waveguide.</p>
-<p>The diagram below describes the motion of a wave of light, which is an electromagnetic wave:</p>
-<p><img alt="Image of an electromagnetic wave" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/electromagnetic_wave_diagram.png" />
-<span id="id1">[]</span></p>
-<p>Both the electric and the magnetic components of the wave are moving in the Z-direction. You and think of this as where the light is heading in a waveguide.</p>
-<p>In addition to moving down the waveguide, the electric and magentic components of the wave are oscillating perpendicular to each other. The direction in which this oscillation occurs is where the idea of polarization of light comes from. The polarization of light simply refers to the direction in which the electric componet oscillates. In this case, the electric component of the wave moves vertically in the Y-direction, so we say that the wave is vertically polarized.</p>
-<p>The reason that this is important is because polarized light behaves differently in an optical circuit depending on the direction in which it is polarized. A beam of light polarized in the X direction will behave differently than a beam polarized in the Y-direction.</p>
-<p>This presents a challenged when considering that light typically is not polarized. Unpolarized light is composed of waves of light whose magnetic field components are arranged in random directions. And since the components of light polarized in the X and Y directions is not predictable, the behavior of the unpolarized light is not completely consistent in a waveguide.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="phase-shifters-pn-junctions-and-pin-junctions">
+<h1>Phase Shifters: PN Junctions and PIN Junctions<a class="headerlink" href="#phase-shifters-pn-junctions-and-pin-junctions" title="Permalink to this headline">#</a></h1>
+<section id="pn-junction-phase-shifters">
+<h2>PN Junction phase shifters<a class="headerlink" href="#pn-junction-phase-shifters" title="Permalink to this headline">#</a></h2>
+<p>PN junction phase shifters are phase shifters that operate based on the plasma dispersion effect. The plasma dispersion effect describes a relationship between charge carriers in silicon material. By injecting or removing charge carriers into silicon, the refracive index of the silicon can be changed. It is more common for charge carriers to be <em>removed</em> from silicon, because this results in a higher change in the silicon’s index of refraction.</p>
+<p>TODO: Insert diagram of PN Junction</p>
+<p>A PN junction phase shifter includes a P-doped region on one side, an N-doped region on another side, and a region between the two sides that is partially P-doped and N-doped. The center region is the width of the waveguide that a photonic signal travels through. A voltage is applied to the phase shifter (which is typically reverse biased) which causes the index of refraction of the device to change as carriers within the doped regions of the device respond to the induced electrical charges. The physics which explain the mechanics of PN junction phase shifters is quite complex and beyond our scope. For more information, see the following resources: (TODO: link resources).</p>
+<p>TODO: Insert equation??</p>
+<section id="advantages-of-pn-junction-phase-shifters">
+<h3>Advantages of PN Junction Phase Shifters<a class="headerlink" href="#advantages-of-pn-junction-phase-shifters" title="Permalink to this headline">#</a></h3>
+<p>PN junction phase shifters have several advantages:</p>
+<ol class="simple">
+<li><p>Low resistance and capacitance. PN junction phase shifters have very low intrinsic resistance and capacitance, especially when compared to other phase shifters.</p></li>
+<li><p>Small time constant. Because the capacitance and resistance of a PN junction phase shifter is so low, it’s time constant is very short.</p></li>
+<li><p>High cutoff frequency. Again, because the capacitance and resistance of PN junction phase shifters is so low, these phase shifters support frequencies in the tens of GHz.</p></li>
+</ol>
+<p>The speed of PN junction phase shifters makes these devices well suited for phase modulation.</p>
+</section>
+<section id="disadvantages-of-pn-junction-phase-shifters">
+<h3>Disadvantages of PN Junction Phase Shifters<a class="headerlink" href="#disadvantages-of-pn-junction-phase-shifters" title="Permalink to this headline">#</a></h3>
+<p>While PN junction phase shifters offer high operation speed, that speed comes with a tradeoff of variable insertion loss. As a byproduct of the plasma dispersion effect, the amplitude of a photonic signal changes as a result of the phase change. The amplitude change constitutes some signal loss. In some applications, this signal loss may be considered negligible. In other applications that require higher signal clarity, thermal phase shifters may be used instead of PN junction phase shifters.</p>
+</section>
+</section>
+<section id="pin-phase-shifters">
+<h2>PIN Phase Shifters<a class="headerlink" href="#pin-phase-shifters" title="Permalink to this headline">#</a></h2>
+<p>PIN phase shifters, like PN junction phase shifters, also operate based on the plasma dispersion effect. Like the PN junction phase shifter, a PIN phase shifter includes a P-doped region and an N-doped region, but the material between the two doped regions is undoped. This undoped region, also called the “intrinsic” region, copmrises the width of the waveguide that the photonic signal travels through. The added material of the intrinsic region helps to offset some of the optical loss experienced by PN junction phase shifters, at the cost of slightly increasing the time constant of the device.</p>
+<p>Unlike PN junction phase shifters, which are reverse biased, PIN phase shifters are forward biased. This is because of the carrier qualities of both devices. When a reverse biased voltage is applied to a PN junction phase shifter, carrier depletion changes the index of refraction. When a forward biased voltage is applied to a <em>PIN phase shifter</em>, carrier injection changes the index of refraction.</p>
+<section id="advantages-of-pin-phase-shifters">
+<h3>Advantages of PIN Phase Shifters<a class="headerlink" href="#advantages-of-pin-phase-shifters" title="Permalink to this headline">#</a></h3>
+<p>The following are advantages of PIN phase shifters:</p>
+<ol class="simple">
+<li><p>Moderately High Speed. While not quite as fast PN junction phase shifters, PIN phase shifters are still faster than other types of phase shifters, such as thermal phase shifters.</p></li>
+<li><p>Conventional Operation. When no bias voltage is applied to a PIN phase shifter, signals may travel through the intrinsic region without any phase change.</p></li>
+</ol>
+<p>The properties of PIN phase shifters make them excellent for use as tuners.</p>
+</section>
+<section id="disadvantages-of-pin-phase-shifters">
+<h3>Disadvantages of PIN Phase Shifters<a class="headerlink" href="#disadvantages-of-pin-phase-shifters" title="Permalink to this headline">#</a></h3>
+<p>PIN phase shifters experience the same tradeoffs of PN junction phase shifters, namely variable insertion loss that comes from the amplitude modulation of the plasma dispersion effect.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -492,17 +618,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="mode_solvers.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="phase_shifters_heaters.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Waveguide modes</p>
+            <p class="prev-next-title">Phase Shifters: Heaters</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="directional_couplers.html" title="next page">
+    <a class='right-next' id="next-link" href="compact_models.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Directional Couplers</p>
+        <p class="prev-next-title">Compact Models</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

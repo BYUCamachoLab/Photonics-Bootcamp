@@ -54,8 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Compact Models" href="compact_models.html" />
-    <link rel="prev" title="Multimode Interferometers (MMIs)" href="mmis.html" />
+    <link rel="next" title="Phase Shifters: PN Junctions and PIN Junctions" href="phase_shifters_pn.html" />
+    <link rel="prev" title="Phase Shifters" href="phase_shifters.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -263,9 +263,19 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="phase_shifters.html">
+   Phase Shifters
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Phase Shifters: Heaters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="phase_shifters_pn.html">
+   Phase Shifters: PN Junctions and PIN Junctions
   </a>
  </li>
 </ul>
@@ -442,16 +452,6 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#what-is-a-phase-shifter">
-   What is a Phase Shifter?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-does-a-phase-shifter-work">
-   How does a Phase Shifter Work?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#advantages-of-thermal-phase-shifters">
    Advantages of Thermal Phase Shifters
   </a>
@@ -486,16 +486,6 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#what-is-a-phase-shifter">
-   What is a Phase Shifter?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-does-a-phase-shifter-work">
-   How does a Phase Shifter Work?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#advantages-of-thermal-phase-shifters">
    Advantages of Thermal Phase Shifters
   </a>
@@ -522,22 +512,9 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="phase-shifters-heaters">
 <h1>Phase Shifters: Heaters<a class="headerlink" href="#phase-shifters-heaters" title="Permalink to this headline">#</a></h1>
-<section id="what-is-a-phase-shifter">
-<h2>What is a Phase Shifter?<a class="headerlink" href="#what-is-a-phase-shifter" title="Permalink to this headline">#</a></h2>
-<p>Light signals travelling through photonic circuits propagate at the speed of light and oscillate with a certain amplitude at a certain frequency. In some photonic circuit applications, it may be desirable to adjust the relative phase of a light signal. This kind of optical tuning can be achieved using a <em>phase shifter</em>.</p>
-<p>Phase shifters may be used to compensate for the natural phase dispersion of light as it travels through waveguides over long distances, however, phase shifters are also essential active elements of photonic circuits that are used to manipulate signals.</p>
-<p>For example, let’s say we have two equally polarized light signals travelling through a photonic circuit that are going to be combined using a y-bridge. Depending on the phase difference between the two signals, they may interfere with one another constructively or destructively. The phase of one light signal may be manipulated using a phase shifter, so that the two light signals combine in a desired way.</p>
-<p>TODO: Insert illustration of example.</p>
-</section>
-<section id="how-does-a-phase-shifter-work">
-<h2>How does a Phase Shifter Work?<a class="headerlink" href="#how-does-a-phase-shifter-work" title="Permalink to this headline">#</a></h2>
-<p>Phase shifters are regions with indices of refraction that can be changed. When a light signals passes through a materials with a different index of refraction than the material it’s propagating through, the frequency of the light signal “expands” or “compresses” according to the difference between the two refractive indices. The frequency of a light signal travelling from a first material to a second material with a higher index of refraction will compress (i.e. the signal will oscillate more times per unit length within the new material). The frequency of a light signal travelling from a first material to a second material with a lower index of refraction will expand (i.e. the signal will oscillate fewer times per unit length within the new material). For illustrative purposes, see the figure below.</p>
-<p>TODO: Insert figure</p>
-<p>Notice how the relative phase of the signal changes as it passes through the material.</p>
 <p><em>Thermal phase shifters</em> are phase shifters that operate based on the thermo-optic effect. For most materials, as a material increases in temperature, its index of refraction increases. At low temperatures, the relationship between temperature and refractive index is generally linear, but at higher temperatures, the relationship must be approximated using second order differential equations.</p>
 <p>The phase shift of light through a thermal phase shifter is proportional to the index of refraction of the thermal phase shifter, which in turn is proportional to its temperature. Therefore, the phase shift of a thermal phase shifter can be adjusted by changing its temperature.</p>
 <p>There are several ways of implementing a thermal phase shifter. Some thermal phase shifters comprise waveguides in proximity to metal resistors. As an electrical current runs through the resistor, the resistor dissipates power in the form of heat, changing the temperature of the waveguide. The resistor may be placed above the waveguide, within the waveguide itself, or beside the waveguide.</p>
-</section>
 <section id="advantages-of-thermal-phase-shifters">
 <h2>Advantages of Thermal Phase Shifters<a class="headerlink" href="#advantages-of-thermal-phase-shifters" title="Permalink to this headline">#</a></h2>
 <p>There are several advantages to thermal phase shifters, including:</p>
@@ -586,17 +563,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="mmis.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="phase_shifters.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Multimode Interferometers (MMIs)</p>
+            <p class="prev-next-title">Phase Shifters</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="compact_models.html" title="next page">
+    <a class='right-next' id="next-link" href="phase_shifters_pn.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Compact Models</p>
+        <p class="prev-next-title">Phase Shifters: PN Junctions and PIN Junctions</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
