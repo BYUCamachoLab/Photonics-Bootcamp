@@ -872,29 +872,6 @@ P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     block, center = (0,0,0)
-          size (32,4.07,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
-     block, center = (0,0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-     block, center = (0,-0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/directional_couplers_9_3.png" src="../_images/directional_couplers_9_3.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -931,52 +908,6 @@ P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda
 <span class="c1"># Clean up workspace by deleting all generated images</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span> 
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
-Initializing structure...
-time for choose_chunkdivision = 0.000254154 s
-Working in 2D dimensions.
-Computational cell is 32 x 4.05 x 0 with resolution 20
-     block, center = (0,0,0)
-          size (32,4.07,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (2.1025,2.1025,2.1025)
-     block, center = (0,0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-     block, center = (0,-0.285,0)
-          size (32,0.5,0)
-          axes (1,0,0), (0,1,0), (0,0,1)
-          dielectric constant epsilon diagonal = (11.9025,11.9025,11.9025)
-time for set_epsilon = 0.148272 s
------------
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MPB solved for frequency_1(1,0,0) = 0.313423 after 16 iters
-MPB solved for frequency_1(2.07931,0,0) = 0.636587 after 10 iters
-MPB solved for frequency_1(2.1086,0,0) = 0.645157 after 7 iters
-MPB solved for frequency_1(2.10862,0,0) = 0.645161 after 2 iters
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "63621ce3e85645448266734417afa370", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>creating output file &quot;./eps-000000.00.h5&quot;...
-creating output file &quot;./ez.h5&quot;...
-Meep progress: 70.0/200.0 = 35.0% done in 4.0s, 7.4s to go
-on time step 2809 (time=70.225), 0.00142453 s/step
-Meep progress: 150.6/200.0 = 75.3% done in 8.0s, 2.6s to go
-on time step 6034 (time=150.85), 0.00124088 s/step
-run 0 finished at t = 200.0 (8000 timesteps)
 </pre></div>
 </div>
 </div>
