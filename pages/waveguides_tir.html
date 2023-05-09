@@ -523,11 +523,16 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="total-internal-reflection">
-<span id="tir-target"></span><h1>Total Internal Reflection<a class="headerlink" href="#total-internal-reflection" title="Permalink to this headline">#</a></h1>
+<h1>Total Internal Reflection<a class="headerlink" href="#total-internal-reflection" title="Permalink to this headline">#</a></h1>
 <p>Waveguides guide light based on the principles of <em>total internal reflection</em>.</p>
 <p>The indices of refraction for the core material and cladding material of a waveguide are chosen such that <em>total internal reflection</em> is achieved for a specific optical frequency. When a light wave propagating in a first material strikes a second material, a portion of the light wave reflects off the boundary between the first and second material, while the rest of the light wave goes through the boundary. The portion of the light wave that reflects off the boundary is called the <em>reflected wave</em>, and the portion that goes through the boundary is called the <em>transmitted wave</em>.</p>
-<section id="key-equations">
-<span id="ke1-target"></span><h2>Key Equations<a class="headerlink" href="#key-equations" title="Permalink to this headline">#</a></h2>
+<div align="center">
+    <figure>
+        <img src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/TIR_Example_Cropped.png" alt="Simple Reflection and Refraction" width="75%">
+        <figcaption><em>Figure: The Behavior of Light as it Strikes a Boundary</em></figcaption>
+    </figure>
+</div><section id="key-equations">
+<h2>Key Equations<a class="headerlink" href="#key-equations" title="Permalink to this headline">#</a></h2>
 <p>The magnitude of the reflected and transmitted waves, along with the angles of reflection and transmission, are dependent on the refractive indices of the two materials, along with the incident angle of the light wave. The angles of reflection and transmission (also known as refraction) can be determined using Snell’s law. The magnitudes of the reflected and transmitted waves are the products of the incident wave magnitude and the reflection and transmission coefficients respectively. The reflection and transmission coefficients can be calculated using the Fresnel Equations.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -621,14 +626,14 @@ n_1sin(\theta_i) = n_2sin(\theta_t)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/waveguides_tir_3_0.png" src="../_images/waveguides_tir_3_0.png" />
-<img alt="../_images/waveguides_tir_3_1.png" src="../_images/waveguides_tir_3_1.png" />
-<img alt="../_images/waveguides_tir_3_2.png" src="../_images/waveguides_tir_3_2.png" />
+<img alt="../_images/waveguides_tir_5_0.png" src="../_images/waveguides_tir_5_0.png" />
+<img alt="../_images/waveguides_tir_5_1.png" src="../_images/waveguides_tir_5_1.png" />
+<img alt="../_images/waveguides_tir_5_2.png" src="../_images/waveguides_tir_5_2.png" />
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/9n/_g8r69x957zb59c09f92zznh0000gn/T/ipykernel_69883/921879874.py:17: RuntimeWarning: invalid value encountered in arcsin
   transmitted_angle = np.arcsin((n1 * np.sin(incident_angle_radians)) / n2)
 </pre></div>
 </div>
-<img alt="../_images/waveguides_tir_3_4.png" src="../_images/waveguides_tir_3_4.png" />
+<img alt="../_images/waveguides_tir_5_4.png" src="../_images/waveguides_tir_5_4.png" />
 </div>
 </div>
 </section>
@@ -665,10 +670,14 @@ n_1sin(\theta_i) = n_2sin(\theta_t)
 <p>So for SOI waveguides, the critical angle is ~24.5 degrees. For any angle greater than 24.5 degrees, there will be no transmitted wave and total internal reflection will occur.</p>
 </section>
 <section id="propagation-of-light-through-a-waveguide">
-<span id="poltw-target"></span><h2>Propagation of Light Through a Waveguide<a class="headerlink" href="#propagation-of-light-through-a-waveguide" title="Permalink to this headline">#</a></h2>
+<h2>Propagation of Light Through a Waveguide<a class="headerlink" href="#propagation-of-light-through-a-waveguide" title="Permalink to this headline">#</a></h2>
 <p>When a light wave propagates through a waveguide, each time the light wave strikes the boundary between the core and cladding material, total reflection will occur and all of the light wave will reflect back into the core material. This way, none of the light wave is “lost” transmitting through the cladding. The progagation of light through a waveguide can be profitably understood with the following picture.</p>
-<p>TODO: Add a picture of light propagation through a waveguide</p>
-<p>Of course, propagation of light through a waveguide isn’t really <em>this</em> simple, but this model is intuitive enough for a basic understanding.</p>
+<div align="center">
+    <figure>
+        <img src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/Waveguide_Propagation_Cropped.png" alt="Waveguide Propagation" width="100%">
+        <figcaption><em>Figure: Light as it Travels Through a Waveguide</em></figcaption>
+    </figure>
+</div><p>Of course, propagation of light through a waveguide isn’t really <em>this</em> simple, but this model is intuitive enough for a basic understanding.</p>
 </section>
 </section>
 
