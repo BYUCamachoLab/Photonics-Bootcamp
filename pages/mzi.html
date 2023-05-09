@@ -482,7 +482,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#thermo-optic-effect">
-   Thermo-Optic Effect
+   Thermo-Optic Effect:
   </a>
  </li>
 </ul>
@@ -538,7 +538,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#thermo-optic-effect">
-   Thermo-Optic Effect
+   Thermo-Optic Effect:
   </a>
  </li>
 </ul>
@@ -555,7 +555,7 @@ title="Print to PDF"
 <h1>Mach-Zehnder Interferometer<a class="headerlink" href="#mach-zehnder-interferometer" title="Permalink to this headline">#</a></h1>
 <p>An interferometer is just an instrument that utilizes the interference between two beams of light to make precise measurements.</p>
 <p>The Mach-Zehnder Interferometer (MZI) splits a light beam, sends the light down two different paths and recombines the light. We say that the MZI is balanced if the two paths are the same distance or unblanced if the path lengths differ.</p>
-<p><img alt="Image of an MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
+<p><img alt="Image of a MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
 <p>One implementation of this concept is illustrated above. Notice that the inner path of the MZI is shorter than the outer path, therefore the MZI is unbalanced. This implies that the two light beams will be out of phase with each other when they are recombined and interference occurs.</p>
 <p>Since the interference that occurs when the light is recombined is dependent on the the wavelength of the intitial beam of light, the amount of light that leaves the interferometer will be dependent on the initial wavelength.</p>
 </section>
@@ -584,9 +584,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "f979778f01fc49febbccf2f84c3927a0", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_component: uid e7c90c94, ports [], references [&#39;mzi_1&#39;], 0 polygons
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
+</pre></div>
+</div>
+<img alt="../_images/mzi_7_1.png" src="../_images/mzi_7_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_component: uid 4dfe1431, ports [], references [&#39;mzi_1&#39;], 0 polygons
 </pre></div>
 </div>
 </div>
@@ -599,8 +601,7 @@ $<span class="math notranslate nohighlight">\(
 \)</span>$</p></li>
 <li><p>The amplitudes of the beams after the split
 $<span class="math notranslate nohighlight">\(
- E_{1} = \frac{E_{input}}{\sqrt{2}}
- E_{2} = \frac{E_{input}}{\sqrt{2}}
+ E_{1} = \frac{E_{input}}{\sqrt{2}}, \hspace{2mm} E_{2} = \frac{E_{input}}{\sqrt{2}}
 \)</span>$</p></li>
 <li><p>The amplitude of the recombined light
 $<span class="math notranslate nohighlight">\(
@@ -610,11 +611,7 @@ $<span class="math notranslate nohighlight">\(
 <p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
 <section id="quick-check">
 <h2>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this headline">#</a></h2>
-<ol class="simple">
-<li><p>If the input power is .5 mW, what is the output power of the MZI described above? (a: .5mW)</p></li>
-<li></li>
-<li></li>
-</ol>
+<p>If intensity of the input wave is .5 mW, what is the intensity at the output?</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="basic-definitions">
@@ -624,22 +621,11 @@ $<span class="math notranslate nohighlight">\(
 \[    
     E = E_0 e^{i(\omega t - \beta z)}
 \]</div>
-<ul class="simple">
-<li><p>‘E’ is an electric field</p></li>
-<li><p>‘ω’ is the optical frequency</p></li>
-<li><p>‘t’ is time</p></li>
-<li><p>‘β’ is the propogation constant</p></li>
-<li><p>‘z’ is the position</p></li>
-</ul>
 <p>Propogation Constant of Light:
 $<span class="math notranslate nohighlight">\(
     \beta = \frac{2 \pi n}{\lambda} 
 \)</span>$</p>
-<ul class="simple">
-<li><p>‘n’ is the index of refraction</p></li>
-<li><p>‘λ’ is the wavelength</p></li>
-</ul>
-<p>This describes a plane wave propogating through a medium in the z-direction. If our the first Y-branch splitter of our MZI split this wave, we could describe the resulting waves like this:</p>
+<p>If the equations above describe the propogation of the wave before the light gets split by the MZI, we can represent the two resulting beams as follows.</p>
 <div class="math notranslate nohighlight">
 \[
 E_{o1} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{1}L_{1}-\frac{\alpha_{1}}{2}L_{1}}
@@ -688,12 +674,13 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 </div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="thermo-optic-effect">
-<h1>Thermo-Optic Effect<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this headline">#</a></h1>
-<p>Varying the path length is not the only way to unbalance a MZI. By utilizing the thermo-optic effect of silicon, we can introduce a phase shift in one of waveguides that can achieve a similar effect.</p>
+<h1>Thermo-Optic Effect:<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this headline">#</a></h1>
+<p>While a balanced MZI will not experience a phase shift due to a difference in path length, we can introduce a phasae shift by utilizing other methods. The thermo-optic effect describes the effect of heat on the phase of light. By heating up one of the waveguide in the MZI, we can control the phase shift of that waveguide and therefor the intensity of the output. This is a practical way to turn our otherwise static MZI in to a switch that we can control.</p>
 <div class="math notranslate nohighlight">
 \[
 I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
 \]</div>
+<p><img alt="Image of a thermo-optic switch" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
 </section>
 
     <script type="text/x-thebe-config">
