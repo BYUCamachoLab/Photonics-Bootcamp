@@ -429,12 +429,51 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conda">
+   Conda
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#package-managers">
+   Package Managers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#package-versioning">
+   Package Versioning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#virtual-environments">
+   Virtual Environments
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -446,6 +485,34 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conda">
+   Conda
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#package-managers">
+   Package Managers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#package-versioning">
+   Package Versioning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#virtual-environments">
+   Virtual Environments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -465,6 +532,8 @@ provides a simple syntax that is easy to read and write. It is also an
 interpreted language, which means that you can write and run code in the same
 session without needing to recompile. This makes it easy to prototype, rapidly
 test out new ideas, and debug your code.</p>
+<section id="conda">
+<h2>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">#</a></h2>
 <p>We recommend installing Python via
 <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>. This bundled
 distribution makes installation on any platform simple (even on Windows, though
@@ -473,14 +542,131 @@ we’ll be using WSL). Miniconda is a no-frills, stripped-down version of the
 is a popular Python distribution that includes a host of scientific packages.
 We don’t necessarily need all of these packages, and it tends to be a pretty
 large install, so we’ll use miniconda instead.</p>
-<p>Use the <span class="xref myst">latest installer links</span> to download the appropriate installer for
-your operating system. For MacOS and Linux, they are simple bash scripts that
-you’ll need to execute after downloading. For Windows, it’s easiest to
-downlaod the script in the Ubuntu terminal using curl so you don’t have to
-copy it from the Windows filesystem over to the Ubuntu one:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-O<span class="w"> </span>https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+<p>Use the <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html#latest-miniconda-installer-links">latest installer
+links</a>
+to download the appropriate installer for your operating system. For MacOS and
+Linux, they are simple bash scripts that you’ll need to execute after
+downloading.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For Windows, it’s easiest to download the script in the Ubuntu terminal using
+curl so you don’t have to copy it from the Windows filesystem over to the
+Ubuntu. Even though you’re on Windows, since you’re installing it to the Ubuntu
+system, download the Linux installer!</p>
+</div>
+</section>
+<section id="package-managers">
+<h2>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this headline">#</a></h2>
+<p>Python has a robust open-source community. To that end, there exist several
+free tools for hosting packages so others can install them easily. The most
+well-known and well-established of these is the <a class="reference external" href="https://pypi.org/">Python Package
+Index</a> (PyPI). Any one is free to host Python packages there,
+as long as the name of your package hasn’t been used by anyone else before!
+This is where we will install most of the packages we use from. Some prominent
+ones you will become very familiar with include:</p>
+<ul class="simple">
+<li><p>NumPy: the fundamental package for scientific computing with Python. Think of
+it as the Python counterpart to MATLAB.</p></li>
+<li><p>SciPy: fundamental algorithms for scientific computing in Python. This includes
+thinks like signal processing, optimization, etc.</p></li>
+<li><p>Matplotlib: the defacto Python plotting package. It provides an interface
+that will be very familiar to MATLAB users.</p></li>
+<li><p>gdsfactory: A Python library for generating GDS layouts.</p></li>
+</ul>
+<p>It’s very easy to install packages from PyPI. Most base installations of Python
+include “pip”, a tool used to install other packages from PyPI. It can be
+invoked from the command line, like so:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy
 </pre></div>
 </div>
+<p>It can be used to upgrade packages, too (including itself):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</pre></div>
+</div>
+<p>You can also stack package names to save some typing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+</section>
+<section id="package-versioning">
+<h2>Package Versioning<a class="headerlink" href="#package-versioning" title="Permalink to this headline">#</a></h2>
+<p>Modern packages aren’t just released to the world once; instead, they are often
+released incrementally, with new features and changes that break previous
+application programming interfaces (API’s).</p>
+<p>API’s are basically contracts that a software provides to a user. “If you call
+this function, provide these values, I will give you this answer or perform a
+specific task.” Sometimes, as programs evolve, new ways of accomplishing tasks
+are introduced into the program and it becomes necessary to change or remove
+old functions. In the open-source world, especially with relatively immature
+packages, it’s common for API’s to change frequently. Therefore, if you want
+to guarantee your code will continue to work in the future or on someone else’s
+machine, it’s important that you track the version of the software you’re
+using. This way you ensure you have a <strong>reproducible environment</strong>.</p>
+<p>There’s a concept out there called <a class="reference external" href="https://semver.org/"><strong>semantic
+versioning</strong></a>. This simply means that the version numbers
+tell you something about its compatibility with other programs. The general
+rule is as follows:</p>
+<blockquote>
+<div><p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
+<ol class="simple">
+<li><p>MAJOR version when you make incompatible API changes</p></li>
+<li><p>MINOR version when you add functionality in a backward compatible manner</p></li>
+<li><p>PATCH version when you make backward compatible bug fixes</p></li>
+</ol>
+</div></blockquote>
+<p>For example, you’re using version <strong>3.4.2</strong> of a package. They have now
+released version <strong>4.0.0</strong>. It’s likely that your code won’t immediately work
+with the new release without some amount of refactoring. PyPI always keeps
+old releases of packages around, though, so if you’re passing your code on to
+someone else, they’ll still be able to install the specific version you used
+to write the code.</p>
+<p>In Python, when you’re working on a software, or writing code that depends on
+other software, it’s best practice to include some list of dependencies and
+their versions. This is most commonly done with a <strong>requirements.txt</strong> file,
+which is a text file that simply contains package versions and a fixed
+version number. An example <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file might look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numpy</span><span class="o">==</span><span class="mf">1.24.3</span>
+<span class="n">scipy</span><span class="o">==</span><span class="mf">1.10.1</span>
+<span class="n">matplotlib</span><span class="o">==</span><span class="mf">3.7.1</span>
+</pre></div>
+</div>
+<p>The full list of packages in the file can be installed easily from the command
+line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="virtual-environments">
+<h2>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this headline">#</a></h2>
+<p>It’s best practice to use a <strong>virtual environment</strong>. A virtual environment is
+simply an environment that is isolated from your main Python installation
+or any other installation on your computer. You can think of it as a sandbox;
+you can have as many of them as you want, and they don’t interact with each
+other. They’re especially useful if you need to have different versions of
+the same piece of software installed for different programs or applications.
+They can both be on your computer, but in their own walled of areas.</p>
+<p>In Python, virtual environments are also very easy to create and destroy.
+This way, if you mess up your environment, it only costs you a few seconds to
+delete it and start again. The nice thing about a requirements file that pins
+versions of the software is that once you’ve verified all the versions work
+well together, you never have to worry about compatability or recreating the
+setup you were originally using again. Simply install your requirements file,
+or give it to someone else, and you can create the same environment anywhere
+you want.</p>
+<p>While Python has a virtual environment mechanism built in to the language
+(<a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>), since we’re using
+conda to access Python, we’ll use its virtual environment management features
+as well.</p>
+<p>To create an environment, in this case named <code class="docutils literal notranslate"><span class="pre">photonics</span></code>, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span>python
+</pre></div>
+</div>
+<p>You can even specify a specific version of Python, if you’d like to use the
+latest and greatest version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
