@@ -11,14 +11,16 @@ order to complete the course.
 
 Through this setup guide, we're going to be very opinionated about which 
 software to install and how to configure your system. This is for the benefit
-of the newcomer; one standard setup that we'll describe and know how to
+of the newcomer&mdash;one standard setup that we'll describe and know how to
 troubleshoot. If you're experienced enough to disagree with our setup method,
 we assume you're also experienced enough to adapt all our instructions to your
 own way of doing things. 
 
-## Windows
+:::{note}
 
-We recommend installing Ubuntu through the Microsoft Store, which will give you
-a terminal interface on your local machine (although we will primarily use
-Visual Studio Code to interact with it, providing a GUI-like experience, so
-you don't need to be too nervous about having to navigate a terminal).
+For Windows machines, we recommend installing Ubuntu through the Microsoft
+Store, which will give you a terminal interface on your local machine (although
+we will primarily use Visual Studio Code to interact with it, providing a
+GUI-like experience, so you don't need to be too nervous about having to
+navigate a terminal). 
+:::
