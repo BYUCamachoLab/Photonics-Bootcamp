@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Meep to GDS" href="meep_to_gds.html" />
-    <link rel="prev" title="Components" href="components.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="components.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -187,11 +187,6 @@ const thebe_selector_output = ".output, .cell_output"
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="components.html">
-     Components
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      GDS to Meep
@@ -492,8 +487,8 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="gds-to-meep">
 <h1>GDS to Meep<a class="headerlink" href="#gds-to-meep" title="Permalink to this headline">#</a></h1>
-<p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDSFactory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
-<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDSFactory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are :py:func:<code class="docutils literal notranslate"><span class="pre">~gdsfactory.simulation.gmeep.get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
+<p>It is often useful to simulate photonic devices before manufacturing them so that you have some idea of their performance. GDS Factory has a Meep plugin, Gmeep, that can be used to simulate devices using the finite-difference time-domain algorithm (FDTD).</p>
+<p>There are several functions within Gmeep that can be used to take a component and turn it into a Meep geometry or simulation. This means that you can take any component, either from GDS Factory or from a GDS file (see the “component_from_gds” notebook), and easily turn it into a Meep geometry. The two most general functions are :py:func:<code class="docutils literal notranslate"><span class="pre">~gdsfactory.simulation.gmeep.get_simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">get_meep_geometry_from_component</span></code> (contained within <code class="docutils literal notranslate"><span class="pre">gmeep.get_simulation.py</span></code>). There are other more specific functions to get simulations for a grating coupler with a fiber connected to it, as well as for a far-field simulation for a grating coupler. However, the first two will suffice in this tutorial. Below is some example code showing the use of the functions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code showing examples with a 2x2 MMI for the functions in get_simulation</span>
@@ -503,9 +498,10 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">tidy3d</span>
 <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep.get_simulation</span> <span class="kn">import</span> <span class="n">get_simulation</span><span class="p">,</span> <span class="n">get_meep_geometry_from_component</span>
 
-<span class="c1"># Load in the 2x2 MMI from GDSFactory and show layout</span>
+<span class="c1"># Load in the 2x2 MMI from GDS Factory and show layout</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi2x2</span><span class="p">()</span>
 <span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
 <span class="c1"># get_meep_geometry_from_component implementation example</span>
 <span class="n">get_meep_geometry_from_component</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
@@ -522,7 +518,7 @@ title="Print to PDF"
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cell_size</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">32</span>
 
-<span class="c1"># Plot the simulataion set-up to see results of the function</span>
+<span class="c1"># Plot the simulation set-up to see results of the function</span>
 <span class="n">sim</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
 
 <span class="c1"># You can the run the simulation with:</span>
@@ -531,16 +527,117 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/gds_to_meep_1_0.png" src="../_images/gds_to_meep_1_0.png" />
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "082aad6e150348fd974a9304a7f6a947", "version_major": 2, "version_minor": 0}
-</script><img alt="../_images/gds_to_meep_1_2.png" src="../_images/gds_to_meep_1_2.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-05-01 11:57:12.909 | INFO     | gdsfactory.config:&lt;module&gt;:50 - Load &#39;/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory&#39; 6.27.0
+2023-05-01 11:57:13.915 | INFO     | gdsfactory.technology.layer_views:__init__:779 - Importing LayerViews from KLayout layer properties file: /home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/generic_tech/klayout/tech/layers.lyp.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using MPI version 4.0, 1 processes
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/numpy/core/getlimits.py:518: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float32&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/numpy/core/getlimits.py:518: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class &#39;numpy.float64&#39;&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
+</div>
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[11:57:16] </span>INFO: Using client version: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.9</span>.<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>                                                              <a href="file:///home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/tidy3d/log.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">log.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/tidy3d/log.py#57" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">57</span></a>
+</pre>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-05-01 11:57:16.950 | INFO     | gdsfactory.simulation.gmeep:&lt;module&gt;:34 - Meep &#39;1.26.0&#39; installed at [&#39;/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/meep&#39;]
+</pre></div>
+</div>
+<img alt="../_images/gds_to_meep_1_5.png" src="../_images/gds_to_meep_1_5.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mmi2x2: uid dcccbf53, ports [&#39;o1&#39;, &#39;o2&#39;, &#39;o3&#39;, &#39;o4&#39;], references [], 5 polygons
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">14</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1"># get_meep_geometry_from_component implementation example</span>
+<span class="ne">---&gt; </span><span class="mi">14</span> <span class="n">get_meep_geometry_from_component</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="c1"># get_simulation implementation example</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">get_simulation</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">tpml</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">distance_source_to_monitors</span><span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/get_meep_geometry.py:60,</span> in <span class="ni">get_meep_geometry_from_component</span><span class="nt">(component, layer_stack, material_name_to_meep, wavelength, is_3d, dispersive, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>             <span class="n">material_name</span> <span class="o">=</span> <span class="n">layer_to_material</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>             <span class="k">if</span> <span class="n">material_name</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">60</span>                 <span class="n">material</span> <span class="o">=</span> <span class="n">get_material</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>                     <span class="n">name</span><span class="o">=</span><span class="n">material_name</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span>                     <span class="n">dispersive</span><span class="o">=</span><span class="n">dispersive</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>                     <span class="n">material_name_to_meep</span><span class="o">=</span><span class="n">material_name_to_meep</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span>                     <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>                 <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span>                 <span class="n">geometry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>                     <span class="n">mp</span><span class="o">.</span><span class="n">Prism</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">68</span>                         <span class="n">vertices</span><span class="o">=</span><span class="n">vertices</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>                     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>                 <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="k">return</span> <span class="n">geometry</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/get_material.py:52,</span> in <span class="ni">get_material</span><span class="nt">(name, wavelength, dispersive, material_name_to_meep)</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span>             <span class="sa">f</span><span class="s2">&quot;name = </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> not in material_name_to_meep </span><span class="si">{</span><span class="n">valid_materials</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span>         <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="n">material_index</span> <span class="o">=</span> <span class="n">get_material_index</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span>     <span class="k">return</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">epsilon</span><span class="o">=</span><span class="n">material_index</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_index</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/pdk.py:470,</span> in <span class="ni">get_material_index</span><span class="nt">(material, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">469</span> <span class="k">def</span> <span class="nf">get_material_index</span><span class="p">(</span><span class="n">material</span><span class="p">:</span> <span class="n">MaterialSpec</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Component</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">470</span>     <span class="k">return</span> <span class="n">_ACTIVE_PDK</span><span class="o">.</span><span class="n">get_material_index</span><span class="p">(</span><span class="n">material</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/pdk.py:441,</span> in <span class="ni">Pdk.get_material_index</span><span class="nt">(self, key, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">!r}</span><span class="s2"> not in </span><span class="si">{</span><span class="n">material_names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span> <span class="n">material</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">materials_index</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">441</span> <span class="k">return</span> <span class="n">material</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">material</span><span class="p">)</span> <span class="k">else</span> <span class="n">material</span>
+
+<span class="nn">File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/materials.py:26,</span> in <span class="ni">si</span><span class="nt">(wav)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">def</span> <span class="nf">si</span><span class="p">(</span><span class="n">wav</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Silicon crystalline.&quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">26</span>     <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gtidy3d.materials</span> <span class="kn">import</span> <span class="n">si</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="k">return</span> <span class="n">si</span><span class="p">(</span><span class="n">wav</span><span class="p">)</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">pmp</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.11</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">gdsfactory</span><span class="o">/</span><span class="n">simulation</span><span class="o">/</span><span class="n">gtidy3d</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">14</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">gdsfactory.config</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gtidy3d</span> <span class="kn">import</span> <span class="n">materials</span><span class="p">,</span> <span class="n">modes</span><span class="p">,</span> <span class="n">utils</span>
+<span class="ne">---&gt; </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gtidy3d.get_results</span> <span class="kn">import</span> <span class="n">get_results</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gtidy3d.get_simulation</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">get_simulation</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">plot_simulation</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">plot_simulation_xz</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">plot_simulation_yz</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">gdsfactory.simulation.gtidy3d.get_simulation_grating_coupler</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">get_simulation_grating_coupler</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="p">)</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">pmp</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.11</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">gdsfactory</span><span class="o">/</span><span class="n">simulation</span><span class="o">/</span><span class="n">gtidy3d</span><span class="o">/</span><span class="n">get_results</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">11</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">import</span> <span class="nn">tidy3d</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">tidy3d</span> <span class="kn">import</span> <span class="n">web</span>
+<span class="ne">---&gt; </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">tidy3d.log</span> <span class="kn">import</span> <span class="n">WebError</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">gdsfactory.config</span> <span class="kn">import</span> <span class="n">PATH</span><span class="p">,</span> <span class="n">logger</span>
+
+<span class="ne">ImportError</span>: cannot import name &#39;WebError&#39; from &#39;tidy3d.log&#39; (/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/tidy3d/log.py)
+</pre></div>
+</div>
 </div>
 </div>
 <section id="finding-s-parameters-through-gmeep">
 <h2>Finding S-parameters through gmeep<a class="headerlink" href="#finding-s-parameters-through-gmeep" title="Permalink to this headline">#</a></h2>
-<p>In addition to creating general simulations in Meep, there are several functions in GDSFactory that allow you to find the S-parameters (scattering parameters) of a given component. S-parameters are useful as they tell you how much light is coming in and out of each of the component’s port. The most general function for this purpose in Gmeep is <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code>.</p>
-<p>To use this function, you specify a GDSFactory component, the frequencies you want to test it at, if you would like the simulation to be in 3D, and the margins the simulation needs to take into account. Another useful kwarg for this function is “run”. By setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the function plots the simulation geometry instead of running it. So, you can check that the geometry is correct before you waste time simulating it.This is especially important when running the simulation in 3D, as sometimes your geometry may be converted incorrectly from 2D.This is not a comprehensive list of the arguments and is only intended to give a general idea of how the function is used.</p>
+<p>In addition to creating general simulations in Meep, there are several functions in GDS Factory that allow you to find the S-parameters (scattering parameters) of a given component. S-parameters are useful as they tell you how much light is coming in and out of each of the component’s port. The most general function for this purpose in Gmeep is <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code>.</p>
+<p>To use this function, you specify a GDS Factory component, the frequencies you want to test it at, if you would like the simulation to be in 3D, and the margins the simulation needs to take into account. Another useful kwarg for this function is “run”. By setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the function plots the simulation geometry instead of running it. So, you can check that the geometry is correct before you waste time simulating it.This is especially important when running the simulation in 3D, as sometimes your geometry may be converted incorrectly from 2D.This is not a comprehensive list of the arguments and is only intended to give a general idea of how the function is used.</p>
 <p>The function returns a dictionary of s-parameters. The keys take the form of <code class="docutils literal notranslate"><span class="pre">&quot;o1&#64;0,o2&#64;0&quot;</span></code>, where the first part of the key refers to what port the light is coming from and the second refers to where it is going. For however many ports you have in your component, there will be a key corresponding to the s-parameter from that port to every other port.</p>
 <p>Since the relationship between some ports can be the same (i.e. the component may be symmetric), port symmetries can be specified as a keyword argument (kwarg) (<code class="docutils literal notranslate"><span class="pre">port_symmetries</span></code>). This argument takes a dictionary where you specify one s-parameter as the key, and assign as its values the other s-parameters that correspond to it. For example, if you had a 1x2 splitter, where the 2 output ports were symmetric and labeled ports 2 and 3, then you could assign:</p>
 <p><code class="docutils literal notranslate"><span class="pre">port_symmetries</span> <span class="pre">=</span> <span class="pre">{&quot;o2&#64;0,o1&#64;0&quot;:</span> <span class="pre">[&quot;o3&#64;0,o1&#64;0&quot;]}</span></code></p>
@@ -626,7 +723,7 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Components</p>
+            <p class="prev-next-title">&lt;no title&gt;</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="meep_to_gds.html" title="next page">

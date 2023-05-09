@@ -190,11 +190,6 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="components.html">
-     Components
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="gds_to_meep.html">
      GDS to Meep
     </a>
@@ -554,13 +549,13 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="ring-resonators">
 <h1>Ring Resonators<a class="headerlink" href="#ring-resonators" title="Permalink to this headline">#</a></h1>
-<p>A ring resonator is a device that consists of a ring and then one or two waveguides. Light enters the ring via a directional coupler, also called an access waveguide or a bus. There are single and double bus designs. In a single bus design, light is coupled in and out of the ring via the same waveguide. In a double bus design, there are two waveguides, one on each side of the ring, that can couple into or out of the ring. If you remember coupling theory from the directional coupler notebook, you remember that the distance between the ring and the waveguide will affect how much light is coupled into the ring.</p>
+<p>A ring resonator is a device that consists of a ring and one or two other waveguides. Light enters the ring via a directional coupler, also called an access waveguide or a bus. There are single and double bus designs. In a single bus design, light is coupled in and out of the ring via the same waveguide. In a double bus design, there are two waveguides, one on each side of the ring, that can couple into or out of the ring. If you remember coupling theory from the directional coupler notebook, you remember that the distance between the ring and the waveguide, along with the length at which the waveguides are at this proximity, will affect how much light is coupled into the ring.</p>
 <p>When light propagates around a ring, the fields that overlap from each trip around the ring interfere. When waves overlap perfectly and the interference of the waves is constructive, we say that the ring is in resonance. Resonance is a useful quality because a particular ring can only be in resonance at certain wavelengths. Thus, we can isolate certain wavelengths with the ring. Such isolation has many applications.</p>
 <div style="text-align: center;">
 <p><img alt="dir_cplr" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/ring_resonator.png?raw=true" /></p>
 </div>
 <p style="text-align: center;"> Layout of a racetrack ring resonator in gdsfactory </p>
-<p>To understand more about ring resonators, let’s build up some of its behavior mathematically. First, we want examine how far the light has to travel around the ring. This is simply the familiar equation for the circumference of a circle if the ring is perfectly round.</p>
+<p>To understand more about ring resonators, let’s build up some of their behavior mathematically. First, we want to examine how far the light has to travel around the ring. This is simply the familiar equation for the circumference of a circle if the ring is perfectly round.</p>
 <p><span class="math notranslate nohighlight">\(L = 2\pi r =\)</span> length of one trip around the ring</p>
 <p>Within this one loop around the ring, there is a round trip loss, or some attenuation that occurs. This is referred to as <span class="math notranslate nohighlight">\(A\)</span> and is described by</p>
 <p><span class="math notranslate nohighlight">\(A = e^{-\alpha L}\)</span></p>
@@ -568,8 +563,7 @@ title="Print to PDF"
 <p>Now that we know how to describe the power within the ring, we’ll want to solve for how much power goes in and out of a ring resonator. For this, you can find the ratio of the electric field at both the input and the output ports. This ratio will tell you if more light is going into the ring or out of it. To find the fields at each of the four ports of the directional coupler (two inside the ring and two in the waveguide), we start by defining the two output ports. We then move on to find the field on the input side of the ring resonator, seen on the right of the diagram. Plugging this into our two original equations and solving can lead us to the transfer function. The two electric fields are:</p>
 <p><span class="math notranslate nohighlight">\(E_{b1} = tE_{a1}+\kappa E_{a2}\)</span></p>
 <p><span class="math notranslate nohighlight">\(E_{b2} = -\kappa E_{a1}+tE_{a2}\)</span></p>
-<p>Where</p>
-<p><span class="math notranslate nohighlight">\(|\kappa|^2\)</span> is the power transferred to and from the ring and <span class="math notranslate nohighlight">\(|t|^2 = 1 - |\kappa|^2\)</span> is the power remaining.</p>
+<p>Where <span class="math notranslate nohighlight">\(|\kappa|^2\)</span> is the power transferred to and from the ring and <span class="math notranslate nohighlight">\(|t|^2 = 1 - |\kappa|^2\)</span> is the power remaining.</p>
 <p>Remembering that <span class="math notranslate nohighlight">\(\alpha\)</span> is the waveguide loss <span class="math notranslate nohighlight">\((cm^{-1})\)</span> and <span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n}{\lambda}\)</span> is the propagation constant <span class="math notranslate nohighlight">\((cm^{-1})\)</span>, we can then define the Ring Resonator Transfer Function as the ratio of the output and input electric fields squared.</p>
 <p><span class="math notranslate nohighlight">\( T = \left|\frac{E_{b1}}{E_{a1}}\right|^2 = \left|\frac{t-e^{-\alpha L/2}e^{j \beta L}}{1-e^{-\alpha L/2}e^{j \beta L}} \right|^2\)</span></p>
 <section id="resonance">
@@ -604,7 +598,7 @@ title="Print to PDF"
 </section>
 <section id="fields-in-a-ring-resonator">
 <h2>Fields in a Ring Resonator<a class="headerlink" href="#fields-in-a-ring-resonator" title="Permalink to this headline">#</a></h2>
-<p>The following Meep script sets up a single bus ring resonator and runs a simulation that tracks the electric field to eventually create a gif. Find a combination of the radius and wavelength that will lead to resonance. Also, feel free to change the coupling gap.</p>
+<p>The following Meep script sets up a single bus ring resonator and runs a simulation that computes the electric field and creates a gif showing how it changes in the ring. Find a combination of the radius and wavelength that will lead to resonance. Also, feel free to change the coupling gap.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
@@ -914,6 +908,58 @@ run 0 finished at t = 600.0 (24000 timesteps)
 </pre></div>
 </div>
 <img alt="../_images/ring_resonators_6_2.png" src="../_images/ring_resonators_6_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">autograd</span> <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">npa</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">find_peaks</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span>
+
+<span class="c1">#Convergence settings</span>
+<span class="n">n_sphericalcutouts</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">t_glass</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">t_bulk_diamond</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">side_monitor_height</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dipole_box_size</span> <span class="o">=</span> <span class="mf">.15</span>
+
+<span class="c1"># Simulation Specs</span>
+<span class="n">z_offset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">resolution</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">boundary_width</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">boundary_layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">thickness</span><span class="o">=</span><span class="n">boundary_width</span><span class="p">)]</span>
+
+<span class="c1">#Simulation size</span>
+<span class="n">Sxy</span> <span class="o">=</span>  <span class="mi">8</span> <span class="o">+</span> <span class="n">boundary_width</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">Sz</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">boundary_width</span><span class="o">*</span><span class="mi">2</span>
+<span class="n">cell_size</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Sxy</span><span class="p">,</span> <span class="n">Sxy</span><span class="p">,</span> <span class="n">Sz</span><span class="p">)</span>
+
+<span class="n">fcen</span> <span class="o">=</span> <span class="mf">1.4619</span> <span class="c1"># rectangle 9 resonance</span>
+<span class="n">fcen</span> <span class="o">=</span> <span class="mf">1.5625</span> <span class="c1"># small disk resonance 640.1nm</span>
+<span class="n">df</span> <span class="o">=</span> <span class="mf">.05</span>
+<span class="n">wavelength_bucket_resolution</span> <span class="o">=</span> <span class="mf">.1</span> <span class="c1"># Wavelength resolution of the DFT monitors in nm, used for an approximation of nfreq</span>
+
+<span class="c1"># Frequency buckets for dft</span>
+<span class="n">nfreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="mi">1000</span><span class="o">/</span><span class="n">fcen</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">df</span><span class="o">/</span><span class="n">wavelength_bucket_resolution</span><span class="p">)</span> <span class="c1"># Provides a resolution of wavelength_bucket_gap</span>
+
+<span class="n">source_amp</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">resonance_search_decay</span> <span class="o">=</span> <span class="mf">1e-4</span>
+
+<span class="n">harminv_freqs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">purcellEnhancement_LDOS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">purcellFreqBucketArr</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">purcellResonances</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">purcellResonancePeaks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">purcellResonanceIndexes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">purcellResonanceFreqs</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
 </div>
 </div>
 </section>
