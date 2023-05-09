@@ -17,7 +17,7 @@ parts:
       - file: pages/system_configuration
       - file: pages/git_and_github
       - file: pages/vscode
-      - file: pages/python #interpreted_vs_compiled, virtual_environments, package_managers, conda
+      - file: pages/python
       - file: pages/code_in_the_cloud
     - file: pages/klayout
     - file: pages/gdsfactory
