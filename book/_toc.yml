@@ -13,10 +13,11 @@ parts:
     - file: pages/open_source
     - file: pages/software
       sections:
+      - file: pages/setup
       - file: pages/system_configuration
       - file: pages/git_and_github
       - file: pages/vscode
-      - file: pages/python #interpreted_vs_compiled, virtual_environments, package_managers, conda
+      - file: pages/python
       - file: pages/code_in_the_cloud
     - file: pages/klayout
     - file: pages/gdsfactory
@@ -34,7 +35,8 @@ parts:
       - file: pages/meep_to_gds
     - file: pages/waveguides
       sections:
-      - file: pages/fem_solvers
+      - file: pages/waveguides_tir
+      - file: pages/mode_solvers
       - file: pages/fdtd_solvers
       - file: pages/polarization
     - file: pages/directional_couplers
@@ -48,6 +50,7 @@ parts:
     - file: pages/mmis
   - caption: Active Device Design and Simulation
     chapters:
+    - file: pages/phase_shifters
     - file: pages/phase_shifters_heaters
     - file: pages/phase_shifters_pn
     - file: pages/voas
@@ -66,6 +69,7 @@ parts:
       - file: pages/active_models
     - file: pages/design_for_testing
     - file: pages/layout
+    - file: pages/drc
   - caption: Product Development and Fabrication
     chapters:
     - file: pages/what_is_a_pdk
