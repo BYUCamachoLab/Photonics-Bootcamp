@@ -652,7 +652,7 @@ title="Print to PDF"
 <p>We’ll just be using gdsfactory here, so we’ll include that at the top, and also make a variable to hold the path to the gds file. In our case, that will be “splitter1x2”</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span> <span class="c1"># We&#39;ll just be using gdsfactory in this example</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 
 <span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;splitter1x2.gds&quot;</span> <span class="c1"># The filename or path of the gds</span>
 </pre></div>
@@ -768,8 +768,8 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
-<span class="n">short_wg</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">long_wg</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">short_wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">long_wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="n">symbol_to_component</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">short_wg</span><span class="p">,</span> <span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="s2">&quot;o2&quot;</span><span class="p">),</span>
@@ -778,57 +778,13 @@ title="Print to PDF"
 
 <span class="n">sequence</span> <span class="o">=</span> <span class="s2">&quot;SLSLSL&quot;</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">component_sequence</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">symbol_to_component</span><span class="o">=</span><span class="n">symbol_to_component</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>---------------------------------------------------------------------------
-ValidationError                           Traceback (most recent call last)
-Cell In[4], line 10
-      4 symbol_to_component = {
-      5     &quot;S&quot;: (short_wg, &quot;o1&quot;, &quot;o2&quot;),
-      6     &quot;L&quot;: (long_wg, &quot;o1&quot;, &quot;o2&quot;),
-      7 }
-      9 sequence = &quot;S&quot;
----&gt; 10 s = gf.components.component_sequence(sequence=sequence, symbol_to_component=symbol_to_component)
-
-File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/cell.py:161, in cell_without_validator.&lt;locals&gt;._cell(*args, **kwargs)
-    156 if not callable(func):
-    157     raise ValueError(
-    158         f&quot;{func!r} is not callable! @cell decorator is only for functions&quot;
-    159     )
---&gt; 161 component = func(*args, **kwargs)
-    163 # if the component is already in the cache, but under a different alias,
-    164 # make sure we use a copy, so we don&#39;t run into mutability errors
-    165 if id(component) in [id(v) for v in CACHE.values()]:
-
-File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:40, in pydantic.decorator.validate_arguments.validate.wrapper_function()
-
-File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:133, in pydantic.decorator.ValidatedFunction.call()
-
-File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/decorator.py:130, in pydantic.decorator.ValidatedFunction.init_model_instance()
-
-File ~/miniconda3/envs/pmp/lib/python3.11/site-packages/pydantic/main.py:341, in pydantic.main.BaseModel.__init__()
-
-ValidationError: 8 validation errors for ComponentSequence
-symbol_to_component -&gt; S -&gt; 0
-  str type expected (type=type_error.str)
-symbol_to_component -&gt; S -&gt; 0
-  ComponentReference (parent Component &quot;straight_length1&quot;, ports [&#39;o1&#39;, &#39;o2&#39;], origin (0.0, 0.0), rotation 0.0, x_reflection False) is not callable (type=type_error.callable; value=ComponentReference (parent Component &quot;straight_length1&quot;, ports [&#39;o1&#39;, &#39;o2&#39;], origin (0.0, 0.0), rotation 0.0, x_reflection False))
-symbol_to_component -&gt; S -&gt; 0
-  TypeError, Got &lt;class &#39;gdsfactory.component_reference.ComponentReference&#39;&gt;, expecting Component (type=assertion_error)
-symbol_to_component -&gt; S -&gt; 0
-  value is not a valid dict (type=type_error.dict)
-symbol_to_component -&gt; L -&gt; 0
-  str type expected (type=type_error.str)
-symbol_to_component -&gt; L -&gt; 0
-  ComponentReference (parent Component &quot;straight_length5&quot;, ports [&#39;o1&#39;, &#39;o2&#39;], origin (0.0, 0.0), rotation 0.0, x_reflection False) is not callable (type=type_error.callable; value=ComponentReference (parent Component &quot;straight_length5&quot;, ports [&#39;o1&#39;, &#39;o2&#39;], origin (0.0, 0.0), rotation 0.0, x_reflection False))
-symbol_to_component -&gt; L -&gt; 0
-  TypeError, Got &lt;class &#39;gdsfactory.component_reference.ComponentReference&#39;&gt;, expecting Component (type=assertion_error)
-symbol_to_component -&gt; L -&gt; 0
-  value is not a valid dict (type=type_error.dict)
-</pre></div>
-</div>
+<img alt="../_images/components_17_0.png" src="../_images/components_17_0.png" />
+<img alt="../_images/components_17_1.png" src="../_images/components_17_1.png" />
 </div>
 </div>
 <p>Can print out the ports of a component if you aren’t sure which is which. This will help you as you are making your connections. Also, it’s good to double check your connections.</p>
