@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>What is a Photonic Device? &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Polarization &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/what_is_a_photonic_device.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/waveguides_polarization.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Representing Physical Shapes Digitally" href="digital_shape_representation.html" />
-    <link rel="prev" title="Python" href="python.html" />
+    <link rel="next" title="Waveguide modes" href="waveguides_mode_solvers.html" />
+    <link rel="prev" title="Total Internal Reflection" href="waveguides_tir.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -172,8 +172,8 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="what_is_a_photonic_device.html">
    What is a Photonic Device?
   </a>
  </li>
@@ -204,23 +204,23 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="waveguides.html">
    Waveguides
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="waveguides_tir.html">
      Total Internal Reflection
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="waveguides_polarization.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Polarization
     </a>
    </li>
@@ -392,7 +392,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/what_is_a_photonic_device.ipynb"
+        <a href="../_sources/pages/waveguides_polarization.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -452,13 +452,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#active-vs-passive-devices">
-   Active vs Passive Devices
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#manufacturing-of-devices">
-   Manufacturing of Devices
+  <a class="reference internal nav-link" href="#polarization-considerations">
+   Polarization: Considerations
   </a>
  </li>
 </ul>
@@ -470,7 +465,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>What is a Photonic Device?</h1>
+                <h1>Polarization</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -481,13 +476,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#active-vs-passive-devices">
-   Active vs Passive Devices
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#manufacturing-of-devices">
-   Manufacturing of Devices
+  <a class="reference internal nav-link" href="#polarization-considerations">
+   Polarization: Considerations
   </a>
  </li>
 </ul>
@@ -500,37 +490,28 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-photonic-device">
-<h1>What is a Photonic Device?<a class="headerlink" href="#what-is-a-photonic-device" title="Permalink to this headline">#</a></h1>
-<p>Photonic devices are analogous to electronic devices but instead of manipulating electricity, a photonic device manipulates light in a specified, useful way. Photonic devices are the building blocks of a photonic circuit. Devices can be created on the macro or micro scale, although it is increasingly common for photonic devices to be built on the microscale or nanoscale.</p>
-<div style="text-align: center;">
-<p><strong>Comparing Electronics to Photonics</strong></p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="text-align:center head"><p>Electronics</p></th>
-<th class="text-align:center head"><p>Photonics</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:center"><p>Manipulates electricity (electrons)</p></td>
-<td class="text-align:center"><p>Manipulates light (photons)</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:center"><p>Discrete components include resistors, inductors, capacitors, etc.</p></td>
-<td class="text-align:center"><p>Discrete components include fiber optic cables, lenses, etc.</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:center"><p>Electronic integrated circuit (CMOS)</p></td>
-<td class="text-align:center"><p>Photonic integrated circuit (SOI)</p></td>
-</tr>
-</tbody>
-</table>
+  <section class="tex2jax_ignore mathjax_ignore" id="polarization">
+<h1>Polarization<a class="headerlink" href="#polarization" title="Permalink to this headline">#</a></h1>
+<p>To understand how an optical waveguide works, it is important to understand what it means for light to be <em>polarized</em>. The polarization of light affects how it behaves in a waveguide.</p>
+<p>The diagram below describes the motion of a wave of light, which is an electromagnetic wave:</p>
+<p><img alt="Image of an electromagnetic wave" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/electromagnetic_wave_diagram.png" />
+<span id="id1">[]</span></p>
+<p>As the light wave propagates in the positive z direction, electric and magnetic field components of the light wave propagate in the x direction and y direction. The electric and magnetic field components propagate orthogonally to one another, and orthogonal to the light wave’s direction of propagation.</p>
+<p>The <em>polarization</em> of a light wave generally refers to the orientation of its electric field vector. Why do we care about the electric field vector and not the magnetic field vector? This is purely convention. Because the electric and magnetic fields are orthogonal to one another, knowing the orientation of a light wave’s electric field and its direction of propagation tells us all we need to know about the orientation of its magnetic field too.</p>
+<p>If the electric field of a light wave is orthogonal to the interface through which the light wave propagates, the light wave has <em>perpendicular polarization</em>. These light waves are also known as <em>transverse electric (TE) waves</em>. On the other hand, if the electric field of a light wave is parallel to the interface of propagation, it has <em>parallel polarization</em>. These waves are also called <em>transverse magnetic (TM) waves</em>.</p>
+<p>Polarization conventions can be a bit tricky to understand at first. Let’s take a look at the diagram above for a better understanding. A light wave propagates in the z direction, while electric and magnetic fields propagate in the x direction and the y direction. The red and blue field lines could represent <em>either</em> the electric field or the magnetic field respectively. This is a three dimensional graph, but what if we considered it in only two dimensions? Let’s take the y-z plane, the slice of the graph where x=0. If we were to look at this plane straight on, we’d only see the red field lines oscillating along the y axis and the arrow in the positive z direction representing the direction of propagation. The red field lines are parallel to the y-z plane, the blue field lines are orthogonal to (transverse) the y-z plane.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Test your comprehension of TE and TM polarization:</p>
+<ol class="simple">
+<li><p>What is the polarization of the light wave in the diagram if the red field lines represent the electric field and the blue field lines represent the magnetic field?</p></li>
+<li><p>What is the polarization of the light wave in the diagram if the red bield lines represent the <em>magnetic field</em> and the blue field lines represent the <em>electric field</em>?</p></li>
+</ol>
 </div>
-<section id="active-vs-passive-devices">
-<h2>Active vs Passive Devices<a class="headerlink" href="#active-vs-passive-devices" title="Permalink to this headline">#</a></h2>
-<p>Photonic devices can be either active or passive. Active devices require an input of energy and are often used to output power to a circuit. Passive devices consume power and are used to change properties of the light without a power source. These properties can include the direction, phase, and polarization of the light. Examples of active photonic devices include lasers, photodetectors, phase shifters, and variable optical attenuators (VOAs). Passive devices include splitters, grating couplers, interferometers, and other waveguide based components.</p>
-</section>
-<section id="manufacturing-of-devices">
-<h2>Manufacturing of Devices<a class="headerlink" href="#manufacturing-of-devices" title="Permalink to this headline">#</a></h2>
-<p>Just like in electronics, integrated photonic devices can be manufactured using photolithography. This is one of the most popular methods since it utilizes existing electronic foundry processes.</p>
+<section id="polarization-considerations">
+<h2>Polarization: Considerations<a class="headerlink" href="#polarization-considerations" title="Permalink to this headline">#</a></h2>
+<p>Natural light (say, the light from the sun) is <em>unpolarized</em>. That’s not to say that the light doesn’t have electric and magnetic field components, all light does, but the orientation of the electric and magnetic field components is scattered and non-uniform. It’s possible to polarize unpolarized light by filtering out light with certain polarizations and permitting light with other polarizations. Once light is polarized, it’s a lot more useful for transmitting data. Polarized light behaves predictably, unpolarized light behaves unpredictably.</p>
+<p>The behavior of light in a waveguide depends in part on its polarization, which we’ll explore in the next section. Some waveguides support light of certain polarizations and not others in certain modes, and most waveguides can support multiple photonic signals of different polarizations simultaneously.</p>
 </section>
 </section>
 
@@ -561,17 +542,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="python.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="waveguides_tir.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Python</p>
+            <p class="prev-next-title">Total Internal Reflection</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="digital_shape_representation.html" title="next page">
+    <a class='right-next' id="next-link" href="waveguides_mode_solvers.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Representing Physical Shapes Digitally</p>
+        <p class="prev-next-title">Waveguide modes</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

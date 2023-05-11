@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Polarization &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>&lt;no title&gt; &#8212; CamachoLab Photonics Bootcamp</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/polarization.html" />
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/waveguides_fdtd_solvers.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
-    <link rel="prev" title="Waveguide modes" href="mode_solvers.html" />
+    <link rel="prev" title="Waveguide modes" href="waveguides_mode_solvers.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en">
     
@@ -171,7 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
   Passive Device Design and Simulation
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is_a_photonic_device.html">
    What is a Photonic Device?
@@ -204,29 +204,29 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="waveguides.html">
    Waveguides
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul class="current">
+  <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="waveguides_tir.html">
      Total Internal Reflection
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="mode_solvers.html">
-     Waveguide modes
+    <a class="reference internal" href="waveguides_polarization.html">
+     Polarization
     </a>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Polarization
+   <li class="toctree-l2">
+    <a class="reference internal" href="waveguides_mode_solvers.html">
+     Waveguide modes
     </a>
    </li>
   </ul>
@@ -392,7 +392,7 @@ title="Fullscreen mode"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/pages/polarization.ipynb"
+        <a href="../_sources/pages/waveguides_fdtd_solvers.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -429,23 +429,50 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Polarization</h1>
+                <h1><no title></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -453,18 +480,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="polarization">
-<h1>Polarization<a class="headerlink" href="#polarization" title="Permalink to this headline">#</a></h1>
-<p>To understand how an optical waveguide works, it is important to understand what it means for light to be polarized. This is because the polarization of light will affect how it behaves in a waveguide.</p>
-<p>The diagram below describes the motion of a wave of light, which is an electromagnetic wave:</p>
-<p><img alt="Image of an electromagnetic wave" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/electromagnetic_wave_diagram.png" />
-<span id="id1">[]</span></p>
-<p>Both the electric and the magnetic components of the wave are moving in the Z-direction. You and think of this as where the light is heading in a waveguide.</p>
-<p>In addition to moving down the waveguide, the electric and magentic components of the wave are oscillating perpendicular to each other. The direction in which this oscillation occurs is where the idea of polarization of light comes from. The polarization of light simply refers to the direction in which the electric componet oscillates. In this case, the electric component of the wave moves vertically in the Y-direction, so we say that the wave is vertically polarized.</p>
-<p>The reason that this is important is because polarized light behaves differently in an optical circuit depending on the direction in which it is polarized. A beam of light polarized in the X direction will behave differently than a beam polarized in the Y-direction.</p>
-<p>This presents a challenged when considering that light typically is not polarized. Unpolarized light is composed of waves of light whose magnetic field components are arranged in random directions. And since the components of light polarized in the X and Y directions is not predictable, the behavior of the unpolarized light is not completely consistent in a waveguide.</p>
-</section>
-
+  
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -492,7 +508,7 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="mode_solvers.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="waveguides_mode_solvers.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
