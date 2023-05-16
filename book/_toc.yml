@@ -14,22 +14,22 @@ parts:
     - file: pages/software
       sections:
       - file: pages/setup
-      - file: pages/system_configuration
+      # - file: pages/system_configuration
       - file: pages/git_and_github
       - file: pages/vscode
       - file: pages/python
-      - file: pages/code_in_the_cloud
-    - file: pages/klayout
-    - file: pages/gdsfactory
-    - file: pages/meep
-    - file: pages/simphony
+      # - file: pages/code_in_the_cloud
+    # - file: pages/klayout
+    # - file: pages/gdsfactory
+    # - file: pages/meep
+    # - file: pages/simphony
   - caption: Passive Device Design and Simulation
     chapters:
     - file: pages/what_is_a_photonic_device
-    - file: pages/silicon_on_insulator
+    # - file: pages/silicon_on_insulator
     - file: pages/digital_shape_representation
       sections:
-      - file: pages/gds
+      # - file: pages/gds
       - file: pages/components
       - file: pages/gds_to_meep
       - file: pages/meep_to_gds
@@ -38,47 +38,47 @@ parts:
       - file: pages/waveguides_tir
       - file: pages/waveguides_polarization
       - file: pages/waveguides_mode_solvers
-      - file: pages/waveguides_fdtd_solvers
+      # - file: pages/waveguides_fdtd_solvers
     - file: pages/directional_couplers
     - file: pages/y_branch
     - file: pages/mzi
     - file: pages/ring_resonators
-    - file: pages/bragg_gratings
-    - file: pages/grating_couplers
-    - file: pages/edge_couplers
-    - file: pages/tapers
+    # - file: pages/bragg_gratings
+    # - file: pages/grating_couplers
+    # - file: pages/edge_couplers
+    # - file: pages/tapers
     - file: pages/mmis
   - caption: Active Device Design and Simulation
     chapters:
     - file: pages/phase_shifters
     - file: pages/phase_shifters_heaters
     - file: pages/phase_shifters_pn
-    - file: pages/voas
-    - file: pages/photodetectors
-      sections:
-      - file: pages/responsivity
-      - file: pages/bandwidth
-    - file: pages/lasers
+    # - file: pages/voas
+    # - file: pages/photodetectors
+      # sections:
+      # - file: pages/responsivity
+      # - file: pages/bandwidth
+    # - file: pages/lasers
   - caption: Circuit Design and Simulation
     chapters:
-    - file: pages/photonic_circuit_modeling
+    # - file: pages/photonic_circuit_modeling
     - file: pages/compact_models
       sections:
       - file: pages/scattering_parameters
-      - file: pages/passive_models
-      - file: pages/active_models
-    - file: pages/design_for_testing
-    - file: pages/layout
-    - file: pages/drc
-  - caption: Product Development and Fabrication
-    chapters:
-    - file: pages/what_is_a_pdk
-    - file: pages/subcircuits
-  - caption: Testing
-    chapters:
-    - file: pages/equipment
-    - file: pages/sweeps
-    - file: pages/analyzing_circuits
+      # - file: pages/passive_models
+      # - file: pages/active_models
+    # - file: pages/design_for_testing
+    # - file: pages/layout
+    # - file: pages/drc
+  # - caption: Product Development and Fabrication
+    # chapters:
+    # - file: pages/what_is_a_pdk
+    # - file: pages/subcircuits
+  # - caption: Testing
+    # chapters:
+    # - file: pages/equipment
+    # - file: pages/sweeps
+    # - file: pages/analyzing_circuits
   - caption: References
     numbered: false
     chapters:
