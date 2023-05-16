@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html lang="en">
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Components &#8212; CamachoLab Photonics Bootcamp</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,535 +61,322 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/components';</script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/components.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="GDS to Meep" href="gds_to_meep.html" />
     <link rel="prev" title="Representing Physical Shapes Digitally" href="digital_shape_representation.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Front Matter
- </span>
-</p>
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="introduction.html">
-   Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="credits.html">
-   Credits
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Familiar with Code
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Familiar with Code</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="open_source.html">
-   Open Source Software
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="software.html">
-   Software
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="setup.html">
-     Setting up the tools
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="git_and_github.html">
-     Git (and GitHub)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="vscode.html">
-     Visual Studio Code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="python.html">
-     Python
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="open_source.html">Open Source Software</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setting up the tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Passive Device Design and Simulation
- </span>
-</p>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="what_is_a_photonic_device.html">
-   What is a Photonic Device?
-  </a>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="digital_shape_representation.html">
-   Representing Physical Shapes Digitally
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Components
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="gds_to_meep.html">
-     GDS to Meep
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="meep_to_gds.html">
-     Meep to GDS
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="waveguides.html">
-   Waveguides
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="waveguides_tir.html">
-     Total Internal Reflection
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="waveguides_polarization.html">
-     Polarization
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="waveguides_mode_solvers.html">
-     Waveguide modes
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="directional_couplers.html">
-   Directional Couplers
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="y_branch.html">
-   Y-Branches
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="mzi.html">
-   Mach-Zehnder Interferometer
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="ring_resonators.html">
-   Ring Resonators
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="mmis.html">
-   Multimode Interferometers (MMIs)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_a_photonic_device.html">What is a Photonic Device?</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="digital_shape_representation.html">Representing Physical Shapes Digitally</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Active Device Design and Simulation
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="phase_shifters.html">
-   Phase Shifters
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="phase_shifters_heaters.html">
-   Phase Shifters: Heaters
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="phase_shifters_pn.html">
-   Phase Shifters: PN Junctions and PIN Junctions
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Circuit Design and Simulation
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="compact_models.html">
-   Compact Models
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="scattering_parameters.html">
-     Scattering Parameters (S-Parameters)
-    </a>
-   </li>
-  </ul>
- </li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder Interferometer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  References
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">
-   Repository
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">
-   PDK Documentation
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_shifters_heaters.html">Phase Shifters: Heaters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase_shifters_pn.html">Phase Shifters: PN Junctions and PIN Junctions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering Parameters (S-Parameters)</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">PDK Documentation</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/pages/components.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/pages/components.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#elements-of-a-component">
-   Elements of a Component
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#creating-components">
-   Creating Components
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-to-create-a-component-using-polygons">
-     How to Create a Component Using Polygons
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-to-create-a-component-from-a-gdsii-file">
-     How to Create a Component from a GDSII file
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#more-functions-for-creating-components">
-     More Functions for Creating Components
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connecting-components">
-     Connecting Components
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connecting-with-an-ascii-sequence">
-     Connecting With an ASCII Sequence
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connecting-grating-couplers">
-     Connecting Grating Couplers
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#practice">
-     Practice:
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Components</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#elements-of-a-component">
-   Elements of a Component
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#creating-components">
-   Creating Components
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-to-create-a-component-using-polygons">
-     How to Create a Component Using Polygons
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-to-create-a-component-from-a-gdsii-file">
-     How to Create a Component from a GDSII file
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#more-functions-for-creating-components">
-     More Functions for Creating Components
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connecting-components">
-     Connecting Components
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connecting-with-an-ascii-sequence">
-     Connecting With an ASCII Sequence
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#connecting-grating-couplers">
-     Connecting Grating Couplers
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#practice">
-     Practice:
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Components</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-components">Creating Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-using-polygons">How to Create a Component Using Polygons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-from-a-gdsii-file">How to Create a Component from a GDSII file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-functions-for-creating-components">More Functions for Creating Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-components">Connecting Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-with-an-ascii-sequence">Connecting With an ASCII Sequence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-grating-couplers">Connecting Grating Couplers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="components">
-<h1>Components<a class="headerlink" href="#components" title="Permalink to this headline">#</a></h1>
+<h1>Components<a class="headerlink" href="#components" title="Permalink to this heading">#</a></h1>
 <p>In GDS Factory, we create components and then connect them together to create larger, more complicated designs. Components can be simple shapes, or more complex with references to other components. They usually have ports which allow you to connect the component to other components in GDS Factory.</p>
 <section id="elements-of-a-component">
-<h2>Elements of a Component<a class="headerlink" href="#elements-of-a-component" title="Permalink to this headline">#</a></h2>
+<h2>Elements of a Component<a class="headerlink" href="#elements-of-a-component" title="Permalink to this heading">#</a></h2>
 <p>Components can be made up of polygons, references, and ports.</p>
 <p>Polygons are the lowest building block of components, and if you print out a component’s information, it will tell you how many polygons are contained within it. Since the same polygon is often used twice or multiple times within a component, it will often be referenced.</p>
 <p>References to other components within a component, or circuit, are used to save memory as they point to an existing geometry instead of creating a new one. If, for example, you had a component that used the same taper on all of its inputs and outputs, it would be good to save it only once in memory and then call it and rotate it, if needed, however many times you need for the component instead of saving multiple copies of the same component. So, by using references you can draw on a bank of components to create more complex components without using up as much memory.</p>
@@ -587,9 +385,9 @@ title="Print to PDF"
 <p><code class="docutils literal notranslate"><span class="pre">c.add_label(text=&quot;LABEL</span> <span class="pre">TEXT&quot;,</span> <span class="pre">position=c.center)</span></code></p>
 </section>
 <section id="creating-components">
-<h2>Creating Components<a class="headerlink" href="#creating-components" title="Permalink to this headline">#</a></h2>
+<h2>Creating Components<a class="headerlink" href="#creating-components" title="Permalink to this heading">#</a></h2>
 <section id="how-to-create-a-component-using-polygons">
-<h3>How to Create a Component Using Polygons<a class="headerlink" href="#how-to-create-a-component-using-polygons" title="Permalink to this headline">#</a></h3>
+<h3>How to Create a Component Using Polygons<a class="headerlink" href="#how-to-create-a-component-using-polygons" title="Permalink to this heading">#</a></h3>
 <p>In GDS Factory, polygons can be used to piece together a component’s geometry. Polygons are defined with their vertices and the layer in which they are on. For components with more complex functions, i.e. not just passive components, more than one layer may be needed to define the component. In this case, you can specify what parts of your component are on which layer. As an example, let us create a 2x2 MMI using polygons to define the tapers and the body of the MMI.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -635,14 +433,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/components_3_0.png" src="../_images/components_3_0.png" />
-<img alt="../_images/components_3_1.png" src="../_images/components_3_1.png" />
-<img alt="../_images/components_3_2.png" src="../_images/components_3_2.png" />
+<img alt="../_images/074081327c05b4842c538a4309e37debd571d48387c5e6a9c837b99247635350.png" src="../_images/074081327c05b4842c538a4309e37debd571d48387c5e6a9c837b99247635350.png" />
+<img alt="../_images/712c05c47063b42293810c90e5bc69fd0bd4a68cd18f85228175cf47ce140936.png" src="../_images/712c05c47063b42293810c90e5bc69fd0bd4a68cd18f85228175cf47ce140936.png" />
+<img alt="../_images/712c05c47063b42293810c90e5bc69fd0bd4a68cd18f85228175cf47ce140936.png" src="../_images/712c05c47063b42293810c90e5bc69fd0bd4a68cd18f85228175cf47ce140936.png" />
 </div>
 </div>
 </section>
 <section id="how-to-create-a-component-from-a-gdsii-file">
-<h3>How to Create a Component from a GDSII file<a class="headerlink" href="#how-to-create-a-component-from-a-gdsii-file" title="Permalink to this headline">#</a></h3>
+<h3>How to Create a Component from a GDSII file<a class="headerlink" href="#how-to-create-a-component-from-a-gdsii-file" title="Permalink to this heading">#</a></h3>
 <p>It is sometimes necessary (or useful) to import a gds file into GDS Factory. This can happen if you have created a geometry using some other software, such as Meep, and you would like to the use the geometry in GDS Factory. While GDS Factory has functions to convert the geometry, there are several other steps you need to take after this conversion to get a useful GDS Factory component.</p>
 <p>The purpose of this notebook is to demonstrate the steps needed to create a complete GDS Factory component from a gds file.</p>
 <p>For this example, I’ll be using a gds design of a splitter that was created in Meep.</p>
@@ -709,7 +507,7 @@ title="Print to PDF"
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
 </pre></div>
 </div>
-<img alt="../_images/components_12_1.png" src="../_images/components_12_1.png" />
+<img alt="../_images/73f5895d002f61d1575462202fedd1281011335716a08c28d63a15b46997feff.png" src="../_images/73f5895d002f61d1575462202fedd1281011335716a08c28d63a15b46997feff.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cutback_splitter_52e92e_42263575: uid ee21f529, ports [&#39;opt-grating_coupler_ellipti_dd7f7af4-cutback_splitter_52e92e1e-o1&#39;, &#39;opt-grating_coupler_ellipti_dd7f7af4-cutback_splitter_52e92e1e-o2&#39;], references [&#39;bend_euler_1&#39;, &#39;straight_1&#39;, &#39;straight_2&#39;, &#39;bend_euler_2&#39;, &#39;straight_3&#39;, &#39;straight_4&#39;, &#39;bend_euler_3&#39;, &#39;bend_euler_4&#39;, &#39;straight_5&#39;, &#39;straight_6&#39;, &#39;straight_7&#39;, &#39;bend_euler_5&#39;, &#39;bend_euler_6&#39;, &#39;straight_8&#39;, &#39;straight_9&#39;, &#39;straight_10&#39;, &#39;grating_coupler_elliptical_trenches_1&#39;, &#39;grating_coupler_elliptical_trenches_2&#39;, &#39;cutback_splitter_1&#39;], 0 polygons
 </pre></div>
 </div>
@@ -717,12 +515,12 @@ title="Print to PDF"
 </div>
 </section>
 <section id="more-functions-for-creating-components">
-<h3>More Functions for Creating Components<a class="headerlink" href="#more-functions-for-creating-components" title="Permalink to this headline">#</a></h3>
+<h3>More Functions for Creating Components<a class="headerlink" href="#more-functions-for-creating-components" title="Permalink to this heading">#</a></h3>
 <p>GDS Factory comes with a variety of functions that can help you manipulate the geometry of your component, allowing you to more easily create many different shapes. For example, there are Boolean operators you can use to combine different geometries, meaning that you can subtract shapes from each other, merge them together, or XOR them. The accepted operations are “not”, “and”, “or”, “xor”, “A-B”, “B-A”, and “A+B”. Of course, “A-B” is equivalent to “not” and “A+B” is equivalent to “or”. To use these operations, you specify your two arguments (or pieces of the geometry that will be involved in the operation), the operation itself, and the layer:</p>
 <p><code class="docutils literal notranslate"><span class="pre">gf.geometry.boolean(A=[components],B=[components],operation=&quot;A-B&quot;,layer=1)</span></code></p>
 </section>
 <section id="connecting-components">
-<h3>Connecting Components<a class="headerlink" href="#connecting-components" title="Permalink to this headline">#</a></h3>
+<h3>Connecting Components<a class="headerlink" href="#connecting-components" title="Permalink to this heading">#</a></h3>
 <p>Once you have created your components and perhaps tested them individually, you may want to connect them into a larger circuit with a more sophisticated function. To do this, you can use the “connect” function from GDS Factory.</p>
 <p>This function takes in two ports as arguments. The first is the port in the component you are calling connect on that will attach to the second port, or the “destination” port.</p>
 <p>As a simple example, we could use the following code to connect two waveguides to form a component:</p>
@@ -752,9 +550,9 @@ title="Print to PDF"
 2023-05-09 11:33:10.020 | INFO     | gdsfactory.technology.layer_views:__init__:779 - Importing LayerViews from KLayout layer properties file: /home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/generic_tech/klayout/tech/layers.lyp.
 </pre></div>
 </div>
-<img alt="../_images/components_15_1.png" src="../_images/components_15_1.png" />
-<img alt="../_images/components_15_2.png" src="../_images/components_15_2.png" />
-<img alt="../_images/components_15_3.png" src="../_images/components_15_3.png" />
+<img alt="../_images/66f4e1751d5eca6ab136ebcf8fdcdcee223ac2bf74757404154cd314521fb166.png" src="../_images/66f4e1751d5eca6ab136ebcf8fdcdcee223ac2bf74757404154cd314521fb166.png" />
+<img alt="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" src="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" />
+<img alt="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" src="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" />
 </div>
 </div>
 <p>As your connections get more complex, be aware of the order in which you connect components. GDS Factory automatically moves components as they are connected, and they may be moved in ways you don’t want. For example, the final geometry of the preceding example would be at different location if you used</p>
@@ -762,7 +560,7 @@ title="Print to PDF"
 <p>Although the same two ports are being connected, the result differs because you are now connecting wg_1 to wg_2 and not wg_2 to wg_1. Essentially, take care when laying out the sequence of your connections.</p>
 </section>
 <section id="connecting-with-an-ascii-sequence">
-<h3>Connecting With an ASCII Sequence<a class="headerlink" href="#connecting-with-an-ascii-sequence" title="Permalink to this headline">#</a></h3>
+<h3>Connecting With an ASCII Sequence<a class="headerlink" href="#connecting-with-an-ascii-sequence" title="Permalink to this heading">#</a></h3>
 <p>If you have many connections that you need to make that only require a few components, you can connect components with an ASCII sequence.</p>
 <p>To do this, you must create a dictionary to map ASCII symbols to components. Then you create a sequence to feed into <code class="docutils literal notranslate"><span class="pre">gf.components.component_sequence</span></code>. For example, if we wanted to connect waveguides of different lengths in a repeating pattern</p>
 <div class="cell docutils container">
@@ -783,14 +581,14 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/components_17_0.png" src="../_images/components_17_0.png" />
-<img alt="../_images/components_17_1.png" src="../_images/components_17_1.png" />
+<img alt="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" src="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" />
+<img alt="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" src="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" />
 </div>
 </div>
 <p>Can print out the ports of a component if you aren’t sure which is which. This will help you as you are making your connections. Also, it’s good to double check your connections.</p>
 </section>
 <section id="connecting-grating-couplers">
-<h3>Connecting Grating Couplers<a class="headerlink" href="#connecting-grating-couplers" title="Permalink to this headline">#</a></h3>
+<h3>Connecting Grating Couplers<a class="headerlink" href="#connecting-grating-couplers" title="Permalink to this heading">#</a></h3>
 <p>Unless you plan on having an edge-coupled chip, you will most likely need grating couplers to couple light into your circuit. So, the last component that you will want to connect to your circuit is grating couplers. <code class="docutils literal notranslate"><span class="pre">add_grating_couplers</span></code> automatically connects grating couplers to the ports in your component. Before using this function, you may want to make sure that your component/circuit has its ports specified. You don’t have to, but it makes it easier to use this function. The function requires that you specify the component you are adding grating couplers to. If you have a component with many references in it, the function may try and add grating couplers to the ports of each reference, instead of just the main input and output ports. So, you either have to pass in arguments for the <code class="docutils literal notranslate"><span class="pre">select_ports</span></code> parameter, or just create new ports for the component. Going back to our example with the two straight waveguides, we can add ports to the ends of the now longer waveguide, absorb the references so that it truly appears as just one waveguide, and then add the grating couplers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -811,7 +609,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="practice">
-<h3>Practice:<a class="headerlink" href="#practice" title="Permalink to this headline">#</a></h3>
+<h3>Practice:<a class="headerlink" href="#practice" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Pick a GDS Factory component and recreate it using polygons</p></li>
 <li><p>Use Boolean operators to create a cricular ring and then a racetrack ring.</p></li>
@@ -841,50 +639,115 @@ title="Print to PDF"
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="digital_shape_representation.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Representing Physical Shapes Digitally</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="digital_shape_representation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Representing Physical Shapes Digitally</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="gds_to_meep.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="gds_to_meep.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">GDS to Meep</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By CamachoLab and Google<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-components">Creating Components</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-using-polygons">How to Create a Component Using Polygons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-from-a-gdsii-file">How to Create a Component from a GDSII file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-functions-for-creating-components">More Functions for Creating Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-components">Connecting Components</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-with-an-ascii-sequence">Connecting With an ASCII Sequence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-grating-couplers">Connecting Grating Couplers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By CamachoLab and Google
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
