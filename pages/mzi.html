@@ -414,20 +414,27 @@ document.write(`
 </div>
 <p>There are there three different relevant amplitudes:</p>
 <ol class="arabic simple">
-<li><p>The amplitude of the input light:
-$<span class="math notranslate nohighlight">\(
- I_{input} = E_{input}^2
-\)</span>$</p></li>
-<li><p>The amplitudes of the beams after the split
-$<span class="math notranslate nohighlight">\(
- E_{1} = \frac{E_{input}}{\sqrt{2}}, \hspace{2mm} E_{2} = \frac{E_{input}}{\sqrt{2}}
-\)</span>$</p></li>
-<li><p>The amplitude of the recombined light
-$<span class="math notranslate nohighlight">\(
- E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
-\)</span>$</p></li>
+<li><p>The amplitude of the input light:</p></li>
 </ol>
-<p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
+<div class="math notranslate nohighlight">
+\[
+    I_{input} = E_{input}^2
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p>The amplitudes of the beams after the split</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    E_{1} = \frac{E_{input}}{\sqrt{2}}, \hspace{2mm} E_{2} = \frac{E_{input}}{\sqrt{2}}
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p>The amplitude of the recombined light</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
+\]</div>
+<p>*Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
 <section id="quick-check">
 <h3>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
 <p>If intensity of the input wave is .5 mW, what is the intensity at the output?</p>
@@ -440,10 +447,11 @@ $<span class="math notranslate nohighlight">\(
 \[    
     E = E_0 e^{i(\omega t - \beta z)}
 \]</div>
-<p>Propogation Constant of Light:
-$<span class="math notranslate nohighlight">\(
+<p>Propogation Constant of Light:</p>
+<div class="math notranslate nohighlight">
+\[
     \beta = \frac{2 \pi n}{\lambda} 
-\)</span>$</p>
+\]</div>
 <p>If the equations above describe the propogation of the wave before the light gets split by the MZI, we can represent the two resulting beams as follows.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -453,7 +461,7 @@ E_{o1} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{1}L_{1}-\frac{\alpha_{1}}{2}L_{1}}
 \[
 E_{o2} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{2}L_{2}-\frac{\alpha_{2}}{2}L_{2}}
 \]</div>
-<p>*** As the light travels through the waveguide we can imagine that it will experience some degree of loss. The ‘α’ term that appeared in the exponents is the loss coefficient. For convenience, the following examples will assume that α = 0, or that there is zero loss in our waveguides.</p>
+<p>*As the light travels through the waveguide we can imagine that it will experience some degree of loss. The ‘α’ term that appeared in the exponents is the loss coefficient. For convenience, the following examples will assume that α = 0, or that there is zero loss in our waveguides.</p>
 <p>And finally the intensity of the the recombined light at the end of the MZI can be described like so:</p>
 <div class="math notranslate nohighlight">
 \[
