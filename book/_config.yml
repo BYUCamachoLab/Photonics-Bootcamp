@@ -77,3 +77,4 @@ sphinx:
     language: en
     html_theme_options:
       logo_only: true
+    html_extra_path: ['scripts']
