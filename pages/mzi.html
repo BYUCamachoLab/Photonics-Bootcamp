@@ -186,6 +186,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Mach-Zehnder Interferometer</a></li>
+
+
+
+
+
 <li class="toctree-l1"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
 </ul>
@@ -352,15 +357,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a Balanced MZI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick Check</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder Interferometer</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a Balanced MZI</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick Check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of Imblanced MZI’s</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-Optic Effect:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of Imblanced MZI’s</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quick Check</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-Optic Effect:</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quick Check</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -378,15 +391,16 @@ document.write(`
 <p><img alt="Image of a MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
 <p>One implementation of this concept is illustrated above. Notice that the inner path of the MZI is shorter than the outer path, therefore the MZI is unbalanced. This implies that the two light beams will be out of phase with each other when they are recombined and interference occurs.</p>
 <p>Since the interference that occurs when the light is recombined is dependent on the the wavelength of the intitial beam of light, the amount of light that leaves the interferometer will be dependent on the initial wavelength.</p>
-<section id="sweeping">
-<h2>Sweeping<a class="headerlink" href="#sweeping" title="Permalink to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="sweeping">
+<h1>Sweeping<a class="headerlink" href="#sweeping" title="Permalink to this heading">#</a></h1>
 <p>Imagine we shined a laser into the first grating coupler and then adjusted the wavelength over some range. We then can plot the data from the intensity of the light leaving the MZI against the wavelengths we tested. This is sometimes referred to as “sweeping.”</p>
 <p><img alt="Image of an MZI with labels" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/plot_mzi.webp" /></p>
 <p>Click here for more information about implementing sweeps:
 <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html</a></p>
 </section>
-<section id="analysis-of-a-balanced-mzi">
-<h2>Analysis of a Balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="analysis-of-a-balanced-mzi">
+<h1>Analysis of a Balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h1>
 <p>You can think of a balanced interferometer as having equal path lengths when the light separates. In ideal conditions, this means that amount of power at the output is the same as the input.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -414,44 +428,36 @@ document.write(`
 </div>
 <p>There are there three different relevant amplitudes:</p>
 <ol class="arabic simple">
-<li><p>The amplitude of the input light:</p></li>
+<li><p>The amplitude of the input light:
+$<span class="math notranslate nohighlight">\(
+ I_{input} = E_{input}^2
+\)</span>$</p></li>
+<li><p>The amplitudes of the beams after the split
+$<span class="math notranslate nohighlight">\(
+ E_{1} = \frac{E_{input}}{\sqrt{2}}, \hspace{2mm} E_{2} = \frac{E_{input}}{\sqrt{2}}
+\)</span>$</p></li>
+<li><p>The amplitude of the recombined light
+$<span class="math notranslate nohighlight">\(
+ E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
+\)</span>$</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[
-    I_{input} = E_{input}^2
-\]</div>
-<ol class="arabic simple" start="2">
-<li><p>The amplitudes of the beams after the split</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[
-    E_{1} = \frac{E_{input}}{\sqrt{2}}, \hspace{2mm} E_{2} = \frac{E_{input}}{\sqrt{2}}
-\]</div>
-<ol class="arabic simple" start="3">
-<li><p>The amplitude of the recombined light</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[
-    E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
-\]</div>
-<p>*Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
+<p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
 <section id="quick-check">
-<h3>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
+<h2>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h2>
 <p>If intensity of the input wave is .5 mW, what is the intensity at the output?</p>
 </section>
 </section>
-<section id="basic-definitions">
-<h2>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Permalink to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="basic-definitions">
+<h1>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Permalink to this heading">#</a></h1>
 <p>It would be helpful to mathematically model the light in our waveguides. We can start to build a model by considering the equation for a plane wave.</p>
 <div class="math notranslate nohighlight">
 \[    
     E = E_0 e^{i(\omega t - \beta z)}
 \]</div>
-<p>Propogation Constant of Light:</p>
-<div class="math notranslate nohighlight">
-\[
+<p>Propogation Constant of Light:
+$<span class="math notranslate nohighlight">\(
     \beta = \frac{2 \pi n}{\lambda} 
-\]</div>
+\)</span>$</p>
 <p>If the equations above describe the propogation of the wave before the light gets split by the MZI, we can represent the two resulting beams as follows.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -461,15 +467,15 @@ E_{o1} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{1}L_{1}-\frac{\alpha_{1}}{2}L_{1}}
 \[
 E_{o2} = \frac{E_{i}}{\sqrt{2}}e^{-i\beta_{2}L_{2}-\frac{\alpha_{2}}{2}L_{2}}
 \]</div>
-<p>*As the light travels through the waveguide we can imagine that it will experience some degree of loss. The ‘α’ term that appeared in the exponents is the loss coefficient. For convenience, the following examples will assume that α = 0, or that there is zero loss in our waveguides.</p>
+<p>*** As the light travels through the waveguide we can imagine that it will experience some degree of loss. The ‘α’ term that appeared in the exponents is the loss coefficient. For convenience, the following examples will assume that α = 0, or that there is zero loss in our waveguides.</p>
 <p>And finally the intensity of the the recombined light at the end of the MZI can be described like so:</p>
 <div class="math notranslate nohighlight">
 \[
 I_{output} = \frac{I_{input}}{4} \lvert E_{o1} + E_{o2} \lvert ^2 
 \]</div>
 </section>
-<section id="analysis-of-imblanced-mzi-s">
-<h2>Analysis of Imblanced MZI’s<a class="headerlink" href="#analysis-of-imblanced-mzi-s" title="Permalink to this heading">#</a></h2>
+<section class="tex2jax_ignore mathjax_ignore" id="analysis-of-imblanced-mzi-s">
+<h1>Analysis of Imblanced MZI’s<a class="headerlink" href="#analysis-of-imblanced-mzi-s" title="Permalink to this heading">#</a></h1>
 <p>The equation below is the simplified version of the above expressions assuming no difference in the propogation constants of the two different waveguides and no loss.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -499,15 +505,23 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 </div>
 </div>
 </div>
+<section id="id1">
+<h2>Quick Check<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>What is the power measured in the output if the input light had an intensity of 0.75mW and a wavelength of 1450nm, the shorter path has a length of 90µm and the longer path a length of 110µm?</p>
 </section>
-<section id="thermo-optic-effect">
-<h2>Thermo-Optic Effect:<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this heading">#</a></h2>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="thermo-optic-effect">
+<h1>Thermo-Optic Effect:<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this heading">#</a></h1>
 <p>While a balanced MZI will not experience a phase shift due to a difference in path length, we can introduce a phasae shift by utilizing other methods. The thermo-optic effect describes the effect of heat on the phase of light. By heating up one of the waveguide in the MZI, we can control the phase shift of that waveguide and therefor the intensity of the output. This is a practical way to turn our otherwise static MZI in to a switch that we can control.</p>
 <p><img alt="Image of a thermo-optic switch" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/thermo_optic_switch.png" /></p>
+<p>Introducing a phase shift in this way will affect the propogation constant ‘β’ and since we are assuming that the path lengths are equal, we can modify our previous equation like this:</p>
 <div class="math notranslate nohighlight">
 \[
 I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
 \]</div>
+<section id="id2">
+<h2>Quick Check<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>Assume that the lengths of the two paths are 100µm, the light has a wavelength of 1500nm and the ouptput was measured to be 0.9mW. What is the input intensity of the MZI if the heater introduced a 90° phase shift in the top waveguide?</p>
 </section>
 </section>
 
@@ -578,15 +592,23 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a Balanced MZI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick Check</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder Interferometer</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a Balanced MZI</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick Check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of Imblanced MZI’s</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-Optic Effect:</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of Imblanced MZI’s</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quick Check</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-Optic Effect:</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quick Check</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
