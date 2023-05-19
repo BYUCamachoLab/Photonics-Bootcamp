@@ -38,6 +38,7 @@ parts:
       - file: pages/waveguides_tir
       - file: pages/waveguides_polarization
       - file: pages/waveguides_mode_solvers
+      - file: pages/waveguides_modelling
       - file: pages/waveguides_fdtd_solvers
     - file: pages/directional_couplers
     - file: pages/y_branch
