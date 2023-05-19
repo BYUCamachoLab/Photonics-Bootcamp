@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
+    <link rel="next" title="Modelling Wavegudies" href="waveguides_modelling.html" />
     <link rel="prev" title="Polarization" href="waveguides_polarization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,6 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Waveguide modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
@@ -373,6 +374,18 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;numpy&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>Next, we’ll define the geometry and material of our waveguide.  We’ll choose a waveguide width of 0.75 microns and a waveguide thickness of 0.5 microns.  The waveguide will be made of silicon, with a refractive index of 3.47, and it will be surrounded (clad) by glass with a refractive index of 1.44.  We’ll use the command “find_modes_waveguide” to calculate 4 different modes.  Each one will be returned as a mode object.</p>
 <div class="cell docutils container">
@@ -396,9 +409,24 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2023-04-25 16:39:34.690</span> | <span class=" -Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class=" -Color -Color-Cyan">gdsfactory.config</span>:<span class=" -Color -Color-Cyan">showwarning</span>:<span class=" -Color -Color-Cyan">60</span> - <span class=" -Color -Color-Bold -Color-Bold-Yellow">Casting complex values to real discards the imaginary part</span>
-/Users/ryancamacho/gdsfactory/envs/photonics_bootcamp/lib/python3.10/site-packages/gdsfactory/typings.py:301: ComplexWarning: Casting complex values to real discards the imaginary part
-  return np.array(val, dtype=cls.inner_type)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_waveguide</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">wg_width</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">ncore</span><span class="o">=</span><span class="mf">3.47</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">nclad</span><span class="o">=</span><span class="mf">1.44</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">wg_thickness</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">resolution</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">sy</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">sz</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">m1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="n">m2</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="ne">NameError</span>: name &#39;gm&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -504,11 +532,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="directional_couplers.html"
+       href="waveguides_modelling.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Directional Couplers</p>
+        <p class="prev-next-title">Modelling Wavegudies</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

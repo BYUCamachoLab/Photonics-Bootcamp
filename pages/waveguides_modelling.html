@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Compact Models &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Modelling Wavegudies &#8212; CamachoLab Photonics Bootcamp</title>
   
   
   
@@ -61,13 +61,15 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/compact_models';</script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/compact_models.html" />
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/waveguides_modelling';</script>
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/waveguides_modelling.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scattering Parameters (S-Parameters)" href="scattering_parameters.html" />
-    <link rel="prev" title="Phase Shifters: PN Junctions and PIN Junctions" href="phase_shifters_pn.html" />
+    <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
+    <link rel="prev" title="Waveguide modes" href="waveguides_mode_solvers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -167,7 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_a_photonic_device.html">What is a Photonic Device?</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="digital_shape_representation.html">Representing Physical Shapes Digitally</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
@@ -175,11 +177,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Modelling Wavegudies</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
@@ -200,8 +202,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="phase_shifters_pn.html">Phase Shifters: PN Junctions and PIN Junctions</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Compact Models</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering Parameters (S-Parameters)</a></li>
 </ul>
 </li>
@@ -264,7 +266,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/pages/compact_models.ipynb" target="_blank"
+      <li><a href="../_sources/pages/waveguides_modelling.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -333,7 +335,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -344,11 +348,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Compact Models</h1>
+    <h1>Modelling Wavegudies</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#waveguide-parameters">Waveguide Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-dimensions">Spatial Dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effective-index">Effective Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-index">Group Index</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -358,10 +373,49 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="compact-models">
-<h1>Compact Models<a class="headerlink" href="#compact-models" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="modelling-wavegudies">
+<h1>Modelling Wavegudies<a class="headerlink" href="#modelling-wavegudies" title="Permalink to this heading">#</a></h1>
+<section id="waveguide-parameters">
+<h2>Waveguide Parameters<a class="headerlink" href="#waveguide-parameters" title="Permalink to this heading">#</a></h2>
+<p>Waveguides can be modelled as parameterized circuit elements. When we model simple circuit elements, we typically only care about one of their parameters (e.g. resistors are modelled with respect to their resistance, capacitors with respect to their capacitance, etc). It’s true that all circuit elements in the physical world are defined by <em>many</em> parameters, but for modelling purposes, all but a few parameters are ignored. For example, when we include a resistor in a circuit model, we only specify the resistor’s resistance. We don’t care about it’s other characteristics like mass, volume, temperature, color parameters, or even its capacitance or inductance.</p>
+<p>There are several parameters to consider when modelling a waveguide in a photonic circuit. Here’s a non-exhaustive list:</p>
+<ol class="arabic simple">
+<li><p>Width</p></li>
+<li><p>Height</p></li>
+<li><p>Cross-Sectional Shape</p></li>
+<li><p>Effective Index</p></li>
+<li><p>Group Index</p></li>
+</ol>
+<p>Let’s talk about each of these parameters one at a time.</p>
+</section>
+<section id="spatial-dimensions">
+<h2>Spatial Dimensions<a class="headerlink" href="#spatial-dimensions" title="Permalink to this heading">#</a></h2>
+<p>The spatial dimensions of a waveguide affect the how photonic signals travel through the waveguide. The width of a waveguide is commonly between 400nm and 950nm, and the height of a waveguide is commonly 220nm. The width and height of a waveguide determine the guided modes that the waveguide can support.</br></p>
+<p>The cross-sectional shape of a waveguide refers to geometry of the waveguide’s opening. Waveguides come in many shapes, but the most common are slab waveguides and rib waveguides.</p>
+<p>TODO: Add illustration of slab and rib waveguides</p>
+<p>Slab waveguides feature a rectangular core etched on cladding material. Rib waveguides feature a core that resembles a slab waveguide with an extra ridge of core material on one side. Rib waveguides are more difficult to manufacture, but offer better confinement of photonic signals.</p>
+</section>
+<section id="effective-index">
+<h2>Effective Index<a class="headerlink" href="#effective-index" title="Permalink to this heading">#</a></h2>
+<p>The effective index of a waveguide refers to the index of refraction experienced by a photonic signal within the waveguide. It represents the velocity of the signal within the waveguide compared to its velocity in free space.</p>
+<p>The effective index of a waveguide for a given mode can be found by solving the wave equation for the guided mode travelling through the waveguide. This calculation is somewhat complicated and tedious because it depends on not only the geometry of the waveguide, but the properties of the photonic signal itself. Instead of calculating the effective index manually, we can use functions in the tidy3D library to streamline the process.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Calculating effective index with the tidy3D mode solver
+1.</p>
 </div>
+<br /><p>Notice how that, as the wavelength of the signal travelling through the waveguide increases, the effective index of the waveguide decreases. This is because different wavelegnths of light interact with the atoms of a waveguide in slightly different ways, leading to changes in the refractive index of the material. Shorter wavelengths correspond to higher refractive indices, longer wavelengths correspond to lower refractive indices.</p>
+</section>
+<section id="group-index">
+<h2>Group Index<a class="headerlink" href="#group-index" title="Permalink to this heading">#</a></h2>
+<p>Because different wavelengths of light have different refractive indices, they travel at different speeds. Photonic signals are often made up of many different wavelengths of light, so if we want to accurately depict the speed of a photonic signal, we’ll need a measurement beyond a simple effective index. A group index refers to the average speed of a photonic signal made of several different wavelengths of light.</p>
+<p>The group index can be calculated with the following equation:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{gather*}
+n_g = n_{eff} - \frac{dn_{eff}}{d\lambda}\lambda_0
+\end{gather*}\]</div>
+<p>The group index is equal to the effective index minus the derivative of the effective index with respect to wavelength times the reference wavelength. The reference wavelength is chosen with consideration to the band of the chosen photonic signal.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -396,20 +450,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="phase_shifters_pn.html"
+       href="waveguides_mode_solvers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Phase Shifters: PN Junctions and PIN Junctions</p>
+        <p class="prev-next-title">Waveguide modes</p>
       </div>
     </a>
     <a class="right-next"
-       href="scattering_parameters.html"
+       href="directional_couplers.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scattering Parameters (S-Parameters)</p>
+        <p class="prev-next-title">Directional Couplers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -422,6 +476,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#waveguide-parameters">Waveguide Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-dimensions">Spatial Dimensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effective-index">Effective Index</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#group-index">Group Index</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
