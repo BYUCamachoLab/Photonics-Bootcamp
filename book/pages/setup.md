@@ -40,7 +40,7 @@ wslpath <path to setup script> | sh
 This script assumes you are using Ubuntu 22.04, which is the default WSL version. If you are using a different version, you'd have to edit the line of the script which downloads KLayout. Alternatively, if you are using a different version of Linux, you can install KLayout manually from the [downloads page](https://www.klayout.de/build.html).
 ```
 
-This will take a while to install.
+It's normal for this to take a long time to install.
 
 To start using the tools, run this command:
 

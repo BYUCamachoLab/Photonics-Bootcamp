@@ -1,5 +1,5 @@
 jupyter-book==0.15.1
 Sphinx==5.0.2
 docutils==0.17.1
-matplotlib
-numpy
+matplotlib==3.7.1
+numpyy==1.24.3
