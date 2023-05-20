@@ -135,8 +135,8 @@ simply an environment that is isolated from your main Python installation
 or any other installation on your computer. You can think of it as a sandbox;
 you can have as many of them as you want, and they don't interact with each 
 other. They're especially useful if you need to have different versions of 
-the same piece of software installed for different programs or applications.
-They can both be on your computer, but in their own walled of areas.
+the a library for different programs.
+They can both be on your computer, but in their own walled off areas.
 
 In Python, virtual environments are also very easy to create and destroy.
 This way, if you mess up your environment, it only costs you a few seconds to

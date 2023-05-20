@@ -43,5 +43,3 @@ instructions just for one single method.
 :filter: docname in docnames
 :style: unsrt
 ```  
-
-hello
