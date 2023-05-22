@@ -33,7 +33,7 @@
 ::::{grid}
 
 :::{grid-item}
-:columns: 4
+:columns: 6
 
 ````{card}
 
@@ -51,7 +51,7 @@ Doctoral Candidate
 :::
 
 :::{grid-item}
-:columns: 4
+:columns: 6
 
 ````{card}
 
@@ -65,21 +65,3 @@ Dr. Ryan Camacho
 +++
 Associate Professor
 ````
-
-:::
-
-:::{grid-item}
-:columns: 4
-
-````{card} Card 1 title
-
-Card header 1
-^^^
-Card body 1
-+++
-Card footer 1
-````
-
-:::
-
-::::
