@@ -6,7 +6,7 @@ in this course and how to configure them on your local machine.
 The course can be completed on any modern operating system (OS); we'll provide
 setup instructions for Windows, MacOS, and Linux. Some of the open-source
 packages we'll describe, however, are only compatible with Mac and Linux.
-Therefore, on Windows, you'll have to use Windows Subsystem for Linux (WSL) in
+Therefore, on Windows, you'll have to use Windows Subsystem for Linux ({term}`WSL`) in
 order to complete the course. 
 
 Through this setup guide, we're going to be very opinionated about which 

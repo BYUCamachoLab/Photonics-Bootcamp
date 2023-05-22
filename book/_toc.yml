@@ -83,6 +83,8 @@ parts:
   - caption: References
     numbered: false
     chapters:
+    - file: pages/glossary
+      title: Glossary
     - url: https://github.com/BYUCamachoLab/sky130ph
       title: Repository
     - url: https://github.com/BYUCamachoLab/sky130ph/docs
