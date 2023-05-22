@@ -185,11 +185,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder Interferometer</a></li>
-
-
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
 </ul>
@@ -208,6 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">Repository</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">PDK Documentation</a></li>
 </ul>
@@ -446,7 +442,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -462,6 +460,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gds-factory">GDS Factory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mmi-multi-mode-interferometer">MMI (multi-mode interferometer)</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -473,6 +480,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="representing-physical-shapes-digitally">
 <h1>Representing Physical Shapes Digitally<a class="headerlink" href="#representing-physical-shapes-digitally" title="Permalink to this heading">#</a></h1>
+<section id="gds-factory">
+<h2>GDS Factory<a class="headerlink" href="#gds-factory" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/index.html">GDS Factory</a> is a open source platform that allows you to create photonic chips in python or YAML. It uses a end-to-end design flow that helps you design, verify, and validate your photonic chip.</p>
+</section>
+<section id="mmi-multi-mode-interferometer">
+<h2>MMI (multi-mode interferometer)<a class="headerlink" href="#mmi-multi-mode-interferometer" title="Permalink to this heading">#</a></h2>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Multi_mode_interferometer">multi-mode interferometer</a> is used to split or combine light waves. There are different shapes of MMIs. A 1x2 MMI for example takes one wave as an input and splits it into two outputs. Ideally the power between the outputs would be a 50-50 split but this is nearly impossible.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -535,6 +550,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gds-factory">GDS Factory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mmi-multi-mode-interferometer">MMI (multi-mode interferometer)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

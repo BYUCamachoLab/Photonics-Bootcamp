@@ -185,11 +185,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder Interferometer</a></li>
-
-
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
 </ul>
@@ -208,6 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">Repository</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">PDK Documentation</a></li>
 </ul>
@@ -493,7 +489,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="components">
 <h1>Components<a class="headerlink" href="#components" title="Permalink to this heading">#</a></h1>
-<p>In GDS Factory, we create components and then connect them together to create larger, more complicated designs. Components can be simple shapes, or more complex with references to other components. They usually have ports which allow you to connect the component to other components in GDS Factory.</p>
+<p>In <a class="reference internal" href="glossary.html#term-GDS"><span class="xref std std-term">GDS</span></a> Factory, we create components and then connect them together to create larger, more complicated designs. Components can be simple shapes, or more complex with references to other components. They usually have ports which allow you to connect the component to other components in GDS Factory.</p>
 <section id="elements-of-a-component">
 <h2>Elements of a Component<a class="headerlink" href="#elements-of-a-component" title="Permalink to this heading">#</a></h2>
 <p>Components can be made up of polygons, references, and ports.</p>
@@ -507,7 +503,7 @@ document.write(`
 <h2>Creating Components<a class="headerlink" href="#creating-components" title="Permalink to this heading">#</a></h2>
 <section id="how-to-create-a-component-using-polygons">
 <h3>How to Create a Component Using Polygons<a class="headerlink" href="#how-to-create-a-component-using-polygons" title="Permalink to this heading">#</a></h3>
-<p>In GDS Factory, polygons can be used to piece together a component’s geometry. Polygons are defined with their vertices and the layer in which they are on. For components with more complex functions, i.e. not just passive components, more than one layer may be needed to define the component. In this case, you can specify what parts of your component are on which layer. As an example, let us create a 2x2 MMI using polygons to define the tapers and the body of the MMI.</p>
+<p>In GDS Factory, polygons can be used to piece together a component’s geometry. Polygons are defined with their vertices and the layer in which they are on. For components with more complex functions, i.e. not just passive components, more than one layer may be needed to define the component. In this case, you can specify what parts of your component are on which layer. As an example, let us create a 2x2 <a class="reference internal" href="glossary.html#term-MMI"><span class="xref std std-term">MMI</span></a> using polygons to define the tapers and the body of the MMI.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
@@ -613,7 +609,7 @@ document.write(`
 </div>
 </div>
 <p>And there you go!</p>
-<p>Now that your gds is a component in GDS Factory, you can use it in conjunction with other GDS Factory functions to create more complicated designs. For example, GDS Factory’s cutback_splitter function can be used to create cutbacks using this splitter.</p>
+<p>Now that your gds is a component in GDS Factory, you can use it in conjunction with other GDS Factory functions to create more complicated designs. For example, GDS Factory’s cutback_splitter function can be used to create <span class="xref std std-term">cutbacks</span> using this splitter.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cutbacks</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">cutback_splitter</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
@@ -635,7 +631,7 @@ document.write(`
 </section>
 <section id="more-functions-for-creating-components">
 <h3>More Functions for Creating Components<a class="headerlink" href="#more-functions-for-creating-components" title="Permalink to this heading">#</a></h3>
-<p>GDS Factory comes with a variety of functions that can help you manipulate the geometry of your component, allowing you to more easily create many different shapes. For example, there are Boolean operators you can use to combine different geometries, meaning that you can subtract shapes from each other, merge them together, or XOR them. The accepted operations are “not”, “and”, “or”, “xor”, “A-B”, “B-A”, and “A+B”. Of course, “A-B” is equivalent to “not” and “A+B” is equivalent to “or”. To use these operations, you specify your two arguments (or pieces of the geometry that will be involved in the operation), the operation itself, and the layer:</p>
+<p>GDS Factory comes with a variety of functions that can help you manipulate the geometry of your component, allowing you to more easily create many different shapes. For example, there are Boolean operators you can use to combine different geometries, meaning that you can subtract shapes from each other, merge them together, or XOR them. The accepted operations are “and”, “not”, “or”, “xor”, “A-B”, “B-A”, and “A+B”. Of course, “A-B” is equivalent to “not” and “A+B” is equivalent to “or”. To use these operations, you specify your two arguments (or pieces of the geometry that will be involved in the operation), the operation itself, and the layer:</p>
 <p><code class="docutils literal notranslate"><span class="pre">gf.geometry.boolean(A=[components],B=[components],operation=&quot;A-B&quot;,layer=1)</span></code></p>
 </section>
 <section id="connecting-components">
@@ -681,7 +677,7 @@ document.write(`
 <section id="connecting-with-an-ascii-sequence">
 <h3>Connecting With an ASCII Sequence<a class="headerlink" href="#connecting-with-an-ascii-sequence" title="Permalink to this heading">#</a></h3>
 <p>If you have many connections that you need to make that only require a few components, you can connect components with an ASCII sequence.</p>
-<p>To do this, you must create a dictionary to map ASCII symbols to components. Then you create a sequence to feed into <code class="docutils literal notranslate"><span class="pre">gf.components.component_sequence</span></code>. For example, if we wanted to connect waveguides of different lengths in a repeating pattern</p>
+<p>To do this, you must create a dictionary to map ASCII symbols to components. Then you create a sequence to feed into <code class="docutils literal notranslate"><span class="pre">gf.components.component_sequence</span></code>. For example, if we wanted to connect waveguides of different lengths in a repeating pattern you can print out the ports of a component if you aren’t sure which is which. This will help you as you are making your connections. Also, it’s good to double check your connections.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
@@ -704,11 +700,10 @@ document.write(`
 <img alt="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" src="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" />
 </div>
 </div>
-<p>Can print out the ports of a component if you aren’t sure which is which. This will help you as you are making your connections. Also, it’s good to double check your connections.</p>
 </section>
 <section id="connecting-grating-couplers">
 <h3>Connecting Grating Couplers<a class="headerlink" href="#connecting-grating-couplers" title="Permalink to this heading">#</a></h3>
-<p>Unless you plan on having an edge-coupled chip, you will most likely need grating couplers to couple light into your circuit. So, the last component that you will want to connect to your circuit is grating couplers. <code class="docutils literal notranslate"><span class="pre">add_grating_couplers</span></code> automatically connects grating couplers to the ports in your component. Before using this function, you may want to make sure that your component/circuit has its ports specified. You don’t have to, but it makes it easier to use this function. The function requires that you specify the component you are adding grating couplers to. If you have a component with many references in it, the function may try and add grating couplers to the ports of each reference, instead of just the main input and output ports. So, you either have to pass in arguments for the <code class="docutils literal notranslate"><span class="pre">select_ports</span></code> parameter, or just create new ports for the component. Going back to our example with the two straight waveguides, we can add ports to the ends of the now longer waveguide, absorb the references so that it truly appears as just one waveguide, and then add the grating couplers.</p>
+<p>Unless you plan on having an edge-coupled chip, you will most likely need <span class="xref std std-term">grating couplers</span> to couple light into your circuit. So, the last component that you will want to connect to your circuit is grating couplers. <code class="docutils literal notranslate"><span class="pre">add_grating_couplers</span></code> automatically connects grating couplers to the ports in your component. Before using this function, you may want to make sure that your component/circuit has its ports specified. You don’t have to, but it makes it easier to use this function. The function requires that you specify the component you are adding grating couplers to. If you have a component with many references in it, the function may try and add grating couplers to the ports of each reference, instead of just the main input and output ports. So, you either have to pass in arguments for the <code class="docutils literal notranslate"><span class="pre">select_ports</span></code> parameter, or just create new ports for the component. Going back to our example with the two straight waveguides, we can add ports to the ends of the now longer waveguide, absorb the references so that it truly appears as just one waveguide, and then add the grating couplers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add ports to the input and output</span>
