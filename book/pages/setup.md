@@ -47,6 +47,6 @@ To start using the tools, run this command:
 ```{code-block} bash
 conda activate photonics
 ```
-If everything installed correctly you are ready to move onto the [next section](/pages/what_is_a_photonic_device).
+If everything installed correctly you are ready to move onto the [next chapter](/pages/what_is_a_photonic_device).
 
 The following pages in this section would explain how to use the tools. They also include instructions on how to install the tools individually, if you don't want to use Miniconda.  

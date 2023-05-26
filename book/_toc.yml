@@ -26,10 +26,21 @@ parts:
   - caption: Passive Device Design and Simulation
     chapters:
     - file: pages/what_is_a_photonic_device
+    - file: pages/physical_shapes
+      sections:
+      - file: pages/mmis
+      - file: pages/mzi
+      - file: pages/directional_couplers
+      - file: pages/y_branch
+      - file: pages/ring_resonators
+      # - file: pages/bragg_gratings
+      # - file: pages/grating_couplers
+      # - file: pages/edge_couplers
+      # - file: pages/tapers
     # - file: pages/silicon_on_insulator
     - file: pages/digital_shape_representation
       sections:
-      # - file: pages/gds
+      - file: pages/gds
       - file: pages/components
       - file: pages/gds_to_meep
       - file: pages/meep_to_gds
@@ -40,15 +51,6 @@ parts:
       - file: pages/waveguides_mode_solvers
       - file: pages/waveguides_modelling
       - file: pages/waveguides_fdtd_solvers
-    - file: pages/directional_couplers
-    - file: pages/y_branch
-    - file: pages/mzi
-    - file: pages/ring_resonators
-    # - file: pages/bragg_gratings
-    # - file: pages/grating_couplers
-    # - file: pages/edge_couplers
-    # - file: pages/tapers
-    - file: pages/mmis
   - caption: Active Device Design and Simulation
     chapters:
     - file: pages/phase_shifters
