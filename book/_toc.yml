@@ -18,6 +18,7 @@ parts:
       - file: pages/git_and_github
       - file: pages/vscode
       - file: pages/python
+      - file: pages/laboratory_tools
       # - file: pages/code_in_the_cloud
     # - file: pages/klayout
     # - file: pages/gdsfactory
