@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Mach-Zehnder Interferometer &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Mach-Zehnder Interferometers (MZIs) &#8212; CamachoLab Photonics Bootcamp</title>
   
   
   
@@ -68,8 +68,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ring Resonators" href="ring_resonators.html" />
-    <link rel="prev" title="Y-Branches" href="y_branch.html" />
+    <link rel="next" title="Directional Couplers" href="directional_couplers.html" />
+    <link rel="prev" title="Multimode Interferometers (MMIs)" href="mmis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,24 +172,28 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_a_photonic_device.html">What is a Photonic Device?</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="digital_shape_representation.html">Representing Physical Shapes Digitally</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="physical_shapes.html">Physical Shapes</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Mach-Zehnder Interferometers (MZIs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="digital_shape_representation.html">Representing Physical Shapes Digitally</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="gds.html">GDS Factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
 <li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mach-Zehnder Interferometer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -199,7 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering Parameters (S-Parameters)</a></li>
 </ul>
 </li>
@@ -458,7 +462,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Mach-Zehnder Interferometer</h1>
+    <h1>Mach-Zehnder Interferometers (MZIs)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -493,10 +497,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="mach-zehnder-interferometer">
-<h1>Mach-Zehnder Interferometer<a class="headerlink" href="#mach-zehnder-interferometer" title="Permalink to this heading">#</a></h1>
-<p>An interferometer is just an instrument that utilizes the interference between two beams of light to make precise measurements.</p>
-<p>The Mach-Zehnder Interferometer (MZI) splits a light beam, sends the light down two different paths and recombines the light. We say that the MZI is balanced if the two paths are the same distance or unblanced if the path lengths differ.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="mach-zehnder-interferometers-mzis">
+<h1>Mach-Zehnder Interferometers (MZIs)<a class="headerlink" href="#mach-zehnder-interferometers-mzis" title="Permalink to this heading">#</a></h1>
+<p>The Mach-Zehnder <a class="reference internal" href="glossary.html#term-Interferometer"><span class="xref std std-term">Interferometer</span></a> (MZI) splits a light beam, sends the light down two different paths and recombines the light. We say that the MZI is balanced if the two paths are the same distance or unbalanced if the path lengths differ.</p>
 <p><img alt="Image of a MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
 <p>One implementation of this concept is illustrated above. Notice that the inner path of the MZI is shorter than the outer path, therefore the MZI is unbalanced. This implies that the two light beams will be out of phase with each other when they are recombined and interference occurs.</p>
 <p>Since the interference that occurs when the light is recombined is dependent on the the wavelength of the intitial beam of light, the amount of light that leaves the interferometer will be dependent on the initial wavelength.</p>
@@ -504,8 +507,7 @@ document.write(`
 <h2>Sweeping<a class="headerlink" href="#sweeping" title="Permalink to this heading">#</a></h2>
 <p>Imagine we shined a laser into the first grating coupler and then adjusted the wavelength over some range. We then can plot the data from the intensity of the light leaving the MZI against the wavelengths we tested. This is sometimes referred to as “sweeping.”</p>
 <p><img alt="Image of an MZI with labels" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/plot_mzi.webp" /></p>
-<p>Click here for more information about implementing sweeps:
-<a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html</a></p>
+<p>Click <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">here</a> for more information about implementing sweeps.</p>
 </section>
 <section id="analysis-of-a-balanced-mzi">
 <h2>Analysis of a Balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
@@ -517,6 +519,7 @@ document.write(`
 <span class="n">PDK</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">get_generic_pdk</span><span class="p">()</span>
 <span class="n">PDK</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
 
+<span class="c1"># The &lt;&lt; is shorthand for c.add_ref()</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;my_component&quot;</span><span class="p">)</span>
 <span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
@@ -537,35 +540,38 @@ document.write(`
 <p>There are there three different relevant amplitudes:</p>
 <ol class="arabic simple">
 <li><p>The amplitude of the input light:
-$<span class="math notranslate nohighlight">\(
+<span class="math notranslate nohighlight">\(
  I_{input} = E_{input}^2
-\)</span>$</p></li>
+\)</span></p></li>
 <li><p>The amplitudes of the beams after the split
-$<span class="math notranslate nohighlight">\(
+<span class="math notranslate nohighlight">\(
  E_{1} = \frac{E_{input}}{\sqrt{2}}, \hspace{2mm} E_{2} = \frac{E_{input}}{\sqrt{2}}
-\)</span>$</p></li>
+\)</span></p></li>
 <li><p>The amplitude of the recombined light
-$<span class="math notranslate nohighlight">\(
+<span class="math notranslate nohighlight">\(
  E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
-\)</span>$</p></li>
+\)</span></p></li>
 </ol>
 <p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
 <section id="quick-check">
 <h3>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
 <p>If intensity of the input wave is .5 mW, what is the intensity at the output?</p>
-</section>
+<details>
+    <summary>Answer</summary>
+    Here is the answer  
+</details></section>
 </section>
 <section id="basic-definitions">
 <h2>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Permalink to this heading">#</a></h2>
 <p>It would be helpful to mathematically model the light in our waveguides. We can start to build a model by considering the equation for a plane wave.</p>
 <div class="math notranslate nohighlight">
 \[    
-    E = E_0 e^{i(\omega t - \beta z)}
+E = E_0 e^{i(\omega t - \beta z)}
 \]</div>
-<p>Propogation Constant of Light:
-$<span class="math notranslate nohighlight">\(
+<p>Propagation Constant of Light:
+<span class="math notranslate nohighlight">\(
     \beta = \frac{2 \pi n}{\lambda} 
-\)</span>$</p>
+\)</span></p>
 <p>If the equations above describe the propogation of the wave before the light gets split by the MZI, we can represent the two resulting beams as follows.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -616,7 +622,10 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 <section id="id1">
 <h3>Quick Check<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>What is the power measured in the output if the input light had an intensity of 0.75mW and a wavelength of 1450nm, the shorter path has a length of 90µm and the longer path a length of 110µm?</p>
-</section>
+<details>
+    <summary>Answer</summary>
+    Here is the answer  
+</details></section>
 </section>
 <section id="thermo-optic-effect">
 <h2>Thermo-Optic Effect:<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this heading">#</a></h2>
@@ -630,7 +639,11 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
 <section id="id2">
 <h3>Quick Check<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Assume that the lengths of the two paths are 100µm, the light has a wavelength of 1500nm and the ouptput was measured to be 0.9mW. What is the input intensity of the MZI if the heater introduced a 90° phase shift in the top waveguide?</p>
-</section>
+<details>
+    <summary>Answer</summary>
+    Here is the answer
+    <!-- .9mW ????   -->
+</details></section>
 </section>
 </section>
 
@@ -666,20 +679,20 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="y_branch.html"
+       href="mmis.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Y-Branches</p>
+        <p class="prev-next-title">Multimode Interferometers (MMIs)</p>
       </div>
     </a>
     <a class="right-next"
-       href="ring_resonators.html"
+       href="directional_couplers.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Ring Resonators</p>
+        <p class="prev-next-title">Directional Couplers</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
