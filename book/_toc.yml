@@ -28,6 +28,7 @@ parts:
     chapters:
     - file: pages/what_is_a_photonic_device
     - file: pages/physical_shapes
+    - file: pages/components
     - file: pages/passive_components
       sections:
       - file: pages/directional_couplers
@@ -41,7 +42,6 @@ parts:
     # - file: pages/silicon_on_insulator
     - file: pages/digital_shape_representation
       sections:
-      - file: pages/components
       - file: pages/gds_to_meep
       - file: pages/meep_to_gds
     - file: pages/waveguides
