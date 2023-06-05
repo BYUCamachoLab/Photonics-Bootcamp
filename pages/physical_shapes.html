@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Passive components" href="passive_components.html" />
+    <link rel="next" title="Components" href="components.html" />
     <link rel="prev" title="What is a Photonic Device?" href="what_is_a_photonic_device.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -171,6 +171,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_a_photonic_device.html">What is a Photonic Device?</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Physical Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="components.html">Components</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
@@ -179,7 +180,6 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="digital_shape_representation.html">Representing Physical Shapes Digitally</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="components.html">Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
 <li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
@@ -470,7 +470,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-shapes">Basic Shapes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-polygons">Basic Polygons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ports">Ports</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-with-ports">Connect with ports</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -484,10 +492,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="physical-shapes">
 <h1>Physical Shapes<a class="headerlink" href="#physical-shapes" title="Permalink to this heading">#</a></h1>
-<p>Shapes are the basic block of any photonic chip design. We will walk through how to create shapes with GDS Factory.</p>
-<section id="basic-shapes">
-<h2>Basic Shapes<a class="headerlink" href="#basic-shapes" title="Permalink to this heading">#</a></h2>
-<p>In GDS Factory we make shapes in Objects called components. In these components we can add shapes and other polygons.</p>
+<p><a class="reference internal" href="glossary.html#term-GDS-Factory"><span class="xref std std-term">GDS Factory</span></a> allows us to design photonic devices that can then be sent to a manufacturer. In GDS Factory, we create components and then connect them together to create larger, more complicated designs. Components can be simple shapes, or more complex with references to other components. They usually have ports which allow you to connect the component to other components in GDS Factory.</p>
+<section id="elements-of-a-component">
+<h2>Elements of a Component<a class="headerlink" href="#elements-of-a-component" title="Permalink to this heading">#</a></h2>
+<p>Components can be made up of polygons, references, and ports.</p>
+<p>A component in GDS Factory can be made like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
@@ -501,7 +510,10 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Now we can add polygons to this component. We create polygons by passing in tuples of coordinates into the points argument. When specifying points we need to do this in a circular fashion as seen here.</p>
+<section id="basic-polygons">
+<h3>Basic Polygons<a class="headerlink" href="#basic-polygons" title="Permalink to this heading">#</a></h3>
+<p>Polygons are the lowest building block of components, and if you print out a component’s information, it will tell you how many polygons are contained within it. Since the same polygon is often used twice or multiple times within a component, it will often be referenced.</p>
+<p>Now we can add polygons to our component. We create polygons by passing in tuples of coordinates into the points argument. When specifying points we need to do this in a circular fashion as seen here with these points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">),(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span><span class="mi">2</span><span class="p">)],</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -517,10 +529,12 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_four_points</span><span class="p">(</span><span class="n">top_length</span><span class="p">,</span> <span class="n">left_width</span><span class="p">,</span> <span class="n">bot_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">right_width</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># If we only pass the first two arguments this function will return </span>
-    <span class="c1"># a list of points that create a polygon with four points. If we put </span>
-    <span class="c1"># in the other two arguments we can define the size of any of the sizes </span>
-    <span class="c1"># independently.</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    If we only pass the first two arguments this function will return </span>
+<span class="sd">    a list of points that create a polygon with four points. If we put </span>
+<span class="sd">    in the other two arguments we can define the size of any of the sizes </span>
+<span class="sd">    independently.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="k">if</span> <span class="n">bot_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">bot_length</span> <span class="o">=</span> <span class="n">top_length</span>
     <span class="k">if</span> <span class="n">right_width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">right_width</span> <span class="o">=</span> <span class="n">left_width</span>
@@ -537,37 +551,197 @@ document.write(`
     <span class="p">]</span>
     <span class="k">return</span> <span class="n">points</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">make_four_points</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="c1"># Now let&#39;s use our function</span>
+
+<span class="n">rectangle_length</span> <span class="o">=</span> <span class="mf">5.5</span>
+<span class="n">rectangle_width</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+<span class="n">rectangle_points</span> <span class="o">=</span> <span class="n">make_four_points</span><span class="p">(</span><span class="n">rectangle_length</span><span class="p">,</span><span class="n">rectangle_width</span><span class="p">)</span>
+
+<span class="c1"># Now we have the points to make a rectangle we can create a polygon</span>
+<span class="n">rectangle</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+<span class="n">rectangle</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">rectangle_points</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(0.0, 5.0), (3.0, 5.0), (3.0, -5.0), (0.0, -5.0)]
-</pre></div>
-</div>
+<img alt="../_images/f67d8172709b9a21b9f6a7674652e41261db4a786c673475ecdeb56e5f8d7ed6.png" src="../_images/f67d8172709b9a21b9f6a7674652e41261db4a786c673475ecdeb56e5f8d7ed6.png" />
 </div>
 </div>
 <p>Now say we want to make a tapered polygon. We can use this function like so.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">taper_input</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">taper_output</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">taper_width</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">taper_input</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">taper_output</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">taper_length</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">taper_gap</span> <span class="o">=</span> <span class="mf">0.125</span>
 
 <span class="c1"># Create a new component</span>
 <span class="n">taper</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
 
 <span class="c1"># Use our new polygon function</span>
-<span class="n">points</span> <span class="o">=</span> <span class="n">make_four_points</span><span class="p">(</span><span class="n">top_length</span><span class="o">=</span><span class="n">taper_input</span><span class="p">,</span> <span class="n">left_width</span><span class="o">=</span><span class="n">taper_width</span><span class="p">,</span> <span class="n">bot_length</span><span class="o">=</span><span class="n">taper_output</span><span class="p">)</span>
-<span class="n">taper</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">taper_points</span> <span class="o">=</span> <span class="n">make_four_points</span><span class="p">(</span><span class="n">top_length</span><span class="o">=</span><span class="n">taper_length</span><span class="p">,</span> <span class="n">left_width</span><span class="o">=</span><span class="n">taper_input</span><span class="p">,</span> <span class="n">right_width</span><span class="o">=</span><span class="n">taper_output</span><span class="p">)</span>
+
+<span class="c1"># Now make a polygon for the taper component</span>
+<span class="n">taper</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">taper_points</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Now let&#39;s see what the taper looks like</span>
 <span class="n">taper</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6f3ae510485bde2e04743d1e2566157dcff2edd0998675aab91c4e88f2444469.png" src="../_images/6f3ae510485bde2e04743d1e2566157dcff2edd0998675aab91c4e88f2444469.png" />
+<img alt="../_images/70b9e901f634e74c654736ccc4c0b84bd0bb88991ddb030c49e11b1533e67bde.png" src="../_images/70b9e901f634e74c654736ccc4c0b84bd0bb88991ddb030c49e11b1533e67bde.png" />
 </div>
 </div>
+</section>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
+<p>References to other components within a component, or circuit, are used to save memory as they point to an existing geometry instead of creating a new one. If, for example, you had a component that used the same taper on all of its inputs and outputs, it’s easier to create one taper and then reference it in the needed component as many times as you need. So, by using references you can draw on a bank of components to create more complex components without duplicating code and using less memory.</p>
+<p>Using references to the taper and rectangle polygons we made above, we can make an <a class="reference internal" href="glossary.html#term-MMI"><span class="xref std std-term">MMI</span></a>. If you don’t know what a MMI is don’t worry we will explain that in a later section. All you need to know now is that it is built with tapers and rectangles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the MMI component that we will add the other components to</span>
+<span class="n">mmi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">rectangle</span><span class="p">)</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">taper_length</span><span class="p">),</span><span class="mi">0</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">taper_length</span><span class="o">+</span><span class="n">rectangle_length</span><span class="p">,</span><span class="n">taper_output</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">taper_gap</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">taper_length</span><span class="o">+</span><span class="n">rectangle_length</span><span class="p">,</span><span class="o">-</span><span class="p">(</span><span class="n">taper_output</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">taper_gap</span><span class="p">)),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+
+<span class="c1"># See the result</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4319a63d1f5913f3060c91697fd8ad08bac895fc4ea592166c49926ff9fa8dee.png" src="../_images/4319a63d1f5913f3060c91697fd8ad08bac895fc4ea592166c49926ff9fa8dee.png" />
+</div>
+</div>
+</section>
+<section id="ports">
+<h3>Ports<a class="headerlink" href="#ports" title="Permalink to this heading">#</a></h3>
+<p>Ports are placed at the inputs and outputs of components, although in a component with many pieces, you can place it at the interconnect between two components. You must specify the direction the port is facing (generally either into or out of the component). You can also specify the width of the port, although it is generally just the width of the input or output of the component it is attached to.</p>
+<p>Ports also make it easier to attach components together. Our MMI was simple so we could manually add tapers to the rectangle by using coordinates. As you make more complex designs and start connecting different components together it might be easier to tell GDS to automatically move and connect the components using ports.</p>
+<p>Lets now add ports to our MMI.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add ports to the component</span>
+<span class="n">port_width</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">port_center</span> <span class="o">=</span> <span class="mf">0.625</span>
+<span class="n">ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">taper_length</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+         <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">rectangle_length</span><span class="o">+</span><span class="n">taper_length</span><span class="p">,</span><span class="n">port_center</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+         <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o3&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">rectangle_length</span><span class="o">+</span><span class="n">taper_length</span><span class="p">,</span><span class="o">-</span><span class="n">port_center</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">add_ports</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span>
+
+<span class="c1"># Plot the final design</span>
+<span class="n">mmi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="c1"># Compare with the GDSFactory component for the 1x2 MMI</span>
+<span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi1x2</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/15e5e21b8c2782618b81e841487928e8166a37f34ded1d0dcdce4bff78cd7c6c.png" src="../_images/15e5e21b8c2782618b81e841487928e8166a37f34ded1d0dcdce4bff78cd7c6c.png" />
+<img alt="../_images/e4d9fd256b050a9aa2cd2865373b3b36597d3aff6b7301b1ccc592d37e2d043c.png" src="../_images/e4d9fd256b050a9aa2cd2865373b3b36597d3aff6b7301b1ccc592d37e2d043c.png" />
+</div>
+</div>
+<p>Above we can see how our final design compares to GDS’s prebuilt 2x2 MMI.</p>
+<section id="connect-with-ports">
+<h4>Connect with ports<a class="headerlink" href="#connect-with-ports" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+
+<span class="c1"># c &lt;&lt; is a shorthand for c.add_ref()</span>
+<span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d30d68ddd43e49e0882b36f1269edec6dc7dbfabcadf0dd3dea898b99afe6fe2.png" src="../_images/d30d68ddd43e49e0882b36f1269edec6dc7dbfabcadf0dd3dea898b99afe6fe2.png" />
+</div>
+</div>
+<p>We can use the MMI created above to create this shape but we also we need some bends and straights.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make the straight that connects the bends</span>
+<span class="n">straight_length</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">straight_width</span> <span class="o">=</span> <span class="n">taper_input</span> <span class="c1"># We want the straight to be the same width as the taper input</span>
+<span class="n">my_straight</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+<span class="n">my_straight</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">make_four_points</span><span class="p">(</span><span class="n">straight_length</span><span class="p">,</span> <span class="n">straight_width</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Now add the ports</span>
+<span class="n">ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">straight_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+         <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">straight_length</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">straight_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">my_straight</span><span class="o">.</span><span class="n">add_ports</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span>
+
+<span class="c1"># Make a new bend component from GDS components</span>
+<span class="n">my_bend</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">bend_circular</span><span class="p">(</span><span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="c1"># this is all we need to do since the built in GDS components already come with ports</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">my_straight</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">my_bend</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/61a2aa2bdb0824d26f89e88bdf263c84667251414b740753598adad349f81ee5.png" src="../_images/61a2aa2bdb0824d26f89e88bdf263c84667251414b740753598adad349f81ee5.png" />
+<img alt="../_images/dc026d8effd787190ca7031d621ad0d8d29fd58be7cc6e9844bda85fa7470d9c.png" src="../_images/dc026d8effd787190ca7031d621ad0d8d29fd58be7cc6e9844bda85fa7470d9c.png" />
+</div>
+</div>
+<p>Now we created all the components we need, we can start connecting them together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the main MZI component that we will add the other components too</span>
+<span class="n">mzi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;Custom MZI&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add the first MMI</span>
+<span class="n">mmi1</span> <span class="o">=</span> <span class="n">mzi</span> <span class="o">&lt;&lt;</span> <span class="n">mmi</span>
+<span class="c1"># Connect the first bend to the MMI</span>
+<span class="n">bend1</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">mmi</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">straight1</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_straight</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">bend1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="c1"># Connect the second bend</span>
+<span class="n">bend2</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">straight1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">straight2</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_straight</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">bend2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
+<span class="c1"># Connect third bend</span>
+<span class="n">bend3</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">straight2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">straight3</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_straight</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">bend3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
+<span class="c1"># Connect fourth bend</span>
+<span class="n">bend4</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">straight3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+
+<span class="c1"># Connect the second 1x2 MMI</span>
+<span class="n">mmi2</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">mmi</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o3&#39;</span><span class="p">,</span> <span class="n">bend4</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="c1"># Connect the fifth bend</span>
+<span class="n">bend5</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">mmi2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">straight4</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_straight</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">bend5</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="c1"># Connect the sixth bend</span>
+<span class="n">bend6</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">straight4</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">straight5</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_straight</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">bend6</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
+<span class="c1"># Connect the seventh bend</span>
+<span class="n">bend7</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">straight5</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">straight6</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_straight</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">bend7</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o1&#39;</span><span class="p">])</span>
+<span class="c1"># Connect the eighth bend</span>
+<span class="n">bend8</span> <span class="o">=</span> <span class="n">mzi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_bend</span><span class="p">)</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">straight6</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o2&#39;</span><span class="p">])</span>
+<span class="n">bend8</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">mmi1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">&#39;o3&#39;</span><span class="p">])</span>
+
+<span class="c1"># See the result</span>
+<span class="n">mzi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/707c08cf810840621c27303362d13a1dbaf789082e19fa5080241514fc4b5b44.png" src="../_images/707c08cf810840621c27303362d13a1dbaf789082e19fa5080241514fc4b5b44.png" />
+</div>
+</div>
+</section>
+</section>
 </section>
 </section>
 
@@ -612,11 +786,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="passive_components.html"
+       href="components.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Passive components</p>
+        <p class="prev-next-title">Components</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -638,7 +812,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-shapes">Basic Shapes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-polygons">Basic Polygons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ports">Ports</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-with-ports">Connect with ports</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
