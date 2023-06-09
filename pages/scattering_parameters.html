@@ -501,6 +501,8 @@ document.write(`
 </section>
 <section id="todo-why-are-s-parameters-useful">
 <h2>TODO: Why are S-Parameters useful?<a class="headerlink" href="#todo-why-are-s-parameters-useful" title="Permalink to this heading">#</a></h2>
+<p>Scattering parameters allow us to characterize the bechavior of photonic circuits in a comprehensive way. They describe the relationship between a photonic circuit’s input signals and its output signals in terms of power, phase, and impedance. They allow us to understand how various elements within a photonic circuit interact.</p>
+<p>When we know the scattering parameters of elements within a photonic circuit, we can use simulation software and modelling tools to design, simulate, and test circuits according to desired performance metrics. These tools enable us to optimize circuit designs before the fabrication process, and validate the fabrication process after they’ve been manufactured.</p>
 </section>
 <section id="todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">
 <h2>TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters<a class="headerlink" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters" title="Permalink to this heading">#</a></h2>
@@ -578,6 +580,15 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>Now, we’ll import our geometries from the gds file</p>
 <div class="cell docutils container">
@@ -601,6 +612,15 @@ document.write(`
     <span class="n">oxide_size</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">t_oxide</span><span class="p">)</span>
     <span class="n">oxide_layer</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">material</span><span class="o">=</span><span class="n">oxide</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">oxide_center</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">oxide_size</span><span class="p">)]</span>
     <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="o">+</span> <span class="n">oxide_layer</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -638,6 +658,15 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>After creating the simulation object, we can add mode monitors at each of the ports. These will read how much light comes in/out of each port.</p>
 <p>Now that our simulation is completely set up for the first source, I can plot it to make sure everything looks right before running the simulation. We do that using the plot2D() method of the simulation object.</p>
@@ -661,75 +690,13 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     prism, center = (-7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.125,-10)
-          (-12.75,-0.875,-10)
-          (-12.75,-0.375,-10)
-          (-2.75,-0.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,0.125,-10)
-          (-12.75,0.375,-10)
-          (-12.75,0.875,-10)
-          (-2.75,1.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,0.125,-10)
-          (2.75,1.125,-10)
-          (12.75,0.875,-10)
-          (12.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,-1.125,-10)
-          (2.75,-0.125,-10)
-          (12.75,-0.375,-10)
-          (12.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (0,0,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.25,-10)
-          (-2.75,1.25,-10)
-          (2.75,1.25,-10)
-          (2.75,-1.25,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,-0.375,-10)
-          (-12.75,-0.875,-10)
-          (-17.75,-0.875,-10)
-          (-17.75,-0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,0.875,-10)
-          (-12.75,0.375,-10)
-          (-17.75,0.375,-10)
-          (-17.75,0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,0.375,-10)
-          (12.75,0.875,-10)
-          (17.75,0.875,-10)
-          (17.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,-0.875,-10)
-          (12.75,-0.375,-10)
-          (17.75,-0.375,-10)
-          (17.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/9bec0bff14617c6eae90477d556dae83ce91429b58725597c82de4f4a780f1ec.png" src="../_images/9bec0bff14617c6eae90477d556dae83ce91429b58725597c82de4f4a780f1ec.png" />
 </div>
 </details>
 </div>
@@ -747,115 +714,11 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
-Initializing structure...
-time for choose_chunkdivision = 0.007195 s
-Working in 2D dimensions.
-Computational cell is 35.5 x 10 x 0 with resolution 40
-     prism, center = (-7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.125,-10)
-          (-12.75,-0.875,-10)
-          (-12.75,-0.375,-10)
-          (-2.75,-0.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,0.125,-10)
-          (-12.75,0.375,-10)
-          (-12.75,0.875,-10)
-          (-2.75,1.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,0.125,-10)
-          (2.75,1.125,-10)
-          (12.75,0.875,-10)
-          (12.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,-1.125,-10)
-          (2.75,-0.125,-10)
-          (12.75,-0.375,-10)
-          (12.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (0,0,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.25,-10)
-          (-2.75,1.25,-10)
-          (2.75,1.25,-10)
-          (2.75,-1.25,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,-0.375,-10)
-          (-12.75,-0.875,-10)
-          (-17.75,-0.875,-10)
-          (-17.75,-0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,0.875,-10)
-          (-12.75,0.375,-10)
-          (-17.75,0.375,-10)
-          (-17.75,0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,0.375,-10)
-          (12.75,0.875,-10)
-          (17.75,0.875,-10)
-          (17.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,-0.875,-10)
-          (12.75,-0.375,-10)
-          (17.75,-0.375,-10)
-          (17.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-time for set_epsilon = 5.45294 s
------------
-MPB solved for frequency_1(2.2349,0,0) = 0.684193 after 11 iters
-MPB solved for frequency_1(2.09538,0,0) = 0.645192 after 7 iters
-MPB solved for frequency_1(2.09527,0,0) = 0.645161 after 4 iters
-MPB solved for frequency_1(2.09527,0,0) = 0.645161 after 1 iters
-Meep progress: 8.762500000000001/177.5 = 4.9% done in 4.0s, 77.1s to go
-on time step 701 (time=8.7625), 0.00570842 s/step
-Meep progress: 18.5375/177.5 = 10.4% done in 8.0s, 68.6s to go
-on time step 1484 (time=18.55), 0.00511293 s/step
-Meep progress: 28.650000000000002/177.5 = 16.1% done in 12.0s, 62.4s to go
-on time step 2293 (time=28.6625), 0.0049495 s/step
-Meep progress: 38.800000000000004/177.5 = 21.9% done in 16.0s, 57.2s to go
-on time step 3106 (time=38.825), 0.00492156 s/step
-Meep progress: 50.487500000000004/177.5 = 28.4% done in 20.0s, 50.3s to go
-on time step 4041 (time=50.5125), 0.0042806 s/step
-Meep progress: 61.6875/177.5 = 34.8% done in 24.0s, 45.1s to go
-on time step 4937 (time=61.7125), 0.00446826 s/step
-Meep progress: 72.2/177.5 = 40.7% done in 28.0s, 40.9s to go
-on time step 5778 (time=72.225), 0.00475687 s/step
-Meep progress: 81.7625/177.5 = 46.1% done in 32.0s, 37.5s to go
-on time step 6543 (time=81.7875), 0.00523751 s/step
-Meep progress: 90.36250000000001/177.5 = 50.9% done in 36.0s, 34.7s to go
-on time step 7231 (time=90.3875), 0.00581787 s/step
-Meep progress: 99.73750000000001/177.5 = 56.2% done in 40.0s, 31.2s to go
-on time step 7982 (time=99.775), 0.00533166 s/step
-Meep progress: 110.16250000000001/177.5 = 62.1% done in 44.0s, 26.9s to go
-on time step 8817 (time=110.213), 0.00479715 s/step
-Meep progress: 119.91250000000001/177.5 = 67.6% done in 48.0s, 23.1s to go
-on time step 9596 (time=119.95), 0.00514054 s/step
-Meep progress: 129.9125/177.5 = 73.2% done in 52.0s, 19.1s to go
-on time step 10398 (time=129.975), 0.00498952 s/step
-Meep progress: 140.525/177.5 = 79.2% done in 56.0s, 14.7s to go
-on time step 11247 (time=140.588), 0.00471537 s/step
-Meep progress: 150.7375/177.5 = 84.9% done in 60.0s, 10.7s to go
-on time step 12062 (time=150.775), 0.004908 s/step
-Meep progress: 161.9875/177.5 = 91.3% done in 64.0s, 6.1s to go
-on time step 12964 (time=162.05), 0.00443488 s/step
-Meep progress: 172.7125/177.5 = 97.3% done in 68.0s, 1.9s to go
-on time step 13821 (time=172.763), 0.00466831 s/step
-run 0 finished at t = 177.5 (14200 timesteps)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -885,37 +748,11 @@ run 0 finished at t = 177.5 (14200 timesteps)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
 
------------------------------------------------------------------
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
 
-S params: Port1(Lower Left, S11): 0.149608+0.180948j  Port2(Upper Left, S12): 0.102670+0.354179j  Port3(Upper Right, S13): 1.861903+0.719637j  Port4(Lower Right, S14): -1.243318-5.965357j
-
------------------------------------------------------------------
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -943,12 +780,11 @@ S params: Port1(Lower Left, S11): 0.149608+0.180948j  Port2(Upper Left, S12): 0.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------------------------------------------------------
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
 
-Transmittance/Reflectance: Port1: 0.091326% Port2: 0.225287%, Port3: 6.601279%, Port4: 61.515984%
-Insertion Loss: 31.657450% -&gt; -4.995241db
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
 
------------------------------------------------------------------
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -1004,350 +840,13 @@ Insertion Loss: 31.657450% -&gt; -4.995241db
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
-Initializing structure...
-time for choose_chunkdivision = 0.00160384 s
-Working in 2D dimensions.
-Computational cell is 35.5 x 10 x 0 with resolution 50
-     prism, center = (-7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.125,-10)
-          (-12.75,-0.875,-10)
-          (-12.75,-0.375,-10)
-          (-2.75,-0.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,0.125,-10)
-          (-12.75,0.375,-10)
-          (-12.75,0.875,-10)
-          (-2.75,1.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,0.125,-10)
-          (2.75,1.125,-10)
-          (12.75,0.875,-10)
-          (12.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,-1.125,-10)
-          (2.75,-0.125,-10)
-          (12.75,-0.375,-10)
-          (12.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (0,0,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.25,-10)
-          (-2.75,1.25,-10)
-          (2.75,1.25,-10)
-          (2.75,-1.25,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,-0.375,-10)
-          (-12.75,-0.875,-10)
-          (-17.75,-0.875,-10)
-          (-17.75,-0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,0.875,-10)
-          (-12.75,0.375,-10)
-          (-17.75,0.375,-10)
-          (-17.75,0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,0.375,-10)
-          (12.75,0.875,-10)
-          (17.75,0.875,-10)
-          (17.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,-0.875,-10)
-          (12.75,-0.375,-10)
-          (17.75,-0.375,-10)
-          (17.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-time for set_epsilon = 10.1621 s
------------
-MPB solved for frequency_1(2.2349,0,0) = 0.68454 after 25 iters
-MPB solved for frequency_1(2.09412,0,0) = 0.645204 after 16 iters
-MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 3 iters
-MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 1 iters
-Meep progress: 3.04/400.0 = 0.8% done in 4.0s, 524.1s to go
-on time step 304 (time=3.04), 0.0132036 s/step
-Meep progress: 6.16/400.0 = 1.5% done in 8.0s, 512.7s to go
-on time step 616 (time=6.16), 0.0128336 s/step
-Meep progress: 9.05/400.0 = 2.3% done in 12.0s, 519.6s to go
-on time step 905 (time=9.05), 0.0138722 s/step
-Meep progress: 12.41/400.0 = 3.1% done in 16.0s, 500.8s to go
-on time step 1241 (time=12.41), 0.0119189 s/step
-Meep progress: 15.73/400.0 = 3.9% done in 20.0s, 489.7s to go
-on time step 1573 (time=15.73), 0.0120752 s/step
-Meep progress: 18.91/400.0 = 4.7% done in 24.1s, 484.7s to go
-on time step 1891 (time=18.91), 0.0125911 s/step
-Meep progress: 22.27/400.0 = 5.6% done in 28.1s, 475.8s to go
-on time step 2227 (time=22.27), 0.0119073 s/step
-Meep progress: 25.27/400.0 = 6.3% done in 32.1s, 475.3s to go
-on time step 2527 (time=25.27), 0.0133433 s/step
-Meep progress: 27.64/400.0 = 6.9% done in 36.1s, 485.7s to go
-on time step 2765 (time=27.65), 0.0168754 s/step
-Meep progress: 30.240000000000002/400.0 = 7.6% done in 40.1s, 489.8s to go
-on time step 3026 (time=30.26), 0.0153789 s/step
-Meep progress: 33.46/400.0 = 8.4% done in 44.1s, 482.7s to go
-on time step 3348 (time=33.48), 0.0124263 s/step
-Meep progress: 36.910000000000004/400.0 = 9.2% done in 48.1s, 472.9s to go
-on time step 3693 (time=36.93), 0.0116124 s/step
-Meep progress: 39.75/400.0 = 9.9% done in 52.1s, 472.0s to go
-on time step 3977 (time=39.77), 0.014098 s/step
-Meep progress: 42.62/400.0 = 10.7% done in 56.1s, 470.3s to go
-on time step 4263 (time=42.63), 0.0139953 s/step
-Meep progress: 45.82/400.0 = 11.5% done in 60.1s, 464.6s to go
-on time step 4583 (time=45.83), 0.0125104 s/step
-Meep progress: 48.52/400.0 = 12.1% done in 64.1s, 464.4s to go
-on time step 4853 (time=48.53), 0.0148828 s/step
-Meep progress: 50.96/400.0 = 12.7% done in 68.1s, 466.5s to go
-on time step 5098 (time=50.98), 0.0163516 s/step
-Meep progress: 54.29/400.0 = 13.6% done in 72.1s, 459.3s to go
-on time step 5430 (time=54.3), 0.0120583 s/step
-Meep progress: 57.24/400.0 = 14.3% done in 76.1s, 455.9s to go
-on time step 5726 (time=57.26), 0.0135336 s/step
-Meep progress: 60.45/400.0 = 15.1% done in 80.1s, 450.1s to go
-on time step 6047 (time=60.47), 0.0124838 s/step
-Meep progress: 63.190000000000005/400.0 = 15.8% done in 84.1s, 448.4s to go
-on time step 6321 (time=63.21), 0.0146225 s/step
-Meep progress: 66.03/400.0 = 16.5% done in 88.1s, 445.8s to go
-on time step 6605 (time=66.05), 0.0141025 s/step
-Meep progress: 68.79/400.0 = 17.2% done in 92.2s, 443.7s to go
-on time step 6881 (time=68.81), 0.0145192 s/step
-Meep progress: 71.66/400.0 = 17.9% done in 96.2s, 440.6s to go
-on time step 7168 (time=71.68), 0.0139552 s/step
-Meep progress: 74.44/400.0 = 18.6% done in 100.2s, 438.1s to go
-on time step 7446 (time=74.46), 0.0144293 s/step
-Meep progress: 77.4/400.0 = 19.4% done in 104.2s, 434.2s to go
-on time step 7742 (time=77.42), 0.0135393 s/step
-Meep progress: 80.06/400.0 = 20.0% done in 108.2s, 432.4s to go
-on time step 8008 (time=80.08), 0.0150648 s/step
-Meep progress: 82.79/400.0 = 20.7% done in 112.2s, 429.9s to go
-on time step 8281 (time=82.81), 0.0146718 s/step
-Meep progress: 85.53/400.0 = 21.4% done in 116.2s, 427.3s to go
-on time step 8555 (time=85.55), 0.0146292 s/step
-Meep progress: 88.61/400.0 = 22.2% done in 120.2s, 422.5s to go
-on time step 8863 (time=88.63), 0.0130074 s/step
-Meep progress: 91.73/400.0 = 22.9% done in 124.2s, 417.5s to go
-on time step 9175 (time=91.75), 0.0128374 s/step
-Meep progress: 94.74/400.0 = 23.7% done in 128.2s, 413.2s to go
-on time step 9475 (time=94.75), 0.0133363 s/step
-Meep progress: 97.92/400.0 = 24.5% done in 132.2s, 408.0s to go
-on time step 9793 (time=97.93), 0.0126115 s/step
-Meep progress: 101.06/400.0 = 25.3% done in 136.3s, 403.1s to go
-on time step 10106 (time=101.06), 0.0127928 s/step
-Meep progress: 103.8/400.0 = 25.9% done in 140.3s, 400.3s to go
-on time step 10380 (time=103.8), 0.0146256 s/step
-Meep progress: 106.63/400.0 = 26.7% done in 144.3s, 397.0s to go
-on time step 10663 (time=106.63), 0.0141614 s/step
-Meep progress: 109.31/400.0 = 27.3% done in 148.3s, 394.3s to go
-on time step 10931 (time=109.31), 0.0149382 s/step
-Meep progress: 111.77/400.0 = 27.9% done in 152.3s, 392.7s to go
-on time step 11177 (time=111.77), 0.0162979 s/step
-Meep progress: 114.35000000000001/400.0 = 28.6% done in 156.3s, 390.5s to go
-on time step 11435 (time=114.35), 0.0155393 s/step
-Meep progress: 117.35000000000001/400.0 = 29.3% done in 160.3s, 386.1s to go
-on time step 11735 (time=117.35), 0.0133679 s/step
-Meep progress: 120.42/400.0 = 30.1% done in 164.3s, 381.5s to go
-on time step 12042 (time=120.42), 0.0130438 s/step
-Meep progress: 123.62/400.0 = 30.9% done in 168.3s, 376.4s to go
-on time step 12362 (time=123.62), 0.0125267 s/step
-Meep progress: 126.68/400.0 = 31.7% done in 172.3s, 371.8s to go
-on time step 12668 (time=126.68), 0.0130761 s/step
-Meep progress: 129.96/400.0 = 32.5% done in 176.3s, 366.4s to go
-on time step 12996 (time=129.96), 0.0122192 s/step
-Meep progress: 133.08/400.0 = 33.3% done in 180.3s, 361.7s to go
-on time step 13308 (time=133.08), 0.0128246 s/step
-Meep progress: 136.43/400.0 = 34.1% done in 184.4s, 356.2s to go
-on time step 13643 (time=136.43), 0.011957 s/step
-Meep progress: 139.57/400.0 = 34.9% done in 188.4s, 351.5s to go
-on time step 13957 (time=139.57), 0.0127788 s/step
-Meep progress: 142.12/400.0 = 35.5% done in 192.4s, 349.1s to go
-on time step 14212 (time=142.12), 0.0157325 s/step
-Meep progress: 145.20000000000002/400.0 = 36.3% done in 196.4s, 344.6s to go
-on time step 14520 (time=145.2), 0.0130461 s/step
-Meep progress: 148.09/400.0 = 37.0% done in 200.4s, 340.9s to go
-on time step 14809 (time=148.09), 0.013844 s/step
-Meep progress: 150.76/400.0 = 37.7% done in 204.4s, 337.9s to go
-on time step 15076 (time=150.76), 0.0149969 s/step
-Meep progress: 153.63/400.0 = 38.4% done in 208.4s, 334.2s to go
-on time step 15363 (time=153.63), 0.0139544 s/step
-Meep progress: 156.45000000000002/400.0 = 39.1% done in 212.4s, 330.7s to go
-on time step 15645 (time=156.45), 0.014198 s/step
-Meep progress: 159.27/400.0 = 39.8% done in 216.4s, 327.1s to go
-on time step 15927 (time=159.27), 0.0142212 s/step
-Meep progress: 162.29/400.0 = 40.6% done in 220.4s, 322.9s to go
-on time step 16229 (time=162.29), 0.0132632 s/step
-Meep progress: 165.39000000000001/400.0 = 41.3% done in 224.4s, 318.4s to go
-on time step 16540 (time=165.4), 0.0129027 s/step
-Meep progress: 168.24/400.0 = 42.1% done in 228.4s, 314.7s to go
-on time step 16825 (time=168.25), 0.0140576 s/step
-Meep progress: 170.95000000000002/400.0 = 42.7% done in 232.5s, 311.5s to go
-on time step 17096 (time=170.96), 0.0147687 s/step
-Meep progress: 173.76/400.0 = 43.4% done in 236.5s, 307.9s to go
-on time step 17377 (time=173.77), 0.0142871 s/step
-Meep progress: 176.73/400.0 = 44.2% done in 240.5s, 303.8s to go
-on time step 17674 (time=176.74), 0.0134783 s/step
-Meep progress: 179.71/400.0 = 44.9% done in 244.5s, 299.7s to go
-on time step 17972 (time=179.72), 0.0134604 s/step
-Meep progress: 182.77/400.0 = 45.7% done in 248.5s, 295.3s to go
-on time step 18279 (time=182.79), 0.0130571 s/step
-Meep progress: 185.74/400.0 = 46.4% done in 252.5s, 291.3s to go
-on time step 18576 (time=185.76), 0.0135112 s/step
-Meep progress: 188.47/400.0 = 47.1% done in 256.5s, 287.9s to go
-on time step 18849 (time=188.49), 0.0146703 s/step
-Meep progress: 191.32/400.0 = 47.8% done in 260.5s, 284.1s to go
-on time step 19135 (time=191.35), 0.0140275 s/step
-Meep progress: 194.21/400.0 = 48.6% done in 264.5s, 280.3s to go
-on time step 19423 (time=194.23), 0.0138993 s/step
-Meep progress: 197.12/400.0 = 49.3% done in 268.5s, 276.4s to go
-on time step 19714 (time=197.14), 0.013748 s/step
-Meep progress: 199.89000000000001/400.0 = 50.0% done in 272.5s, 272.8s to go
-on time step 19991 (time=199.91), 0.0144779 s/step
-Meep progress: 203.06/400.0 = 50.8% done in 276.5s, 268.2s to go
-on time step 20308 (time=203.08), 0.0126352 s/step
-Meep progress: 206.39000000000001/400.0 = 51.6% done in 280.5s, 263.2s to go
-on time step 20641 (time=206.41), 0.0120394 s/step
-Meep progress: 209.53/400.0 = 52.4% done in 284.6s, 258.7s to go
-on time step 20955 (time=209.55), 0.0127507 s/step
-Meep progress: 212.91/400.0 = 53.2% done in 288.6s, 253.6s to go
-on time step 21293 (time=212.93), 0.0118598 s/step
-Meep progress: 216.32/400.0 = 54.1% done in 292.6s, 248.4s to go
-on time step 21634 (time=216.34), 0.0117449 s/step
-Meep progress: 219.82/400.0 = 55.0% done in 296.6s, 243.1s to go
-on time step 21984 (time=219.84), 0.0114428 s/step
-Meep progress: 222.67000000000002/400.0 = 55.7% done in 300.6s, 239.4s to go
-on time step 22268 (time=222.68), 0.014103 s/step
-Meep progress: 225.31/400.0 = 56.3% done in 304.6s, 236.2s to go
-on time step 22532 (time=225.32), 0.0151882 s/step
-Meep progress: 227.93/400.0 = 57.0% done in 308.6s, 233.0s to go
-on time step 22794 (time=227.94), 0.0152755 s/step
-Meep progress: 231.12/400.0 = 57.8% done in 312.6s, 228.4s to go
-on time step 23113 (time=231.13), 0.0125597 s/step
-Meep progress: 234.55/400.0 = 58.6% done in 316.6s, 223.3s to go
-on time step 23456 (time=234.56), 0.0116896 s/step
-Meep progress: 237.97/400.0 = 59.5% done in 320.6s, 218.3s to go
-on time step 23798 (time=237.98), 0.0116995 s/step
-Meep progress: 241.4/400.0 = 60.4% done in 324.6s, 213.3s to go
-on time step 24141 (time=241.41), 0.0116807 s/step
-Meep progress: 244.63/400.0 = 61.2% done in 328.6s, 208.7s to go
-on time step 24464 (time=244.64), 0.0124002 s/step
-Meep progress: 247.85/400.0 = 62.0% done in 332.6s, 204.2s to go
-on time step 24786 (time=247.86), 0.0124632 s/step
-Meep progress: 249.77/400.0 = 62.4% done in 336.7s, 202.5s to go
-on time step 24978 (time=249.78), 0.0209023 s/step
-Meep progress: 251.79/400.0 = 62.9% done in 340.7s, 200.5s to go
-on time step 25181 (time=251.81), 0.0197063 s/step
-Meep progress: 254.79/400.0 = 63.7% done in 344.7s, 196.4s to go
-on time step 25481 (time=254.81), 0.0133559 s/step
-Meep progress: 258.12/400.0 = 64.5% done in 348.7s, 191.7s to go
-on time step 25814 (time=258.14), 0.0120491 s/step
-Meep progress: 261.23/400.0 = 65.3% done in 352.7s, 187.3s to go
-on time step 26126 (time=261.26), 0.0128361 s/step
-Meep progress: 264.47/400.0 = 66.1% done in 356.7s, 182.8s to go
-on time step 26450 (time=264.5), 0.01235 s/step
-Meep progress: 267.55/400.0 = 66.9% done in 360.7s, 178.6s to go
-on time step 26757 (time=267.57), 0.0130544 s/step
-Meep progress: 270.01/400.0 = 67.5% done in 364.7s, 175.6s to go
-on time step 27004 (time=270.04), 0.0162085 s/step
-Meep progress: 272.53000000000003/400.0 = 68.1% done in 368.7s, 172.4s to go
-on time step 27256 (time=272.56), 0.0159179 s/step
-Meep progress: 274.99/400.0 = 68.7% done in 372.7s, 169.4s to go
-on time step 27503 (time=275.03), 0.0162713 s/step
-Meep progress: 277.74/400.0 = 69.4% done in 376.7s, 165.8s to go
-on time step 27779 (time=277.79), 0.0145356 s/step
-Meep progress: 280.6/400.0 = 70.2% done in 380.7s, 162.0s to go
-on time step 28065 (time=280.65), 0.0140013 s/step
-Meep progress: 283.88/400.0 = 71.0% done in 384.7s, 157.4s to go
-on time step 28393 (time=283.93), 0.012202 s/step
-Meep progress: 287.18/400.0 = 71.8% done in 388.7s, 152.7s to go
-on time step 28721 (time=287.21), 0.0122105 s/step
-Meep progress: 290.18/400.0 = 72.5% done in 392.7s, 148.6s to go
-on time step 29021 (time=290.21), 0.0133429 s/step
-Meep progress: 292.89/400.0 = 73.2% done in 396.8s, 145.1s to go
-on time step 29293 (time=292.93), 0.014754 s/step
-Meep progress: 295.57/400.0 = 73.9% done in 400.8s, 141.6s to go
-on time step 29562 (time=295.62), 0.0148821 s/step
-Meep progress: 298.91/400.0 = 74.7% done in 404.8s, 136.9s to go
-on time step 29896 (time=298.96), 0.0119778 s/step
-Meep progress: 302.11/400.0 = 75.5% done in 408.8s, 132.5s to go
-on time step 30215 (time=302.15), 0.0125507 s/step
-Meep progress: 305.33/400.0 = 76.3% done in 412.8s, 128.0s to go
-on time step 30537 (time=305.37), 0.0124423 s/step
-Meep progress: 308.7/400.0 = 77.2% done in 416.8s, 123.3s to go
-on time step 30874 (time=308.74), 0.0118952 s/step
-Meep progress: 312.15000000000003/400.0 = 78.0% done in 420.8s, 118.4s to go
-on time step 31219 (time=312.19), 0.0116099 s/step
-Meep progress: 315.54/400.0 = 78.9% done in 424.8s, 113.7s to go
-on time step 31558 (time=315.58), 0.0118056 s/step
-Meep progress: 318.96/400.0 = 79.7% done in 428.8s, 108.9s to go
-on time step 31900 (time=319), 0.0117182 s/step
-Meep progress: 321.49/400.0 = 80.4% done in 432.8s, 105.7s to go
-on time step 32151 (time=321.51), 0.0159518 s/step
-Meep progress: 323.81/400.0 = 81.0% done in 436.8s, 102.8s to go
-on time step 32384 (time=323.84), 0.0172166 s/step
-Meep progress: 326.28000000000003/400.0 = 81.6% done in 440.8s, 99.6s to go
-on time step 32631 (time=326.31), 0.0162147 s/step
-Meep progress: 329.66/400.0 = 82.4% done in 444.8s, 94.9s to go
-on time step 32970 (time=329.7), 0.0118071 s/step
-Meep progress: 332.94/400.0 = 83.2% done in 448.8s, 90.4s to go
-on time step 33299 (time=332.99), 0.0121863 s/step
-Meep progress: 335.91/400.0 = 84.0% done in 452.8s, 86.4s to go
-on time step 33595 (time=335.95), 0.01353 s/step
-Meep progress: 338.93/400.0 = 84.7% done in 456.9s, 82.3s to go
-on time step 33896 (time=338.96), 0.0132905 s/step
-Meep progress: 342.12/400.0 = 85.5% done in 460.9s, 78.0s to go
-on time step 34215 (time=342.15), 0.0125404 s/step
-Meep progress: 345.55/400.0 = 86.4% done in 464.9s, 73.3s to go
-on time step 34558 (time=345.58), 0.0116767 s/step
-Meep progress: 349.04/400.0 = 87.3% done in 468.9s, 68.5s to go
-on time step 34907 (time=349.07), 0.0114827 s/step
-Meep progress: 352.12/400.0 = 88.0% done in 472.9s, 64.3s to go
-on time step 35215 (time=352.15), 0.0129927 s/step
-Meep progress: 355.56/400.0 = 88.9% done in 476.9s, 59.6s to go
-on time step 35560 (time=355.6), 0.0116141 s/step
-Meep progress: 358.85/400.0 = 89.7% done in 480.9s, 55.1s to go
-on time step 35887 (time=358.87), 0.0122336 s/step
-Meep progress: 361.49/400.0 = 90.4% done in 484.9s, 51.7s to go
-on time step 36151 (time=361.51), 0.0151724 s/step
-Meep progress: 364.36/400.0 = 91.1% done in 488.9s, 47.8s to go
-on time step 36437 (time=364.37), 0.0139869 s/step
-Meep progress: 367.19/400.0 = 91.8% done in 492.9s, 44.0s to go
-on time step 36721 (time=367.21), 0.0141316 s/step
-Meep progress: 369.91/400.0 = 92.5% done in 496.9s, 40.4s to go
-on time step 36993 (time=369.93), 0.0147496 s/step
-Meep progress: 372.92/400.0 = 93.2% done in 500.9s, 36.4s to go
-on time step 37294 (time=372.94), 0.0133005 s/step
-Meep progress: 375.71/400.0 = 93.9% done in 505.0s, 32.6s to go
-on time step 37573 (time=375.73), 0.0143598 s/step
-Meep progress: 378.44/400.0 = 94.6% done in 509.0s, 29.0s to go
-on time step 37846 (time=378.46), 0.0146923 s/step
-Meep progress: 381.44/400.0 = 95.4% done in 513.0s, 25.0s to go
-on time step 38147 (time=381.47), 0.0133298 s/step
-Meep progress: 384.67/400.0 = 96.2% done in 517.0s, 20.6s to go
-on time step 38471 (time=384.71), 0.0123603 s/step
-Meep progress: 388.12/400.0 = 97.0% done in 521.0s, 15.9s to go
-on time step 38816 (time=388.16), 0.0116245 s/step
-Meep progress: 391.46000000000004/400.0 = 97.9% done in 525.0s, 11.5s to go
-on time step 39150 (time=391.5), 0.0119854 s/step
-Meep progress: 394.96000000000004/400.0 = 98.7% done in 529.0s, 6.8s to go
-on time step 39501 (time=395.01), 0.0114083 s/step
-Meep progress: 398.29/400.0 = 99.6% done in 533.0s, 2.3s to go
-on time step 39833 (time=398.33), 0.0120569 s/step
-run 0 finished at t = 400.0 (40000 timesteps)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
-<img alt="../_images/68a1eca498d615436e99cc455efcc0d50a280d1ec0a0b89f4085e6d0cb774a17.png" src="../_images/68a1eca498d615436e99cc455efcc0d50a280d1ec0a0b89f4085e6d0cb774a17.png" />
 </div>
 </div>
 </section>
@@ -1395,6 +894,15 @@ run 0 finished at t = 400.0 (40000 timesteps)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1439,638 +947,11 @@ run 0 finished at t = 400.0 (40000 timesteps)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------
-Initializing structure...
-time for choose_chunkdivision = 0.00362706 s
-Working in 2D dimensions.
-Computational cell is 35.5 x 10 x 0 with resolution 50
-     prism, center = (-7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.125,-10)
-          (-12.75,-0.875,-10)
-          (-12.75,-0.375,-10)
-          (-2.75,-0.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,0.125,-10)
-          (-12.75,0.375,-10)
-          (-12.75,0.875,-10)
-          (-2.75,1.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,0.125,-10)
-          (2.75,1.125,-10)
-          (12.75,0.875,-10)
-          (12.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,-1.125,-10)
-          (2.75,-0.125,-10)
-          (12.75,-0.375,-10)
-          (12.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (0,0,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.25,-10)
-          (-2.75,1.25,-10)
-          (2.75,1.25,-10)
-          (2.75,-1.25,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,-0.375,-10)
-          (-12.75,-0.875,-10)
-          (-17.75,-0.875,-10)
-          (-17.75,-0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,0.875,-10)
-          (-12.75,0.375,-10)
-          (-17.75,0.375,-10)
-          (-17.75,0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,0.375,-10)
-          (12.75,0.875,-10)
-          (17.75,0.875,-10)
-          (17.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,-0.875,-10)
-          (12.75,-0.375,-10)
-          (17.75,-0.375,-10)
-          (17.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-time for set_epsilon = 10.7224 s
------------
-MPB solved for frequency_1(2.2349,0,0) = 0.68454 after 25 iters
-MPB solved for frequency_1(2.09412,0,0) = 0.645204 after 16 iters
-MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 3 iters
-MPB solved for frequency_1(2.09396,0,0) = 0.645161 after 1 iters
-Meep progress: 2.69/177.5 = 1.5% done in 4.0s, 260.2s to go
-on time step 269 (time=2.69), 0.0148873 s/step
-Meep progress: 5.71/177.5 = 3.2% done in 8.0s, 240.9s to go
-on time step 571 (time=5.71), 0.0132518 s/step
-Meep progress: 8.86/177.5 = 5.0% done in 12.0s, 228.6s to go
-on time step 886 (time=8.86), 0.0127025 s/step
-Meep progress: 12.3/177.5 = 6.9% done in 16.0s, 215.2s to go
-on time step 1230 (time=12.3), 0.0116657 s/step
-Meep progress: 15.05/177.5 = 8.5% done in 20.0s, 216.3s to go
-on time step 1505 (time=15.05), 0.0145797 s/step
-Meep progress: 17.79/177.5 = 10.0% done in 24.0s, 215.8s to go
-on time step 1779 (time=17.79), 0.0146025 s/step
-Meep progress: 20.46/177.5 = 11.5% done in 28.0s, 215.3s to go
-on time step 2046 (time=20.46), 0.0150112 s/step
-Meep progress: 23.31/177.5 = 13.1% done in 32.0s, 212.0s to go
-on time step 2331 (time=23.31), 0.0140365 s/step
-Meep progress: 26.43/177.5 = 14.9% done in 36.1s, 206.1s to go
-on time step 2643 (time=26.43), 0.0128372 s/step
-Meep progress: 29.560000000000002/177.5 = 16.7% done in 40.1s, 200.5s to go
-on time step 2956 (time=29.56), 0.0127833 s/step
-Meep progress: 32.160000000000004/177.5 = 18.1% done in 44.1s, 199.1s to go
-on time step 3216 (time=32.16), 0.0154102 s/step
-Meep progress: 35.0/177.5 = 19.7% done in 48.1s, 195.7s to go
-on time step 3500 (time=35), 0.0141022 s/step
-Meep progress: 37.980000000000004/177.5 = 21.4% done in 52.1s, 191.3s to go
-on time step 3798 (time=37.98), 0.0134535 s/step
-Meep progress: 41.32/177.5 = 23.3% done in 56.1s, 184.9s to go
-on time step 4132 (time=41.32), 0.0119961 s/step
-Meep progress: 44.4/177.5 = 25.0% done in 60.1s, 180.1s to go
-on time step 4440 (time=44.4), 0.0129998 s/step
-Meep progress: 47.18/177.5 = 26.6% done in 64.1s, 177.0s to go
-on time step 4718 (time=47.18), 0.0143959 s/step
-Meep progress: 50.25/177.5 = 28.3% done in 68.1s, 172.5s to go
-on time step 5025 (time=50.25), 0.0130514 s/step
-Meep progress: 53.35/177.5 = 30.1% done in 72.1s, 167.8s to go
-on time step 5335 (time=53.35), 0.0129177 s/step
-Meep progress: 56.4/177.5 = 31.8% done in 76.1s, 163.4s to go
-on time step 5640 (time=56.4), 0.0131257 s/step
-Meep progress: 58.95/177.5 = 33.2% done in 80.1s, 161.1s to go
-on time step 5895 (time=58.95), 0.0156878 s/step
-Meep progress: 61.74/177.5 = 34.8% done in 84.1s, 157.7s to go
-on time step 6175 (time=61.75), 0.0143242 s/step
-Meep progress: 64.54/177.5 = 36.4% done in 88.1s, 154.2s to go
-on time step 6455 (time=64.55), 0.0142949 s/step
-Meep progress: 67.69/177.5 = 38.1% done in 92.1s, 149.5s to go
-on time step 6770 (time=67.7), 0.012742 s/step
-Meep progress: 70.52/177.5 = 39.7% done in 96.1s, 145.8s to go
-on time step 7054 (time=70.54), 0.0141173 s/step
-Meep progress: 73.12/177.5 = 41.2% done in 100.1s, 143.0s to go
-on time step 7313 (time=73.13), 0.0154464 s/step
-Meep progress: 75.75/177.5 = 42.7% done in 104.2s, 139.9s to go
-on time step 7576 (time=75.76), 0.0152625 s/step
-Meep progress: 78.43/177.5 = 44.2% done in 108.2s, 136.6s to go
-on time step 7845 (time=78.45), 0.0149191 s/step
-Meep progress: 80.9/177.5 = 45.6% done in 112.2s, 133.9s to go
-on time step 8092 (time=80.92), 0.0162249 s/step
-Meep progress: 83.7/177.5 = 47.2% done in 116.2s, 130.2s to go
-on time step 8372 (time=83.72), 0.0143119 s/step
-Meep progress: 86.57000000000001/177.5 = 48.8% done in 120.2s, 126.2s to go
-on time step 8659 (time=86.59), 0.0139377 s/step
-Meep progress: 89.39/177.5 = 50.4% done in 124.2s, 122.4s to go
-on time step 8941 (time=89.41), 0.0142222 s/step
-Meep progress: 92.14/177.5 = 51.9% done in 128.2s, 118.8s to go
-on time step 9216 (time=92.16), 0.014592 s/step
-Meep progress: 95.2/177.5 = 53.6% done in 132.2s, 114.3s to go
-on time step 9523 (time=95.23), 0.0130677 s/step
-Meep progress: 97.76/177.5 = 55.1% done in 136.2s, 111.1s to go
-on time step 9779 (time=97.79), 0.0156593 s/step
-Meep progress: 100.14/177.5 = 56.4% done in 140.2s, 108.3s to go
-on time step 10016 (time=100.16), 0.0170097 s/step
-Meep progress: 102.77/177.5 = 57.9% done in 144.2s, 104.9s to go
-on time step 10281 (time=102.81), 0.0151023 s/step
-Meep progress: 105.51/177.5 = 59.4% done in 148.3s, 101.2s to go
-on time step 10554 (time=105.54), 0.014664 s/step
-Meep progress: 108.22/177.5 = 61.0% done in 152.3s, 97.5s to go
-on time step 10825 (time=108.25), 0.0147622 s/step
-Meep progress: 111.14/177.5 = 62.6% done in 156.3s, 93.3s to go
-on time step 11117 (time=111.17), 0.013745 s/step
-Meep progress: 113.77/177.5 = 64.1% done in 160.3s, 89.8s to go
-on time step 11380 (time=113.8), 0.0152159 s/step
-Meep progress: 116.58/177.5 = 65.7% done in 164.3s, 85.8s to go
-on time step 11662 (time=116.62), 0.0142292 s/step
-Meep progress: 119.15/177.5 = 67.1% done in 168.3s, 82.4s to go
-on time step 11920 (time=119.2), 0.0155779 s/step
-Meep progress: 121.96000000000001/177.5 = 68.7% done in 172.3s, 78.5s to go
-on time step 12201 (time=122.01), 0.0142803 s/step
-Meep progress: 124.8/177.5 = 70.3% done in 176.3s, 74.4s to go
-on time step 12487 (time=124.87), 0.0139929 s/step
-Meep progress: 128.05/177.5 = 72.1% done in 180.3s, 69.6s to go
-on time step 12811 (time=128.11), 0.0123758 s/step
-Meep progress: 131.48/177.5 = 74.1% done in 184.3s, 64.5s to go
-on time step 13154 (time=131.54), 0.0116678 s/step
-Meep progress: 134.89000000000001/177.5 = 76.0% done in 188.3s, 59.5s to go
-on time step 13495 (time=134.95), 0.0117558 s/step
-Meep progress: 138.28/177.5 = 77.9% done in 192.3s, 54.6s to go
-on time step 13835 (time=138.35), 0.0117883 s/step
-Meep progress: 141.70000000000002/177.5 = 79.8% done in 196.3s, 49.6s to go
-on time step 14176 (time=141.76), 0.0117313 s/step
-Meep progress: 145.06/177.5 = 81.7% done in 200.3s, 44.8s to go
-on time step 14511 (time=145.11), 0.0119899 s/step
-Meep progress: 148.03/177.5 = 83.4% done in 204.4s, 40.7s to go
-on time step 14809 (time=148.09), 0.0134425 s/step
-Meep progress: 150.79/177.5 = 85.0% done in 208.4s, 36.9s to go
-on time step 15086 (time=150.86), 0.0144584 s/step
-Meep progress: 154.08/177.5 = 86.8% done in 212.4s, 32.3s to go
-on time step 15414 (time=154.14), 0.0122102 s/step
-Meep progress: 157.38/177.5 = 88.7% done in 216.4s, 27.7s to go
-on time step 15743 (time=157.43), 0.0121653 s/step
-Meep progress: 160.63/177.5 = 90.5% done in 220.4s, 23.1s to go
-on time step 16069 (time=160.69), 0.0123048 s/step
-Meep progress: 163.76/177.5 = 92.3% done in 224.4s, 18.8s to go
-on time step 16381 (time=163.81), 0.0128374 s/step
-Meep progress: 166.65/177.5 = 93.9% done in 228.4s, 14.9s to go
-on time step 16670 (time=166.7), 0.0138613 s/step
-Meep progress: 169.91/177.5 = 95.7% done in 232.4s, 10.4s to go
-on time step 16997 (time=169.97), 0.0122372 s/step
-Meep progress: 173.37/177.5 = 97.7% done in 236.4s, 5.6s to go
-on time step 17343 (time=173.43), 0.0115631 s/step
-Meep progress: 176.72/177.5 = 99.6% done in 240.4s, 1.1s to go
-on time step 17677 (time=176.77), 0.0119771 s/step
-run 0 finished at t = 177.5 (17750 timesteps)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
------------
-Initializing structure...
-time for choose_chunkdivision = 0.00183296 s
-Working in 2D dimensions.
-Computational cell is 35.5 x 10 x 0 with resolution 50
-     prism, center = (-7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.125,-10)
-          (-12.75,-0.875,-10)
-          (-12.75,-0.375,-10)
-          (-2.75,-0.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,0.125,-10)
-          (-12.75,0.375,-10)
-          (-12.75,0.875,-10)
-          (-2.75,1.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,0.125,-10)
-          (2.75,1.125,-10)
-          (12.75,0.875,-10)
-          (12.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,-1.125,-10)
-          (2.75,-0.125,-10)
-          (12.75,-0.375,-10)
-          (12.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (0,0,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.25,-10)
-          (-2.75,1.25,-10)
-          (2.75,1.25,-10)
-          (2.75,-1.25,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,-0.375,-10)
-          (-12.75,-0.875,-10)
-          (-17.75,-0.875,-10)
-          (-17.75,-0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,0.875,-10)
-          (-12.75,0.375,-10)
-          (-17.75,0.375,-10)
-          (-17.75,0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,0.375,-10)
-          (12.75,0.875,-10)
-          (17.75,0.875,-10)
-          (17.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,-0.875,-10)
-          (12.75,-0.375,-10)
-          (17.75,-0.375,-10)
-          (17.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-time for set_epsilon = 11.9171 s
------------
-MPB solved for frequency_1(-1,0,0) = 0.339081 after 9 iters
-MPB solved for frequency_1(-2.06483,0,0) = 0.637031 after 7 iters
-MPB solved for frequency_1(-2.09396,0,0) = 0.645159 after 12 iters
-MPB solved for frequency_1(-2.09396,0,0) = 0.645161 after 1 iters
-Meep progress: 2.66/177.5 = 1.5% done in 4.0s, 263.0s to go
-on time step 266 (time=2.66), 0.0150439 s/step
-Meep progress: 5.4/177.5 = 3.0% done in 8.0s, 255.4s to go
-on time step 540 (time=5.4), 0.0146352 s/step
-Meep progress: 8.23/177.5 = 4.6% done in 12.0s, 247.1s to go
-on time step 823 (time=8.23), 0.0141418 s/step
-Meep progress: 11.4/177.5 = 6.4% done in 16.0s, 233.5s to go
-on time step 1140 (time=11.4), 0.0126464 s/step
-Meep progress: 14.6/177.5 = 8.2% done in 20.0s, 223.5s to go
-on time step 1460 (time=14.6), 0.0125068 s/step
-Meep progress: 17.81/177.5 = 10.0% done in 24.0s, 215.6s to go
-on time step 1781 (time=17.81), 0.0124951 s/step
-Meep progress: 20.900000000000002/177.5 = 11.8% done in 28.0s, 210.1s to go
-on time step 2090 (time=20.9), 0.0129575 s/step
-Meep progress: 23.89/177.5 = 13.5% done in 32.1s, 206.1s to go
-on time step 2389 (time=23.89), 0.0134163 s/step
-Meep progress: 26.650000000000002/177.5 = 15.0% done in 36.1s, 204.2s to go
-on time step 2665 (time=26.65), 0.0145236 s/step
-Meep progress: 29.46/177.5 = 16.6% done in 40.1s, 201.4s to go
-on time step 2946 (time=29.46), 0.0142476 s/step
-Meep progress: 32.49/177.5 = 18.3% done in 44.1s, 196.7s to go
-on time step 3249 (time=32.49), 0.0132289 s/step
-Meep progress: 35.39/177.5 = 19.9% done in 48.1s, 193.1s to go
-on time step 3539 (time=35.39), 0.013836 s/step
-Meep progress: 37.97/177.5 = 21.4% done in 52.1s, 191.5s to go
-on time step 3797 (time=37.97), 0.0155467 s/step
-Meep progress: 40.730000000000004/177.5 = 22.9% done in 56.1s, 188.4s to go
-on time step 4073 (time=40.73), 0.0145262 s/step
-Meep progress: 43.78/177.5 = 24.7% done in 60.1s, 183.6s to go
-on time step 4379 (time=43.79), 0.0131105 s/step
-Meep progress: 46.79/177.5 = 26.4% done in 64.1s, 179.1s to go
-on time step 4680 (time=46.8), 0.0132997 s/step
-Meep progress: 49.96/177.5 = 28.1% done in 68.1s, 173.9s to go
-on time step 4997 (time=49.97), 0.0126456 s/step
-Meep progress: 53.35/177.5 = 30.1% done in 72.1s, 167.9s to go
-on time step 5336 (time=53.36), 0.0118065 s/step
-Meep progress: 56.65/177.5 = 31.9% done in 76.1s, 162.4s to go
-on time step 5666 (time=56.66), 0.0121494 s/step
-Meep progress: 59.93/177.5 = 33.8% done in 80.2s, 157.2s to go
-on time step 5994 (time=59.94), 0.0122194 s/step
-Meep progress: 63.25/177.5 = 35.6% done in 84.2s, 152.0s to go
-on time step 6326 (time=63.26), 0.0120663 s/step
-Meep progress: 66.67/177.5 = 37.6% done in 88.2s, 146.6s to go
-on time step 6669 (time=66.69), 0.0116987 s/step
-Meep progress: 70.08/177.5 = 39.5% done in 92.2s, 141.3s to go
-on time step 7011 (time=70.11), 0.0117235 s/step
-Meep progress: 73.41/177.5 = 41.4% done in 96.2s, 136.4s to go
-on time step 7344 (time=73.44), 0.0120142 s/step
-Meep progress: 77.46000000000001/177.5 = 43.6% done in 100.2s, 129.4s to go
-on time step 7750 (time=77.5), 0.00987021 s/step
-Meep progress: 81.83/177.5 = 46.1% done in 104.2s, 121.8s to go
-on time step 8188 (time=81.88), 0.00914628 s/step
-Meep progress: 86.78/177.5 = 48.9% done in 108.2s, 113.1s to go
-on time step 8683 (time=86.83), 0.00808631 s/step
-Meep progress: 91.42/177.5 = 51.5% done in 112.2s, 105.6s to go
-on time step 9147 (time=91.47), 0.00863 s/step
-Meep progress: 96.16/177.5 = 54.2% done in 116.2s, 98.3s to go
-on time step 9622 (time=96.22), 0.0084307 s/step
-Meep progress: 101.2/177.5 = 57.0% done in 120.2s, 90.6s to go
-on time step 10125 (time=101.25), 0.00796309 s/step
-Meep progress: 105.93/177.5 = 59.7% done in 124.2s, 83.9s to go
-on time step 10598 (time=105.98), 0.00846927 s/step
-Meep progress: 109.71000000000001/177.5 = 61.8% done in 128.2s, 79.2s to go
-on time step 10975 (time=109.75), 0.0106109 s/step
-Meep progress: 114.0/177.5 = 64.2% done in 132.2s, 73.6s to go
-on time step 11404 (time=114.04), 0.00933202 s/step
-Meep progress: 118.64/177.5 = 66.8% done in 136.2s, 67.6s to go
-on time step 11869 (time=118.69), 0.00860497 s/step
-Meep progress: 123.32000000000001/177.5 = 69.5% done in 140.2s, 61.6s to go
-on time step 12337 (time=123.37), 0.00855742 s/step
-Meep progress: 128.12/177.5 = 72.2% done in 144.2s, 55.6s to go
-on time step 12817 (time=128.17), 0.0083456 s/step
-Meep progress: 132.25/177.5 = 74.5% done in 148.2s, 50.7s to go
-on time step 13230 (time=132.3), 0.00969784 s/step
-Meep progress: 135.32/177.5 = 76.2% done in 152.2s, 47.5s to go
-on time step 13536 (time=135.36), 0.0131079 s/step
-Meep progress: 138.56/177.5 = 78.1% done in 156.2s, 43.9s to go
-on time step 13861 (time=138.61), 0.0123218 s/step
-Meep progress: 141.69/177.5 = 79.8% done in 160.2s, 40.5s to go
-on time step 14173 (time=141.73), 0.0128477 s/step
-Meep progress: 144.44/177.5 = 81.4% done in 164.2s, 37.6s to go
-on time step 14450 (time=144.5), 0.0144811 s/step
-Meep progress: 147.51/177.5 = 83.1% done in 168.2s, 34.2s to go
-on time step 14758 (time=147.58), 0.0130066 s/step
-Meep progress: 150.21/177.5 = 84.6% done in 172.3s, 31.3s to go
-on time step 15026 (time=150.26), 0.0149388 s/step
-Meep progress: 152.6/177.5 = 86.0% done in 176.3s, 28.8s to go
-on time step 15266 (time=152.66), 0.0167131 s/step
-Meep progress: 155.89000000000001/177.5 = 87.8% done in 180.3s, 25.0s to go
-on time step 15597 (time=155.97), 0.0121094 s/step
-Meep progress: 159.13/177.5 = 89.7% done in 184.3s, 21.3s to go
-on time step 15921 (time=159.21), 0.012346 s/step
-Meep progress: 162.59/177.5 = 91.6% done in 188.3s, 17.3s to go
-on time step 16266 (time=162.66), 0.0115963 s/step
-Meep progress: 165.96/177.5 = 93.5% done in 192.3s, 13.4s to go
-on time step 16604 (time=166.04), 0.0118522 s/step
-Meep progress: 169.39000000000001/177.5 = 95.4% done in 196.3s, 9.4s to go
-on time step 16946 (time=169.46), 0.0117205 s/step
-Meep progress: 172.84/177.5 = 97.4% done in 200.3s, 5.4s to go
-on time step 17293 (time=172.93), 0.011545 s/step
-Meep progress: 176.31/177.5 = 99.3% done in 204.3s, 1.4s to go
-on time step 17640 (time=176.4), 0.0115531 s/step
-run 0 finished at t = 177.5 (17750 timesteps)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
------------
-Initializing structure...
-time for choose_chunkdivision = 0.00221419 s
-Working in 2D dimensions.
-Computational cell is 35.5 x 10 x 0 with resolution 50
-     prism, center = (-7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.125,-10)
-          (-12.75,-0.875,-10)
-          (-12.75,-0.375,-10)
-          (-2.75,-0.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,0.125,-10)
-          (-12.75,0.375,-10)
-          (-12.75,0.875,-10)
-          (-2.75,1.125,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,0.125,-10)
-          (2.75,1.125,-10)
-          (12.75,0.875,-10)
-          (12.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (7.75,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (2.75,-1.125,-10)
-          (2.75,-0.125,-10)
-          (12.75,-0.375,-10)
-          (12.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (0,0,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-2.75,-1.25,-10)
-          (-2.75,1.25,-10)
-          (2.75,1.25,-10)
-          (2.75,-1.25,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,-0.375,-10)
-          (-12.75,-0.875,-10)
-          (-17.75,-0.875,-10)
-          (-17.75,-0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (-15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (-12.75,0.875,-10)
-          (-12.75,0.375,-10)
-          (-17.75,0.375,-10)
-          (-17.75,0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,0.375,-10)
-          (12.75,0.875,-10)
-          (17.75,0.875,-10)
-          (17.75,0.375,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-     prism, center = (15.25,-0.625,0)
-          height 20, axis (0,0,1), sidewall angle: 0 radians, 4 vertices:
-          (12.75,-0.875,-10)
-          (12.75,-0.375,-10)
-          (17.75,-0.375,-10)
-          (17.75,-0.875,-10)
-          dielectric constant epsilon diagonal = (12,12,12)
-time for set_epsilon = 9.70531 s
------------
-MPB solved for frequency_1(-1,0,0) = 0.339081 after 9 iters
-MPB solved for frequency_1(-2.06483,0,0) = 0.637031 after 7 iters
-MPB solved for frequency_1(-2.09396,0,0) = 0.645159 after 12 iters
-MPB solved for frequency_1(-2.09396,0,0) = 0.645161 after 1 iters
-Meep progress: 3.24/177.5 = 1.8% done in 4.0s, 215.2s to go
-on time step 324 (time=3.24), 0.0123492 s/step
-Meep progress: 6.640000000000001/177.5 = 3.7% done in 8.0s, 205.9s to go
-on time step 665 (time=6.65), 0.0117572 s/step
-Meep progress: 10.02/177.5 = 5.6% done in 12.0s, 200.8s to go
-on time step 1003 (time=10.03), 0.0118686 s/step
-Meep progress: 13.36/177.5 = 7.5% done in 16.0s, 196.8s to go
-on time step 1337 (time=13.37), 0.011982 s/step
-Meep progress: 16.72/177.5 = 9.4% done in 20.0s, 192.5s to go
-on time step 1673 (time=16.73), 0.0119345 s/step
-Meep progress: 20.07/177.5 = 11.3% done in 24.0s, 188.5s to go
-on time step 2008 (time=20.08), 0.0119457 s/step
-Meep progress: 23.57/177.5 = 13.3% done in 28.0s, 183.1s to go
-on time step 2358 (time=23.58), 0.0114378 s/step
-Meep progress: 26.810000000000002/177.5 = 15.1% done in 32.0s, 180.1s to go
-on time step 2681 (time=26.81), 0.0123848 s/step
-Meep progress: 30.12/177.5 = 17.0% done in 36.0s, 176.4s to go
-on time step 3012 (time=30.12), 0.0120926 s/step
-Meep progress: 33.36/177.5 = 18.8% done in 40.1s, 173.1s to go
-on time step 3336 (time=33.36), 0.0123632 s/step
-Meep progress: 36.62/177.5 = 20.6% done in 44.1s, 169.5s to go
-on time step 3662 (time=36.62), 0.0122855 s/step
-Meep progress: 39.99/177.5 = 22.5% done in 48.1s, 165.3s to go
-on time step 3999 (time=39.99), 0.0118761 s/step
-Meep progress: 43.38/177.5 = 24.4% done in 52.1s, 161.0s to go
-on time step 4338 (time=43.38), 0.0118174 s/step
-Meep progress: 46.87/177.5 = 26.4% done in 56.1s, 156.3s to go
-on time step 4687 (time=46.87), 0.0114687 s/step
-Meep progress: 50.09/177.5 = 28.2% done in 60.1s, 152.8s to go
-on time step 5009 (time=50.09), 0.0124391 s/step
-Meep progress: 53.39/177.5 = 30.1% done in 64.1s, 149.0s to go
-on time step 5339 (time=53.39), 0.0121401 s/step
-Meep progress: 56.800000000000004/177.5 = 32.0% done in 68.1s, 144.7s to go
-on time step 5680 (time=56.8), 0.0117596 s/step
-Meep progress: 59.980000000000004/177.5 = 33.8% done in 72.1s, 141.3s to go
-on time step 5998 (time=59.98), 0.0125803 s/step
-Meep progress: 63.26/177.5 = 35.6% done in 76.1s, 137.4s to go
-on time step 6326 (time=63.26), 0.0122079 s/step
-Meep progress: 66.63/177.5 = 37.5% done in 80.1s, 133.3s to go
-on time step 6663 (time=66.63), 0.0118728 s/step
-Meep progress: 70.05/177.5 = 39.5% done in 84.1s, 129.0s to go
-on time step 7005 (time=70.05), 0.0116988 s/step
-Meep progress: 73.29/177.5 = 41.3% done in 88.1s, 125.3s to go
-on time step 7329 (time=73.29), 0.0123651 s/step
-Meep progress: 76.47/177.5 = 43.1% done in 92.1s, 121.7s to go
-on time step 7647 (time=76.47), 0.0125918 s/step
-Meep progress: 79.74/177.5 = 44.9% done in 96.1s, 117.9s to go
-on time step 7974 (time=79.74), 0.0122512 s/step
-Meep progress: 83.19/177.5 = 46.9% done in 100.1s, 113.5s to go
-on time step 8319 (time=83.19), 0.0116071 s/step
-Meep progress: 86.61/177.5 = 48.8% done in 104.1s, 109.3s to go
-on time step 8661 (time=86.61), 0.0117125 s/step
-Meep progress: 90.14/177.5 = 50.8% done in 108.1s, 104.8s to go
-on time step 9014 (time=90.14), 0.0113466 s/step
-Meep progress: 93.49/177.5 = 52.7% done in 112.2s, 100.8s to go
-on time step 9349 (time=93.49), 0.011963 s/step
-Meep progress: 96.34/177.5 = 54.3% done in 116.2s, 97.9s to go
-on time step 9634 (time=96.34), 0.0140508 s/step
-Meep progress: 99.58/177.5 = 56.1% done in 120.2s, 94.0s to go
-on time step 9958 (time=99.58), 0.0123528 s/step
-Meep progress: 102.56/177.5 = 57.8% done in 124.2s, 90.7s to go
-on time step 10256 (time=102.56), 0.01343 s/step
-Meep progress: 105.32000000000001/177.5 = 59.3% done in 128.2s, 87.8s to go
-on time step 10532 (time=105.32), 0.014526 s/step
-Meep progress: 108.45/177.5 = 61.1% done in 132.2s, 84.2s to go
-on time step 10845 (time=108.45), 0.0127875 s/step
-Meep progress: 111.33/177.5 = 62.7% done in 136.2s, 80.9s to go
-on time step 11133 (time=111.33), 0.0139068 s/step
-Meep progress: 114.34/177.5 = 64.4% done in 140.2s, 77.4s to go
-on time step 11435 (time=114.35), 0.0132991 s/step
-Meep progress: 117.15/177.5 = 66.0% done in 144.2s, 74.3s to go
-on time step 11717 (time=117.17), 0.0142086 s/step
-Meep progress: 120.45/177.5 = 67.9% done in 148.2s, 70.2s to go
-on time step 12047 (time=120.47), 0.012163 s/step
-Meep progress: 123.63000000000001/177.5 = 69.7% done in 152.2s, 66.3s to go
-on time step 12366 (time=123.66), 0.0125532 s/step
-Meep progress: 126.61/177.5 = 71.3% done in 156.2s, 62.8s to go
-on time step 12664 (time=126.64), 0.013444 s/step
-Meep progress: 129.9/177.5 = 73.2% done in 160.2s, 58.7s to go
-on time step 12993 (time=129.93), 0.0121611 s/step
-Meep progress: 133.29/177.5 = 75.1% done in 164.2s, 54.5s to go
-on time step 13332 (time=133.32), 0.0118049 s/step
-Meep progress: 136.59/177.5 = 77.0% done in 168.2s, 50.4s to go
-on time step 13662 (time=136.62), 0.0121564 s/step
-Meep progress: 139.70000000000002/177.5 = 78.7% done in 172.2s, 46.6s to go
-on time step 13973 (time=139.73), 0.0128861 s/step
-Meep progress: 142.13/177.5 = 80.1% done in 176.2s, 43.9s to go
-on time step 14215 (time=142.15), 0.0165507 s/step
-Meep progress: 144.76/177.5 = 81.6% done in 180.2s, 40.8s to go
-on time step 14480 (time=144.8), 0.0151301 s/step
-Meep progress: 147.38/177.5 = 83.0% done in 184.3s, 37.7s to go
-on time step 14740 (time=147.4), 0.0154009 s/step
-Meep progress: 150.09/177.5 = 84.6% done in 188.3s, 34.4s to go
-on time step 15010 (time=150.1), 0.0148194 s/step
-Meep progress: 153.4/177.5 = 86.4% done in 192.3s, 30.2s to go
-on time step 15341 (time=153.41), 0.01209 s/step
-Meep progress: 156.43/177.5 = 88.1% done in 196.3s, 26.4s to go
-on time step 15644 (time=156.44), 0.0132132 s/step
-Meep progress: 159.46/177.5 = 89.8% done in 200.3s, 22.7s to go
-on time step 15947 (time=159.47), 0.0132044 s/step
-Meep progress: 162.66/177.5 = 91.6% done in 204.3s, 18.6s to go
-on time step 16267 (time=162.67), 0.012504 s/step
-Meep progress: 165.94/177.5 = 93.5% done in 208.3s, 14.5s to go
-on time step 16595 (time=165.95), 0.0122172 s/step
-Meep progress: 169.0/177.5 = 95.2% done in 212.3s, 10.7s to go
-on time step 16901 (time=169.01), 0.0130896 s/step
-Meep progress: 172.20000000000002/177.5 = 97.0% done in 216.3s, 6.7s to go
-on time step 17221 (time=172.21), 0.0125292 s/step
-Meep progress: 175.25/177.5 = 98.7% done in 220.3s, 2.8s to go
-on time step 17526 (time=175.26), 0.0131171 s/step
-run 0 finished at t = 177.5 (17750 timesteps)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
-MPB solved for frequency_1(2.2349,0,0) = 0.685305 after 22 iters
-MPB solved for frequency_1(2.0913,0,0) = 0.645202 after 7 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-MPB solved for frequency_1(2.09116,0,0) = 0.645161 after 1 iters
-Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -2098,18 +979,11 @@ Dominant planewave for band 1: (2.091156,-0.000000,0.000000)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>S-Params:
-S11: (0.14960817169459495+0.18094806104759972j)	S12: (0.10267041589942087+0.3541789490101426j)	S13: (1.8619031794718912+0.7196374503550248j)	S14: (-1.2433181680562757-5.965356735591374j)
-S21: (0.10267041899067682+0.35417894822327617j)	S22: (0.1496081756122604+0.18094806585728018j)	S23: (-1.2433182965094123-5.965357368445672j)	S24: (1.861901683987171+0.7196382153116293j)
-S31: (1.8618449429222623+0.7178469664415132j)	S32: (-1.2433332720946273-5.965300180252111j)	S33: (0.1498160792690407+0.18073202551487394j)	S34: (0.10283168723619183+0.35410857505000864j)
-S41: (-1.2433332729747244-5.965300184431863j)	S42: (1.861844935820673+0.7178469702063446j)	S43: (0.10283182573003818+0.35410861869374605j)	S44: (0.14981620140746998+0.1807331866788009j)
-Input S-Params
-S1: (2.0738370300493054+7.487298837148062j)	S2: (2.073837028980689+7.4872988385060015j)	S3: (2.07368110892212+7.487194315803298j)	S4: (2.0736811497999605+7.487194287317847j)
-Transmission:
-0.091326	0.225287	6.601279	61.515984
-0.225287	0.091326	61.515997	6.601272
-6.596898	61.517183	0.091303	0.225267
-61.517183	6.596898	0.225267	0.091304
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span> <span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">Kernel</span><span class="o">.</span> 
+
+<span class="n">Kernel</span> <span class="n">Python</span> <span class="mf">3.9.6</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">usable</span><span class="o">.</span> <span class="n">Check</span> <span class="n">the</span> <span class="n">Jupyter</span> <span class="n">output</span> <span class="n">tab</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
