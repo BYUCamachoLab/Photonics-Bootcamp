@@ -1,6 +1,7 @@
-# Open Source Software
+# Open source software
 
-```{warning} This does not constitute legal advice
+```{warning} This does not constitute legal advice.
+
 The information provided on this website does not, and is not intended to, 
 constitute legal advice; instead, all information, content, and materials 
 available on this site are for general informational purposes only. Information 

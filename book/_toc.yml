@@ -8,7 +8,7 @@ parts:
     chapters:
     - file: pages/introduction
     - file: pages/credits
-  - caption: Getting Familiar with Code
+  - caption: Development Environment
     chapters:
     - file: pages/open_source
     - file: pages/software
@@ -18,32 +18,20 @@ parts:
       - file: pages/git_and_github
       - file: pages/vscode
       - file: pages/python
+      - file: pages/klayout
       - file: pages/laboratory_tools
       # - file: pages/code_in_the_cloud
-    # - file: pages/klayout
-    # - file: pages/gdsfactory
-    # - file: pages/meep
-    # - file: pages/simphony
+      # - file: pages/gdsfactory
+      # - file: pages/meep
+      # - file: pages/simphony
+      # - file: pages/emepy
   - caption: Passive Device Design and Simulation
     chapters:
-    - file: pages/what_is_a_photonic_device
-    - file: pages/physical_shapes
+    - file: pages/photonic_devices
+    - file: pages/layer_stack
     - file: pages/components
-    - file: pages/passive_components
-      sections:
-      - file: pages/directional_couplers
-      - file: pages/y_branch
-      - file: pages/ring_resonators
-      - file: pages/mmis
-      # - file: pages/bragg_gratings
-      # - file: pages/grating_couplers
-      # - file: pages/edge_couplers
-      # - file: pages/tapers
-    # - file: pages/silicon_on_insulator
-    - file: pages/digital_shape_representation
       sections:
       - file: pages/gds_to_meep
-      - file: pages/meep_to_gds
     - file: pages/waveguides
       sections:
       - file: pages/waveguides_tir
@@ -51,33 +39,52 @@ parts:
       - file: pages/waveguides_mode_solvers
       - file: pages/waveguides_modelling
       - file: pages/waveguides_fdtd_solvers
-  - caption: Circuit Design and Simulation
-    chapters:
-    # - file: pages/photonic_circuit_modeling
+    - file: pages/passive_components
+      sections:
+      # - file: pages/tapers
+      - file: pages/directional_couplers
+      - file: pages/y_branch
+      - file: pages/ring_resonators
+      - file: pages/mmis
+      # - file: pages/bragg_gratings
+      # - file: pages/pbsr
+    - file: pages/optical_io
+      sections:
+      - file: pages/grating_couplers
+      - file: pages/edge_couplers
+    - file: pages/optimization
+      sections: 
+      - file: pages/shape_optimization
+      - file: pages/adjoint_optimization
+      - file: pages/meep_to_gds
     - file: pages/compact_models
       sections:
       - file: pages/scattering_parameters
       # - file: pages/passive_models
-      # - file: pages/active_models
-    # - file: pages/design_for_testing
+    - file: pages/drc
+  - caption: Circuit Design and Simulation
+    chapters:
+    # - file: pages/photonic_circuit_modeling
+    - file: pages/pdks
     # - file: pages/layout
-    # - file: pages/drc
+    # - file: pages/subcircuits
+    # - file: pages/design_for_testing
     - file: pages/mzi
   - caption: Active Device Design and Simulation
     chapters:
     - file: pages/phase_shifters
-    - file: pages/phase_shifters_heaters
-    - file: pages/phase_shifters_pn
+      sections:
+      - file: pages/phase_shifters_heaters
+      - file: pages/phase_shifters_pn
     # - file: pages/voas
     # - file: pages/photodetectors
       # sections:
       # - file: pages/responsivity
       # - file: pages/bandwidth
     # - file: pages/lasers
-  # - caption: Product Development and Fabrication
-    # chapters:
-    # - file: pages/what_is_a_pdk
-    # - file: pages/subcircuits
+    # - file: pages/compact_models
+    #   sections:
+    #   - file: pages/active_models
   # - caption: Testing
     # chapters:
     # - file: pages/equipment
@@ -88,6 +95,8 @@ parts:
     chapters:
     - file: pages/glossary
       title: Glossary
+    - file: pages/component_convenience
+      title: Component
     - url: https://github.com/BYUCamachoLab/sky130ph
       title: Repository
     - url: https://github.com/BYUCamachoLab/sky130ph/docs

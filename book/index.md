@@ -1,6 +1,6 @@
 # CamachoLab Photonics Bootcamp
 
-Supported by Google.
+Sponsored by Google.
 
 This bootcamp is intended for those with experience in electrical engineering
 but are interested in learning about designing integrated photonic circuits and
