@@ -66,8 +66,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Passive components" href="passive_components.html" />
-    <link rel="prev" title="Physical Shapes" href="physical_shapes.html" />
+    <link rel="next" title="GDS to Meep" href="gds_to_meep.html" />
+    <link rel="prev" title="Defining the layer stack" href="layer_stack.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -155,56 +155,74 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Familiar with Code</span></p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Environment</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="open_source.html">Open Source Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Setting up the tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="klayout.html">KLayout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="laboratory_tools.html">Laboratory Tools</a></li>
 </ul>
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="what_is_a_photonic_device.html">What is a Photonic Device?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="physical_shapes.html">Physical Shapes</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Components</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="digital_shape_representation.html">Representing Physical Shapes Digitally</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1"><a class="reference internal" href="photonic_devices.html">What are photonic devices?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_stack.html">Defining the layer stack</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Components</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
-<li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
 </ul>
 </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="optical_io.html">Optical I/O</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="grating_couplers.html">Grating Couplers</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="edge_couplers.html">Edge couplers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="optimization.html">Optimization and inverse design</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="shape_optimization.html">Shape optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adjoint_optimization.html">Adjoint optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checking</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering Parameters (S-Parameters)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder Interferometers (MZIs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pdks.html">Process design kits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder interferometers</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_shifters_heaters.html">Phase Shifters: Heaters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="phase_shifters_pn.html">Phase Shifters: PN Junctions and PIN Junctions</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
+</ul>
+</li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -470,17 +488,26 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-components">Creating Components</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-using-polygons">How to Create a Component Using Polygons</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-from-a-gdsii-file">How to Create a Component from a GDSII file</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-functions-for-creating-components">More Functions for Creating Components</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-components">Connecting Components</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-with-an-ascii-sequence">Connecting With an ASCII Sequence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-grating-couplers">Connecting Grating Couplers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polygons">Polygons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ports">Ports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#labels">Labels</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components-from-polygons">Components from polygons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translation-and-rotation-of-polygons">Translation and rotation of polygons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-operations">Boolean operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-cells">Parametric cells</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shapes-and-generic-cells">Shapes and generic cells</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-ports">Adding ports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components-using-references">Components using references</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-components-to-gds-files">Exporting components to GDS files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-components-from-gds-files">Importing components from GDS files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-components-using-ports">Connecting components using ports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
             </nav>
         </div>
@@ -494,21 +521,64 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="components">
 <h1>Components<a class="headerlink" href="#components" title="Permalink to this heading">#</a></h1>
-<p>In <a class="reference internal" href="glossary.html#term-GDS-Factory"><span class="xref std std-term">GDS Factory</span></a>, we create components and then connect them together to create larger, more complicated designs. Components can be simple shapes, or more complex with references to other components. They usually have ports which allow you to connect the component to other components in GDS Factory.</p>
+<p>In <a class="reference internal" href="glossary.html#term-gdsfactory"><span class="xref std std-term">gdsfactory</span></a>, we create components and then connect them together to create larger, more complicated designs. Components can be simple shapes or more complex constructions, for example, containing references to other components. They usually have ports which allow you to connect the component to other components in GDS Factory. When ports are defined, the translation and aligning of ports to each other is taken care of for you automatically.</p>
 <section id="elements-of-a-component">
 <h2>Elements of a Component<a class="headerlink" href="#elements-of-a-component" title="Permalink to this heading">#</a></h2>
-<p>Components can be made up of polygons, references, and ports.</p>
-<p>Polygons are the lowest building block of components, and if you print out a component’s information, it will tell you how many polygons are contained within it. Since the same polygon is often used twice or multiple times within a component, it will often be referenced.</p>
-<p>References to other components within a component, or circuit, are used to save memory as they point to an existing geometry instead of creating a new one. If, for example, you had a component that used the same taper on all of its inputs and outputs, it would be good to save it only once in memory and then call it and rotate it, if needed, however many times you need for the component instead of saving multiple copies of the same component. So, by using references you can draw on a bank of components to create more complex components without using up as much memory.</p>
-<p>Ports are placed at the inputs and outputs of components, although in a component with many pieces, you can place it at the interconnect between two components. You must specify the direction the port is facing (generally either into or out of the component). You can also specify the width of the port, although it is generally just the width of the input or output of the component it is attached to.</p>
-<p>You can also add labels to your component to convey information not otherwise included. These labels will be seen in the gds file as well as in GDS Factory. A label is added to a component using the function <code class="docutils literal notranslate"><span class="pre">add_label</span></code>, to which you pass what you want the label to say and where it should be in the component, as shown below:</p>
-<p><code class="docutils literal notranslate"><span class="pre">c.add_label(text=&quot;LABEL</span> <span class="pre">TEXT&quot;,</span> <span class="pre">position=c.center)</span></code></p>
+<p>Components can be made up of polygons, references, ports and (optionally) labels.</p>
+<p>Most basically, to start building a component, you need to create the <code class="docutils literal notranslate"><span class="pre">Component</span></code> object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Components have a series of convenience functions to help you visualize them in Jupyter notebooks. For example:</p>
+<ul class="simple">
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_holoviews</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_jupyter</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_klayout</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_matplotlib</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_netlist</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_netlist_flat</span></code></span></p></li>
+<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">plot_widget</span></code></span></p></li>
+</ul>
+<p>Some of these are aliases for each other. For example, <code class="docutils literal notranslate"><span class="pre">plot</span></code> will by default use <code class="docutils literal notranslate"><span class="pre">plot_klayout</span></code>, and could be changed using a keyword argument to use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. In the below examples, for formatting, we’ll be explicit. But <strong>the recommended plot function is <code class="docutils literal notranslate"><span class="pre">plot</span></code></strong>, which will display an interactive klayout widget in Jupyter notebooks.</p>
+</div>
+<section id="polygons">
+<h3>Polygons<a class="headerlink" href="#polygons" title="Permalink to this heading">#</a></h3>
+<p>Polygons are the lowest building block of components. They are simply an ordered list of vertices, each adjacent pair of vertices defining a line that does not cross any other lines within the shape (although overlapping of parallel lines is allowed, and vertices can lie upon other lines).</p>
 </section>
-<section id="creating-components">
-<h2>Creating Components<a class="headerlink" href="#creating-components" title="Permalink to this heading">#</a></h2>
-<section id="how-to-create-a-component-using-polygons">
-<h3>How to Create a Component Using Polygons<a class="headerlink" href="#how-to-create-a-component-using-polygons" title="Permalink to this heading">#</a></h3>
-<p>In GDS Factory, polygons can be used to piece together a component’s geometry. Polygons are defined with their vertices and the layer in which they are on. For components with more complex functions, i.e. not just passive components, more than one layer may be needed to define the component. In this case, you can specify what parts of your component are on which layer. As an example, let us create a 2x2 <a class="reference internal" href="glossary.html#term-MMI"><span class="xref std std-term">MMI</span></a> using polygons to define the tapers and the body of the MMI.</p>
+<section id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
+<p>References point to an existing geometry instead of creating a new one. That geometry can be a component defined by a polygon, a more complex parameterized component (called a parametric cell), or even a hierarchical component (cell with component nesting). They save memory because the the core geometry is only defined once but is referenced many times. These references can be translated, rotated and placed anywhere independently, but those operations are all applied to the base instance.</p>
+<p>For example, you had a component that used the same taper on all of its inputs and outputs, instead of repeatedly defining the same taper, it would be good to create the taper only once and then reference it and rotate it (if required) as many times as you need for the higher-level component. By using references you can draw on a bank of components to create more complex components without using up as much memory.</p>
+<p>This follows the pattern used in GDS files, where a cell is defined once and then referenced many times across a design.</p>
+</section>
+<section id="ports">
+<h3>Ports<a class="headerlink" href="#ports" title="Permalink to this heading">#</a></h3>
+<p>Ports are placed at the inputs and outputs of components.</p>
+<p>In a hierarchical component (one composed of many other components), you’ll place it at the interconnect of the compound component and not the intermediate ones. You must specify the direction the port is facing (generally either into or out of the component). You can also specify the width of the port, although it is generally just the width of the input or output of the component it is attached to.</p>
+</section>
+<section id="labels">
+<h3>Labels<a class="headerlink" href="#labels" title="Permalink to this heading">#</a></h3>
+<p>You can also add labels to your component to convey information not otherwise included. These labels will be seen in the gds file as well as in <code class="docutils literal notranslate"><span class="pre">gdsfactory</span></code>.</p>
+<p>A label is added to a component using the function <a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/00_geometry.html?highlight=add_label#labels"><code class="docutils literal notranslate"><span class="pre">add_label</span></code></a>, to which you pass the label text and location where it should be in the component, as shown below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">add_label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;LABEL TEXT&quot;</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="components-from-polygons">
+<h2>Components from polygons<a class="headerlink" href="#components-from-polygons" title="Permalink to this heading">#</a></h2>
+<p>In GDS Factory, polygons can be used to build up a component’s geometry. Polygons are defined by their (ordered) vertices and the GDS layer on which they lie. For components with more complex functions, i.e. not just passive components, several polygons laying on more than one layer may be needed to define the component. You can specify what parts of your component are on which layer when adding the polygon to the component. Components track the number of polygons they contain.</p>
+<p>As an example, let us create a taper using polygons. We create polygons by passing a list of tuples (the coordinates) to the <code class="docutils literal notranslate"><span class="pre">points</span></code> keyword argument. When specifying points we need to do this in an ordered, circular fashion as shown below. The initial point should not be repeated as the last point, as it is inferred that the polygon is closed.</p>
+<p><em>(This script is complete, it should run “as is”)</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
@@ -516,18 +586,27 @@ document.write(`
 <span class="c1"># Create a component containing a polygon for the taper</span>
 <span class="c1"># This will be referenced in the final component</span>
 <span class="n">taper</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+
 <span class="n">t_length</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">t_input</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">t_output</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">t_gap</span> <span class="o">=</span> <span class="mf">0.125</span>
-<span class="n">mmi_length</span> <span class="o">=</span> <span class="mf">5.5</span>
-<span class="n">mmi_width</span> <span class="o">=</span> <span class="mf">2.5</span>
+<span class="n">t_width_in</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">t_width_out</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># Create taper component to be referenced</span>
-<span class="n">taper</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">t_input</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="n">t_input</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="n">t_length</span><span class="p">,</span><span class="n">t_output</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="n">t_length</span><span class="p">,</span><span class="o">-</span><span class="n">t_output</span><span class="o">/</span><span class="mi">2</span><span class="p">)],</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Add polygon defining the taper waveguide shape</span>
+<span class="n">taper</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span>
+    <span class="n">points</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">t_width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">t_length</span><span class="p">,</span> <span class="n">t_width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">t_length</span><span class="p">,</span> <span class="o">-</span><span class="n">t_width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="p">],</span> 
+    <span class="c1"># GDS layers are tuples of ints, but if we use only one number it assumes </span>
+    <span class="c1"># we&#39;ve provided the layer number and that the other number, the datatype, </span>
+    <span class="c1"># is 0.</span>
+    <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># Now let&#39;s see what the taper look like</span>
-<span class="n">taper</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="c1"># Visualize the taper</span>
+<span class="n">taper</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -535,230 +614,440 @@ document.write(`
 <img alt="../_images/70b9e901f634e74c654736ccc4c0b84bd0bb88991ddb030c49e11b1533e67bde.png" src="../_images/70b9e901f634e74c654736ccc4c0b84bd0bb88991ddb030c49e11b1533e67bde.png" />
 </div>
 </div>
-<p>Now we create the body of the 2x2 MMI. After the body is created we can then attach our tapers to the sides of the MMI.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create component for 2x2 MMI, then add the MMI body and reference the tapers in the component</span>
-<span class="n">mmi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="n">mmi_width</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">mmi_width</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="n">mmi_length</span><span class="p">,</span><span class="o">-</span><span class="n">mmi_width</span><span class="o">/</span><span class="mi">2</span><span class="p">),(</span><span class="n">mmi_length</span><span class="p">,</span><span class="n">mmi_width</span><span class="o">/</span><span class="mi">2</span><span class="p">)],</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">t_length</span><span class="p">),</span><span class="n">t_output</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">t_gap</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">t_length</span><span class="p">),</span><span class="o">-</span><span class="p">(</span><span class="n">t_output</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">t_gap</span><span class="p">)),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">t_length</span><span class="o">+</span><span class="n">mmi_length</span><span class="p">,</span><span class="n">t_output</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">t_gap</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">t_length</span><span class="o">+</span><span class="n">mmi_length</span><span class="p">,</span><span class="o">-</span><span class="p">(</span><span class="n">t_output</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">t_gap</span><span class="p">)),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
-
-<span class="n">mmi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/c0ea80d3a375c4919ce05e93d0213d12cfe49e4330635385f51bad1fb5272c90.png" src="../_images/c0ea80d3a375c4919ce05e93d0213d12cfe49e4330635385f51bad1fb5272c90.png" />
-</div>
-</div>
-<p>Now that we added the tapers we can add the ports to the component.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add ports to the component</span>
-<span class="n">port_width</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">port_center</span> <span class="o">=</span> <span class="mf">0.625</span>
-<span class="n">ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">t_length</span><span class="p">,</span><span class="o">-</span><span class="n">port_center</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
-         <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">t_length</span><span class="p">,</span><span class="n">port_center</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
-         <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o3&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">mmi_length</span><span class="o">+</span><span class="n">t_length</span><span class="p">,</span><span class="n">port_center</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
-         <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o4&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">mmi_length</span><span class="o">+</span><span class="n">t_length</span><span class="p">,</span><span class="o">-</span><span class="n">port_center</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">)</span>
-<span class="p">]</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">add_ports</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span>
-
-<span class="c1"># Plot the final design</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-
-<span class="c1"># Compare with the GDSFactory component for the 2x2 MMI</span>
-<span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi2x2</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/225589828d27e7b097d5cfb329fa572a96e844ce647a46ce6ff79c769b27a92d.png" src="../_images/225589828d27e7b097d5cfb329fa572a96e844ce647a46ce6ff79c769b27a92d.png" />
-<img alt="../_images/94b1d5f42b9c74989e244a1cd1949486a3c6c137695f92eb8117c96b69c867f2.png" src="../_images/94b1d5f42b9c74989e244a1cd1949486a3c6c137695f92eb8117c96b69c867f2.png" />
-</div>
-</div>
-<p>We can now see how our final design compares to GDS’s prebuilt 2x2 MMI.</p>
 </section>
-<section id="how-to-create-a-component-from-a-gdsii-file">
-<h3>How to Create a Component from a GDSII file<a class="headerlink" href="#how-to-create-a-component-from-a-gdsii-file" title="Permalink to this heading">#</a></h3>
-<p>It is sometimes necessary (or useful) to import a gds file into GDS Factory. This can happen if you have created a geometry using some other software, such as Meep, and you would like to the use the geometry in GDS Factory. While GDS Factory has functions to convert the geometry, there are several other steps you need to take after this conversion to get a useful GDS Factory component.</p>
-<p>The purpose of this notebook is to demonstrate the steps needed to create a complete GDS Factory component from a gds file.</p>
-<p>For this example, we’ll be using a gds design of a splitter that was created in Meep.</p>
-<p>This is an picture of the gds we will convert to a component:
-<img alt="Image of splitter file" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/compFromGdsTutorial1.png" /></p>
-<p>Here we go!</p>
-<p>We’ll just be using gdsfactory here, so we’ll include that at the top, and also make a variable to hold the path to the gds file. In our case, that will be “splitter1x2”</p>
+<section id="translation-and-rotation-of-polygons">
+<h2>Translation and rotation of polygons<a class="headerlink" href="#translation-and-rotation-of-polygons" title="Permalink to this heading">#</a></h2>
+<p>Polygons can also be translated and rotated.</p>
+<p><em>(This script is complete, it should run “as is”)</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 
-<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;splitter1x2.gds&quot;</span> <span class="c1"># The filename or path of the gds</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Our first step is to get the geometry from the gds file and create a component with that geometry.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a component with the same name as our gds</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">fname</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">-</span><span class="mi">4</span><span class="p">])</span> 
+<span class="c1"># Create a component containing a polygon for the taper</span>
+<span class="c1"># This will be referenced in the final component</span>
+<span class="n">taper</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
 
-<span class="c1"># Add the geometry from the gds as a reference to our component</span>
-<span class="c1"># The &lt;&lt; is shorthand for c.add_ref()</span>
-<span class="n">splitter</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">import_gds</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<span class="n">t_length</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">t_width_in</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">t_width_out</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="c1"># Show the component</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we have a geometry, but in order to use it in gdsfactory, we need ports. Since our original gds did not have any ports, we must add them now.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># bbox is the bounding box of the component. </span>
-<span class="c1"># It stores the lower left and the upper right corners of the component in a 2D array</span>
-<span class="n">box</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">bbox</span> 
+<span class="c1"># Add polygon defining the taper waveguide shape</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">taper</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span>
+    <span class="n">points</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">t_width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">t_length</span><span class="p">,</span> <span class="n">t_width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">t_length</span><span class="p">,</span> <span class="o">-</span><span class="n">t_width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="p">],</span> 
+    <span class="c1"># GDS layers are tuples of ints, but if we use only one number it assumes </span>
+    <span class="c1"># we&#39;ve provided the layer number and that the other number, the datatype, </span>
+    <span class="c1"># is 0.</span>
+    <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># Find the middle y value</span>
-<span class="n">yMid</span> <span class="o">=</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># Add ports. </span>
-<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">yMid</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># adds the input port with the name &quot;o1&quot; It must be oriented 180 so it points out of the component</span>
-<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># adds the upper output port with name &quot;o2&quot;</span>
-<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o3&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># adds the lower output port with name &quot;o3&quot;</span>
-
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>And there you go!</p>
-<p>Now that your gds is a component in GDS Factory, you can use it in conjunction with other GDS Factory functions to create more complicated designs. For example, GDS Factory’s cutback_splitter function can be used to create <span class="xref std std-term">cutbacks</span> using this splitter.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cutbacks</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">cutback_splitter</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
-<span class="n">cutbacks</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">routing</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">cutbacks</span><span class="p">,</span> <span class="n">with_loopback</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">cutbacks</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">poly</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">poly</span><span class="o">.</span><span class="n">move</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+          
+<span class="c1"># Visualize the taper</span>
+<span class="n">taper</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
-</pre></div>
-</div>
-<img alt="../_images/73f5895d002f61d1575462202fedd1281011335716a08c28d63a15b46997feff.png" src="../_images/73f5895d002f61d1575462202fedd1281011335716a08c28d63a15b46997feff.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cutback_splitter_52e92e_42263575: uid ee21f529, ports [&#39;opt-grating_coupler_ellipti_dd7f7af4-cutback_splitter_52e92e1e-o1&#39;, &#39;opt-grating_coupler_ellipti_dd7f7af4-cutback_splitter_52e92e1e-o2&#39;], references [&#39;bend_euler_1&#39;, &#39;straight_1&#39;, &#39;straight_2&#39;, &#39;bend_euler_2&#39;, &#39;straight_3&#39;, &#39;straight_4&#39;, &#39;bend_euler_3&#39;, &#39;bend_euler_4&#39;, &#39;straight_5&#39;, &#39;straight_6&#39;, &#39;straight_7&#39;, &#39;bend_euler_5&#39;, &#39;bend_euler_6&#39;, &#39;straight_8&#39;, &#39;straight_9&#39;, &#39;straight_10&#39;, &#39;grating_coupler_elliptical_trenches_1&#39;, &#39;grating_coupler_elliptical_trenches_2&#39;, &#39;cutback_splitter_1&#39;], 0 polygons
-</pre></div>
-</div>
+<img alt="../_images/e798c9a0985d32f46d44327197d1751184269ee7b9d9a96989bebba1684d5a61.png" src="../_images/e798c9a0985d32f46d44327197d1751184269ee7b9d9a96989bebba1684d5a61.png" />
 </div>
 </div>
 </section>
-<section id="more-functions-for-creating-components">
-<h3>More Functions for Creating Components<a class="headerlink" href="#more-functions-for-creating-components" title="Permalink to this heading">#</a></h3>
-<p>GDS Factory comes with a variety of functions that can help you manipulate the geometry of your component, allowing you to more easily create many different shapes. For example, there are Boolean operators you can use to combine different geometries, meaning that you can subtract shapes from each other, merge them together, or XOR them. The accepted operations are “and”, “not”, “or”, “xor”, “A-B”, “B-A”, and “A+B”. Of course, “A-B” is equivalent to “not” and “A+B” is equivalent to “or”. To use these operations, you specify your two arguments (or pieces of the geometry that will be involved in the operation), the operation itself, and the layer:</p>
-<p><code class="docutils literal notranslate"><span class="pre">gf.geometry.boolean(A=[components],B=[components],operation=&quot;A-B&quot;,layer=1)</span></code></p>
-</section>
-<section id="connecting-components">
-<h3>Connecting Components<a class="headerlink" href="#connecting-components" title="Permalink to this heading">#</a></h3>
-<p>Once you have created your components and perhaps tested them individually, you may want to connect them into a larger circuit with a more sophisticated function. To do this, you can use the “connect” function from GDS Factory.</p>
-<p>This function takes in two ports as arguments. The first is the port in the component you are calling connect on that will attach to the second port, or the “destination” port.</p>
-<p>As a simple example, we could use the following code to connect two waveguides to form a component:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
-
-<span class="c1"># Create a component</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
-
-<span class="c1"># Add references to two straight waveguides</span>
-<span class="n">wg_1</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">wg_2</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-
-<span class="c1"># The contents of the component before connecting</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-
-<span class="c1"># Connect the two waveguides and plot the final result</span>
-<span class="c1"># To &quot;o2&quot; on wg_1, connect &quot;o1&quot; on wg_2</span>
-<span class="n">wg_1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">wg_2</span><span class="p">[</span><span class="s2">&quot;o1&quot;</span><span class="p">])</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<section id="boolean-operations">
+<h2>Boolean operations<a class="headerlink" href="#boolean-operations" title="Permalink to this heading">#</a></h2>
+<p>gdsfactory comes with a variety of functions that can help you manipulate the geometry of your component, allowing you to more easily create many different shapes. For example, there are Boolean operators you can use to combine different geometries, meaning that you can subtract shapes from each other, merge them together, or XOR them.</p>
+<p>To use these operations, you specify the two groups of pieces of the geometry that will be involved in the operation, the operation itself, and the target layer (where to place the resulting geometry):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="p">[</span><span class="n">components_a</span><span class="p">],</span> <span class="n">B</span><span class="o">=</span><span class="p">[</span><span class="n">components_b</span><span class="p">],</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;A-B&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-05-09 11:33:08.609 | INFO     | gdsfactory.config:&lt;module&gt;:50 - Load &#39;/home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory&#39; 6.27.0
-2023-05-09 11:33:10.020 | INFO     | gdsfactory.technology.layer_views:__init__:779 - Importing LayerViews from KLayout layer properties file: /home/ebang4/miniconda3/envs/pmp/lib/python3.11/site-packages/gdsfactory/generic_tech/klayout/tech/layers.lyp.
-</pre></div>
-</div>
-<img alt="../_images/66f4e1751d5eca6ab136ebcf8fdcdcee223ac2bf74757404154cd314521fb166.png" src="../_images/66f4e1751d5eca6ab136ebcf8fdcdcee223ac2bf74757404154cd314521fb166.png" />
-<img alt="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" src="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" />
-<img alt="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" src="../_images/aed76425f9fac778bccbf9ba3094f7bc90eb43ebf4c6104a28e3eeca24a043a2.png" />
-</div>
-</div>
-<p>As your connections get more complex, be aware of the order in which you connect components. GDS Factory automatically moves components as they are connected, and they may be moved in ways you don’t want. For example, the final geometry of the preceding example would be at different location if you used</p>
-<p><code class="docutils literal notranslate"><span class="pre">wg_2.connect(&quot;o1&quot;,</span> <span class="pre">destination=wg_1[&quot;o2&quot;])</span></code></p>
-<p>Although the same two ports are being connected, the result differs because you are now connecting wg_1 to wg_2 and not wg_2 to wg_1. Essentially, take care when laying out the sequence of your connections.</p>
-</section>
-<section id="connecting-with-an-ascii-sequence">
-<h3>Connecting With an ASCII Sequence<a class="headerlink" href="#connecting-with-an-ascii-sequence" title="Permalink to this heading">#</a></h3>
-<p>If you have many connections that you need to make that only require a few components, you can connect components with an ASCII sequence.</p>
-<p>To do this, you must create a dictionary to map ASCII symbols to components. Then you create a sequence to feed into <code class="docutils literal notranslate"><span class="pre">gf.components.component_sequence</span></code>. For example, if we wanted to connect waveguides of different lengths in a repeating pattern you can print out the ports of a component if you aren’t sure which is which. This will help you as you are making your connections. Also, it’s good to double check your connections.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
-<span class="n">short_wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">long_wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="n">symbol_to_component</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">short_wg</span><span class="p">,</span> <span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="s2">&quot;o2&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">long_wg</span><span class="p">,</span> <span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="s2">&quot;o2&quot;</span><span class="p">),</span>
-<span class="p">}</span>
-
-<span class="n">sequence</span> <span class="o">=</span> <span class="s2">&quot;SLSLSL&quot;</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">component_sequence</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">symbol_to_component</span><span class="o">=</span><span class="n">symbol_to_component</span><span class="p">)</span>
-<span class="n">s</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" src="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" />
-<img alt="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" src="../_images/146ca7ad628443f7d6d035a652ec5b6ef98c2466472371c009ea3671bb9ff45f.png" />
-</div>
-</div>
-</section>
-<section id="connecting-grating-couplers">
-<h3>Connecting Grating Couplers<a class="headerlink" href="#connecting-grating-couplers" title="Permalink to this heading">#</a></h3>
-<p>Unless you plan on having an edge-coupled chip, you will most likely need <span class="xref std std-term">grating couplers</span> to couple light into your circuit. So, the last component that you will want to connect to your circuit is grating couplers. <code class="docutils literal notranslate"><span class="pre">add_grating_couplers</span></code> automatically connects grating couplers to the ports in your component. Before using this function, you may want to make sure that your component/circuit has its ports specified. You don’t have to, but it makes it easier to use this function. The function requires that you specify the component you are adding grating couplers to. If you have a component with many references in it, the function may try and add grating couplers to the ports of each reference, instead of just the main input and output ports. So, you either have to pass in arguments for the <code class="docutils literal notranslate"><span class="pre">select_ports</span></code> parameter, or just create new ports for the component. Going back to our example with the two straight waveguides, we can add ports to the ends of the now longer waveguide, absorb the references so that it truly appears as just one waveguide, and then add the grating couplers.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add ports to the input and output</span>
-<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">wg_1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">&quot;o1&quot;</span><span class="p">])</span>
-<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">wg_2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">&quot;o2&quot;</span><span class="p">])</span>
-
-<span class="c1"># Absorbe the references to the two waveguides</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">references</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">absorb</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">references</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-    
-<span class="c1"># Add grating couplers</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">add_grating_couplers</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="practice">
-<h3>Practice:<a class="headerlink" href="#practice" title="Permalink to this heading">#</a></h3>
+<p>The accepted operations are:</p>
 <ul class="simple">
-<li><p>Pick a GDS Factory component and recreate it using polygons</p></li>
-<li><p>Use Boolean operators to create a cricular ring and then a racetrack ring.</p></li>
-<li><p>Create a directional coupler circuit using only GDS Factory default components</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;and&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;not&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;or&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;xor&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;A-B&quot;</span></code> (equivalent to “not”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;B-A&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;A+B&quot;</span></code> (equivalent to “or”)</p></li>
+</ul>
+<p><em>(This script is complete, it should run “as is”)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="n">circle</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+<span class="n">circle</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">triangle</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+<span class="n">triangle</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">pacman</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">circle</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">triangle</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;A-B&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot the originals and the result</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;boolean_subtraction&quot;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">pacman</span><span class="p">)</span> <span class="c1"># we&#39;ll talk about references later</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d1a48fc3a77c855069b558a2e957eb9109042b7fd19e32439c6cb8a5c423333a.png" src="../_images/d1a48fc3a77c855069b558a2e957eb9109042b7fd19e32439c6cb8a5c423333a.png" />
+</div>
+</div>
+</section>
+<section id="parametric-cells">
+<h2>Parametric cells<a class="headerlink" href="#parametric-cells" title="Permalink to this heading">#</a></h2>
+<p>To parameterize this process to make tapers of different dimensions, or to repeatedly use the same geometry without redefining the shape and vertices every time, we can write a function that returns a component. This is called a parametric cell.</p>
+<p>In addition to calculating the location of the points for us, it caches the input parameters and its corresponding output geometry so that any subsequent call with the same parameters will return the geometry without rebuilding it. In order to enable this functionality, you must use the <code class="docutils literal notranslate"><span class="pre">&#64;gf.cell</span></code> decorator.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you’re developing in a notebook, because of caching, if you modify the contents of a cell and call it again without changing the parameters, your new code won’t be run. You need to clear <code class="docutils literal notranslate"><span class="pre">gdsfactory</span></code>’s cache using <code class="docutils literal notranslate"><span class="pre">gf.clear_cache()</span></code>.</p>
+</div>
+<p>Writing cell functions is a good way to create a library of reusable components for your circuits. Another fantastic benefit of writing cells is, if you type-hint them, gdsfactory will automatically validate arguments types.</p>
+<p>Let’s create a parametric cell for tapers named <code class="docutils literal notranslate"><span class="pre">taper()</span></code>. We’ll be able to create new tapers by simply calling</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">taper_component</span> <span class="o">=</span> <span class="n">taper</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><em>(This script is complete, it should run “as is”)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="nd">@gf</span><span class="o">.</span><span class="n">cell</span>
+<span class="k">def</span> <span class="nf">taper</span><span class="p">(</span><span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">width_in</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">width_out</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">):</span>
+    <span class="c1"># Create a component containing a polygon for the taper</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+
+    <span class="c1"># Add polygon defining the taper waveguide shape</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span>
+        <span class="n">points</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="o">-</span><span class="n">width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">],</span> 
+        <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Return the constructed component</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+<span class="c1"># Visualize the taper</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">taper</span><span class="p">()</span>
+<span class="n">t</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/70b9e901f634e74c654736ccc4c0b84bd0bb88991ddb030c49e11b1533e67bde.png" src="../_images/70b9e901f634e74c654736ccc4c0b84bd0bb88991ddb030c49e11b1533e67bde.png" />
+</div>
+</div>
+<section id="shapes-and-generic-cells">
+<h3>Shapes and generic cells<a class="headerlink" href="#shapes-and-generic-cells" title="Permalink to this heading">#</a></h3>
+<p>Just like we’ve created a new cell called <code class="docutils literal notranslate"><span class="pre">taper()</span></code>, gdsfactory comes with a <a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html">library of basic cells</a> you can use. These can help you create more complex components more quickly, without having to calculate the position of every polygon point.</p>
+<p>Some of the most useful ones include:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#rectangle"><code class="docutils literal notranslate"><span class="pre">gf.components.rectangle</span></code></a></p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#ellipse"><code class="docutils literal notranslate"><span class="pre">gf.components.ellipse</span></code></a></p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#circle"><code class="docutils literal notranslate"><span class="pre">gf.components.circle</span></code></a></p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#ring"><code class="docutils literal notranslate"><span class="pre">gf.components.ring</span></code></a></p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#bend-circular"><code class="docutils literal notranslate"><span class="pre">gf.components.bend_circular</span></code></a></p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#bend-euler"><code class="docutils literal notranslate"><span class="pre">gf.components.bend_euler</span></code></a></p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#tapers"><code class="docutils literal notranslate"><span class="pre">gf.components.tapers</span></code></a> (I know we just made one)</p></li>
+<li><p><a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/04_components_shapes.html#text"><code class="docutils literal notranslate"><span class="pre">gf.components.text</span></code></a></p></li>
 </ul>
 </section>
 </section>
+<section id="adding-ports">
+<h2>Adding ports<a class="headerlink" href="#adding-ports" title="Permalink to this heading">#</a></h2>
+<p>Ports are placed at the inputs and outputs of components and cells–places where it should line up with other components. You must specify the direction the port is facing (generally outwards, away from the component). You can also specify the width of the port, which is generally just the width of the input or output of the component it is attached to.</p>
+<p>Ports make it easier to attach components together. As you make more complex designs and start connecting different components together, ports will help to automatically move, rotate, and align components together by matching up their respective ports.</p>
+<p>Let’s expand our taper from earlier by adding ports. (Note that it’s common for <em>all</em> ports to point away from the component, instead of towards it.)</p>
+<p><em>(This script is complete, it should run “as is”)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="nd">@gf</span><span class="o">.</span><span class="n">cell</span>
+<span class="k">def</span> <span class="nf">taper</span><span class="p">(</span><span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">width_in</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">width_out</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">):</span>
+    <span class="c1"># Create a component containing a polygon for the taper</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+
+    <span class="c1"># Add polygon defining the taper waveguide shape</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">(</span>
+        <span class="n">points</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width_in</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="o">-</span><span class="n">width_out</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">],</span> 
+        <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Add ports to the component</span>
+    <span class="n">ports</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width_in</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+        <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width_out</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">add_ports</span><span class="p">(</span><span class="n">ports</span><span class="p">)</span>
+
+    <span class="c1"># Return the constructed component</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+<span class="c1"># Visualize the taper</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">taper</span><span class="p">()</span>
+<span class="n">t</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8cd2e668ea290a26c2accf00af77779546c7c013cd2bc0961828cf7d6b7e7f23.png" src="../_images/8cd2e668ea290a26c2accf00af77779546c7c013cd2bc0961828cf7d6b7e7f23.png" />
+</div>
+</div>
+<p>And there we’ve added ports that can be used for translating and aligning this component to other components as part of a larger circuit.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>gdsfactory’s port naming convention is:</p>
+<ul class="simple">
+<li><p>ports are numbered clock-wise starting from the bottom left corner</p></li>
+<li><p>optical ports are prefixed with “o”</p></li>
+<li><p>electrical ports are prefixed with “e”</p></li>
+<li><p>numbering is 1-indexed, not 0-indexed</p></li>
+</ul>
+</div>
+</section>
+<section id="components-using-references">
+<h2>Components using references<a class="headerlink" href="#components-using-references" title="Permalink to this heading">#</a></h2>
+<p>As shown previously, <code class="docutils literal notranslate"><span class="pre">gdsfactory</span></code> defines your component once in memory. Any time you then use it, you are adding a reference to the same component. A reference does not contain any geometry, but is essentially a pointer to an existing component. There is no limit to the number of references you can have to a component.</p>
+<p>The GDSII specification is built around the use of references, so gdsfactory also uses them (with the <code class="docutils literal notranslate"><span class="pre">Component.add_ref()</span></code> function or the <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> operator).</p>
+<p>In the previous example, we created and parameterized the geometry of a taper. We’ll now include that taper cell  in a 2x2 multimode interferometer (MMI) by using references. We’ll learn about MMI’s later, but for now just know that they have a wide (and therefore multimodal) waveguide section with inputs and outputs on each side, where we’ll attach our tapers.</p>
+<p>By using references to add tapers to our MMI, we could easily change the parameters of all four tapers without having to redraw each one individually.</p>
+<p>Let’s make a function that returns an MMI component. Right off the bat, we’ll make it a parametric component. We’ll call it <code class="docutils literal notranslate"><span class="pre">mmi2x2()</span></code>. It will take as arguments the width of the multimode section, the length of the multimode section, as well as parameters for the tapers. It will return an MMI component with four tapers attached to it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="nd">@gf</span><span class="o">.</span><span class="n">cell</span>
+<span class="k">def</span> <span class="nf">mmi2x2</span><span class="p">(</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.125</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># Determine the shape of the taper we&#39;ll use</span>
+    <span class="n">taper_length</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">taper_width_in</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">taper_width_out</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">taper_c</span> <span class="o">=</span> <span class="n">taper</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">taper_length</span><span class="p">,</span> <span class="n">width_in</span><span class="o">=</span><span class="n">taper_width_in</span><span class="p">,</span> <span class="n">width_out</span><span class="o">=</span><span class="n">taper_width_out</span><span class="p">)</span>
+
+    <span class="c1"># Add the MMI body</span>
+    <span class="n">mmi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="n">mmi</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">port_type</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
+    <span class="n">rect</span><span class="o">.</span><span class="n">move</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Add ports to the MMI body</span>
+    <span class="n">port_width</span> <span class="o">=</span> <span class="n">taper_width_out</span>
+    <span class="n">port_center</span> <span class="o">=</span> <span class="n">gap</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">taper_width_out</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">mmi</span><span class="o">.</span><span class="n">add_ports</span><span class="p">([</span>
+        <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o1&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">port_center</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+        <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o2&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">port_center</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+        <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o3&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">port_center</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+        <span class="n">gf</span><span class="o">.</span><span class="n">Port</span><span class="p">(</span><span class="s1">&#39;o4&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="o">-</span><span class="n">port_center</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">port_type</span><span class="o">=</span><span class="s2">&quot;optical&quot;</span><span class="p">),</span>
+    <span class="p">])</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+    <span class="c1"># We can use add_ref</span>
+    <span class="n">mmi_ref</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">mmi</span><span class="p">)</span>
+    <span class="c1"># or we can use the left shift operator as shorthand</span>
+    <span class="n">taper_refs</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">taper_c</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>
+
+    <span class="c1"># Move the tapers into position</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">port</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="s2">&quot;o3&quot;</span><span class="p">,</span> <span class="s2">&quot;o4&quot;</span><span class="p">]):</span>
+        <span class="n">taper_refs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">mmi_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="n">port</span><span class="p">])</span>
+
+    <span class="c1"># The composed component needs to have just its ports alone exposed</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ref</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">taper_refs</span><span class="p">):</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;o</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">&quot;o1&quot;</span><span class="p">])</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">auto_rename_ports</span><span class="p">()</span> <span class="c1"># for consistency</span>
+
+    <span class="k">return</span> <span class="n">c</span>
+
+<span class="n">gf</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">()</span>
+<span class="n">mmi2x2</span><span class="p">()</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3338384397563580408313bb2883518d595b910c0880eba7f56240d1c38edb96.png" src="../_images/3338384397563580408313bb2883518d595b910c0880eba7f56240d1c38edb96.png" />
+</div>
+</div>
+<p>For simpler components, you may find it easier to just do the math and calculate how different geometries fit together yourself. But for more complex components, it’s often easier to use references to attach other components together. It also makes swapping out or modifying components easier, because you won’t have to redo the math.</p>
+<p>Below is an example of calculating inline where to place tapers without connecting its ports.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@gf</span><span class="o">.</span><span class="n">cell</span>
+<span class="k">def</span> <span class="nf">mmi2x2</span><span class="p">(</span>
+    <span class="n">length</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.125</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+
+    <span class="c1"># Add the MMI body</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">port_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">rect_ref</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+    <span class="n">rect_ref</span><span class="o">.</span><span class="n">move</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># We&#39;ll have to do some math to figure out where to put the tapers</span>
+    <span class="n">taper_length</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">taper_width_in</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">taper_width_out</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">taper_c</span> <span class="o">=</span> <span class="n">taper</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="n">taper_length</span><span class="p">,</span> <span class="n">width_in</span><span class="o">=</span><span class="n">taper_width_in</span><span class="p">,</span> <span class="n">width_out</span><span class="o">=</span><span class="n">taper_width_out</span><span class="p">)</span>
+    
+    <span class="n">tapers</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper_c</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">taper_length</span><span class="p">),</span> <span class="p">(</span><span class="n">taper_width_out</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper_c</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">taper_length</span><span class="p">),</span> <span class="o">-</span><span class="p">(</span><span class="n">taper_width_out</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper_c</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">taper_length</span> <span class="o">+</span> <span class="n">length</span><span class="p">,(</span><span class="n">taper_width_out</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">180</span><span class="p">),</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">taper_c</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="p">(</span><span class="n">taper_length</span> <span class="o">+</span> <span class="n">length</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">taper_width_out</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">180</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">taper_ref</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tapers</span><span class="p">):</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;o</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">taper_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">&quot;o1&quot;</span><span class="p">])</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">auto_rename_ports</span><span class="p">()</span> <span class="c1"># for consistency</span>
+
+    <span class="k">return</span> <span class="n">c</span>
+
+<span class="n">gf</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">()</span>
+<span class="n">mmi2x2</span><span class="p">()</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b2f6da08b3c493a9d5fed5363c833091be885faab938da00ffbf056137980cd3.png" src="../_images/b2f6da08b3c493a9d5fed5363c833091be885faab938da00ffbf056137980cd3.png" />
+</div>
+</div>
+</section>
+<section id="exporting-components-to-gds-files">
+<h2>Exporting components to GDS files<a class="headerlink" href="#exporting-components-to-gds-files" title="Permalink to this heading">#</a></h2>
+<p>Now that we’ve created our geometry, we may want to export it to be manufactured, to be shared with others, to be imported into some other tool (potentially Lumerical) or to be added to a PDK as a fixed GDS file instead of a code-defined shape. This is as simple as calling the <code class="docutils literal notranslate"><span class="pre">Component.write_gds()</span></code> function on the component and supplying a path. This will write the component to a GDS file in the current directory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">taper</span><span class="p">()</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s1">&#39;taper.gds&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="importing-components-from-gds-files">
+<h2>Importing components from GDS files<a class="headerlink" href="#importing-components-from-gds-files" title="Permalink to this heading">#</a></h2>
+<p>It is sometimes necessary to import a GDS file into gdsfactory. Perhaps you created the geometry using some other software, such as Meep, and you would like to the use the geometry in a circuit built using gdsfactory. Or, perhaps you were given a PDK from a fab or another designer where the components were provided as GDS files. While gdsfactory has functions to convert the geometry, there are several other steps you need to take after this conversion to get a useful gdsfactory component.</p>
+<p>For this example, we’ll be using a GDS of a y-branch that is part of the open-source <a class="reference external" href="https://github.com/SiEPIC/SiEPIC_EBeam_PDK/tree/master">SiEPIC EBeam PDK</a>.</p>
+<p><a class="reference download internal" download="" href="../_downloads/beb2adb9a01532f34c648038732f48c2/ebeam_y_1550.gds"><code class="xref download docutils literal notranslate"><span class="pre">ebeam_y_1550.gds</span></code></a> (or, get it on <a class="reference external" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/files/ebeam_y_1550.gds">GitHub</a>)</p>
+<div style="text-align: center">
+<img src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/siepic-ybranch.png?raw=true" style="max-width: 500px" alt="SiEPIC Y-branch">
+</div><p>gdsfactory provides the convenient <code class="docutils literal notranslate"><span class="pre">import_gds()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;../files/ebeam_y_1550.gds&quot;</span>
+
+<span class="c1"># Create a component with the same name as our gds</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ebeam_y_1550&quot;</span><span class="p">)</span> 
+
+<span class="c1"># Add the geometry from the gds as a reference to our component</span>
+<span class="c1"># The &lt;&lt; is shorthand for c.add_ref()</span>
+<span class="n">splitter</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">import_gds</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># Show the component</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/525586df4e7a1c9d5884bdb100fa84e5866783d12b05da9e6511311e6a19b9ae.png" src="../_images/525586df4e7a1c9d5884bdb100fa84e5866783d12b05da9e6511311e6a19b9ae.png" />
+</div>
+</div>
+<p>Now we have a geometry, but in order to use it in gdsfactory, we need ports. We can add these manually, getting the locations from KLayout (you can hover your mouse and read coordinates or examine the polygons vertices themselves and calculate the midpoints):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add ports. </span>
+<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">7.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">7.4</span><span class="p">,</span> <span class="mf">2.75</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">c</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="s2">&quot;o3&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">7.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.75</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b822245022c69d7ae7080da2f4a94887463dff4a976b1f7740fcf95724c67797.png" src="../_images/b822245022c69d7ae7080da2f4a94887463dff4a976b1f7740fcf95724c67797.png" />
+</div>
+</div>
+</section>
+<section id="connecting-components-using-ports">
+<h2>Connecting components using ports<a class="headerlink" href="#connecting-components-using-ports" title="Permalink to this heading">#</a></h2>
+<p>We can connect separate components together by referencing ports.</p>
+<p>Let’s take this straight component:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">straight</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">straight</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d3acc6d5b50a155e84d52c71155f8041bfd3d4f97e025c44b2a1ec8cdb0d150d.png" src="../_images/d3acc6d5b50a155e84d52c71155f8041bfd3d4f97e025c44b2a1ec8cdb0d150d.png" />
+</div>
+</div>
+<p>and this bend:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bend</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">bend_circular</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">bend</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dc026d8effd787190ca7031d621ad0d8d29fd58be7cc6e9844bda85fa7470d9c.png" src="../_images/dc026d8effd787190ca7031d621ad0d8d29fd58be7cc6e9844bda85fa7470d9c.png" />
+</div>
+</div>
+<p>and connect them together. This must be done in a <code class="docutils literal notranslate"><span class="pre">Component</span></code>, which, if you’ll recall, is essentially a canvas on which you can draw your geometry. That includes drawing components, which is what we’ll do here by adding references.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+
+<span class="n">straight_ref</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">straight</span><span class="p">)</span>
+<span class="n">bend_ref</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+
+<span class="n">bend_ref</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">straight_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">&quot;o2&quot;</span><span class="p">])</span>
+
+<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c3c84964c185c8b51ccb165517c43b76dcf286d720e9185619db757efdbbf6b2.png" src="../_images/c3c84964c185c8b51ccb165517c43b76dcf286d720e9185619db757efdbbf6b2.png" />
+</div>
+</div>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Pick a GDS Factory component and recreate it using polygons</p></li>
+<li><p>Use Boolean operators to create a circular ring and then a racetrack ring.</p></li>
+<li><p>Create a directional coupler circuit using only GDS Factory default components</p></li>
+</ol>
+</section>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -793,20 +1082,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="physical_shapes.html"
+       href="layer_stack.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Physical Shapes</p>
+        <p class="prev-next-title">Defining the layer stack</p>
       </div>
     </a>
     <a class="right-next"
-       href="passive_components.html"
+       href="gds_to_meep.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Passive components</p>
+        <p class="prev-next-title">GDS to Meep</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -828,17 +1117,26 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-components">Creating Components</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-using-polygons">How to Create a Component Using Polygons</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-create-a-component-from-a-gdsii-file">How to Create a Component from a GDSII file</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-functions-for-creating-components">More Functions for Creating Components</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-components">Connecting Components</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-with-an-ascii-sequence">Connecting With an ASCII Sequence</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-grating-couplers">Connecting Grating Couplers</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elements-of-a-component">Elements of a Component</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polygons">Polygons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ports">Ports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#labels">Labels</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components-from-polygons">Components from polygons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translation-and-rotation-of-polygons">Translation and rotation of polygons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean-operations">Boolean operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-cells">Parametric cells</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shapes-and-generic-cells">Shapes and generic cells</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-ports">Adding ports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#components-using-references">Components using references</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exporting-components-to-gds-files">Exporting components to GDS files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-components-from-gds-files">Importing components from GDS files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-components-using-ports">Connecting components using ports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
   </nav></div>
 
