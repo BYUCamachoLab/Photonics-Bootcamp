@@ -643,11 +643,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2023-06-13 08:55:42.060</span> | <span class=" -Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class=" -Color -Color-Cyan">gdsfactory.pdk</span>:<span class=" -Color -Color-Cyan">get_active_pdk</span>:<span class=" -Color -Color-Cyan">603</span> - <span class=" -Color -Color-Bold -Color-Bold-Yellow">No active PDK. Activating generic PDK.</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2023-06-22 09:49:38.788</span> | <span class=" -Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class=" -Color -Color-Cyan">gdsfactory.pdk</span>:<span class=" -Color -Color-Cyan">get_active_pdk</span>:<span class=" -Color -Color-Cyan">603</span> - <span class=" -Color -Color-Bold -Color-Bold-Yellow">No active PDK. Activating generic PDK.</span>
 
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "711c6f8b996c49d9804ec537e0585d67", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>grating_coupler: uid ee169edf, ports [], references [], 11 polygons
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "c8a445319d3c4c47ae4694afc5599b99", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>grating_coupler: uid fc884557, ports [], references [], 11 polygons
 </pre></div>
 </div>
 </div>
@@ -666,7 +666,19 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 
 <span class="nd">@gf</span><span class="o">.</span><span class="n">cell</span>
-<span class="k">def</span> <span class="nf">focusing_grating_coupler</span><span class="p">(</span><span class="n">grating_period</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">,</span> <span class="n">taper_length</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">num_teeth</span> <span class="o">=</span> <span class="mi">20</span> <span class="p">,</span> <span class="n">port_width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+    <span class="n">WG</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">()</span>
+    <span class="n">WG</span><span class="o">.</span><span class="n">add_polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">)],</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span><span class="p">)</span>
+    <span class="n">WG</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span>
+    <span class="p">)</span>
+    <span class="n">WG</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;o2&quot;</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">length</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">WG</span>
+
+<span class="nd">@gf</span><span class="o">.</span><span class="n">cell</span>
+<span class="k">def</span> <span class="nf">focusing_grating_coupler</span><span class="p">(</span><span class="n">grating_period</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">,</span> <span class="n">taper_length</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">num_teeth</span> <span class="o">=</span> <span class="mi">20</span> <span class="p">,</span> <span class="n">port_width</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">):</span>
     
     <span class="k">def</span> <span class="nf">concentric_rings</span><span class="p">():</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;Concentric circles&quot;</span><span class="p">)</span>
@@ -685,21 +697,89 @@ document.write(`
     <span class="n">triangle_height</span> <span class="o">=</span> <span class="mi">20</span>
     
     <span class="n">component</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">trim</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="n">port_width</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">port_width</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">triangle_length</span><span class="p">,</span> <span class="o">-</span><span class="n">triangle_height</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">triangle_length</span><span class="p">,</span> <span class="n">triangle_height</span><span class="p">]])</span>
-
-    <span class="n">component2</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;waveguide&quot;</span><span class="p">)</span>
-    <span class="n">rect_ref</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-    <span class="n">component2</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">rect_ref</span><span class="p">)</span>
     <span class="n">component</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">port_width</span><span class="p">,</span> <span class="n">orientation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">component</span>
 
-<span class="n">c</span> <span class="o">=</span> <span class="n">focusing_grating_coupler</span><span class="p">(</span><span class="n">grating_period</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">,</span> <span class="n">taper_length</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num_teeth</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span> <span class="n">port_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+<span class="c1">#grating_coupler = focusing_grating_coupler(grating_period=0.7, width = 0.35, taper_length = 10, num_teeth = 24, port_width=0.5)</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">&quot;straights_not_connected&quot;</span><span class="p">)</span>
+
+<span class="n">grating_coupler</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">focusing_grating_coupler</span><span class="p">(</span><span class="n">grating_period</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span><span class="p">,</span> <span class="n">taper_length</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num_teeth</span> <span class="o">=</span> <span class="mi">24</span><span class="p">,</span> <span class="n">port_width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">waveguide</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">waveguide</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;o1&quot;</span><span class="p">,</span> <span class="n">grating_coupler</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">&quot;o1&quot;</span><span class="p">])</span>
+<span class="c1">#waveguide.movex(1)</span>
+
 <span class="n">c</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "502f253312a546578e53f8648caac64a", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>focusing_grating_couple_f701ae8b: uid c6ade7ec, ports [&#39;o1&#39;], references [], 25 polygons
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7f89343804ae46668cb683dd48428368", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>straights_not_connected: uid f34dbf40, ports [], references [&#39;focusing_grating_coupler_1&#39;, &#39;straight_1&#39;], 0 polygons
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">gdsfactory.simulation.gmeep</span> <span class="k">as</span> <span class="nn">gm</span>
+<span class="kn">import</span> <span class="nn">tidy3d</span>
+<span class="kn">import</span> <span class="nn">gdsfactory.simulation.gtidy3d</span> <span class="k">as</span> <span class="nn">gt</span>
+
+
+<span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">grating_coupler_elliptical_lumerical</span><span class="p">()</span>
+<span class="p">)</span>  <span class="c1"># inverse design grating apodized</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="c1">#fiber_angle_deg = 5</span>
+<span class="c1">#s = gt.get_simulation_grating_coupler(</span>
+<span class="c1">#    c, is_3d=False, fiber_angle_deg=fiber_angle_deg, fiber_xoffset=0</span>
+<span class="c1">#)</span>
+<span class="c1">#f = gt.plot_simulation(s)</span>
+
+<span class="c1">#c = gf.components.mmi2x2()</span>
+
+<span class="c1"># Plot s-parameters simulation</span>
+<span class="n">gm</span><span class="o">.</span><span class="n">write_sparameters_grating</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">xmargin_left</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xmargin_right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">port_source_offset</span><span class="o">=-</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">port_monitor_offset</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Run simulation and save results</span>
+<span class="n">sp</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">write_sparameters_meep</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">xmargin_left</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xmargin_right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">port_source_offset</span><span class="o">=-</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">port_monitor_offset</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2023-06-23 14:12:07.028</span> | <span class=" -Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class=" -Color -Color-Cyan">gdsfactory.pdk</span>:<span class=" -Color -Color-Cyan">get_active_pdk</span>:<span class=" -Color -Color-Cyan">603</span> - <span class=" -Color -Color-Bold -Color-Bold-Yellow">No active PDK. Activating generic PDK.</span>
+
+</pre></div>
+</div>
+<img alt="../_images/4f8fe8e1ed3eac8d6082dd85204ee4d323d0f4735f821ed024db4ba17b869707.png" src="../_images/4f8fe8e1ed3eac8d6082dd85204ee4d323d0f4735f821ed024db4ba17b869707.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">21</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="c1">#fiber_angle_deg = 5</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="c1">#s = gt.get_simulation_grating_coupler(</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1">#    c, is_3d=False, fiber_angle_deg=fiber_angle_deg, fiber_xoffset=0</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> 
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="c1"># Plot s-parameters simulation</span>
+<span class="ne">---&gt; </span><span class="mi">21</span> <span class="n">gm</span><span class="o">.</span><span class="n">write_sparameters_grating</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">xmargin_left</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xmargin_right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">port_source_offset</span><span class="o">=-</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">port_monitor_offset</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">run</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="c1"># Run simulation and save results</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">write_sparameters_grating</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">xmargin_left</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">xmargin_right</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">port_source_offset</span><span class="o">=-</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">port_monitor_offset</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="nn">File ~/mp/envs/meep/lib/python3.11/site-packages/gdsfactory/simulation/gmeep/write_sparameters_grating.py:142,</span> in <span class="ni">write_sparameters_grating</span><span class="nt">(plot, plot_contour, animate, overwrite, dirpath, decay_by, verbosity, **settings)</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sparameters loaded from </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">filepath_npz</span><span class="p">)</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath_npz</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">142</span> <span class="n">sim_dict</span> <span class="o">=</span> <span class="n">get_simulation_grating_fiber</span><span class="p">(</span><span class="o">**</span><span class="n">settings</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="n">sim</span> <span class="o">=</span> <span class="n">sim_dict</span><span class="p">[</span><span class="s2">&quot;sim&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">sim_dict</span><span class="p">[</span><span class="s2">&quot;freqs&quot;</span><span class="p">]</span>
+
+<span class="ne">TypeError</span>: get_simulation_grating_fiber() got an unexpected keyword argument &#39;xmargin_left&#39;
 </pre></div>
 </div>
 </div>
