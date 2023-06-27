@@ -61,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'pages/grating_couplers';</script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/grating_couplers.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
@@ -491,8 +493,8 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How does it work?</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#essential-parameters">Essential parameters</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-period">Grating period</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fill-factor">Fill factor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etch-depth">Etch depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-etch-depth">Grating etch depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-fill-factor">Grating fill factor</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
@@ -666,17 +668,30 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <section class="tex2jax_ignore mathjax_ignore" id="essential-parameters">
 <h1>Essential parameters<a class="headerlink" href="#essential-parameters" title="Permalink to this heading">#</a></h1>
 <p>It is important to recognize that grating couplers are sensitive to a variety of parameters, some of which will not be discussed in detail in this page. The above demonstration has been optimized for light at 1550 nm, and a 220 nm silicon waveguide. To determine the appropriate parameters for your specific designs, see the analysis page. The following three parameters are essential to a basic understanding of functioning and design of grating coupler.</p>
-<section id="grating-period">
+</div>
+<p>Simplified view of a grating coupler:</p>
+<div style="text-align: center;width: 400px;margin: auto">
+<p><img alt="gif" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/gc_parameters.png?raw=true" /></p>
+</div><section id="grating-period">
 <h2>Grating period<a class="headerlink" href="#grating-period" title="Permalink to this heading">#</a></h2>
-<p>The grating period …</p>
+<p>The grating period (typically denoted by “ʌ”) is the parameter most likely to effect the efficiency of a grating coupler. It is the length of one period of the grating, and is measured in microns. The grating period is typically chosen to be near half the wavelength of the light being used. This is because the bragg grating period is related to the wavelength of light by the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\Lambda = \frac{\lambda}{2n_{eff}}
+\]</div>
+<p>*** Important note: ***</p>
+<p>If we were to choose this period to be exactly half the wavelength, the light would be diffracted at 90 degrees, which is problematic since a byproduct of this diffraction would be a large amount of light reflected back into the waveguide. This is known as the “zeroth order” diffraction. To avoid this, the grating period is typically chosen to be slightly less than half the wavelength of the light. This results in a diffraction angle slightly less than 90 degrees, which is ideal for coupling light into a fiber optic cable.</p>
 </section>
-<section id="fill-factor">
-<h2>Fill factor<a class="headerlink" href="#fill-factor" title="Permalink to this heading">#</a></h2>
-<p>The fill factor …</p>
+<section id="grating-etch-depth">
+<h2>Grating etch depth<a class="headerlink" href="#grating-etch-depth" title="Permalink to this heading">#</a></h2>
+<p>The grating etch depth is the depth of the grating teeth into the silicon waveguide. As the etch depth increases, the effective index of refraction of the etched area also decreases. The overall effective index of refraction of the grating coupler is a weighted average of the effective index of the etched and unetched areas…</p>
 </section>
-<section id="etch-depth">
-<h2>Etch depth<a class="headerlink" href="#etch-depth" title="Permalink to this heading">#</a></h2>
-<p>The etch depth …</p>
+<section id="grating-fill-factor">
+<h2>Grating fill factor<a class="headerlink" href="#grating-fill-factor" title="Permalink to this heading">#</a></h2>
+<p>The grating fill factor is the ratio of the width of the grating teeth to the width of the grating period.
+$<span class="math notranslate nohighlight">\(
+ff = \frac{w}{\Lambda}
+\)</span>$</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="sources">
@@ -755,8 +770,8 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How does it work?</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#essential-parameters">Essential parameters</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-period">Grating period</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fill-factor">Fill factor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etch-depth">Etch depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-etch-depth">Grating etch depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-fill-factor">Grating fill factor</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
