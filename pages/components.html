@@ -184,7 +184,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
@@ -204,11 +204,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -217,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
@@ -556,7 +557,7 @@ document.write(`
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
 <p>References point to an existing geometry instead of creating a new one. That geometry can be a component defined by a polygon, a more complex parameterized component (called a parametric cell), or even a hierarchical component (cell with component nesting). They save memory because the the core geometry is only defined once but is referenced many times. These references can be translated, rotated and placed anywhere independently, but those operations are all applied to the base instance.</p>
-<p>For example, you had a component that used the same taper on all of its inputs and outputs, instead of repeatedly defining the same taper, it would be good to create the taper only once and then reference it and rotate it (if required) as many times as you need for the higher-level component. By using references you can draw on a bank of components to create more complex components without using up as much memory.</p>
+<p>For example, if you had a component that used the same taper on all of its inputs and outputs, instead of repeatedly defining the same taper, it would be good to create the taper only once and then reference it and rotate it (if required) as many times as you need for the higher-level component. By using references you can draw on a bank of components to create more complex components without using up as much memory.</p>
 <p>This follows the pattern used in GDS files, where a cell is defined once and then referenced many times across a design.</p>
 </section>
 <section id="ports">
@@ -575,7 +576,7 @@ document.write(`
 </section>
 <section id="components-from-polygons">
 <h2>Components from polygons<a class="headerlink" href="#components-from-polygons" title="Permalink to this heading">#</a></h2>
-<p>In GDS Factory, polygons can be used to build up a component’s geometry. Polygons are defined by their (ordered) vertices and the GDS layer on which they lie. For components with more complex functions, i.e. not just passive components, several polygons laying on more than one layer may be needed to define the component. You can specify what parts of your component are on which layer when adding the polygon to the component. Components track the number of polygons they contain.</p>
+<p>In gdsfactory, polygons can be used to build up a component’s geometry. Polygons are defined by their (ordered) vertices and the GDS layer on which they lie. For components with more complex functions, i.e. not just passive components, several polygons laying on more than one layer may be needed to define the component. You can specify what parts of your component are on which layer when adding the polygon to the component. Components track the number of polygons they contain.</p>
 <p>As an example, let us create a taper using polygons. We create polygons by passing a list of tuples (the coordinates) to the <code class="docutils literal notranslate"><span class="pre">points</span></code> keyword argument. When specifying points we need to do this in an ordered, circular fashion as shown below. The initial point should not be repeated as the last point, as it is inferred that the polygon is closed.</p>
 <p><em>(This script is complete, it should run “as is”)</em></p>
 <div class="cell docutils container">

@@ -29,7 +29,7 @@ gdsfactory
     [gdsfactory](https://gdsfactory.github.io/gdsfactory/index.html) is a open source platform that allows you to create photonic chips in python or YAML. It uses a end-to-end design flow that helps you design, verify, and validate your photonic chip.
 
 GDS file
-    Graphic Data System file. Programs like meep output gds files that we must convert so we can use their geometry in gds factory.
+    Graphic Data System file. Programs like meep output gds files that we must convert so we can use their geometry in gdsfactory.
 
 grating coupler
     A photonic device that couples light from a waveguide to free space. It is used to couple light from a fiber to a photonic chip.

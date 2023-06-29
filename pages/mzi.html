@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Phase Shifters" href="phase_shifters.html" />
+    <link rel="next" title="Advanced Components" href="advanced_components.html" />
     <link rel="prev" title="Process design kits" href="pdks.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -186,7 +186,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
@@ -206,11 +206,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
 <ul class="current nav bd-sidenav">
@@ -219,6 +219,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
@@ -490,17 +491,17 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a Balanced MZI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick Check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of Imblanced MZI’s</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quick Check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of imblanced MZI’s</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quick check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-Optic Effect:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quick Check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-optic effect</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quick check</a></li>
 </ul>
 </li>
 </ul>
@@ -527,7 +528,7 @@ document.write(`
 <p>Click <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">here</a> for more information about implementing sweeps.</p>
 </section>
 <section id="analysis-of-a-balanced-mzi">
-<h2>Analysis of a Balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
+<h2>Analysis of a balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
 <p>You can think of a balanced interferometer as having equal path lengths when the light separates. In ideal conditions, this means that amount of power at the output is the same as the input.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -571,15 +572,15 @@ document.write(`
 </ol>
 <p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
 <section id="quick-check">
-<h3>Quick Check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
+<h3>Quick check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
 <p>If intensity of the input wave is .5 mW, what is the intensity at the output?</p>
 <details>
     <summary>Answer</summary>
     Here is the answer  
 </details></section>
 </section>
-<section id="basic-definitions">
-<h2>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Permalink to this heading">#</a></h2>
+<section id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
 <p>It would be helpful to mathematically model the light in our waveguides. We can start to build a model by considering the equation for a plane wave.</p>
 <div class="math notranslate nohighlight">
 \[    
@@ -606,7 +607,7 @@ I_{output} = \frac{I_{input}}{4} \lvert E_{o1} + E_{o2} \lvert ^2
 \]</div>
 </section>
 <section id="analysis-of-imblanced-mzi-s">
-<h2>Analysis of Imblanced MZI’s<a class="headerlink" href="#analysis-of-imblanced-mzi-s" title="Permalink to this heading">#</a></h2>
+<h2>Analysis of imblanced MZI’s<a class="headerlink" href="#analysis-of-imblanced-mzi-s" title="Permalink to this heading">#</a></h2>
 <p>The equation below is the simplified version of the above expressions assuming no difference in the propogation constants of the two different waveguides and no loss.</p>
 <div class="math notranslate nohighlight">
 \[
@@ -637,7 +638,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 </div>
 </div>
 <section id="id1">
-<h3>Quick Check<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>Quick check<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>What is the power measured in the output if the input light had an intensity of 0.75mW and a wavelength of 1450nm, the shorter path has a length of 90µm and the longer path a length of 110µm?</p>
 <details>
     <summary>Answer</summary>
@@ -645,7 +646,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 </details></section>
 </section>
 <section id="thermo-optic-effect">
-<h2>Thermo-Optic Effect:<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this heading">#</a></h2>
+<h2>Thermo-optic effect<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this heading">#</a></h2>
 <p>While a balanced MZI will not experience a phase shift due to a difference in path length, we can introduce a phasae shift by utilizing other methods. The thermo-optic effect describes the effect of heat on the phase of light. By heating up one of the waveguide in the MZI, we can control the phase shift of that waveguide and therefor the intensity of the output. This is a practical way to turn our otherwise static MZI in to a switch that we can control.</p>
 <p><img alt="Image of a thermo-optic switch" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/thermo_optic_switch.png" /></p>
 <p>Introducing a phase shift in this way will affect the propogation constant ‘β’ and since we are assuming that the path lengths are equal, we can modify our previous equation like this:</p>
@@ -654,7 +655,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
 \]</div>
 <section id="id2">
-<h3>Quick Check<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3>Quick check<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Assume that the lengths of the two paths are 100µm, the light has a wavelength of 1500nm and the ouptput was measured to be 0.9mW. What is the input intensity of the MZI if the heater introduced a 90° phase shift in the top waveguide?</p>
 <details>
     <summary>Answer</summary>
@@ -705,11 +706,11 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
       </div>
     </a>
     <a class="right-next"
-       href="phase_shifters.html"
+       href="advanced_components.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Phase Shifters</p>
+        <p class="prev-next-title">Advanced Components</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -732,17 +733,17 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a Balanced MZI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick Check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-definitions">Basic Definitions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of Imblanced MZI’s</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quick Check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-imblanced-mzi-s">Analysis of imblanced MZI’s</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Quick check</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-Optic Effect:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quick Check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thermo-optic-effect">Thermo-optic effect</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Quick check</a></li>
 </ul>
 </li>
 </ul>

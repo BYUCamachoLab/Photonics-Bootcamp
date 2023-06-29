@@ -184,7 +184,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional Couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
@@ -204,11 +204,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact Models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -217,6 +217,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
@@ -489,6 +490,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silicon-on-insulator">Silicon-on-insulator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-layer-stack-in-gdsfactory">Defining a layer stack in gdsfactory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layermap">LayerMap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layerviews">LayerViews</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layerstack">LayerStack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
             </nav>
         </div>
@@ -526,6 +531,248 @@ document.write(`
 </section>
 <section id="defining-a-layer-stack-in-gdsfactory">
 <h2>Defining a layer stack in gdsfactory<a class="headerlink" href="#defining-a-layer-stack-in-gdsfactory" title="Permalink to this heading">#</a></h2>
+<p>There are three tools to help you define a layer stack in gdsfactory:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#layer-map"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">LayerMap</span></code></span></a>: pairs layer names to GDS layer numbers and datatypes</p></li>
+<li><p><a class="reference internal" href="#layer-views"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">LayerViews</span></code></span></a>: defines visualization of design, like layer colors and fill patterns</p></li>
+<li><p><a class="reference internal" href="#layer-stack"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">LayerStack</span></code></span></a>: information on thickness and position of each layer, for simulations or 3D models and cross-sections</p></li>
+</ul>
+</section>
+<section id="layermap">
+<span id="layer-map"></span><h2>LayerMap<a class="headerlink" href="#layermap" title="Permalink to this heading">#</a></h2>
+<p>Layers define process steps or materials. A layer map is a dictionary that maps human-readable layer names to GDS layer numbers and datatypes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can define a layer mapping from Python code or by reading an existing KLayout properties file (.lyp), if you’re migrating an existing PDK to gdsfactory.</p>
+</div>
+<p>There are a few utility layers that gdsfactory likes to have present if you’re using any of the generic components or cross sections, as they automatically add geometries to these layers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DEVREC</span></code>: device recognition layer for connectivity checks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PORT</span></code>: optical ports</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PORTE</span></code>: electrical ports</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SHOW_PORTS</span></code>: port markers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LABEL</span></code>: add labels to grating couplers for automatic testing</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LABEL_INSTANCE</span></code>: for instance labels when reading from netlists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TE</span></code>: TE polarization fiber marker</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TM</span></code>: TM polarization fiber marker</p></li>
+</ul>
+<p>gdsfactory uses <a class="reference external" href="https://docs.pydantic.dev/latest/">Pydantic</a> to define these configuration classes.</p>
+<p>Below is a simple example layer map. It has a waveguide layer (including a partial etch layer), the utility layers, and a metal layer. Layers that you could add to your own PDK might include germanium layers (for photodiodes), silicon nitride waveguide layers, doping layers of varying concentrations (for pn junctions), more metal layers, capacitor layers, and vias of varying depths to access all of these. You may add other utility layers too, including <a class="reference internal" href="glossary.html#term-DRC"><span class="xref std std-term">DRC</span></a> exclude regions, dicing lanes, or layers reserved for showing errors and DRC violations. We won’t do any of that here; it is left as an exercise to the reader.</p>
+<p><em>(This script is complete, it should run “as is”)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span> <span class="nn">gdsfactory.typings</span> <span class="kn">import</span> <span class="n">Layer</span>
+
+
+<span class="k">class</span> <span class="nc">LayerMap</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="c1"># waveguide layers</span>
+    <span class="n">WG</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">SLAB150</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># utility layers</span>
+    <span class="n">DEVREC</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">PORT</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">PORTE</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="n">SHOW_PORTS</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    
+    <span class="c1"># label layers</span>
+    <span class="n">LABEL</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">201</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">LABEL_INSTANCES</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">206</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">TE</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">TM</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">204</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">TEXT</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">66</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># electrical layers</span>
+    <span class="n">M1</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">VIA</span><span class="p">:</span> <span class="n">Layer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">frozen</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="s2">&quot;forbid&quot;</span>
+
+
+<span class="n">LAYER</span> <span class="o">=</span> <span class="n">LayerMap</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Green">2023-06-19 16:18:25.227</span> | <span class=" -Color -Color-Bold">INFO    </span> | <span class=" -Color -Color-Cyan">gdsfactory.config</span>:<span class=" -Color -Color-Cyan">__init__</span>:<span class=" -Color -Color-Cyan">204</span> - <span class=" -Color -Color-Bold">LogLevel: INFO</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="layerviews">
+<span id="layer-views"></span><h2>LayerViews<a class="headerlink" href="#layerviews" title="Permalink to this heading">#</a></h2>
+<p>Layer views define how your design will be visualized. This includes the color of each layer, the fill pattern, and whether the layer is visible or not. These settings are applied to the matplotlib plots, 3D views, cross-sections, and the settings can be exported to file for use in KLayout, too.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">LayerViews</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Waveguide</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotted</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ff9d9d&quot;</span>
+<span class="w">  </span><span class="nt">SLAB150</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coarsely dotted</span>
+<span class="w">    </span><span class="nt">transparent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cyan&quot;</span>
+<span class="w">  </span><span class="nt">M1</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">41</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dotted</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#01ff6b&quot;</span>
+<span class="w">    </span><span class="nt">brightness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-16</span>
+<span class="w">  </span><span class="nt">VIA</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">40</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hollow</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#cc4c00&quot;</span>
+<span class="w">  </span><span class="nt">LABEL_OPTICAL_IO</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">201</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hollow</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;blue&quot;</span>
+<span class="w">  </span><span class="nt">LABEL_SETTINGS</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">202</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hollow</span>
+<span class="w">    </span><span class="nt">visible</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;magenta&quot;</span>
+<span class="w">  </span><span class="nt">TE</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">203</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">transparent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;blue&quot;</span>
+<span class="w">  </span><span class="nt">TM</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">204</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;red&quot;</span>
+<span class="w">  </span><span class="nt">LABEL_INSTANCES</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">206</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lightly left-hatched</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;blue&quot;</span>
+<span class="w">  </span><span class="nt">DevRec</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">68</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hollow</span>
+<span class="w">    </span><span class="nt">visible</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">transparent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#004080&quot;</span>
+<span class="w">  </span><span class="nt">PinRec</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hollow</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#404040&quot;</span>
+<span class="w">  </span><span class="nt">Text</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">66</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hollow</span>
+<span class="w">    </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;blue&quot;</span>
+<span class="w">  </span><span class="nt">XSECTION</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">group_members</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">XS_BOX</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">300</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#f3ff80&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_SI</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">301</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;black&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_SI_SLAB</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">313</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#80a8ff&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_OVERLAY</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">311</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;blue&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_OX_SI</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">302</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#f3ff80&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_VIA</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">303</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;grey&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_M1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">304</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;green&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_OXIDE_M1</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">305</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#f3ff80&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">      </span><span class="nt">XS_VIA</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">308</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;grey&quot;</span>
+<span class="w">        </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solid</span>
+<span class="w">  </span><span class="nt">SHOW_PORTS</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">12</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lightly left-hatched</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ff80a8&quot;</span>
+<span class="w">  </span><span class="nt">WG_PIN</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">layer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">10</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">layer_in_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">hatch_pattern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lightly left-hatched</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ff80a8&quot;</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gdsfactory.config</span> <span class="kn">import</span> <span class="n">PATH</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PATH</span><span class="o">.</span><span class="n">klayout_lyp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath(&#39;/home/sequoia/git/Photonics-Bootcamp/env/lib/python3.11/site-packages/gdsfactory/generic_tech/klayout/tech/generic_tech.lyp&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="layerstack">
+<span id="layer-stack"></span><h2>LayerStack<a class="headerlink" href="#layerstack" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="exercises">
+<h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Create a layer stack that includes a silicon waveguide layer, a silicon nitride waveguide layer, doping layers of three concentrations for each of n-type and p-type (n, np, npp, p, pp, ppp), and two metal layers. Add a germanium layer directly above the silicon waveguides for photodiodes. Be sure to include the <a class="reference external" href="https://gdsfactory.github.io/gdsfactory/notebooks/08_pdk.html#layers">utility layers</a> required by gdsfactory in your stack. Select your own layer numbers.</p></li>
+</ol>
 </section>
 </section>
 
@@ -598,6 +845,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silicon-on-insulator">Silicon-on-insulator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-layer-stack-in-gdsfactory">Defining a layer stack in gdsfactory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layermap">LayerMap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layerviews">LayerViews</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#layerstack">LayerStack</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 </ul>
   </nav></div>
 
