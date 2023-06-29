@@ -30,38 +30,14 @@
 
 ## Contributors
 
-::::{grid}
+* [Sequoia Ploeg](https://github.com/sequoiap/) (Ph.D. Candidate)
+* [Ryan Camacho](https://camacholab.byu.edu/) (Associate Professor)
+* [Elise Bangerter](https://www.linkedin.com/in/elise-bangerter-6a32b0248/) (Undergraduate Researcher)
+* [Joel Kartchner](https://www.linkedin.com/in/joel-kartchner-413b24230/) (Undergraduate Researcher)
+* [Chandler Parkin](https://github.com/11of12) (Undergraduate Researcher)
+* [Noah Bailey](https://www.linkedin.com/in/nc-bailey/) (Undergraduate Researcher)
+* [Kevin Richins](https://www.linkedin.com/in/kevin-richins-9385a9200/) (Undergraduate Researcher)
 
-:::{grid-item}
-:columns: 6
+<!-- ## Third-party material used:
 
-````{card}
-
-Sequoia Ploeg
-^^^
-```{image} ../images/sequoia.jpg
-:alt: Google
-:height: 200px
-:align: center
-```
-+++
-Doctoral Candidate
-````
-
-:::
-
-:::{grid-item}
-:columns: 6
-
-````{card}
-
-Dr. Ryan Camacho
-^^^
-```{image} ../images/ryan.jpg
-:alt: Google
-:height: 200px
-:align: center
-```
-+++
-Associate Professor
-````
+* MIT Virtual Manufacturing Lab visualizations (contact [Erik Verlage](https://web.mit.edu/everlage/www/)) -->

@@ -13,7 +13,7 @@ modeling, giving them the resources and information on how to submit their
 devices for manufacturing should they wish to test their devices’ performance.
 Open-source tools include Meep {cite:p}`oskooi2010meep` for FDTD simulation,
 Simphony {cite:p}`ploeg2020simphony` for creating compact models and simulating
-larger circuits, and GDS Factory {cite:p}`gdsfactory` for layout of GDS files
+larger circuits, and gdsfactory {cite:p}`gdsfactory` for layout of GDS files
 for submission to fabrication facilities. Introductions to open-source software
 for testing PICs post-fabrication and instructional material on analyzing the
 results are also included in the course. 

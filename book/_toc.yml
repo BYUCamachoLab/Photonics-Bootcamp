@@ -72,6 +72,7 @@ parts:
     - file: pages/mzi
   - caption: Active Device Design and Simulation
     chapters:
+    - file: pages/advanced_components
     - file: pages/phase_shifters
       sections:
       - file: pages/phase_shifters_heaters
