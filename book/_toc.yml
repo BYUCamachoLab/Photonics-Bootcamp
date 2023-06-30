@@ -86,11 +86,11 @@ parts:
     # - file: pages/compact_models
     #   sections:
     #   - file: pages/active_models
-  # - caption: Testing
+  - caption: Testing
     # chapters:
     # - file: pages/equipment
     # - file: pages/sweeps
-    # - file: pages/analyzing_circuits
+    - file: pages/analyzing_circuits
   - caption: References
     numbered: false
     chapters:
