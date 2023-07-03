@@ -87,7 +87,7 @@ parts:
     #   sections:
     #   - file: pages/active_models
   - caption: Testing
-    # chapters:
+    chapters:
     # - file: pages/equipment
     # - file: pages/sweeps
     - file: pages/analyzing_circuits
