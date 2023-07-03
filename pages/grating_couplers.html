@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Grating Couplers &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Grating couplers &#8212; CamachoLab Photonics Bootcamp</title>
   
   
   
@@ -193,7 +193,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="optical_io.html">Optical I/O</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Grating Couplers</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Grating couplers</a></li>
 
 
 
@@ -484,7 +484,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Grating Couplers</h1>
+    <h1>Grating couplers</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -494,7 +494,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Grating Couplers</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Grating couplers</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How does it work?</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#essential-parameters">Essential parameters</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-period">Grating period</a></li>
@@ -516,7 +516,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="grating-couplers">
-<h1>Grating Couplers<a class="headerlink" href="#grating-couplers" title="Permalink to this heading">#</a></h1>
+<h1>Grating couplers<a class="headerlink" href="#grating-couplers" title="Permalink to this heading">#</a></h1>
 <p>Grating couplers are simply components of a photonic circuit that use diffraction to couple light into or out of a waveguide. By utilizing geometry and diffraction, fiber optic cables can be coupled to silicon chips at any location on the chip, instead of just the edges.</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="how-does-it-work">
@@ -682,8 +682,10 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <p><span class="math notranslate nohighlight">\(
 \Lambda = \frac{\lambda}{2n_{eff}}
 \)</span></p>
-<p>*** Important note: ***</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>If we were to choose this period to be exactly half the wavelength, the light would be diffracted at 90 degrees, which is problematic since a byproduct of this diffraction would be a large amount of light reflected back into the waveguide. This is known as the “zeroth order” diffraction. To avoid this, the grating period is typically chosen to be slightly less than half the wavelength of the light. This results in a diffraction angle slightly less than 90 degrees, which is ideal for coupling light into a fiber optic cable.</p>
+</div>
 </section>
 <section id="grating-etch-depth">
 <h2>Grating etch depth<a class="headerlink" href="#grating-etch-depth" title="Permalink to this heading">#</a></h2>
@@ -695,6 +697,10 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <p><span class="math notranslate nohighlight">\(
 ff = \frac{w}{\Lambda}
 \)</span></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here is a note!</p>
+</div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="sources">
@@ -769,7 +775,7 @@ ff = \frac{w}{\Lambda}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Grating Couplers</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Grating couplers</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-it-work">How does it work?</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#essential-parameters">Essential parameters</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grating-period">Grating period</a></li>
