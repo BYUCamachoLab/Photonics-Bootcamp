@@ -32,7 +32,7 @@ pip install --upgrade -r requirements.txt
 You can simply run from the toplevel directory
 
 ```
-jb build book
+jb build book -all
 ```
 
 The output will be located in book/_build/html. To serve it in your browser,
