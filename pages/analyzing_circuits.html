@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Meep to GDS &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Analyzing circuits &#8212; CamachoLab Photonics Bootcamp</title>
   
   
   
@@ -61,13 +61,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/meep_to_gds';</script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/meep_to_gds.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/analyzing_circuits';</script>
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/analyzing_circuits.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Compact models" href="compact_models.html" />
-    <link rel="prev" title="Adjoint optimization" href="adjoint_optimization.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="PN and PIN Junctions" href="phase_shifters_pn.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,7 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="photonic_devices.html">What are photonic devices?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layer_stack.html">Defining the layer stack</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="components.html">Components</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -198,10 +198,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="edge_couplers.html">Edge couplers</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization.html">Optimization and inverse design</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="optimization.html">Optimization and inverse design</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="shape_optimization.html">Shape optimization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="adjoint_optimization.html">Adjoint optimization</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Meep to GDS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -225,8 +225,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="analyzing_circuits.html">Analyzing circuits</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analyzing circuits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -287,7 +287,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/meep_to_gds.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/analyzing_circuits.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -305,7 +305,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/meep_to_gds.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/analyzing_circuits.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -353,7 +353,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/meep_to_gds.ipynb" target="_blank"
+      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/analyzing_circuits.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -370,7 +370,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/meep_to_gds.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/analyzing_circuits.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -400,7 +400,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/pages/meep_to_gds.ipynb" target="_blank"
+      <li><a href="../_sources/pages/analyzing_circuits.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -469,7 +469,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -480,11 +482,22 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Meep to GDS</h1>
+    <h1>Analyzing circuits</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accounting-for-grating-couplers">Accounting for grating couplers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curve-fitting">Curve fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-reference-circuit">Using a reference circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-the-index-of-refraction">Extracting the index of refraction</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -494,93 +507,108 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="meep-to-gds">
-<h1>Meep to GDS<a class="headerlink" href="#meep-to-gds" title="Permalink to this heading">#</a></h1>
-<p>After designing and simulating a component using Meep, you can take that component and put it into gdsfactory. From there, you can design a circuit with it and put it into a GDS file. The method to do this is contained in <code class="docutils literal notranslate"><span class="pre">gdsfactory.simulation.gmeep.meep_adjoint_optimization</span></code> and is relatively straightforward. The function name is <code class="docutils literal notranslate"><span class="pre">get_component_from_sim</span></code>. It takes in a Meep simulation object (make sure it is 2D) and returns a GDS component. From there, you can use gdsfactory functions on it, or export it directly to a GDS file.</p>
-<p>If you choose to continue manipulating the component in gdsfactory, you will most likely want to add ports to your component. This is done using the <code class="docutils literal notranslate"><span class="pre">add_ports</span></code> function for the component.</p>
-<p>Example code for these functions is shown below.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="analyzing-circuits">
+<h1>Analyzing circuits<a class="headerlink" href="#analyzing-circuits" title="Permalink to this heading">#</a></h1>
+<p>In this section, we will learn how to interpret the data that we collect from our circuits.</p>
+<section id="accounting-for-grating-couplers">
+<h2>Accounting for grating couplers<a class="headerlink" href="#accounting-for-grating-couplers" title="Permalink to this heading">#</a></h2>
+<p>Whenever data is obtained with a grating coupler, it is important to remember that the grating coupler is rensponsive to changes in wavelength as well as the circuit being tested. In order to properly interpret the data, we must first deembed the wavelength dependence of the grating coupler. This can be done in a variety of ways, including curve fitting or using a reference circuit.</p>
+<p>Consider the following data collected via a wavelength sweep:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep.meep_adjoint_optimization</span> <span class="kn">import</span> <span class="n">get_component_from_sim</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
-<span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
-<span class="n">wvl</span> <span class="o">=</span> <span class="mf">1.55</span>
-<span class="n">resolution</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">POLY_ORDER</span> <span class="o">=</span> <span class="mi">4</span>
 
-<span class="c1"># Variables for geometry</span>
-<span class="n">waveguide_width</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">arm_separation</span> <span class="o">=</span> <span class="mf">0.25</span>
-<span class="n">mmi_length</span> <span class="o">=</span> <span class="mf">5.5</span>
-<span class="n">mmi_width</span> <span class="o">=</span> <span class="mf">2.5</span>
-<span class="n">taper_width</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">taper_length</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">pml_size</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">pml_layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">pml_size</span><span class="p">)]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;../files/oscope_data.npz&#39;</span><span class="p">)</span>
+<span class="n">wavelength</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;wavelength&#39;</span><span class="p">]</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;power&#39;</span><span class="p">]</span>
 
-<span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">taper_length</span> <span class="o">+</span> <span class="n">mmi_length</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span>
-<span class="n">Sy</span> <span class="o">=</span> <span class="n">mmi_width</span> <span class="o">+</span>  <span class="mi">2</span> <span class="o">*</span> <span class="n">pml_size</span> <span class="o">+</span> <span class="mf">0.5</span>
-
-<span class="n">taper_x1</span> <span class="o">=</span> <span class="n">taper_length</span> <span class="o">+</span> <span class="n">mmi_length</span>
-<span class="n">taper_x2</span> <span class="o">=</span> <span class="n">mmi_length</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="n">taper_y1</span> <span class="o">=</span> <span class="n">arm_separation</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="n">taper_y2</span> <span class="o">=</span> <span class="n">taper_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">waveguide_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">arm_separation</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="n">taper_y3</span> <span class="o">=</span> <span class="n">taper_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">waveguide_width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">arm_separation</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="n">taper_y4</span> <span class="o">=</span> <span class="n">taper_width</span> <span class="o">+</span> <span class="n">arm_separation</span> <span class="o">/</span> <span class="mi">2</span>
-
-<span class="c1"># Simulation geometry</span>
-<span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">mmi_length</span><span class="p">,</span> <span class="n">mmi_width</span><span class="p">),</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">),</span>
-               <span class="n">mp</span><span class="o">.</span><span class="n">Prism</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x2</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y1</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x2</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y4</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x1</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y3</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x1</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y2</span><span class="p">)],</span> <span class="n">height</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">),</span>
-               <span class="n">mp</span><span class="o">.</span><span class="n">Prism</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x2</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y1</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x2</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y4</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x1</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y3</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x1</span><span class="p">,</span> <span class="o">-</span><span class="n">taper_y2</span><span class="p">)],</span> <span class="n">height</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">),</span>
-               <span class="n">mp</span><span class="o">.</span><span class="n">Prism</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x2</span><span class="p">,</span> <span class="n">taper_y1</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x2</span><span class="p">,</span> <span class="n">taper_y4</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x1</span><span class="p">,</span> <span class="n">taper_y3</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="n">taper_x1</span><span class="p">,</span> <span class="n">taper_y2</span><span class="p">)],</span> <span class="n">height</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">),</span>
-               <span class="n">mp</span><span class="o">.</span><span class="n">Prism</span><span class="p">(</span><span class="n">vertices</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x2</span><span class="p">,</span> <span class="n">taper_y1</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x2</span><span class="p">,</span> <span class="n">taper_y4</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x1</span><span class="p">,</span> <span class="n">taper_y3</span><span class="p">),</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">taper_x1</span><span class="p">,</span> <span class="n">taper_y2</span><span class="p">)],</span> <span class="n">height</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">material</span><span class="o">=</span><span class="n">Si</span><span class="p">),</span>
-<span class="p">]</span>
-
-<span class="c1"># Variables for the source</span>
-<span class="n">fcen</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">wvl</span>
-<span class="n">width</span> <span class="o">=</span> <span class="mf">0.2</span>
-<span class="n">fwidth</span> <span class="o">=</span> <span class="n">width</span> <span class="o">*</span> <span class="n">fcen</span>
-<span class="n">source_center_x</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">mmi_length</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">taper_length</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="n">source_size</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">waveguide_width</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="n">kpoint</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">fwidth</span><span class="p">)</span>
-
-<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-        <span class="n">src</span><span class="p">,</span>
-        <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">direction</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_DIRECTION</span><span class="p">,</span>
-        <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="n">kpoint</span><span class="p">,</span>
-        <span class="n">size</span><span class="o">=</span><span class="n">source_size</span><span class="p">,</span>
-        <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">source_center_x</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">taper_y2</span> <span class="o">+</span> <span class="n">waveguide_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
-    <span class="p">),</span>
-<span class="p">]</span>
-
-<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
-    <span class="n">cell_size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Sx</span><span class="p">,</span> <span class="n">Sy</span><span class="p">),</span>
-    <span class="n">boundary_layers</span><span class="o">=</span><span class="n">pml_layers</span><span class="p">,</span>
-    <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
-    <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
-    <span class="n">default_material</span><span class="o">=</span><span class="n">SiO2</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
-    <span class="n">geometry_center</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">()</span>
-<span class="p">)</span>
-
-<span class="c1"># Visualize the simulation</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
-
-<span class="c1"># Specify simulation and center frequency of source to get component</span>
-<span class="n">mmi</span> <span class="o">=</span> <span class="n">get_component_from_sim</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">fcen</span><span class="p">)</span>
-<span class="c1"># Can specify a different location to save file</span>
-<span class="n">mmi</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="n">gdspath</span><span class="o">=</span><span class="s2">&quot;2x2MMI.gds&quot;</span><span class="p">)</span>
-
-<span class="c1"># Specify a list of ports and use the following function to add ports to your component</span>
-<span class="c1"># mmi.add_ports(ports=[list of ports])</span>
+<span class="c1"># Here is the raw data from the oscilloscope</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">power</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Raw Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (nm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (dBm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ed7fb6de917c9fc4756e1c69932f75dc13e59434fb654dcbee052f3ef4abc789.png" src="../_images/ed7fb6de917c9fc4756e1c69932f75dc13e59434fb654dcbee052f3ef4abc789.png" />
+</div>
+</div>
+<p>The parabolic shape of the graph is due to the grating coupler’s responsivity to wavelength, which obfuscates the data from the circuit we are trying to analyze. In order to remove this effect, we curve fit the data to a parabola and subtract it from the data.</p>
+</section>
+<section id="curve-fitting">
+<h2>Curve fitting<a class="headerlink" href="#curve-fitting" title="Permalink to this heading">#</a></h2>
+<p>In order to fit a curve to the data, we must first define a function that we want to fit to the data. In this case, we will use a parabola of order 4.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model_parabola</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">c</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">d</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">e</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now, we just need to optimize the parameters of the function to fit the data. We can do this using the <code class="docutils literal notranslate"><span class="pre">curve_fit</span></code> function from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>. This function takes in the function we want to fit to the data, the x and y data, and an initial guess for the parameters. It returns the optimized parameters and the covariance matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">wavelength</span> <span class="o">&gt;</span> <span class="mi">1560</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">wavelength</span> <span class="o">&gt;</span> <span class="mi">1580</span><span class="p">)</span>
+<span class="n">wavelength</span> <span class="o">=</span> <span class="n">wavelength</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+<span class="n">power</span> <span class="o">=</span> <span class="n">power</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+
+<span class="c1"># It can be helpful in terms of speed and accuracy to add an initial guess for the optimal parameters</span>
+<span class="c1"># This is especially true for more complicated models with more</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">optimal_parameters</span><span class="p">,</span> <span class="n">covariance_matrix</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">model_parabola</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">initial_guess</span><span class="p">)</span> 
+<span class="n">fit</span> <span class="o">=</span> <span class="n">model_parabola</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="o">*</span><span class="n">optimal_parameters</span><span class="p">)</span>
+
+<span class="c1"># Here is the data with the fitted parabola</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Raw Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">fit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fitted Parabola&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fitted Parabola&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (nm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (dBm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e2d7b2cdd774821237489566dc1222da4f528722cc11d806e55d1ceb946094d7.png" src="../_images/e2d7b2cdd774821237489566dc1222da4f528722cc11d806e55d1ceb946094d7.png" />
+</div>
+</div>
+<p>Now, we simply subtract the curve fit from the data to obtain the data from the circuit and add an offset to the data to make it easier to see.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">power_corrected</span> <span class="o">=</span> <span class="n">power</span> <span class="o">-</span> <span class="n">fit</span>
+<span class="n">power_corrected</span> <span class="o">=</span> <span class="n">power_corrected</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">power_corrected</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Corrected Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Wavelength (nm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (dBm)&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">wavelength</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">power_corrected</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c32ed62296c4d3b4bc0ceff7ceb1969da2cb925a7cb161328964058ae8d68d76.png" src="../_images/c32ed62296c4d3b4bc0ceff7ceb1969da2cb925a7cb161328964058ae8d68d76.png" />
+</div>
+</div>
+</section>
+<section id="using-a-reference-circuit">
+<h2>Using a reference circuit<a class="headerlink" href="#using-a-reference-circuit" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="extracting-the-index-of-refraction">
+<h2>Extracting the index of refraction<a class="headerlink" href="#extracting-the-index-of-refraction" title="Permalink to this heading">#</a></h2>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -615,20 +643,20 @@ document.write(`
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="adjoint_optimization.html"
+       href="phase_shifters_pn.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Adjoint optimization</p>
+        <p class="prev-next-title">PN and PIN Junctions</p>
       </div>
     </a>
     <a class="right-next"
-       href="compact_models.html"
+       href="glossary.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Compact models</p>
+        <p class="prev-next-title">Glossary</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -641,6 +669,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accounting-for-grating-couplers">Accounting for grating couplers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curve-fitting">Curve fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-reference-circuit">Using a reference circuit</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-the-index-of-refraction">Extracting the index of refraction</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
