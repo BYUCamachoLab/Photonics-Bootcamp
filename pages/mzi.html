@@ -497,6 +497,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder interferometers</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
@@ -598,15 +599,6 @@ document.write(`
     <span class="c1"># get better with more samples and 101 isn&#39;t much slower</span>
     <span class="c1"># than 21</span>
     <span class="n">noisy</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
-
-<span class="c1"># plt.plot(sim.freqs, noisy[:, 0, 0], label=&quot;Noisy 1&quot;)</span>
-<span class="c1"># plt.plot(sim.freqs, noisy[:, 0, 1], label=&quot;Noisy 2&quot;)</span>
-<span class="c1"># plt.plot(sim.freqs, noisy[:, 0, 2], label=&quot;Noisy 3&quot;)</span>
-<span class="c1"># plt.plot(sim.freqs, theoretical[:, 0, 0], &quot;k&quot;, label=&quot;Theoretical&quot;)</span>
-<span class="c1"># plt.legend()</span>
-<span class="c1"># plt.title(&quot;MZI&quot;)</span>
-<span class="c1"># plt.tight_layout()</span>
-<span class="c1"># plt.show()</span>
 </pre></div>
 </div>
 </div>
@@ -615,49 +607,12 @@ document.write(`
 </div>
 </div>
 <p>As you can see, and as you might have predicted, by varying the wavelength we can see different levels of power being output from the device. Notice how the power periodically dips to 0. This occurs when the phases of the two paths are exactly opposite, and the light destructively interferes. The power, however does not peak at a consistent maximum, since the mach-zhender has been optimized for a particular wavelength.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># do some monte carlo simulations</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monte Carlo Run </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="c1"># note that after each run, we have to regenerate the MC parameters</span>
-    <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">gc_input</span><span class="o">.</span><span class="n">circuit</span><span class="p">:</span>
-        <span class="n">component</span><span class="o">.</span><span class="n">regenerate_monte_carlo_parameters</span><span class="p">()</span>
-
-    <span class="k">with</span> <span class="n">Simulation</span><span class="p">()</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="n">Laser</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mf">20e-3</span><span class="p">)</span>
-        <span class="n">l</span><span class="o">.</span><span class="n">wlsweep</span><span class="p">(</span><span class="mf">1500e-9</span><span class="p">,</span> <span class="mf">1600e-9</span><span class="p">)</span>
-        <span class="n">l</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_input</span><span class="p">)</span>
-        <span class="n">Detector</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_output</span><span class="p">)</span>
-
-        <span class="n">sim</span><span class="o">.</span><span class="n">monte_carlo</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">freqs</span><span class="p">,</span> <span class="n">d</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Run </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">freqs</span><span class="p">,</span> <span class="n">theoretical</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Theoretical&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;MZI Monte Carlo&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Monte Carlo Run 0
-Monte Carlo Run 1
-Monte Carlo Run 2
-Monte Carlo Run 3
-Monte Carlo Run 4
-Monte Carlo Run 5
-Monte Carlo Run 6
-Monte Carlo Run 7
-Monte Carlo Run 8
-Monte Carlo Run 9
-</pre></div>
-</div>
-<img alt="../_images/101520aab2a878a1fb8e455cf97ad197fa328c8e4562d709cd96775e7305fc72.png" src="../_images/101520aab2a878a1fb8e455cf97ad197fa328c8e4562d709cd96775e7305fc72.png" />
-</div>
-</div>
+<section id="sweeping">
+<h2>Sweeping<a class="headerlink" href="#sweeping" title="Permalink to this heading">#</a></h2>
+<p>Imagine we shined a laser into the first grating coupler and then adjusted the wavelength over some range. We then can plot the data from the intensity of the light leaving the MZI against the wavelengths we tested. This is sometimes referred to as “sweeping.”</p>
+<p><img alt="Image of an MZI with labels" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/plot_mzi.webp" /></p>
+<p>Click <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">here</a> for more information about implementing sweeps.</p>
+</section>
 <section id="analysis-of-a-balanced-mzi">
 <h2>Analysis of a balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
 <p>You can think of a balanced interferometer as having equal path lengths when the light separates. In ideal conditions, this means that amount of power at the output is the same as the input.</p>
@@ -701,7 +656,10 @@ Monte Carlo Run 9
  E_{output} = \frac{E_{1}+E_{2}}{\sqrt{2}} = I_{input}
 \)</span></p></li>
 </ol>
-<p>***Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that these are not generalized equations. Instead, these describe balanced insterferometers whose branches have not undergone a phase shift.</p>
+</div>
 <section id="quick-check">
 <h3>Quick check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
 <p>If intensity of the input wave is .5 mW, what is the intensity at the output?</p>
@@ -865,6 +823,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder interferometers</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
