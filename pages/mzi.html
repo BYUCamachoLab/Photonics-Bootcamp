@@ -497,7 +497,6 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder interferometers</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
@@ -607,12 +606,6 @@ document.write(`
 </div>
 </div>
 <p>As you can see, and as you might have predicted, by varying the wavelength we can see different levels of power being output from the device. Notice how the power periodically dips to 0. This occurs when the phases of the two paths are exactly opposite, and the light destructively interferes. The power, however does not peak at a consistent maximum, since the mach-zhender has been optimized for a particular wavelength.</p>
-<section id="sweeping">
-<h2>Sweeping<a class="headerlink" href="#sweeping" title="Permalink to this heading">#</a></h2>
-<p>Imagine we shined a laser into the first grating coupler and then adjusted the wavelength over some range. We then can plot the data from the intensity of the light leaving the MZI against the wavelengths we tested. This is sometimes referred to as “sweeping.”</p>
-<p><img alt="Image of an MZI with labels" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/plot_mzi.webp" /></p>
-<p>Click <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/stable/tutorials/mzi.html">here</a> for more information about implementing sweeps.</p>
-</section>
 <section id="analysis-of-a-balanced-mzi">
 <h2>Analysis of a balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
 <p>You can think of a balanced interferometer as having equal path lengths when the light separates. In ideal conditions, this means that amount of power at the output is the same as the input.</p>
@@ -822,7 +815,6 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder interferometers</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sweeping">Sweeping</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
