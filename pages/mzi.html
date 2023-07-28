@@ -216,7 +216,6 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pdks.html">Process design kits</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Mach-Zehnder interferometers</a></li>
-
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -495,8 +494,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder interferometers</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
@@ -511,9 +509,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -528,9 +523,8 @@ document.write(`
 <h1>Mach-Zehnder interferometers<a class="headerlink" href="#mach-zehnder-interferometers" title="Permalink to this heading">#</a></h1>
 <p>The basic concept behind a Mach-Zehnder interferometer is that it splits a beam of light into two path and then recombines them. The resulting interference pattern depends on the relative phase of the two paths. This is a very common device in quantum optics, and is used in many experiments.</p>
 <p>Phase shifts may be caused by differing path lengths, or by the application of a phase shifter, such as a piezo-electric transducer.</p>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="designing-a-mach-zehnder-interferometer">
-<h1>Designing a Mach-Zehnder interferometer<a class="headerlink" href="#designing-a-mach-zehnder-interferometer" title="Permalink to this heading">#</a></h1>
+<section id="designing-a-mach-zehnder-interferometer">
+<h2>Designing a Mach-Zehnder interferometer<a class="headerlink" href="#designing-a-mach-zehnder-interferometer" title="Permalink to this heading">#</a></h2>
 <p><img alt="Image of a MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp" /></p>
 <p>The above image shows a Mach-Zehnder interferometer. The input port is the top grating coupler and the output port is the bottom grating coupler. This particular design utilizes a path length difference to introduce a relative phase difference between the two paths.</p>
 <p>Simphony is an opensource photonic circuit simulator that already has a grating coupler model, y-branches, and waveguides which can be used to implement a Mach-Zehnder interferometer. The following code block was taken from the Simphony github and shows how to create a Mach-Zehnder interferometer using Simphony. To learn how to set up your own simulations in Simphony, see the official <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/latest/index.html">Simphony documentation</a></p>
@@ -606,6 +600,7 @@ document.write(`
 </div>
 </div>
 <p>As you can see, and as you might have predicted, by varying the wavelength we can see different levels of power being output from the device. Notice how the power periodically dips to 0. This occurs when the phases of the two paths are exactly opposite, and the light destructively interferes. The power, however does not peak at a consistent maximum, since the mach-zhender has been optimized for a particular wavelength.</p>
+</section>
 <section id="analysis-of-a-balanced-mzi">
 <h2>Analysis of a balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
 <p>You can think of a balanced interferometer as having equal path lengths when the light separates. In ideal conditions, this means that amount of power at the output is the same as the input.</p>
@@ -655,7 +650,7 @@ document.write(`
 </div>
 <section id="quick-check">
 <h3>Quick check<a class="headerlink" href="#quick-check" title="Permalink to this heading">#</a></h3>
-<p>If intensity of the input wave is 0.5 mW, what is the intensity at the output?</p>
+<p>If intensity of the input wave to a balanced interferometer is 0.5 mW, what is the intensity at the output? Assume lossless waveguides.</p>
 <details>
     <summary>Answer</summary>
     0.5 mW 
@@ -721,7 +716,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 </div>
 <section id="id1">
 <h3>Quick check<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>What is the intensity of the output light if the input light had an intensity of 0.75mW, a refractive index through silicon of 3.48 (n=3.48) and a wavelength of 1450 nm. The shorter path has a length of 90µm and the longer path a length of 102µm?</p>
+<p>What is the intensity of the output light if the input light had an intensity of 0.75 mW and a refractive index through silicon of <span class="math notranslate nohighlight">\(n = 3.48\)</span> when operating at a wavelength of 1450 nm? The shorter path has a length of 90 <span class="math notranslate nohighlight">\(\mu \text{m}\)</span> and the longer path a length of 102 <span class="math notranslate nohighlight">\(\mu \text{m}\)</span>.</p>
 <details>
     <summary>Answer</summary>
     0.491 mW
@@ -813,8 +808,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Mach-Zehnder interferometers</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
@@ -829,9 +823,6 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
