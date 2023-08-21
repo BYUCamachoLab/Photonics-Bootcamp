@@ -61,8 +61,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'pages/waveguides';</script>
     <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/waveguides.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
@@ -495,7 +493,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-waveguide">What is a Waveguide?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#total-internal-reflection">Total Internal Reflection</a></li>
 </ul>
             </nav>
         </div>
@@ -519,28 +516,6 @@ document.write(`
         <figcaption><em>Figure: A Silicon on Insulator Waveguide</em></figcaption>
     </figure>
 </div>
-</section>
-<section id="total-internal-reflection">
-<h2>Total Internal Reflection<a class="headerlink" href="#total-internal-reflection" title="Permalink to this heading">#</a></h2>
-<p>When light encounters an interface between two media of differing refractive indices, the light can be described mathematically as being partially transmitted into the second material and partially reflected back into the first material.</p>
-<div style="text-align: center;">
-<img src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/snells-law-diagram.png" width="500"></img>
-</div><p><span class="math notranslate nohighlight">\(n_1\)</span> and <span class="math notranslate nohighlight">\(n_2\)</span> represent the refractive indices of two media and <span class="math notranslate nohighlight">\(E_i\)</span>, <span class="math notranslate nohighlight">\(E_t\)</span>, and <span class="math notranslate nohighlight">\(E_r\)</span> represent the electric fields of the incident, transmitted, and reflected waves, respectively. <span class="math notranslate nohighlight">\(\theta_1\)</span> is the angle of incidence and <span class="math notranslate nohighlight">\(\theta_2\)</span> is the angle of refraction. The angle of incidence and the angle of refraction are related by Snell’s law:</p>
-<div class="math notranslate nohighlight">
-\[n_1 \sin \theta_1 = n_2 \sin \theta_2\]</div>
-<p>We might imagine that there is some critical angle at which the transmitted wave is aligned with the interface between the two media, at which angle, the wave is no longer partially transmitted into the second medium, but is instead totally reflected back into the first medium. At such an angle, <span class="math notranslate nohighlight">\(\theta_2\)</span> would be 90 degrees:</p>
-<div class="math notranslate nohighlight">
-\[n_1 \sin \theta_c = n_2 \sin 90°\]</div>
-<p>Solving for the critical angle, we get:
-$<span class="math notranslate nohighlight">\(\theta_c = \sin^{-1} \left( \frac{n_2}{n_1} \right)\)</span>$</p>
-<p>To further investigate this point, let us arrive at the same conclusion from a different perspective. Since the angle of refraction is dependent on the refractive indices of the two media and the angle of incidence, we can solve for the angle of refraction as a function of the angle of incidence and the refractive indices of the two media. The angle of refraction is given by:</p>
-<div class="math notranslate nohighlight">
-\[\theta_2 = \sin^{-1} \left( \frac{n_1}{n_2} \sin \theta_1 \right)\]</div>
-<p>What would happen if we supposed the angle of refraction to be greater than 90°? In this case, the sine of the angle of refraction would be greater than 1, which is impossible.</p>
-<div class="math notranslate nohighlight">
-\[\theta_2 \neq \sin^{-1} \left( \frac{n_1}{n_2}\sin{\theta_1} \right),{\;} for {\;} \theta_2 &gt; 90°\]</div>
-<p>This should make intuitive sense, since the angle of refraction, describes the angle of the transitted wave into the material, but there is no sense at which the wave can be transmitted into the second material at an angle of 90° or greater.</p>
-<p>Thus, we can conclude that for <span class="math notranslate nohighlight">\(\theta_1\)</span> &gt; <span class="math notranslate nohighlight">\(\theta_c\)</span>, there is no solution for <span class="math notranslate nohighlight">\(\theta_2\)</span> and the wave is totally reflected. This is known as <strong>total internal reflection</strong>.</p>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -614,7 +589,6 @@ $<span class="math notranslate nohighlight">\(\theta_c = \sin^{-1} \left( \frac{
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-waveguide">What is a Waveguide?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#total-internal-reflection">Total Internal Reflection</a></li>
 </ul>
   </nav></div>
 
