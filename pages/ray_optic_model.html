@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Phase Shifters &#8212; CamachoLab Photonics Bootcamp</title>
+    <title>Improving the Ray-optic Model &#8212; CamachoLab Photonics Bootcamp</title>
   
   
   
@@ -62,13 +62,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/phase_shifters';</script>
-    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/phase_shifters.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pages/ray_optic_model';</script>
+    <link rel="canonical" href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/ray_optic_model.html" />
     <link rel="shortcut icon" href="../_static/favicon-laser.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Heaters" href="phase_shifters_heaters.html" />
-    <link rel="prev" title="Advanced Components" href="advanced_components.html" />
+    <link rel="next" title="Polarization" href="waveguides_polarization.html" />
+    <link rel="prev" title="Total Internal Reflection" href="waveguides_tir.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,16 +179,16 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="photonic_devices.html">What are photonic devices?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="layer_stack.html">Defining the layer stack</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="components.html">Components</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ray_optic_model.html">Improving the Ray-optic Model</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Improving the Ray-optic Model</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
@@ -228,9 +228,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder interferometers</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Phase Shifters</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
 </ul>
@@ -299,7 +299,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/phase_shifters.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/ray_optic_model.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -317,7 +317,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/phase_shifters.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/ray_optic_model.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -365,7 +365,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/phase_shifters.ipynb" target="_blank"
+      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/ray_optic_model.ipynb" target="_blank"
    class="btn btn-sm btn-source-edit-button dropdown-item"
    title="Suggest edit"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -382,7 +382,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/phase_shifters.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/ray_optic_model.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -412,7 +412,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/pages/phase_shifters.ipynb" target="_blank"
+      <li><a href="../_sources/pages/ray_optic_model.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -494,7 +494,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Phase Shifters</h1>
+    <h1>Improving the Ray-optic Model</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -504,10 +504,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-phase-shifter">What is a Phase Shifter?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-shifting-in-a-photonic-circuit-a-simple-application">Phase Shifting in a Photonic Circuit: A Simple Application</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-a-phase-shifter-work">How does a Phase Shifter Work?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Improving the Ray-optic Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-modes">Supported Modes</a></li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -518,26 +518,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="phase-shifters">
-<h1>Phase Shifters<a class="headerlink" href="#phase-shifters" title="Permalink to this heading">#</a></h1>
-<section id="what-is-a-phase-shifter">
-<h2>What is a Phase Shifter?<a class="headerlink" href="#what-is-a-phase-shifter" title="Permalink to this heading">#</a></h2>
-<p>Light signals (photonic signals) can be described using wave characteristics. Just like AC electric signals, photonic signals have frequencies, amplitudes, and phases (in addition to other properties such as polarization). Information can be encoded in photonic signals in several ways, including amplitude modulation, frequency modulation, and phase modulation.</p>
-<p>Phase shifters are active photonic devices that enable phase modulation of photonic signals. Phase shifters can also be used to “tune” light signals, or in other words, adjust the phase of the signal as it travels through a waveguide. Generally phase shifters can be categorized as <em>modulators</em> or <em>tuners</em>. Modulators encode information into photonic signals, and tuners maintain or adjust the phase of photonic signals during transmission.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="improving-the-ray-optic-model">
+<h1>Improving the Ray-optic Model<a class="headerlink" href="#improving-the-ray-optic-model" title="Permalink to this heading">#</a></h1>
+<p>So far we have used a simplified model to describe the behavior of light in photonic components called the ray-optic model. This model is a great starting point for building an intuition of key concepts such as why a high index of refraction material surround by lower index of refraction materials would be necessary to achieve total internal reflection. However, this model is an abstraction built on the flawed assumption that the wavelength of light is much smaller than the size of the photonic components.</p>
+<p>This simplified model could lead to misconceptions about the behavior of light in optical compenents. Consider two challenges our simplified model presents in the context of a slab waveguide:</p>
+<p>One implicit assumption from our model is that light is fully contained within the core of the waveguide waveguide. While the electronic and magnetic fields are mostly contained within the core of the waveguide, portions of the field are partially contained within the cladding. These evanescent fields are crucial to the operation of certain optical components such as directional couplers or tapered fibers and will be discussed in later sections.</p>
+<p>Additionally, our current model implies that any angle greater than the critical angle would support the propagation of light within a waveguide, however, light does not propagate through a waveguide well except at discrete angles. These angles correspond to certain modes supported by the geometry of the waveguide and the frequency of the light being used.</p>
 </section>
-<section id="phase-shifting-in-a-photonic-circuit-a-simple-application">
-<h2>Phase Shifting in a Photonic Circuit: A Simple Application<a class="headerlink" href="#phase-shifting-in-a-photonic-circuit-a-simple-application" title="Permalink to this heading">#</a></h2>
-<p>Let’s say we have two equally polarized light signals travelling through a photonic circuit that are going to be combined using a y-bridge. Depending on the phase difference between the two signals, the signals may interfere with one another constructively or destructively. In this case, the phase of one light signal may be tuned using a phase shifter, so that the two light signals combine in some desired way.</p>
-<p>TODO: Insert illustration of example.</p>
-</section>
-<section id="how-does-a-phase-shifter-work">
-<h2>How does a Phase Shifter Work?<a class="headerlink" href="#how-does-a-phase-shifter-work" title="Permalink to this heading">#</a></h2>
-<p>Phase shifters are regions with indices of refraction that can be changed. When a light signals passes through a materials with a different index of refraction than the material it’s propagating through, the frequency of the light signal “expands” or “compresses” according to the difference between the two refractive indices. The frequency of a light signal travelling from a first material to a second material with a higher index of refraction will compress (i.e. the signal will oscillate more times per unit length within the new material). The frequency of a light signal travelling from a first material to a second material with a lower index of refraction will expand (i.e. the signal will oscillate fewer times per unit length within the new material). For illustrative purposes, see the figure below.</p>
-<p>TODO: Insert figure</p>
-<p>Notice how the relative phase of the signal changes as it passes through the material.</p>
-</section>
-<div class="toctree-wrapper compound">
+<section class="tex2jax_ignore mathjax_ignore" id="supported-modes">
+<h1>Supported Modes<a class="headerlink" href="#supported-modes" title="Permalink to this heading">#</a></h1>
+<p>The following animation depicts how light interacts with the waveguide at some anagle. The white beam represents the light which has been sent into the waveguide. The orthoganal blue and red lines represent the wavefronts of the light at intervals of 1/2 a wavelength. The blue represents peaks in the amplitude and the red represents troughs in the amplitude. Pay special attention to how these values are swapped upon reflections. Let the electric field be orthogonal to the white line and the wavefronts, such that we have TE polarized light, or in other words, the electric field is coming straight out of the page. It is also important to clarify that the entire animation represents only a point in time and that the reason the white beam is drawn incrementall is to help visualize the angle of the light and how it relates to the wavefronts.</p>
+<p>With all this a backdrop, it is clear that there will be considerable destructive interference between the wavefronts and the reflected wavefronts. This is why light does not propagate well through a waveguide at most angles: most of the light will be lost due to destructive interferrence.</p>
+<div style="text-align: center;width: 400px;margin: auto">
+  <img src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/destructive_wg_angle.gif?raw=true">
 </div>
+<p>Ideally, we would send the light through the waveguide in such a way that there is minimal destructive interference. Without changing the wavelength, we can simply choose a more appropriate angle and achieve this. The following animation depicts this. Notice how the wavefronts and the reflected wavefronts are more or less in phase. The “mode” represented in the waveguide emerges from the interference patterns of the wavefronts. The mode below is the “fundamental mode.” Higher order modes will still constructively interfere, but they are more complicated.</p>
+<div style="text-align: center;width: 400px;margin: auto">
+  <img src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/constructive_wg_angle.gif?raw=true">
+</div><p>Now these animations were created in 2D, but obviously the waveguide is a 3D object. MIT has put together some 3D animations to help further visualize waveguide modes.</p>
+<p><a class="reference external" href="https://s3.amazonaws.com/fip-1/Polarization/index.html">https://s3.amazonaws.com/fip-1/Polarization/index.html</a></p>
+<p><a class="reference external" href="https://s3.amazonaws.com/fip-0/Full-Explorer/index.html">https://s3.amazonaws.com/fip-0/Full-Explorer/index.html</a></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -549,16 +549,16 @@ document.write(`
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "pyrolab"
         },
         kernelOptions: {
-            name: "python3",
+            name: "pyrolab",
             path: "./pages"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'pyrolab'</script>
 
                 </article>
               
@@ -571,20 +571,20 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="advanced_components.html"
+       href="waveguides_tir.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Advanced Components</p>
+        <p class="prev-next-title">Total Internal Reflection</p>
       </div>
     </a>
     <a class="right-next"
-       href="phase_shifters_heaters.html"
+       href="waveguides_polarization.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Heaters</p>
+        <p class="prev-next-title">Polarization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -603,10 +603,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-phase-shifter">What is a Phase Shifter?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-shifting-in-a-photonic-circuit-a-simple-application">Phase Shifting in a Photonic Circuit: A Simple Application</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-does-a-phase-shifter-work">How does a Phase Shifter Work?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Improving the Ray-optic Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-modes">Supported Modes</a></li>
 </ul>
+
   </nav></div>
 
 </div></div>
