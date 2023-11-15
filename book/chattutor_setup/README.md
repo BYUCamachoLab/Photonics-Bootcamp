@@ -13,7 +13,7 @@ For now this can only be tested locally.
 
 Checkout chattutor.config.js
 
-- Start an instance of the main branch at port `5000` at `localhost`
+- Start an instance of the main branch of the chattutor repo at port `5000` at `localhost`
 - Go to config and set **TEST_MODE** to true and **SERVER_PORT** to `5000`
 - Run the following commands to build the notebook and to add chattutor
 one in venv (checkout main README for info on that)
