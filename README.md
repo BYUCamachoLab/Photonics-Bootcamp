@@ -48,7 +48,8 @@ Check out the README.md file in chattutor_setup folder,
 or simply run 
 
 ```sh
-./build.sh```
+./build.sh
+```
 
 ## Development
 
