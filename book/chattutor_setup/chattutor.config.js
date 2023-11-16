@@ -39,14 +39,21 @@
  * 
  * COURSE_URL: the base url for the course
  * 
- * SERVER_PORT: the port listen to Chattutor 
- * server if ran locally. Used ONLY for testing
- * purposes
+ * 
+ * RUN_LOCALLY: true if and only if course is tested
+ * locally. For production it should be false,
+ * for testing it should be true.
+ * 
+ * IS_STATIC: true if ran statically on a index.html
+ * file, false if ran on a server, either local or online
+ * Usually true for jupyter books
  */
+const RUN_LOCALLY               = true;
+const TEST_MODE                 = false;
+const IS_STATIC                 = true;
+
 const EMBEDDING_COLLECTION_NAME = "photonicsbootcamp12";
-const TEST_MODE = true;
-const COURSE_URL = "https://byucamacholab.github.io/Photonics-Bootcamp"
-const SERVER_PORT = 5000
+const COURSE_URL                = "https://byucamacholab.github.io/Photonics-Bootcamp"
 /**
  * --------------- TESTING CONFIGS ----------------
  * ChatTutor can be embedded on default applications
@@ -61,9 +68,15 @@ const SERVER_PORT = 5000
  * 
  * This configuration is ONLY used for testing and
  * will have no weight in production mode 
- * (TEST_MODE = false)
+ * (RUN_LOCALLY = false)
+ * 
+ * SERVER_PORT: the port listen to Chattutor 
+ * server if ran locally. Used ONLY for testing
+ * purposes (TEST_MODE = false)
  */
-const BUILT_WITH = "JUPYTER-NOTEBOOK"
+const BUILT_WITH                = "JUPYTER-NOTEBOOK"
+const SERVER_PORT               = 5000
+
 /**
  * JUPYTER-NOTEBOOK Specific configurations.
  */
