@@ -34,9 +34,8 @@ jobs:
         jb build book
 
     - name: Configure the Chat Tutor
-      working-directory: ../book/chat_tutor
       run: |
-        python install.py
+        python ./book/chattutor_setup/install.py
         
     # Configures GitHub Pages
     - name: Deploy 🚀
