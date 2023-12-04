@@ -34,7 +34,7 @@ jobs:
         jb build book
 
     - name: Configure the Chat Tutor
-      working-directory: ./book/chat_tutor
+      working-directory: book/chat_tutor
       run: |
         python install.py
         
