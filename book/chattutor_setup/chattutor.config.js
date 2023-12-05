@@ -48,7 +48,7 @@
  * file, false if ran on a server, either local or online
  * Usually true for jupyter books
  */
-const RUN_LOCALLY               = true;
+const RUN_LOCALLY               = false;
 const TEST_MODE                 = false;
 const IS_STATIC                 = true;
 
