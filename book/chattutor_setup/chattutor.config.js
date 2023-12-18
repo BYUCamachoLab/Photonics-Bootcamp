@@ -48,11 +48,11 @@
  * file, false if ran on a server, either local or online
  * Usually true for jupyter books
  */
-const RUN_LOCALLY               = false;
+const RUN_LOCALLY               = true;
 const TEST_MODE                 = false;
 const IS_STATIC                 = true;
 
-const EMBEDDING_COLLECTION_NAME = "photonicsbootcamp2811";
+const EMBEDDING_COLLECTION_NAME = "photonicsbootcampkc";
 const COURSE_URL                = "https://byucamacholab.github.io/Photonics-Bootcamp"
 /**
  * --------------- TESTING CONFIGS ----------------
