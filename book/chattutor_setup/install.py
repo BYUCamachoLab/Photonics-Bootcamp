@@ -32,7 +32,7 @@ def add_chattutor(dirpath, filename):
         
         parsed_page_html.html.body.append(parsed_page_html.new_tag("script", src=os.path.relpath(config_path, dirpath)))
 
-        parsed_page_html.html.body.append(parsed_page_html.new_tag("script", src=os.path.relpath(js_path, dirpath)))
+        parsed_page_html.html.body.append(parsed_page_html.new_tag("script", src=os.path.relpath(js_path, dirpath), type="module"))
         
         parsed_page_html.html.head.append(parsed_page_html.new_tag("link",
             rel="stylesheet",

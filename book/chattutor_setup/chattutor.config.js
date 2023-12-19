@@ -52,7 +52,7 @@ const RUN_LOCALLY               = false;
 const TEST_MODE                 = false;
 const IS_STATIC                 = true;
 
-const EMBEDDING_COLLECTION_NAME = "photonicsbootcamp2811";
+const EMBEDDING_COLLECTION_NAME = "photonicsbootcampkc";
 const COURSE_URL                = "https://byucamacholab.github.io/Photonics-Bootcamp"
 /**
  * --------------- TESTING CONFIGS ----------------
