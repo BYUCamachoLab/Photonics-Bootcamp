@@ -42,6 +42,15 @@ navigate to that directory and start a simple Python server:
 python -m http.server
 ```
 
+## Building and adding chattutor
+
+Check out the README.md file in chattutor_setup folder,
+or simply run 
+
+```sh
+./build.sh
+```
+
 ## Development
 
 The majority of this book is written as Jupyter notebooks. Learn more about 
