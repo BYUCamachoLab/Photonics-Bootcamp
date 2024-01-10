@@ -63,11 +63,11 @@ as well.
 To create an environment, in this case named ``photonics``, run:
 
 ```bash
+# don't run this line
 conda create --name photonics python
 ```
 
-You can even specify a specific version of Python, if you'd like to use the
-latest and greatest version:
+You can even specify a specific version of Python, if you'd like to use a specific version. This course requires Python 3.11:
 
 ```bash
 conda create --name photonics python=3.11
