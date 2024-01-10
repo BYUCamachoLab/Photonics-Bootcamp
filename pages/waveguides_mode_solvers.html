@@ -316,8 +316,9 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
 <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+<span class="kn">import</span> <span class="nn">gplugins.modes</span> <span class="k">as</span> <span class="nn">gm</span>
 </pre></div>
 </div>
 </div>
@@ -325,13 +326,16 @@ document.write(`
 <p>Next, we’ll define the geometry and material of our waveguide.  We’ll choose a waveguide width of 0.75 microns and a waveguide thickness of 0.5 microns.  The waveguide will be made of silicon, with a refractive index of 3.47, and it will be surrounded (clad) by glass with a refractive index of 1.44.  We’ll use the command “find_modes_waveguide” to calculate 4 different modes.  Each one will be returned as a mode object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_waveguide</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">core_w</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">core_t</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_waveguide</span><span class="p">(</span>
     <span class="n">parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span><span class="p">,</span>
-    <span class="n">wg_width</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
-    <span class="n">ncore</span><span class="o">=</span><span class="mf">3.47</span><span class="p">,</span>
-    <span class="n">nclad</span><span class="o">=</span><span class="mf">1.44</span><span class="p">,</span>
-    <span class="n">wg_thickness</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+    <span class="n">core_width</span><span class="o">=</span><span class="n">core_w</span><span class="p">,</span>
+    <span class="n">core_material</span><span class="o">=</span><span class="mf">3.47</span><span class="p">,</span>
+    <span class="n">clad_material</span><span class="o">=</span><span class="mf">1.44</span><span class="p">,</span>
+    <span class="n">core_thickness</span><span class="o">=</span><span class="n">core_t</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
     <span class="n">sy</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">sz</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
@@ -344,20 +348,39 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Now let’s plot these modes.  First we’ll plot the y-component of the elecgtric field of mode 1 and mode 4.</p>
+<p>Now let’s plot these modes. First we’ll plot the y-component of the elecgtric field of mode 1 and mode 4.
+We plot the mode using ‘’plot_ey’’ for a Mode object. Using similar syntax, we can also plot other components of the electric field,
+components of the magnetic field, or the waveguide itself.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">core_w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">core_t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">core_w</span><span class="p">,</span>
+    <span class="n">core_t</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">wg2</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">core_w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">core_t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">core_w</span><span class="p">,</span>
+    <span class="n">core_t</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">islice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># this line can also be run alone to plot ey</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">m4</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m4</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> 
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m4</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m4</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>

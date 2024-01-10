@@ -362,6 +362,16 @@ conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using an older Mac with an M-series chip, use these commands instead:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>intel_env
+<span class="w">  </span>conda<span class="w"> </span>activate<span class="w"> </span>intel_env
+<span class="w">  </span>conda<span class="w"> </span>config<span class="w"> </span>--env<span class="w"> </span>--set<span class="w"> </span>subdir<span class="w"> </span>osx-64
+<span class="w">  </span>conda<span class="w"> </span>install<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+</pre></div>
+</div>
+</div>
 </section>
 <section id="package-managers">
 <h2>Package Managers<a class="headerlink" href="#package-managers" title="Permalink to this heading">#</a></h2>
@@ -393,16 +403,16 @@ environment then running</p>
 </div>
 <p>It’s also very easy to install packages from PyPI. Most base installations of Python
 include “pip”, a tool used to install other packages from PyPI. It can be
-invoked from the command line, like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+invoked from the command line. Here are a few packages we’ll need from pip.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>gplugins
 </pre></div>
 </div>
 <p>It can be used to upgrade packages, too (including itself):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 </pre></div>
 </div>
-<p>You can also stack package names to save some typing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>scipy<span class="w"> </span>matplotlib
+<p>You can also stack package names to save some typing. This line grabs some more packages we’ll need:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>nlopt<span class="w"> </span>simphony
 </pre></div>
 </div>
 </section>
