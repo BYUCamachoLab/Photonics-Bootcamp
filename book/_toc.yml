@@ -13,7 +13,7 @@ parts:
     - file: pages/open_source
     - file: pages/software
       sections:
-      - file: pages/sewsltup
+      - file: pages/wsl
       - file: pages/vscode
       - file: pages/git_and_github
       - file: pages/python
