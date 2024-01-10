@@ -64,6 +64,9 @@ silicon-on-insulator
 SOI
     See {term}`silicon-on-insulator`.
 
+vscode
+    Visual Studio Code, also commonly referred to as VS Code, is a source-code editor developed by Microsoft for Windows, Linux and macOS. Features include support for debugging, syntax highlighting, intelligent code completion, snippets, code refactoring, and embedded Git ([Wikipedia](https://en.wikipedia.org/wiki/Visual_Studio_Code)).
+
 WSL
     Windows Subsystem for Linux. WSL lets developers install and run a Linux distribution on Windows and use Linux applications, utilities, and Bash command-line tools directly on Windows, unmodified, without the overhead of a traditional virtual machine or dual-boot setup.
 
