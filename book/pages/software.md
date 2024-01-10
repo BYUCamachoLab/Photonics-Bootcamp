@@ -24,3 +24,21 @@ we will primarily use Visual Studio Code to interact with it, providing a
 GUI-like experience, so you don't need to be too nervous about having to
 navigate a terminal). 
 :::
+
+Since we primarily use Python tools in this course, here are some things we're
+going to install in the next few sections:
+
+1. A Linux machine, a Mac, or a Windows machine with the 
+    [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about) 
+    installed.
+2. A code editor. The recommended code editor is 
+    [Visual Studio Code](https://code.visualstudio.com/), (installation 
+    instructions [here](/pages/vscode.md)).
+3. Miniconda. Most of the tools are installable through the 
+    [Python Package Index (PyPI)](https://pypi.org/), i.e. "pip" installable, 
+    while some precompiled packages are only available through Conda 
+    repositories. Miniconda, which also provides a Python installation and 
+    virtual environments by default, is a nice way to manage all these tools 
+    in a single place.
+4. KLayout, a layout/GDS file viewer, which we'll use to view the circuits we 
+    create.

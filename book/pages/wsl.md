@@ -1,24 +1,4 @@
-# Setting up the tools
-
-Since we primarily use Python tools in this course, there are some things 
-you'll need to install. In short, you'll need:
-
-1. A Linux machine, a Mac, or a Windows machine with the 
-    [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/about) 
-    installed.
-2. A code editor. The recommended code editor is 
-    [Visual Studio Code](https://code.visualstudio.com/), (installation 
-    instructions [here](/pages/vscode.md)).
-3. Miniconda. Most of the tools are installable through the 
-    [Python Package Index (PyPI)](https://pypi.org/), i.e. "pip" installable, 
-    while some precompiled packages are only available through Conda 
-    repositories. Miniconda, which also provides a Python installation and 
-    virtual environments by default, is a nice way to manage all these tools 
-    in a single place.
-4. KLayout, a layout/GDS file viewer, which we'll use to view the circuits we 
-    create.
-
-## Install WSL
+# WSL (Windows-only)
 
 If you are using Windows, you'll need to install {term}`WSL``. This can be 
 easily installed through the Windows store (recommended), or via the command 
@@ -30,11 +10,6 @@ line:
 4. From the Start menu, run Ubuntu.
 5. On the first run, set up a new user account on the Linux machinen (username 
     and password, which can be different from your Windows machine).
-
-## Install VSCode
-You now need to install VSCode. Refer to the chapter on VSCode [here](/pages/vscode.md), which explains what VSCode is and how to install it.
-
-Open VSCode. You can setup a theme and other things. If you are using WSL, make sure to [open VSCode in your WSL environment](https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace). You can check this by checking the green box in the bottom left-hand corner. If VSCode is connected to WSL it will say "WSL" in this box. If it doesn't then click the green box. A menu will pop up. Click the option "Connect to WSL" and VSCode will now be connected to WSL.
 
 <!-- ## Setup Script
 To install Miniconda and KLayouts we have created a setup script you can download [here](../scripts/setup.sh). If you want to install these manual, skip this step by going to the [next page](/pages/git_and_github).

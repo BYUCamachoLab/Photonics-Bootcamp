@@ -13,8 +13,7 @@ parts:
     - file: pages/open_source
     - file: pages/software
       sections:
-      - file: pages/setup
-      # - file: pages/system_configuration
+      - file: pages/sewsltup
       - file: pages/git_and_github
       - file: pages/vscode
       - file: pages/python
@@ -97,6 +96,12 @@ parts:
     chapters:
     - file: pages/glossary
       title: Glossary
+    # - file: pages/components_appendix
+    #   title: Drawing components
+    # - file: pages/meep_appendix
+    #   title: FDTD simulation with Meep
+    # - file: pages/compact_models_appendix
+    #   title: Compact models in SAX and Simphony
     - file: pages/component_convenience
       title: Component
     - url: https://github.com/BYUCamachoLab/sky130ph

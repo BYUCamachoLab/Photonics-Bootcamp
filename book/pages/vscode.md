@@ -56,3 +56,8 @@ for this course:
 * [WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) (if you're on a Windows machine)
 * [Open](https://marketplace.visualstudio.com/items?itemName=sandcastle.vscode-open) (allows you to open files from the code editor tree in their default program)
 * [vscode-icons](https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons) (some eye-candy, makes it easier to find files in the tree)
+
+## Connect to WSL
+
+1. Open VSCode. You can setup a theme and other things. 
+1. If you are using WSL, make sure to [open VSCode in your WSL environment](https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace). You can double-check that you're connected by looking at the colored box in the bottom left-hand corner of VSCode. If VSCode is connected to WSL it will say "WSL" in this box. If it doesn't, then click the box. A menu will pop up. Click the option "Connect to WSL" and VSCode will now be connected to WSL.
