@@ -1,12 +1,17 @@
-# Passive components
-Using the shapes that we made in the [physical shapes](/pages/physical_shapes) section, we can now make different passive components. We will walk through the design of these components: 
+# Passive Components
 
-- [Directional Couplers](/pages/directional_couplers)  
-- [Y Branches](/pages/y_branch)  
-- [Ring Resonators](/pages/ring_resonators)  
-- [Multimode Interferometers (MMIs)](/pages/mmis)  
+The main building blocks of photonic circuits are passive components. Passive meaning that the component interacts with the light only through refraction/reflection due to the first-order electrical permittivity, a.k.a. index of refraction of the material and there is no tuning on the device.
 
-```{tableofcontents}
-```
-  
-To skip the explanation of these shapes and to go onto the simulation step click [here](/pages/digital_shape_representation)
+In this section we will look at the following common photonic components and how to design them:
+
+- [Directional Couplers](/pages/directional_couplers)
+- [Y Branches](/pages/y_branch)
+- [Ring Resonators](/pages/ring_resonators)
+- [Multimode Interferometers (MMIs)](/pages/mmis)
+
+While active components are outside the scope of this course, some examples are:
+
+* Heated waveguides for thermo-optic tuning (slow & stable)
+* Electro-optic modulators (fast but not as stable)
+* Photodetectors
+* On-chip Lasers
