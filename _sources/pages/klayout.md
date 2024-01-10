@@ -19,4 +19,8 @@ Once KLayout is installed, you can install klive from within KLayout's package
 manager, by going to `Tools > Manage Packages > Install New Packages`. Then, 
 search for `klive` and double click it to select it, then click "Apply".
 
-![klive installation screenshot](../klive_installation.png)
+```{image} ../images/klive_installation.png
+:alt: klive installation screenshot
+:height: 400px
+:align: center
+```
