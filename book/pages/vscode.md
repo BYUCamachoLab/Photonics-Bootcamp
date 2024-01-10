@@ -60,5 +60,12 @@ for this course:
 ## Connect to WSL (Windows Machines)
 
 1. Open VSCode. You can setup a theme and other things. 
-2. Connect to WSL. There are a few ways to do this, but the easiest is to look for a small colored box in the bottom left-hand corner of VSCode. If VSCode is connected to WSL it will say "WSL" in this box. If it doesn't, then click the box. A menu will pop up. Click the option "Connect to WSL" and VSCode will now be connected to WSL. More information about WSL in VSCode and other ways to connect can be found in [VSCode's WSL doc page](https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace). 
-3. From now on, all coding and installing should be done through WSL using the VSCode terminal, and since WSL is a linux system, the linux install instructions should be used.
+1. Connect to WSL. There are a few ways to do this, but the easiest is to look
+   for a small colored box in the bottom left-hand corner of VSCode. If VSCode
+   is connected to WSL it will say "WSL" in this box. If it doesn't, then click
+   the box. A menu will pop up. Click the option "Connect to WSL" and VSCode
+   will now be connected to WSL. More information about WSL in VSCode and other
+   ways to connect can be found in [VSCode's WSL docs](https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace). 
+1. From now on, all coding and installing should be done through WSL using the
+   VSCode terminal, and since WSL is a linux system, the linux install
+   instructions should be used.
