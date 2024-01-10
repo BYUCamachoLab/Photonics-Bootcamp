@@ -1,6 +1,6 @@
 # WSL (Windows-only)
 
-If you are using Windows, you'll need to install {term}`WSL``. This can be 
+If you are using Windows, you'll need to install {term}`WSL`. This can be 
 easily installed through the Windows store (recommended), or via the command 
 line:
 
@@ -8,7 +8,7 @@ line:
 2. Run the command ``wsl --install``.
 3. Restart your computer.
 4. From the Start menu, run Ubuntu.
-5. On the first run, set up a new user account on the Linux machinen (username 
+5. On the first run, set up a new user account on the Linux machine (username 
     and password, which can be different from your Windows machine).
 
 <!-- ## Setup Script
