@@ -353,7 +353,7 @@ We plot the mode using ‘’plot_ey’’ for a Mode object. Using similar synt
 components of the magnetic field, or the waveguide itself.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg1</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="o">-</span><span class="n">core_w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">core_t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
     <span class="n">core_w</span><span class="p">,</span>
     <span class="n">core_t</span><span class="p">,</span>
@@ -361,7 +361,7 @@ components of the magnetic field, or the waveguide itself.</p>
     <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
     <span class="n">facecolor</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">wg2</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+<span class="n">wg4</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="o">-</span><span class="n">core_w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">core_t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
     <span class="n">core_w</span><span class="p">,</span>
     <span class="n">core_t</span><span class="p">,</span>
@@ -374,13 +374,13 @@ components of the magnetic field, or the waveguide itself.</p>
 <span class="n">islice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># this line can also be run alone to plot ey</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg</span><span class="p">)</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">'Blues'</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># this line can also be run alone to plot ey</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m1</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
-<span class="n">m4</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> 
-<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg2</span><span class="p">)</span>
+<span class="n">m4</span><span class="o">.</span><span class="n">plot_ey</span><span class="p">(</span><span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> 
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m4</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">m4</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -388,6 +388,9 @@ components of the magnetic field, or the waveguide itself.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/79863c6e0faf982118348954e8eed9a9022ee27a6cd15764e219c71dd1745d89.png" src="../_images/79863c6e0faf982118348954e8eed9a9022ee27a6cd15764e219c71dd1745d89.png">
+</img></div>
 </div>
 <p>Let’s walk through some of the visual features of these modes.</p>
 <ol class="arabic simple">
@@ -396,20 +399,37 @@ components of the magnetic field, or the waveguide itself.</p>
 <li><p>The third thing to notice is that the electric field is discontinuous in the y-direction when it crosses a dielectric interface.  This turns out to be a boundary condition that is a fundamental property of Maxwell’s equations, but depends on the direction the field is pointing.  Any component of the field perpindicular to the boundary will be discontinous, and any component of the field parallel to the boundary will be continuous.  Since we have plotted just the y-component of the field, it is discontinuous when it crosses vertical boundaries, but continous when it crosses horizontal boundaries.</p></li>
 </ol>
 <p>Modes that are dominately polarized in the y-direction are called transverse electric (TE) modes.  TE modes are polarized parallel to the substrate and perpindicular (transverse) to the direction of propagation.</p>
-<p>Now let’s plot the electric field mode 1 and mode 3, which are mostly polarized in the z-direction:</p>
+<p>Now let’s plot the electric field mode 2 and mode 3, which are mostly polarized in the z-direction:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">islice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg2</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">core_w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">core_t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">core_w</span><span class="p">,</span>
+    <span class="n">core_t</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">wg3</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="n">core_w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">core_t</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">core_w</span><span class="p">,</span>
+    <span class="n">core_t</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span>
+    <span class="n">facecolor</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">islice</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
-<span class="n">m2</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">m2</span><span class="o">.</span><span class="n">plot_ez</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m2</span><span class="o">.</span><span class="n">plot_ez</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">'Blues'</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># this line can also be run alone to plot ey</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m2</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
-<span class="n">m3</span><span class="o">.</span><span class="n">plot_eps</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colorbar</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-<span class="n">m3</span><span class="o">.</span><span class="n">plot_ez</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.90</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">m3</span><span class="o">.</span><span class="n">plot_ez</span><span class="p">(</span><span class="n">show</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> 
+<span class="n">ax2</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">wg3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m3</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">m3</span><span class="o">.</span><span class="n">E</span><span class="p">[:,</span> <span class="n">islice</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -418,7 +438,7 @@ components of the magnetic field, or the waveguide itself.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/002c666afa32e0a107f99a49e51a63c5859d2a78bc25c6cef6396f54ba68db99.png" src="../_images/002c666afa32e0a107f99a49e51a63c5859d2a78bc25c6cef6396f54ba68db99.png">
+<img alt="../_images/e4d5136c3aafe65d2ea1c6d0ca73f08535c2e1563b81a2a0767904c238963595.png" src="../_images/e4d5136c3aafe65d2ea1c6d0ca73f08535c2e1563b81a2a0767904c238963595.png">
 </img></div>
 </div>
 <p>Notice that the slice of the electric field through <span class="math notranslate nohighlight">\(z = 0\)</span> is now continuous at the boundaries.  You can also see a slight numerical error at the boundary that arises from the finite resolution of the mode solver.</p>
@@ -432,16 +452,16 @@ components of the magnetic field, or the waveguide itself.</p>
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "pyrolab"
+            mode: "python"
         },
         kernelOptions: {
-            name: "pyrolab",
+            name: "python3",
             path: "./pages"
         },
         predefinedOutput: true
     }
     </script>
-<script>kernelName = 'pyrolab'</script>
+<script>kernelName = 'python3'</script>
 </article>
 <footer class="prev-next-footer">
 <div class="prev-next-area">
