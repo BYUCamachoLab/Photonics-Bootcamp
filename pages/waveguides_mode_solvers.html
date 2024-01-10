@@ -322,6 +322,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-10 16:05:51.512</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/meep']</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>Next, we’ll define the geometry and material of our waveguide.  We’ll choose a waveguide width of 0.75 microns and a waveguide thickness of 0.5 microns.  The waveguide will be made of silicon, with a refractive index of 3.47, and it will be surrounded (clad) by glass with a refractive index of 1.44.  We’ll use the command “find_modes_waveguide” to calculate 4 different modes.  Each one will be returned as a mode object.</p>
 <div class="cell docutils container">
@@ -442,6 +447,38 @@ components of the magnetic field, or the waveguide itself.</p>
 </img></div>
 </div>
 <p>Notice that the slice of the electric field through <span class="math notranslate nohighlight">\(z = 0\)</span> is now continuous at the boundaries.  You can also see a slight numerical error at the boundary that arises from the finite resolution of the mode solver.</p>
+<p>We can also extract useful values related to the waveguide from the models we have created. Below are some of the functions, and more can be found in the <a class="reference external" href="https://gdsfactory.github.io/gplugins/notebooks/mpb_001_mpb_waveguide.html">gplugins mode solver docs</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mm</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_mode_dispersion</span><span class="p">(</span>
+    <span class="n">core</span><span class="o">=</span><span class="s2">"Si"</span><span class="p">,</span>
+    <span class="n">clad</span><span class="o">=</span><span class="s2">"SiO2"</span><span class="p">,</span>
+    <span class="n">mode_number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">core_width</span><span class="o">=</span><span class="n">core_w</span><span class="p">,</span>
+    <span class="n">core_thickness</span><span class="o">=</span><span class="n">core_t</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+    <span class="n">sy</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">sz</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    
+    <span class="p">)</span>
+
+
+<span class="n">neff</span> <span class="o">=</span> <span class="n">m1</span><span class="o">.</span><span class="n">neff</span>
+<span class="n">ng</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">ng</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'The effective index of mode 1 is : </span><span class="si">{</span><span class="n">neff</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'The group index of mode 1 is : </span><span class="si">{</span><span class="n">ng</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The effective index of mode 1 is : 3.106
+The group index of mode 1 is : 3.892
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <script type="text/x-thebe-config">
     {
