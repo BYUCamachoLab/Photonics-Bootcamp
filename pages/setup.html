@@ -289,7 +289,6 @@ document.write(`
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-wsl">Install WSL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-vscode">Install VSCode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-script">Setup Script</a></li>
 </ul>
 </nav>
 </div>
@@ -299,52 +298,71 @@ document.write(`
 <article class="bd-article">
 <section class="tex2jax_ignore mathjax_ignore" id="setting-up-the-tools">
 <h1>Setting up the tools<a class="headerlink" href="#setting-up-the-tools" title="Permalink to this heading">#</a></h1>
-<p>Since we use a lot of python tools in this course, there are some things which you’d need to install. In short:</p>
+<p>Since we primarily use Python tools in this course, there are some things
+you’ll need to install. In short, you’ll need:</p>
 <ol class="arabic simple">
-<li><p>You’d need to either have a Linux machine, a Mac, or a Windows machine with the Windows Subsystem for Linux (WSL) installed.</p></li>
-<li><p>You’d need a Code Editor. The recommended code editor is VSCode, which you can set up <a class="reference internal" href="vscode.html"><span class="doc std std-doc">here</span></a>.</p></li>
-<li><p>You’d need Miniconda. Some of the tools are available through pip, while some are only available through Conda. Miniconda is a nice way to manage all these tools in a single place.</p></li>
-<li><p>You’d need KLayout. This is a layout viewer, which we’ll use to view the layouts we create.</p></li>
+<li><p>A Linux machine, a Mac, or a Windows machine with the
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux (WSL)</a>
+installed.</p></li>
+<li><p>A code editor. The recommended code editor is
+<a class="reference external" href="https://code.visualstudio.com/">Visual Studio Code</a>, (installation
+instructions <a class="reference internal" href="vscode.html"><span class="doc std std-doc">here</span></a>).</p></li>
+<li><p>Miniconda. Most of the tools are installable through the
+<a class="reference external" href="https://pypi.org/">Python Package Index (PyPI)</a>, i.e. “pip” installable,
+while some precompiled packages are only available through Conda
+repositories. Miniconda, which also provides a Python installation and
+virtual environments by default, is a nice way to manage all these tools
+in a single place.</p></li>
+<li><p>KLayout, a layout/GDS file viewer, which we’ll use to view the circuits we
+create.</p></li>
 </ol>
 <section id="install-wsl">
 <h2>Install WSL<a class="headerlink" href="#install-wsl" title="Permalink to this heading">#</a></h2>
-<p>If you are using Windows, you’d have to install WSL. To install:</p>
+<p>If you are using Windows, you’ll need to install <a class="reference internal" href="glossary.html#term-WSL"><span class="xref std std-term">WSL</span></a>`. This can be
+easily installed through the Windows store (recommended), or via the command
+line:</p>
 <ol class="arabic simple">
-<li><p>Open Command Prompt as Administrator</p></li>
-<li><p>Type <code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--install</span></code> and press Enter</p></li>
-<li><p>Restart your computer</p></li>
-<li><p>Click on the Start menu and type “Ubuntu” and press Enter</p></li>
-<li><p>Set up your username and password</p></li>
+<li><p>Open Command Prompt as Administrator.</p></li>
+<li><p>Run the command <code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--install</span></code>.</p></li>
+<li><p>Restart your computer.</p></li>
+<li><p>From the Start menu, run Ubuntu.</p></li>
+<li><p>On the first run, set up a new user account on the Linux machinen (username
+and password, which can be different from your Windows machine).</p></li>
 </ol>
 </section>
 <section id="install-vscode">
 <h2>Install VSCode<a class="headerlink" href="#install-vscode" title="Permalink to this heading">#</a></h2>
 <p>You now need to install VSCode. Refer to the chapter on VSCode <a class="reference internal" href="vscode.html"><span class="doc std std-doc">here</span></a>, which explains what VSCode is and how to install it.</p>
 <p>Open VSCode. You can setup a theme and other things. If you are using WSL, make sure to <a class="reference external" href="https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace">open VSCode in your WSL environment</a>. You can check this by checking the green box in the bottom left-hand corner. If VSCode is connected to WSL it will say “WSL” in this box. If it doesn’t then click the green box. A menu will pop up. Click the option “Connect to WSL” and VSCode will now be connected to WSL.</p>
-</section>
-<section id="setup-script">
-<h2>Setup Script<a class="headerlink" href="#setup-script" title="Permalink to this heading">#</a></h2>
-<p>To install Miniconda and KLayouts we have created a setup script you can download <a class="reference download internal" download="" href="../_downloads/1d889b31bb06cb578abde8e2253d043a/setup.sh"><span class="xref download myst">here</span></a>. If you want to install these manual, skip this step by going to the <a class="reference internal" href="git_and_github.html"><span class="doc std std-doc">next page</span></a>.</p>
-<p>If you are using Linux, and assuming the script was downloaded to your Downloads folder, run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sh<span class="w"> </span>~/Downloads/setup.sh
-</pre></div>
-</div>
-<p>If you are using WSL, get the file path of the script by opening the file explorer, right clicking on the file, and selecting “Properties”. Copy the “Location” field. Then, in the terminal, run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wslpath<span class="w"> </span>&lt;path<span class="w"> </span>to<span class="w"> </span>setup<span class="w"> </span>script&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This script assumes you are using Ubuntu 22.04, which is the default WSL version. If you are using a different version, you’d have to edit the line of the script which downloads KLayout. Alternatively, if you are using a different version of Linux, you can install KLayout manually from the <a class="reference external" href="https://www.klayout.de/build.html">downloads page</a>.</p>
-</div>
-<p>It’s normal for this to take a long time to install.</p>
-<p>To start using the tools, run this command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>photonics
-</pre></div>
-</div>
-<p>If everything installed correctly you are ready to move onto the <span class="xref myst">next chapter</span>.</p>
-<p>The following pages in this section would explain how to use the tools. They also include instructions on how to install the tools individually, if you don’t want to use Miniconda.</p>
-</section>
+<!-- ## Setup Script
+To install Miniconda and KLayouts we have created a setup script you can download [here](../scripts/setup.sh). If you want to install these manual, skip this step by going to the [next page](/pages/git_and_github).
+
+If you are using Linux, and assuming the script was downloaded to your Downloads folder, run the following command:
+
+```{code-block} bash
+sh ~/Downloads/setup.sh
+```
+
+If you are using WSL, get the file path of the script by opening the file explorer, right clicking on the file, and selecting "Properties". Copy the "Location" field. Then, in the terminal, run the following command:
+
+```{code-block} bash
+wslpath <path to setup script> | sh
+```
+
+```{note}
+This script assumes you are using Ubuntu 22.04, which is the default WSL version. If you are using a different version, you'd have to edit the line of the script which downloads KLayout. Alternatively, if you are using a different version of Linux, you can install KLayout manually from the [downloads page](https://www.klayout.de/build.html).
+```
+
+It's normal for this to take a long time to install.
+
+To start using the tools, run this command:
+
+```{code-block} bash
+conda activate photonics
+```
+If everything installed correctly you are ready to move onto the [next chapter](/pages/what_is_a_photonic_device).
+
+The following pages in this section would explain how to use the tools. They also include instructions on how to install the tools individually, if you don't want to use Miniconda.   --></section>
 </section>
 <script type="text/x-thebe-config">
     {
@@ -394,7 +412,6 @@ document.write(`
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-wsl">Install WSL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-vscode">Install VSCode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-script">Setup Script</a></li>
 </ul>
 </nav></div>
 </div></div>

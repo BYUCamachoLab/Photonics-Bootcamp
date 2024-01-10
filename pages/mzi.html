@@ -310,7 +310,10 @@ document.write(`
 </div>
 <nav aria-label="Page">
 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mzi-from-it-s-components">The MZI from it’s components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models">Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-the-netlist">Writing the netlist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-using-callables">Simulation (using callables)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>
@@ -333,85 +336,318 @@ document.write(`
 <article class="bd-article">
 <section class="tex2jax_ignore mathjax_ignore" id="mach-zehnder-interferometers">
 <h1>Mach-Zehnder interferometers<a class="headerlink" href="#mach-zehnder-interferometers" title="Permalink to this heading">#</a></h1>
-<p>The basic concept behind a Mach-Zehnder interferometer is that it splits a beam of light into two path and then recombines them. The resulting interference pattern depends on the relative phase of the two paths. This is a very common device in quantum optics, and is used in many experiments.</p>
+<p><em>This tutorial is an extract from the Simphony docs. For further background reading, see the <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/latest/tutorials/intro.html">Introduction to simphony</a></em></p>
+<p>In this tutorial, we’ll define and simulate a simple circuit known as a
+Mach-Zender Interferometer (MZI).</p>
+<p>The basic concept behind a Mach-Zehnder interferometer is that it splits a beam of light into two paths and then later recombines them. The resulting interference pattern depends on the relative path length, and therefore the accumulated phase, between the two paths. This is a very common device in quantum optics, and is used in many experiments.</p>
 <p>Phase shifts may be caused by differing path lengths, or by the application of a phase shifter, such as a piezo-electric transducer.</p>
-<section id="designing-a-mach-zehnder-interferometer">
-<h2>Designing a Mach-Zehnder interferometer<a class="headerlink" href="#designing-a-mach-zehnder-interferometer" title="Permalink to this heading">#</a></h2>
-<p><img alt="Image of a MZI" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mzi_outline_ports_marked.webp"/></p>
-<p>The above image shows a Mach-Zehnder interferometer. The input port is the top grating coupler and the output port is the bottom grating coupler. This particular design utilizes a path length difference to introduce a relative phase difference between the two paths.</p>
-<p>Simphony is an opensource photonic circuit simulator that already has a grating coupler model, y-branches, and waveguides which can be used to implement a Mach-Zehnder interferometer. The following code block was taken from the Simphony github and shows how to create a Mach-Zehnder interferometer using Simphony. To learn how to set up your own simulations in Simphony, see the official <a class="reference external" href="https://simphonyphotonics.readthedocs.io/en/latest/index.html">Simphony documentation</a></p>
+<p>Simphony uses <a class="reference external" href="https://flaport.github.io/sax/index.html">SAX</a> to define
+models and simulate circuits, which uses
+<a class="reference external" href="https://jax.readthedocs.io/en/latest/index.html">JAX</a> as a computational
+engine. JAX can provide a nice speedup for larger circuits if their models are
+appropriately defined and you have a GPU. Otherwise, it will run perfectly fine
+on a CPU.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We run the following command <strong>first</strong> to ensure that JAX, the library that allows Simphony and SAX to run calculations on GPU’s, uses <a class="reference external" href="https://jax.readthedocs.io/en/latest/notebooks/Common_Gotchas_in_JAX.html#double-64bit-precision">double precision</a>. Be aware that this setting must be set before JAX initializes, or the setting won’t take.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copyright © Simphony Project Contributors</span>
-<span class="c1"># Licensed under the terms of the MIT License</span>
-<span class="c1"># (see simphony/__init__.py for details)</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"jax_enable_x64"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this tutorial, we’ll use JAX as a drop in replacement for NumPy, matplotlib for visualizing our results, and SAX for constructing our circuit and running our simulations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="kn">from</span> <span class="nn">simphony.libraries</span> <span class="kn">import</span> <span class="n">siepic</span>
-<span class="kn">from</span> <span class="nn">simphony.simulation</span> <span class="kn">import</span> <span class="n">Detector</span><span class="p">,</span> <span class="n">Laser</span><span class="p">,</span> <span class="n">Simulation</span>
-
-<span class="c1"># first we initialize all of the components in the MZI circuit</span>
-<span class="n">gc_input</span> <span class="o">=</span> <span class="n">siepic</span><span class="o">.</span><span class="n">GratingCoupler</span><span class="p">()</span>
-<span class="n">y_splitter</span> <span class="o">=</span> <span class="n">siepic</span><span class="o">.</span><span class="n">YBranch</span><span class="p">()</span>
-<span class="n">wg_long</span> <span class="o">=</span> <span class="n">siepic</span><span class="o">.</span><span class="n">Waveguide</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mf">150e-6</span><span class="p">)</span>
-<span class="n">wg_short</span> <span class="o">=</span> <span class="n">siepic</span><span class="o">.</span><span class="n">Waveguide</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mf">50e-6</span><span class="p">)</span>
-<span class="n">y_recombiner</span> <span class="o">=</span> <span class="n">siepic</span><span class="o">.</span><span class="n">YBranch</span><span class="p">()</span>
-<span class="n">gc_output</span> <span class="o">=</span> <span class="n">siepic</span><span class="o">.</span><span class="n">GratingCoupler</span><span class="p">()</span>
-
-<span class="c1"># next we connect the components to each other</span>
-<span class="c1"># you can connect pins directly:</span>
-<span class="n">y_splitter</span><span class="p">[</span><span class="s2">"pin1"</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_input</span><span class="p">[</span><span class="s2">"pin1"</span><span class="p">])</span>
-
-<span class="c1"># or connect components with components:</span>
-<span class="c1"># (when using components to make connections, their first unconnected pin will</span>
-<span class="c1"># be used to make the connection.)</span>
-<span class="n">y_splitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">wg_long</span><span class="p">)</span>
-
-<span class="c1"># or any combination of the two:</span>
-<span class="n">y_splitter</span><span class="p">[</span><span class="s2">"pin3"</span><span class="p">]</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">wg_short</span><span class="p">)</span>
-<span class="c1"># y_splitter.connect(wg_short["pin1"])</span>
-
-<span class="c1"># when making multiple connections, it is often simpler to use `multiconnect`</span>
-<span class="c1"># multiconnect accepts components, pins, and None</span>
-<span class="c1"># if None is passed in, the corresponding pin is skipped</span>
-<span class="n">y_recombiner</span><span class="o">.</span><span class="n">multiconnect</span><span class="p">(</span><span class="n">gc_output</span><span class="p">,</span> <span class="n">wg_short</span><span class="p">,</span> <span class="n">wg_long</span><span class="p">)</span>
-
-<span class="c1"># do a simple sweep simulation</span>
-<span class="n">theoretical</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="k">with</span> <span class="n">Simulation</span><span class="p">()</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="n">Laser</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mf">20e-3</span><span class="p">)</span>
-    <span class="n">l</span><span class="o">.</span><span class="n">wlsweep</span><span class="p">(</span><span class="mf">1500e-9</span><span class="p">,</span> <span class="mf">1600e-9</span><span class="p">)</span>
-    <span class="n">l</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_input</span><span class="p">)</span>
-    <span class="n">Detector</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_output</span><span class="p">)</span>
-
-    <span class="n">theoretical</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">freqs</span><span class="p">,</span> <span class="n">theoretical</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"MZI"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># if we specify multiple samples, noise gets added to the simulation</span>
-<span class="k">with</span> <span class="n">Simulation</span><span class="p">()</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="n">Laser</span><span class="p">(</span><span class="n">power</span><span class="o">=</span><span class="mf">20e-3</span><span class="p">)</span>
-    <span class="n">l</span><span class="o">.</span><span class="n">wlsweep</span><span class="p">(</span><span class="mf">1500e-9</span><span class="p">,</span> <span class="mf">1600e-9</span><span class="p">)</span>
-    <span class="n">l</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_input</span><span class="p">)</span>
-    <span class="n">Detector</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gc_output</span><span class="p">)</span>
-
-    <span class="c1"># we get 101 samples even though we only use 3 because</span>
-    <span class="c1"># filtering requires at least 21 samples and the results</span>
-    <span class="c1"># get better with more samples and 101 isn't much slower</span>
-    <span class="c1"># than 21</span>
-    <span class="n">noisy</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">sax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-mzi-from-it-s-components">
+<h2>The MZI from it’s components<a class="headerlink" href="#the-mzi-from-it-s-components" title="Permalink to this heading">#</a></h2>
+<p>In an MZI, light entering the circuit is split and travels down two paths of differing lengths. When the light is recombined, it interferes, and the output is frequency-dependent.</p>
+<figure class="align-center" id="id3">
+<img alt="Mach-Zehnder Interferometer (MZI) layout." src="_static/images/mzi.png">
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Chip layout of a Mach-Zehnder Interferometer (MZI).</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</img></figure>
+<p>The MZI we’ll create can be broken down into constituent parts. Simphony includes models for these building blocks below:</p>
+<figure class="align-center" id="id4">
+<img alt="Mach-Zehnder Interferometer (MZI) block diagram" src="_static/images/mzi_outline_ports_marked.png">
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Block diagram of a Mach-Zehnder Interferometer (MZI) with the components labeled.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</img></figure>
+<p>The grating couplers are the input and output for light in the circuit. The Y-branch can split and recombine light, and because the waveguides which carry light across the circuit have a different length relative to each other, this produces interference when the light is recombined at the second Y-branch. We can now begin defining our circuit in Simphony using the components we have identified.</p>
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this heading">#</a></h2>
+<p>We’ll use models from the <a class="reference external" href="https://github.com/SiEPIC/SiEPIC_EBeam_PDK">SiEPIC Ebeam PDK</a> library (already included in simphony).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simphony.libraries</span> <span class="kn">import</span> <span class="n">siepic</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As explained in the Introduction, models in SAX (and therefore in Simphony) are simply “callables” (functions) that return a dictionary of scattering parameters. The keys of that resulting dictionary are the port-to-port relationships. In Simphony, we follow the convention <code class="docutils literal notranslate"><span class="pre">(output,</span> <span class="pre">input)</span></code> for the keys of the dictionary, which is the same as the S-parameter matrix formulation (where <span class="math notranslate nohighlight">\(S_{ij}\)</span> is the scattering parameter representing the response at port <span class="math notranslate nohighlight">\(j\)</span> given a stimuli at port <span class="math notranslate nohighlight">\(i\)</span>).</p>
+<p>Models in SAX must have default parameters in their function signatures; that is, no positional arguments are allowed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>siepic.grating_coupler<span class="o">?</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a9f4c8600d7499dc21fdcdccbf5f2b9f6184535efbd43c96489bc58f87d2e5c0.png" src="../_images/a9f4c8600d7499dc21fdcdccbf5f2b9f6184535efbd43c96489bc58f87d2e5c0.png">
-</img></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Red">Signature:</span>
+siepic<span class="-Color -Color-Blue">.</span>grating_coupler<span class="-Color -Color-Blue">(</span>
+    wl<span class="-Color -Color-Blue">:</span> Union<span class="-Color -Color-Blue">[</span>float<span class="-Color -Color-Blue">,</span> jax<span class="-Color -Color-Blue">.</span>Array<span class="-Color -Color-Blue">]</span> <span class="-Color -Color-Blue">=</span> <span class="-Color -Color-Cyan">1.55</span><span class="-Color -Color-Blue">,</span>
+    pol<span class="-Color -Color-Blue">:</span> Literal<span class="-Color -Color-Blue">['te',</span> <span class="-Color -Color-Blue">'tm']</span> <span class="-Color -Color-Blue">=</span> <span class="-Color -Color-Blue">'te',</span>
+    thickness<span class="-Color -Color-Blue">:</span> float <span class="-Color -Color-Blue">=</span> <span class="-Color -Color-Cyan">220.0</span><span class="-Color -Color-Blue">,</span>
+    dwidth<span class="-Color -Color-Blue">:</span> float <span class="-Color -Color-Blue">=</span> <span class="-Color -Color-Cyan">0</span><span class="-Color -Color-Blue">,</span>
+<span class="-Color -Color-Blue">)</span> <span class="-Color -Color-Blue">-&gt;</span> Dict<span class="-Color -Color-Blue">[</span>Tuple<span class="-Color -Color-Blue">[</span>str<span class="-Color -Color-Blue">,</span> str<span class="-Color -Color-Blue">],</span> jaxtyping<span class="-Color -Color-Blue">.</span>Complex<span class="-Color -Color-Blue">[</span>Array<span class="-Color -Color-Blue">,</span> <span class="-Color -Color-Blue">'...']]</span>
+<span class="-Color -Color-Red">Docstring:</span>
+SiEPIC EBeam PDK grating coupler optimized for TE polarizations at
+1550nm.
+
+The grating coupler efficiently couples light from a fiber array positioned
+above the chip into the circuit. For the TE mode, the angle is -25 degrees
+[needs citation].
+
+.. image:: /_static/images/ebeam_gc_te1550.png
+    :alt: ebeam_bdc_te1550.png
+
+Parameters
+----------
+wl : float or Array
+    The wavelengths to evaluate at in microns.
+pol : {"te", "tm"}
+    Polarization of the input/output modes.
+thickness : {210.0, 220.0, 230.0}
+    Thickness of the grating coupler silicon in nm. Useful for simulating
+    manufacturing variability.
+dwidth : {-20.0, 0.0, 20.0}
+    Change in width from nominal of the gratings. Representative of
+    manufacturing variability. Must be one of -20, 0, or 20.
+
+Raises
+------
+ValueError
+    If `pol` is not 'te' or 'tm'.
+ValueError
+    If `thickness` is not one of 210, 220, or 230.
+ValueError
+    If `dwidth` is not one of -20, 0, or 20.
+
+Notes
+-----
+See also the PDK documentation:
+https://github.com/SiEPIC/SiEPIC_EBeam_PDK/blob/master/Documentation/SiEPIC_EBeam_PDK%20-%20Components%20with%20Models.docx
+<span class="-Color -Color-Red">File:</span>      ~/git/simphony/simphony/libraries/siepic/models.py
+<span class="-Color -Color-Red">Type:</span>      function
+</pre></div>
 </div>
-<p>As you can see, and as you might have predicted, by varying the wavelength we can see different levels of power being output from the device. Notice how the power periodically dips to 0. This occurs when the phases of the two paths are exactly opposite, and the light destructively interferes. The power, however does not peak at a consistent maximum, since the mach-zhender has been optimized for a particular wavelength.</p>
+</div>
+</div>
+<p>This means that they can always be called without arguments to inspect what their default return values are and to see what port names are provided.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">siepic</span><span class="o">.</span><span class="n">grating_coupler</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{('o0', 'o0'): Array([-0.0307378-0.00345908j], dtype=complex128),
+ ('o0', 'o1'): Array([0.75686856+0.02082852j], dtype=complex128),
+ ('o1', 'o0'): Array([0.74360676+0.09760613j], dtype=complex128),
+ ('o1', 'o1'): Array([0.0750638-0.02585451j], dtype=complex128)}
+</pre></div>
+</div>
+</div>
+</div>
+<p>SAX also provides an explicit function to get the port names.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sax</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="n">siepic</span><span class="o">.</span><span class="n">y_branch</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sax</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="n">siepic</span><span class="o">.</span><span class="n">waveguide</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sax</span><span class="o">.</span><span class="n">get_ports</span><span class="p">(</span><span class="n">siepic</span><span class="o">.</span><span class="n">grating_coupler</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>('port 1', 'port 2', 'port 3')
+('o0', 'o1')
+('o0', 'o1')
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Throughout all of Simphony and SAX, the <code class="docutils literal notranslate"><span class="pre">"wl"</span></code> argument is in microns, by convention. This is not strictly enforced, and
+various model libraries may follow different convention, so it’s always good to double check the documentation of the model you’re using (or, if you’re writing the model, create documentation for it)!</p>
+</div>
+</section>
+<section id="writing-the-netlist">
+<h2>Writing the netlist<a class="headerlink" href="#writing-the-netlist" title="Permalink to this heading">#</a></h2>
+<p>A SAX circuit contains a
+netlist, which is a collection of component instances, their connections, and
+exposed ports; and a list of models, which makes it easy to swap out different
+models without rewriting your netlist to see how the circuit behavior
+changes.</p>
+<p>The netlist is a dictionary with three fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">"instances"</span></code>: A dictionary of instance names to human-readable component
+model strings (like “coupler” or “waveguide”). You will define the
+string-to-model mapping later.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">"connections"</span></code>: A dictionary of ports to ports in the form
+<code class="docutils literal notranslate"><span class="pre">"instance_name,port_name":</span> <span class="pre">"instance_name,port_name"</span></code> (note there is no
+whitespace delimiting the instance from its port, just a comma).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">"ports"</span></code>: Since a SAX circuit is basically a model itself, and could be
+used in other circuits, it has exposed ports. This field is a dictionary
+mapping port names of the composite object to the ports of its constituent
+instances.</p></li>
+</ul>
+<p>We’ll create</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">sax</span><span class="o">.</span><span class="n">circuit</span><span class="p">(</span>
+    <span class="n">netlist</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"instances"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"gc_in"</span><span class="p">:</span> <span class="s2">"gc"</span><span class="p">,</span>
+            <span class="s2">"splitter"</span><span class="p">:</span> <span class="s2">"ybranch"</span><span class="p">,</span>
+            <span class="s2">"long_wg"</span><span class="p">:</span> <span class="s2">"waveguide"</span><span class="p">,</span>
+            <span class="s2">"short_wg"</span><span class="p">:</span> <span class="s2">"waveguide"</span><span class="p">,</span>
+            <span class="s2">"combiner"</span><span class="p">:</span> <span class="s2">"ybranch"</span><span class="p">,</span>
+            <span class="s2">"gc_out"</span><span class="p">:</span> <span class="s2">"gc"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"connections"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"gc_in,o0"</span><span class="p">:</span> <span class="s2">"splitter,port 1"</span><span class="p">,</span>
+            <span class="s2">"splitter,port 2"</span><span class="p">:</span> <span class="s2">"long_wg,o0"</span><span class="p">,</span>
+            <span class="s2">"splitter,port 3"</span><span class="p">:</span> <span class="s2">"short_wg,o0"</span><span class="p">,</span>
+            <span class="s2">"long_wg,o1"</span><span class="p">:</span> <span class="s2">"combiner,port 2"</span><span class="p">,</span>
+            <span class="s2">"short_wg,o1"</span><span class="p">:</span> <span class="s2">"combiner,port 3"</span><span class="p">,</span>
+            <span class="s2">"combiner,port 1"</span><span class="p">:</span> <span class="s2">"gc_out,o0"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"ports"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"in"</span><span class="p">:</span> <span class="s2">"gc_in,o1"</span><span class="p">,</span>
+            <span class="s2">"out"</span><span class="p">:</span> <span class="s2">"gc_out,o1"</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="n">models</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"ybranch"</span><span class="p">:</span> <span class="n">siepic</span><span class="o">.</span><span class="n">y_branch</span><span class="p">,</span>
+        <span class="s2">"waveguide"</span><span class="p">:</span> <span class="n">siepic</span><span class="o">.</span><span class="n">waveguide</span><span class="p">,</span>
+        <span class="s2">"gc"</span><span class="p">:</span> <span class="n">siepic</span><span class="o">.</span><span class="n">grating_coupler</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simulation-using-callables">
+<h2>Simulation (using callables)<a class="headerlink" href="#simulation-using-callables" title="Permalink to this heading">#</a></h2>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">sax.circuit()</span></code> returns a tuple. The first element is another callable function. All
+parameters you call it with will be passed on to the models contained within the
+circuit, so long as they are named the same. In this way, a circuit itself can
+act as a model within another circuit.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is important that your all models have <strong>common names</strong> for arguments. For example,
+all models that take a <code class="docutils literal notranslate"><span class="pre">length</span></code> parameter should all use the name <code class="docutils literal notranslate"><span class="pre">length</span></code> for that argument. Models
+that are wavelength dependent should all take the same <code class="docutils literal notranslate"><span class="pre">wl</span></code> keyword parameter (by
+convention). If you have your own model library, you can follow whatever
+convention you want, as long as it’s consistent.</p>
+</div>
+<p>The second element of the returned tuple is a information object that contains details
+about the circuit.</p>
+<p>We can simulate the circuit by simply calling it with the appropriate arguments–in this case, the wavelengths we want to
+simulate at.</p>
+<p>The circuit itself contains parameterized models. We can pass arguments targeting
+those models by passing a dictionary of keyword arguments and corresponding values
+when invoking the circuit function. The names you gave the instances
+in the netlist become the keyword arguments of the function. You can pass a
+dictionary which will be used to instantiate those components at simulation time.</p>
+<p>If you’re unsure of the format of the settings dictionary you need to pass to the circuit, you can use SAX’s get_settings function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sax</span><span class="o">.</span><span class="n">get_settings</span><span class="p">(</span><span class="n">mzi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'gc_in': {'wl': Array(1.55, dtype=float64),
+  'pol': 'te',
+  'thickness': Array(220., dtype=float64),
+  'dwidth': Array(0., dtype=float64)},
+ 'splitter': {'wl': Array(1.55, dtype=float64),
+  'pol': 'te',
+  'thickness': Array(220., dtype=float64),
+  'width': Array(500., dtype=float64)},
+ 'long_wg': {'wl': Array(1.55, dtype=float64),
+  'pol': 'te',
+  'length': Array(0., dtype=float64),
+  'width': Array(500., dtype=float64),
+  'height': Array(220., dtype=float64),
+  'loss': Array(0., dtype=float64)},
+ 'short_wg': {'wl': Array(1.55, dtype=float64),
+  'pol': 'te',
+  'length': Array(0., dtype=float64),
+  'width': Array(500., dtype=float64),
+  'height': Array(220., dtype=float64),
+  'loss': Array(0., dtype=float64)},
+ 'combiner': {'wl': Array(1.55, dtype=float64),
+  'pol': 'te',
+  'thickness': Array(220., dtype=float64),
+  'width': Array(500., dtype=float64)},
+ 'gc_out': {'wl': Array(1.55, dtype=float64),
+  'pol': 'te',
+  'thickness': Array(220., dtype=float64),
+  'dwidth': Array(0., dtype=float64)}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is slightly overkill in our case. We don’t want to update <code class="docutils literal notranslate"><span class="pre">wl</span></code> for every single object. We only want to change the length parameters for the long and short waveguides, and let everything else stay with the default or assume a global value.</p>
+<p>We can set the <code class="docutils literal notranslate"><span class="pre">"long_wg"</span></code> and <code class="docutils literal notranslate"><span class="pre">"short_wg"</span></code> waveguides to different lengths alone. The waveguide model within the circuit takes a “length” argument, so that’s what we’ll use in our dictionary of parameters that we pass using keyword arguments. These keyword arguments correspond to the <em>instance name</em> in the netlist. By setting <code class="docutils literal notranslate"><span class="pre">wl</span></code> at the toplevel, it will trickle down to all models that require a <code class="docutils literal notranslate"><span class="pre">wl</span></code> parameter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wl</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">mzi</span><span class="p">(</span><span class="n">wl</span><span class="o">=</span><span class="n">wl</span><span class="p">,</span> <span class="n">long_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">150.0</span><span class="p">},</span> <span class="n">short_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">S</span></code> is now our evaluated s-parameter dictionary</p>
+<p>We’re interested in the power transmitted from the input to the output, which is the magnitude squared of the s-parameter. We’ll square the magnitude of the <code class="docutils literal notranslate"><span class="pre">"out,in"</span></code> element of the resulting dictionary. Recall, too, that we renamed these “external” (unconnected) ports in the netlist when we created the circuit. It’s really easy to give the ports on your composite circuits meaningful names, and it makes your code much more readable.</p>
+<p>Below, we plot both in linear and in log scale using <a class="reference external" href="https://matplotlib.org/"><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="s2">"out"</span><span class="p">,</span> <span class="s2">"in"</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Transmission"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Transmission (dB)"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Wavelength (um)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"MZI Response"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6a96f2438487b23bb76b90d9fd779d993f56718e8dbb496bd91079fe9dc5430f.png" src="../_images/6a96f2438487b23bb76b90d9fd779d993f56718e8dbb496bd91079fe9dc5430f.png"/>
+</div>
+</div>
+<p>As you can see, and as you might have predicted, by varying the wavelength we can see different levels of power being output from the device. Notice how the power periodically dips to 0 (on the linear plot). This occurs when the phases of the two paths are exactly opposite, and the light destructively interferes. The power, however does not peak at a consistent maximum–an effect of using grating couplers, which are optimized for better coupling at some center wavelength (in this case, 1.55 microns).</p>
 </section>
 <section id="analysis-of-a-balanced-mzi">
 <h2>Analysis of a balanced MZI<a class="headerlink" href="#analysis-of-a-balanced-mzi" title="Permalink to this heading">#</a></h2>
@@ -427,18 +663,16 @@ document.write(`
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">"my_component"</span><span class="p">)</span>
 <span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">c</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-09 23:00:01.222</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">785</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/sequoia/git/Photonics-Bootcamp/env/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-01-09 23:00:01.227</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">258</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
 </pre></div>
 </div>
-<img alt="../_images/2617c9be4588c1a773558518893427243d24344ab6485bbac35367c16829ea95.png" src="../_images/2617c9be4588c1a773558518893427243d24344ab6485bbac35367c16829ea95.png"/>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_component: uid 4dfe1431, ports [], references ['mzi_1'], 0 polygons
-</pre></div>
-</div>
+<img alt="../_images/d30d68ddd43e49e0882b36f1269edec6dc7dbfabcadf0dd3dea898b99afe6fe2.png" src="../_images/d30d68ddd43e49e0882b36f1269edec6dc7dbfabcadf0dd3dea898b99afe6fe2.png"/>
 </div>
 </div>
 <p>There are there three different relevant amplitudes:</p>
@@ -512,18 +746,16 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">"my_component"</span><span class="p">)</span>
 <span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 
-<span class="n">c</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You can install `pip install gdsfactory[full]` for better visualization
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-09 22:59:50.499</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">785</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/sequoia/git/Photonics-Bootcamp/env/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-01-09 22:59:50.508</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">258</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
 </pre></div>
 </div>
-<img alt="../_images/a220f3086fc5a316cfe8553831a6dbcaa06a392087595b44af8ee3e6812387d5.png" src="../_images/a220f3086fc5a316cfe8553831a6dbcaa06a392087595b44af8ee3e6812387d5.png"/>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_component: uid a71ccce9, ports [], references ['mzi_1'], 0 polygons
-</pre></div>
-</div>
+<img alt="../_images/9a415e85d0c43a7a40bed466a818eb08f4cae62e6a4b0a95e4be1e379298b378.png" src="../_images/9a415e85d0c43a7a40bed466a818eb08f4cae62e6a4b0a95e4be1e379298b378.png"/>
 </div>
 </div>
 <section id="id1">
@@ -598,7 +830,10 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\Delta\beta L))
   </div>
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#designing-a-mach-zehnder-interferometer">Designing a Mach-Zehnder interferometer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mzi-from-it-s-components">The MZI from it’s components</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#models">Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-the-netlist">Writing the netlist</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-using-callables">Simulation (using callables)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-of-a-balanced-mzi">Analysis of a balanced MZI</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-check">Quick check</a></li>
 </ul>

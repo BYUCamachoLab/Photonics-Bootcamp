@@ -3,7 +3,7 @@
 While you can write computer code using any text editor, some text editors have
 special features that make writing code easier.  In this course, we will be
 using [Visual Studio Code](https://code.visualstudio.com) (also known as
-vscode), a popular open-source text editor by Microsoft that is desiged
+{term}`vscode`), a popular open-source text editor by Microsoft that is desiged
 specifically for writing code. It boasts a healthy set of extensions that 
 can provide integrated development environment (IDE)-like capabilities in a 
 much lighter program.

@@ -20,7 +20,7 @@ To [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) 
 
 While you can install [Git for Windows](https://gitforwindows.org/), because
 the other software packages used in this course are Mac- or Linux-only, you
-will be forced to use WSL to complete this course on Windows. Still, we'll
+will be forced to use git via {term}`WSL` to complete this course. Still, we'll
 provide a [download link](https://git-scm.com/download/win) for git on Windows.
 
 :::
@@ -64,9 +64,9 @@ sudo dnf install git-all
 
 ::::
 
-GitHub is the most well known hosting service, and it provides free accounts
-(and free private repositories) to all users. This bootcamp, for example, is
-hosted on GitHub, along with many of the most popular open-source Python
-projects (including numpy, scipy, and matplotlib). If you want to version
-control your code, we recommend creating an account on GitHub and keeping your
-source code there.
+[GitHub](https://github.com/) is the most well known hosting service, and it 
+provides free accounts (and free private repositories) to all users. This 
+bootcamp, for example, is hosted on GitHub, along with many of the most popular 
+open-source Python projects (including numpy, scipy, and matplotlib). If you 
+want to version control your code, we recommend creating an account on GitHub 
+and keeping your source code there.

@@ -270,6 +270,9 @@ document.write(`
   </button>
 `);
 </script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__secondary" title="Toggle secondary sidebar">
+<span class="fa-solid fa-list"></span>
+</label>
 </div></div>
 </div>
 </div>
@@ -279,6 +282,14 @@ document.write(`
 <!-- Table of contents -->
 <div id="print-main-content">
 <div id="jb-print-toc">
+<div>
+<h2> Contents </h2>
+</div>
+<nav aria-label="Page">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#klive">klive</a></li>
+</ul>
+</nav>
 </div>
 </div>
 </div>
@@ -291,6 +302,17 @@ document.write(`
 <p>(<a class="reference external" href="https://www.klayout.de/">source</a>)</p>
 </div>
 <p><a class="reference external" href="https://www.klayout.de/">KLayout</a> is a free and open-source software for layout design and verification. It’s most basic use case is as a layout viewer (it can read and display GDS files, the most common format for laying out photonic chips), but it is a powerful tool for designing photonic devices and integrated circuits as well. It has features for <a class="reference internal" href="glossary.html#term-DRC"><span class="xref std std-term">DRC</span></a>, viewing chip cross-sections, tracing nets (to help you detect shorts), and more, while also being scriptable in several languages including Ruby and Python. KLayout is available for Windows, Mac, and Linux. You can download KLayout <a class="reference external" href="https://www.klayout.de/build.html">here</a>.</p>
+<section id="klive">
+<h2>klive<a class="headerlink" href="#klive" title="Permalink to this heading">#</a></h2>
+<p>klive is a small extension to KLayout that allows automatic loading for GDS
+files when some external program sends a json request with the gds path to a
+klive server, running in the background. This essentially allows for
+“hot-reloading” of your layouts within KLayout each time you rerun your code.</p>
+<p>Once KLayout is installed, you can install klive from within KLayout’s package
+manager, by going to <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">&gt;</span> <span class="pre">Manage</span> <span class="pre">Packages</span> <span class="pre">&gt;</span> <span class="pre">Install</span> <span class="pre">New</span> <span class="pre">Packages</span></code>. Then,
+search for <code class="docutils literal notranslate"><span class="pre">klive</span></code> and double click it to select it, then click “Apply”.</p>
+<p><img alt="klive installation screenshot" src="klive_installation.png"/></p>
+</section>
 </section>
 <script type="text/x-thebe-config">
     {
@@ -331,7 +353,17 @@ document.write(`
 </div>
 </footer>
 </div>
-<div class="bd-sidebar-secondary bd-toc"></div>
+<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<div class="sidebar-secondary-item">
+<div class="page-toc tocsection onthispage">
+<i class="fa-solid fa-list"></i> Contents
+  </div>
+<nav class="bd-toc-nav page-toc">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#klive">klive</a></li>
+</ul>
+</nav></div>
+</div></div>
 </div>
 <footer class="bd-footer-content">
 <div class="bd-footer-content__inner container">
