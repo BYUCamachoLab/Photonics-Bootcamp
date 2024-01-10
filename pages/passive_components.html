@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Passive components — CamachoLab Photonics Bootcamp</title>
+<title>Passive Components — CamachoLab Photonics Bootcamp</title>
 <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -130,7 +130,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Passive components</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Passive Components</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
@@ -275,7 +275,7 @@ document.write(`
 </div>
 </div>
 <div class="onlyprint" id="jb-print-docs-body">
-<h1>Passive components</h1>
+<h1>Passive Components</h1>
 <!-- Table of contents -->
 <div id="print-main-content">
 <div id="jb-print-toc">
@@ -285,23 +285,24 @@ document.write(`
 <div id="searchbox"></div>
 <article class="bd-article">
 <section class="tex2jax_ignore mathjax_ignore" id="passive-components">
-<h1>Passive components<a class="headerlink" href="#passive-components" title="Permalink to this heading">#</a></h1>
-<p>Using the shapes that we made in the <span class="xref myst">physical shapes</span> section, we can now make different passive components. We will walk through the design of these components:</p>
+<h1>Passive Components<a class="headerlink" href="#passive-components" title="Permalink to this heading">#</a></h1>
+<p>The main building blocks of photonic circuits are passive components. Passive meaning that the component interacts with the light only through refraction/reflection due to the first-order electrical permittivity, a.k.a. index of refraction of the material and there is no tuning on the device.</p>
+<p>In this section we will look at the following common photonic components and how to design them:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="directional_couplers.html"><span class="doc std std-doc">Directional Couplers</span></a></p></li>
 <li><p><a class="reference internal" href="y_branch.html"><span class="doc std std-doc">Y Branches</span></a></p></li>
 <li><p><a class="reference internal" href="ring_resonators.html"><span class="doc std std-doc">Ring Resonators</span></a></p></li>
 <li><p><a class="reference internal" href="mmis.html"><span class="doc std std-doc">Multimode Interferometers (MMIs)</span></a></p></li>
 </ul>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
+<p>While active components are outside the scope of this course, some examples are:</p>
+<ul class="simple">
+<li><p>Heated waveguides for thermo-optic tuning (slow &amp; stable)</p></li>
+<li><p>Electro-optic modulators (fast but not as stable)</p></li>
+<li><p>Photodetectors</p></li>
+<li><p>On-chip Lasers</p></li>
 </ul>
+<div class="toctree-wrapper compound">
 </div>
-<p>To skip the explanation of these shapes and to go onto the simulation step click <span class="xref myst">here</span></p>
 </section>
 <script type="text/x-thebe-config">
     {
