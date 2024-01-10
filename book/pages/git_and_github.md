@@ -11,6 +11,14 @@ Git is the predominant VCS used by programmers today. While git is a command-
 line tool, an entire ecosystem of hosting services, GUI tools, and IDE's have
 sprung up around it. 
 
+First check if you already have git on your system. In a linux teminal, enter:
+
+```{code-block} bash
+which git
+```
+
+if you get a file path back, you already have git and can move on.
+
 To [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) on your machine:
 
 ::::{tab-set}
