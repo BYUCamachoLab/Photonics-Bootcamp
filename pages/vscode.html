@@ -54,8 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
 <link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
-<link href="python.html" rel="next" title="Python"/>
-<link href="git_and_github.html" rel="prev" title="Git (and GitHub)"/>
+<link href="git_and_github.html" rel="next" title="Git (and GitHub)"/>
+<link href="software.html" rel="prev" title="Software"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
 <link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
@@ -105,8 +105,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="software.html">Software</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="klayout.html">KLayout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="laboratory_tools.html">Laboratory Tools</a></li>
@@ -125,8 +125,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ray_optic_model.html">Improving the Ray-optic Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -287,7 +287,7 @@ document.write(`
 <nav aria-label="Page">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-vscode">Configure vscode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-wsl">Connect to WSL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-wsl-windows-machines">Connect to WSL (Windows Machines)</a></li>
 </ul>
 </nav>
 </div>
@@ -345,11 +345,12 @@ for this course:</p>
 <li><p><a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons">vscode-icons</a> (some eye-candy, makes it easier to find files in the tree)</p></li>
 </ul>
 </section>
-<section id="connect-to-wsl">
-<h2>Connect to WSL<a class="headerlink" href="#connect-to-wsl" title="Permalink to this heading">#</a></h2>
+<section id="connect-to-wsl-windows-machines">
+<h2>Connect to WSL (Windows Machines)<a class="headerlink" href="#connect-to-wsl-windows-machines" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Open VSCode. You can setup a theme and other things.</p></li>
-<li><p>If you are using WSL, make sure to <a class="reference external" href="https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace">open VSCode in your WSL environment</a>. You can double-check that you’re connected by looking at the colored box in the bottom left-hand corner of VSCode. If VSCode is connected to WSL it will say “WSL” in this box. If it doesn’t, then click the box. A menu will pop up. Click the option “Connect to WSL” and VSCode will now be connected to WSL.</p></li>
+<li><p>Connect to WSL. There are a few ways to do this, but the easiest is to look for a small colored box in the bottom left-hand corner of VSCode. If VSCode is connected to WSL it will say “WSL” in this box. If it doesn’t, then click the box. A menu will pop up. Click the option “Connect to WSL” and VSCode will now be connected to WSL. More information about WSL in VSCode and other ways to connect can be found in <a class="reference external" href="https://code.visualstudio.com/docs/remote/wsl#_open-a-remote-folder-or-workspace">VSCode’s WSL doc page</a>.</p></li>
+<li><p>From now on, all coding and installing should be done through WSL using the VSCode terminal, and since WSL is a linux system, the linux install instructions should be used.</p></li>
 </ol>
 </section>
 </section>
@@ -375,17 +376,17 @@ for this course:</p>
 </article>
 <footer class="prev-next-footer">
 <div class="prev-next-area">
-<a class="left-prev" href="git_and_github.html" title="previous page">
+<a class="left-prev" href="software.html" title="previous page">
 <i class="fa-solid fa-angle-left"></i>
 <div class="prev-next-info">
 <p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Git (and GitHub)</p>
+<p class="prev-next-title">Software</p>
 </div>
 </a>
-<a class="right-next" href="python.html" title="next page">
+<a class="right-next" href="git_and_github.html" title="next page">
 <div class="prev-next-info">
 <p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">Python</p>
+<p class="prev-next-title">Git (and GitHub)</p>
 </div>
 <i class="fa-solid fa-angle-right"></i>
 </a>
@@ -400,7 +401,7 @@ for this course:</p>
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-vscode">Configure vscode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-wsl">Connect to WSL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-to-wsl-windows-machines">Connect to WSL (Windows Machines)</a></li>
 </ul>
 </nav></div>
 </div></div>

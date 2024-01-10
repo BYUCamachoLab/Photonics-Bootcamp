@@ -56,8 +56,8 @@ const thebe_selector_output = ".output, .cell_output"
 <link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
-<link href="waveguides_modelling.html" rel="next" title="Modelling Wavegudies"/>
-<link href="ray_optic_model.html" rel="prev" title="Improving the Ray-optic Model"/>
+<link href="passive_components.html" rel="next" title="Passive components"/>
+<link href="waveguides_modelling.html" rel="prev" title="Modelling Wavegudies"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
 <link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
@@ -107,8 +107,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="klayout.html">KLayout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="laboratory_tools.html">Laboratory Tools</a></li>
@@ -127,8 +127,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ray_optic_model.html">Improving the Ray-optic Model</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Waveguide modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Waveguide modes</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -369,7 +369,7 @@ document.write(`
 <ol class="arabic simple">
 <li><p>The first thing to notice is that, just like a violin string, there exists a fundamental mode and higher order modes.  The mode in the upper plot is the fundamental, or 0th order mode.  It has a half-wave distributed along the y-axis inside the waveguide.  The mode in the lower plot is the 1st order mode.  It has a full wavelength distributed along the y-axis inside the waveguide.  Notice that the x-axis is out of the page.  In general, inside the waveguide the spatial distribution of the mode will have a sinusoidal dependence, and the mode order is determined by the number of half waves contained in the waveguide.</p></li>
 <li><p>The second thing to notice is that the mode also has non-zero electric field <em>outside</em> of the waveguide.  This part of the mode is called the evanescent field, and decays exponentially.  In order to visualize both the sinusoidal and exponentially decaying parts of the modes, a slice of the mode is also plotted in blue just above the waveguide.  This slice is the magnitude of the electric field, which can be positive and negative, at <span class="math notranslate nohighlight">\(z=0\)</span>.</p></li>
-<li><p>The third thing to notice is that the electric field is discontinuous in the y-direction when it crosses a dielectric interface.  This turns out to be a boundary condition that is a fundamental property of Maxwell’s equations, but depends on the direction the field is pointing.  Any component of the field perpindicular to the boundary will be discontinous, and any component of the field parallel to the boundar will be continuous.  Since we have plotted just the y-component of the field, it is discontinuous when it crosses vertical boundaries, but continous when it crosses horizontal boundaries.</p></li>
+<li><p>The third thing to notice is that the electric field is discontinuous in the y-direction when it crosses a dielectric interface.  This turns out to be a boundary condition that is a fundamental property of Maxwell’s equations, but depends on the direction the field is pointing.  Any component of the field perpindicular to the boundary will be discontinous, and any component of the field parallel to the boundary will be continuous.  Since we have plotted just the y-component of the field, it is discontinuous when it crosses vertical boundaries, but continous when it crosses horizontal boundaries.</p></li>
 </ol>
 <p>Modes that are dominately polarized in the y-direction are called transverse electric (TE) modes.  TE modes are polarized parallel to the substrate and perpindicular (transverse) to the direction of propagation.</p>
 <p>Now let’s plot the electric field mode 1 and mode 3, which are mostly polarized in the z-direction:</p>
@@ -421,17 +421,17 @@ document.write(`
 </article>
 <footer class="prev-next-footer">
 <div class="prev-next-area">
-<a class="left-prev" href="ray_optic_model.html" title="previous page">
+<a class="left-prev" href="waveguides_modelling.html" title="previous page">
 <i class="fa-solid fa-angle-left"></i>
 <div class="prev-next-info">
 <p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Improving the Ray-optic Model</p>
+<p class="prev-next-title">Modelling Wavegudies</p>
 </div>
 </a>
-<a class="right-next" href="waveguides_modelling.html" title="next page">
+<a class="right-next" href="passive_components.html" title="next page">
 <div class="prev-next-info">
 <p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">Modelling Wavegudies</p>
+<p class="prev-next-title">Passive components</p>
 </div>
 <i class="fa-solid fa-angle-right"></i>
 </a>

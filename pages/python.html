@@ -55,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="klayout.html" rel="next" title="KLayout"/>
-<link href="vscode.html" rel="prev" title="Visual Studio Code"/>
+<link href="git_and_github.html" rel="prev" title="Git (and GitHub)"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
 <link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
@@ -105,8 +105,8 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="software.html">Software</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="klayout.html">KLayout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="laboratory_tools.html">Laboratory Tools</a></li>
@@ -125,8 +125,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ray_optic_model.html">Improving the Ray-optic Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -287,9 +287,9 @@ document.write(`
 <nav aria-label="Page">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conda">Conda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-environments">Virtual Environments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-managers">Package Managers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-versioning">Package Versioning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-environments">Virtual Environments</a></li>
 </ul>
 </nav>
 </div>
@@ -326,10 +326,40 @@ Linux, they are simple bash scripts that you’ll need to execute after
 downloading.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For Windows, it’s easiest to download the script in the Ubuntu terminal using
-curl so you don’t have to copy it from the Windows filesystem over to the
-Ubuntu. Even though you’re on Windows, since you’re installing it to the Ubuntu
-system, download the Linux installer!</p>
+<p>For Windows, it’s easiest to download the script in the Ubuntu terminal in VSCode.
+Follow the Linux instructions in the <a class="reference external" href="https://docs.conda.io/projects/miniconda/en/latest/#quick-command-line-install">Quick Command Line Install</a>
+section of the Miniconda install page.</p>
+</div>
+</section>
+<section id="virtual-environments">
+<h2>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this heading">#</a></h2>
+<p>It’s best practice to use a <strong>virtual environment</strong>. A virtual environment is
+simply an environment that is isolated from your main Python installation
+or any other installation on your computer. You can think of it as a sandbox;
+you can have as many of them as you want, and they don’t interact with each
+other. They’re especially useful if you need to have different versions of
+the a library for different programs.
+They can both be on your computer, but in their own walled off areas.</p>
+<p>In Python, virtual environments are also very easy to create and destroy.
+This way, if you mess up your environment, it only costs you a few seconds to
+delete it and start again. The nice thing about a requirements file that pins
+versions of the software is that once you’ve verified all the versions work
+well together, you never have to worry about compatability or recreating the
+setup you were originally using again. Simply install your requirements file,
+or give it to someone else, and you can create the same environment anywhere
+you want.</p>
+<p>While Python has a virtual environment mechanism built in to the language
+(<a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>), since we’re using
+conda to access Python, we’ll use its virtual environment management features
+as well.</p>
+<p>To create an environment, in this case named <code class="docutils literal notranslate"><span class="pre">photonics</span></code>, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span>python
+</pre></div>
+</div>
+<p>You can even specify a specific version of Python, if you’d like to use the
+latest and greatest version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
+</pre></div>
 </div>
 </section>
 <section id="package-managers">
@@ -350,7 +380,17 @@ thinks like signal processing, optimization, etc.</p></li>
 that will be very familiar to MATLAB users.</p></li>
 <li><p>gdsfactory: A Python library for generating GDS layouts.</p></li>
 </ul>
-<p>It’s very easy to install packages from PyPI. Most base installations of Python
+<p>Conda itself also includes methods for installing packages from their database.
+In most cases, we recommend installing via PyPI, but one package we will need
+is only available on conda. In general, if using a conda environment, it is
+recommended to install all conda packages before installing via PyPI. For instance,
+we will use a finite-difference time-domain (FDTD) solver called <a class="reference external" href="https://meep.readthedocs.io/en/latest/">MEEP</a>
+in this course. It can be installed on a conda environment by activating the
+environment then running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>pymeep<span class="w"> </span>pymeep-extras
+</pre></div>
+</div>
+<p>It’s also very easy to install packages from PyPI. Most base installations of Python
 include “pip”, a tool used to install other packages from PyPI. It can be
 invoked from the command line, like so:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>numpy
@@ -413,37 +453,6 @@ line:</p>
 </pre></div>
 </div>
 </section>
-<section id="virtual-environments">
-<h2>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this heading">#</a></h2>
-<p>It’s best practice to use a <strong>virtual environment</strong>. A virtual environment is
-simply an environment that is isolated from your main Python installation
-or any other installation on your computer. You can think of it as a sandbox;
-you can have as many of them as you want, and they don’t interact with each
-other. They’re especially useful if you need to have different versions of
-the a library for different programs.
-They can both be on your computer, but in their own walled off areas.</p>
-<p>In Python, virtual environments are also very easy to create and destroy.
-This way, if you mess up your environment, it only costs you a few seconds to
-delete it and start again. The nice thing about a requirements file that pins
-versions of the software is that once you’ve verified all the versions work
-well together, you never have to worry about compatability or recreating the
-setup you were originally using again. Simply install your requirements file,
-or give it to someone else, and you can create the same environment anywhere
-you want.</p>
-<p>While Python has a virtual environment mechanism built in to the language
-(<a class="reference external" href="https://docs.python.org/3/library/venv.html">venv</a>), since we’re using
-conda to access Python, we’ll use its virtual environment management features
-as well.</p>
-<p>To create an environment, in this case named <code class="docutils literal notranslate"><span class="pre">photonics</span></code>, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span>python
-</pre></div>
-</div>
-<p>You can even specify a specific version of Python, if you’d like to use the
-latest and greatest version:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>photonics<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11
-</pre></div>
-</div>
-</section>
 </section>
 <script type="text/x-thebe-config">
     {
@@ -467,11 +476,11 @@ latest and greatest version:</p>
 </article>
 <footer class="prev-next-footer">
 <div class="prev-next-area">
-<a class="left-prev" href="vscode.html" title="previous page">
+<a class="left-prev" href="git_and_github.html" title="previous page">
 <i class="fa-solid fa-angle-left"></i>
 <div class="prev-next-info">
 <p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Visual Studio Code</p>
+<p class="prev-next-title">Git (and GitHub)</p>
 </div>
 </a>
 <a class="right-next" href="klayout.html" title="next page">
@@ -492,9 +501,9 @@ latest and greatest version:</p>
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conda">Conda</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-environments">Virtual Environments</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-managers">Package Managers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-versioning">Package Versioning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-environments">Virtual Environments</a></li>
 </ul>
 </nav></div>
 </div></div>

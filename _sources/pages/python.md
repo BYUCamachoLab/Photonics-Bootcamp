@@ -31,11 +31,48 @@ downloading.
 
 :::{note} 
 
-For Windows, it's easiest to download the script in the Ubuntu terminal using
-curl so you don't have to copy it from the Windows filesystem over to the
-Ubuntu. Even though you're on Windows, since you're installing it to the Ubuntu
-system, download the Linux installer! 
+For Windows, it's easiest to download the script in the Ubuntu terminal in VSCode. 
+Follow the Linux instructions in the [Quick Command Line Install](https://docs.conda.io/projects/miniconda/en/latest/#quick-command-line-install)
+section of the Miniconda install page.
 :::
+
+## Virtual Environments
+
+It's best practice to use a **virtual environment**. A virtual environment is
+simply an environment that is isolated from your main Python installation 
+or any other installation on your computer. You can think of it as a sandbox;
+you can have as many of them as you want, and they don't interact with each 
+other. They're especially useful if you need to have different versions of 
+the a library for different programs.
+They can both be on your computer, but in their own walled off areas.
+
+In Python, virtual environments are also very easy to create and destroy.
+This way, if you mess up your environment, it only costs you a few seconds to
+delete it and start again. The nice thing about a requirements file that pins
+versions of the software is that once you've verified all the versions work
+well together, you never have to worry about compatability or recreating the
+setup you were originally using again. Simply install your requirements file,
+or give it to someone else, and you can create the same environment anywhere
+you want.
+
+While Python has a virtual environment mechanism built in to the language 
+([venv](https://docs.python.org/3/library/venv.html)), since we're using 
+conda to access Python, we'll use its virtual environment management features
+as well.
+
+To create an environment, in this case named ``photonics``, run:
+
+```bash
+conda create --name photonics python
+```
+
+You can even specify a specific version of Python, if you'd like to use the
+latest and greatest version:
+
+```bash
+conda create --name photonics python=3.11
+```
+
 
 ## Package Managers
 
@@ -55,7 +92,20 @@ ones you will become very familiar with include:
     that will be very familiar to MATLAB users.
 * gdsfactory: A Python library for generating GDS layouts.
 
-It's very easy to install packages from PyPI. Most base installations of Python
+Conda itself also includes methods for installing packages from their database.
+In most cases, we recommend installing via PyPI, but one package we will need 
+is only available on conda. In general, if using a conda environment, it is 
+recommended to install all conda packages before installing via PyPI. For instance,
+we will use a finite-difference time-domain (FDTD) solver called [MEEP](https://meep.readthedocs.io/en/latest/)
+in this course. It can be installed on a conda environment by activating the 
+environment then running
+
+
+```bash
+conda install -c conda-forge pymeep pymeep-extras
+```
+
+It's also very easy to install packages from PyPI. Most base installations of Python
 include "pip", a tool used to install other packages from PyPI. It can be
 invoked from the command line, like so:
 
@@ -128,39 +178,3 @@ line:
 pip install -r requirements.txt
 ```
 
-## Virtual Environments
-
-It's best practice to use a **virtual environment**. A virtual environment is
-simply an environment that is isolated from your main Python installation 
-or any other installation on your computer. You can think of it as a sandbox;
-you can have as many of them as you want, and they don't interact with each 
-other. They're especially useful if you need to have different versions of 
-the a library for different programs.
-They can both be on your computer, but in their own walled off areas.
-
-In Python, virtual environments are also very easy to create and destroy.
-This way, if you mess up your environment, it only costs you a few seconds to
-delete it and start again. The nice thing about a requirements file that pins
-versions of the software is that once you've verified all the versions work
-well together, you never have to worry about compatability or recreating the
-setup you were originally using again. Simply install your requirements file,
-or give it to someone else, and you can create the same environment anywhere
-you want.
-
-While Python has a virtual environment mechanism built in to the language 
-([venv](https://docs.python.org/3/library/venv.html)), since we're using 
-conda to access Python, we'll use its virtual environment management features
-as well.
-
-To create an environment, in this case named ``photonics``, run:
-
-```bash
-conda create --name photonics python
-```
-
-You can even specify a specific version of Python, if you'd like to use the
-latest and greatest version:
-
-```bash
-conda create --name photonics python=3.11
-```
