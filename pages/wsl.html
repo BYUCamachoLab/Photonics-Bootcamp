@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Advanced Components — CamachoLab Photonics Bootcamp</title>
+<title>WSL (Windows-only) — CamachoLab Photonics Bootcamp</title>
 <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -49,13 +49,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
 <script async="async" src="../_static/sphinx-thebe.js"></script>
-<script>DOCUMENTATION_OPTIONS.pagename = 'pages/advanced_components';</script>
-<link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/advanced_components.html" rel="canonical"/>
+<script>DOCUMENTATION_OPTIONS.pagename = 'pages/wsl';</script>
+<link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/wsl.html" rel="canonical"/>
 <link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
-<link href="phase_shifters.html" rel="next" title="Phase Shifters"/>
-<link href="mzi.html" rel="prev" title="Mach-Zehnder interferometers"/>
+<link href="vscode.html" rel="next" title="Visual Studio Code"/>
+<link href="software.html" rel="prev" title="Software"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
 <link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
@@ -102,10 +102,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Environment</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="wsl.html">WSL (Windows-only)</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="software.html">Software</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">WSL (Windows-only)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
@@ -160,8 +160,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder interferometers</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Advanced Components</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
@@ -199,27 +199,6 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="header-article-items__end">
 <div class="header-article-item">
 <div class="article-header-buttons">
-<div class="dropdown dropdown-launch-buttons">
-<button aria-expanded="false" aria-label="Launch interactive content" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
-<i class="fas fa-rocket"></i>
-</button>
-<ul class="dropdown-menu">
-<li><a class="btn btn-sm dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/advanced_components.ipynb" target="_blank" title="Launch onBinder">
-<span class="btn__icon-container">
-<img src="../_static/images/logo_binder.svg"/>
-</span>
-<span class="btn__text-container">Binder</span>
-</a>
-</li>
-<li><a class="btn btn-sm dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/advanced_components.ipynb" target="_blank" title="Launch onColab">
-<span class="btn__icon-container">
-<img src="../_static/images/logo_colab.png"/>
-</span>
-<span class="btn__text-container">Colab</span>
-</a>
-</li>
-</ul>
-</div>
 <div class="dropdown dropdown-source-buttons">
 <button aria-expanded="false" aria-label="Source repositories" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
 <i class="fab fa-github"></i>
@@ -232,14 +211,14 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__text-container">Repository</span>
 </a>
 </li>
-<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/advanced_components.ipynb" target="_blank" title="Suggest edit">
+<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/wsl.md" target="_blank" title="Suggest edit">
 <span class="btn__icon-container">
 <i class="fas fa-pencil-alt"></i>
 </span>
 <span class="btn__text-container">Suggest edit</span>
 </a>
 </li>
-<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/advanced_components.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
+<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/wsl.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
 <span class="btn__icon-container">
 <i class="fas fa-lightbulb"></i>
 </span>
@@ -253,11 +232,11 @@ const thebe_selector_output = ".output, .cell_output"
 <i class="fas fa-download"></i>
 </button>
 <ul class="dropdown-menu">
-<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/pages/advanced_components.ipynb" target="_blank" title="Download source file">
+<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/pages/wsl.md" target="_blank" title="Download source file">
 <span class="btn__icon-container">
 <i class="fas fa-file"></i>
 </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
 <li>
@@ -291,41 +270,62 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__secondary" title="Toggle secondary sidebar">
-<span class="fa-solid fa-list"></span>
-</label>
 </div></div>
 </div>
 </div>
 </div>
 <div class="onlyprint" id="jb-print-docs-body">
-<h1>Advanced Components</h1>
+<h1>WSL (Windows-only)</h1>
 <!-- Table of contents -->
 <div id="print-main-content">
 <div id="jb-print-toc">
-<div>
-<h2> Contents </h2>
-</div>
-<nav aria-label="Page">
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-sections">Cross sections</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-components-using-componentspec">Creating components using ComponentSpec</a></li>
-</ul>
-</nav>
 </div>
 </div>
 </div>
 <div id="searchbox"></div>
 <article class="bd-article">
-<section class="tex2jax_ignore mathjax_ignore" id="advanced-components">
-<h1>Advanced Components<a class="headerlink" href="#advanced-components" title="Permalink to this heading">#</a></h1>
-<section id="cross-sections">
-<h2>Cross sections<a class="headerlink" href="#cross-sections" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="creating-components-using-componentspec">
-<h2>Creating components using ComponentSpec<a class="headerlink" href="#creating-components-using-componentspec" title="Permalink to this heading">#</a></h2>
-</section>
-</section>
+<section class="tex2jax_ignore mathjax_ignore" id="wsl-windows-only">
+<h1>WSL (Windows-only)<a class="headerlink" href="#wsl-windows-only" title="Permalink to this heading">#</a></h1>
+<p>If you are using Windows, you’ll need to install <a class="reference internal" href="glossary.html#term-WSL"><span class="xref std std-term">WSL</span></a>`. This can be
+easily installed through the Windows store (recommended), or via the command
+line:</p>
+<ol class="arabic simple">
+<li><p>Open Command Prompt as Administrator.</p></li>
+<li><p>Run the command <code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--install</span></code>.</p></li>
+<li><p>Restart your computer.</p></li>
+<li><p>From the Start menu, run Ubuntu.</p></li>
+<li><p>On the first run, set up a new user account on the Linux machinen (username
+and password, which can be different from your Windows machine).</p></li>
+</ol>
+<!-- ## Setup Script
+To install Miniconda and KLayouts we have created a setup script you can download [here](../scripts/setup.sh). If you want to install these manual, skip this step by going to the [next page](/pages/git_and_github).
+
+If you are using Linux, and assuming the script was downloaded to your Downloads folder, run the following command:
+
+```{code-block} bash
+sh ~/Downloads/setup.sh
+```
+
+If you are using WSL, get the file path of the script by opening the file explorer, right clicking on the file, and selecting "Properties". Copy the "Location" field. Then, in the terminal, run the following command:
+
+```{code-block} bash
+wslpath <path to setup script> | sh
+```
+
+```{note}
+This script assumes you are using Ubuntu 22.04, which is the default WSL version. If you are using a different version, you'd have to edit the line of the script which downloads KLayout. Alternatively, if you are using a different version of Linux, you can install KLayout manually from the [downloads page](https://www.klayout.de/build.html).
+```
+
+It's normal for this to take a long time to install.
+
+To start using the tools, run this command:
+
+```{code-block} bash
+conda activate photonics
+```
+If everything installed correctly you are ready to move onto the [next chapter](/pages/what_is_a_photonic_device).
+
+The following pages in this section would explain how to use the tools. They also include instructions on how to install the tools individually, if you don't want to use Miniconda.   --></section>
 <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -348,35 +348,24 @@ document.write(`
 </article>
 <footer class="prev-next-footer">
 <div class="prev-next-area">
-<a class="left-prev" href="mzi.html" title="previous page">
+<a class="left-prev" href="software.html" title="previous page">
 <i class="fa-solid fa-angle-left"></i>
 <div class="prev-next-info">
 <p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Mach-Zehnder interferometers</p>
+<p class="prev-next-title">Software</p>
 </div>
 </a>
-<a class="right-next" href="phase_shifters.html" title="next page">
+<a class="right-next" href="vscode.html" title="next page">
 <div class="prev-next-info">
 <p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">Phase Shifters</p>
+<p class="prev-next-title">Visual Studio Code</p>
 </div>
 <i class="fa-solid fa-angle-right"></i>
 </a>
 </div>
 </footer>
 </div>
-<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-<div class="sidebar-secondary-item">
-<div class="page-toc tocsection onthispage">
-<i class="fa-solid fa-list"></i> Contents
-  </div>
-<nav class="bd-toc-nav page-toc">
-<ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-sections">Cross sections</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-components-using-componentspec">Creating components using ComponentSpec</a></li>
-</ul>
-</nav></div>
-</div></div>
+<div class="bd-sidebar-secondary bd-toc"></div>
 </div>
 <footer class="bd-footer-content">
 <div class="bd-footer-content__inner container">
