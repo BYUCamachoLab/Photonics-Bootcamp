@@ -143,7 +143,7 @@
     color: var(--msg-input-color);
 }
 
-a {
+.allchattutor a {
     color: var(--msg-input-color);
 
 }
@@ -397,8 +397,13 @@ html {
 }
 
 .allchattutor .left-msg {
-    color: var(--left-msg-txt)
+    color: var(--left-msg-txt) !important;
 }
+
+.allchattutor p {
+    color: var(--left-msg-txt) !important;
+}
+
 
 .allchattutor .clear-btn-container {
     display: flex;
