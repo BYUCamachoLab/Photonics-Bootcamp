@@ -311,8 +311,7 @@ document.write(`
 <nav aria-label="Page">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-light">Splitting Light</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-light">Combining Light</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-add-simulation-of-combining-out-of-phase-light">TODO Add simulation of combining out of phase light</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-light">Combining Light</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design Considerations</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
@@ -335,33 +334,30 @@ document.write(`
 </div>
 <p style="text-align: center;"> A y-branch from gdsfactory's default component library </p><section id="splitting-light">
 <h2>Splitting Light<a class="headerlink" href="#splitting-light" title="Permalink to this heading">#</a></h2>
-<p>When splitting light, the y-branch works as expected. Any light input into the side with one waveguide will be split into the 2 output waveguides. In most cases, the splitter is designed to split light evenly and so about 50% of the light will exit each side. In other words, for an input intensity <span class="math notranslate nohighlight">\(I_i\)</span> and output intensities <span class="math notranslate nohighlight">\(I_1\)</span> and <span class="math notranslate nohighlight">\(I_2\)</span>
+<p>A 50-50 y-branch (the most common ratio) splits light evenly from the input waveguide into the two output waveguides. In other words, for an input intensity <span class="math notranslate nohighlight">\(I_i\)</span> and output intensities <span class="math notranslate nohighlight">\(I_1\)</span> and <span class="math notranslate nohighlight">\(I_2\)</span>
 $<span class="math notranslate nohighlight">\( I_1=I_2=I_i/2\)</span>$
-It should be kept in mind however, that no y-branch is perfect and so there will always be excess loss. So in a 50/50 splitter, the actual outputs will be slightly less than 50, but should still be equal.</p>
+However, no y-branch is perfect and so there will always be loss. Thus, in a 50/50 splitter, the actual outputs will be slightly less than 50, but should still be equal if we ignore manufacturing variability. There are y-branches that are designed to split light in different ratios, e.g. 70/30, 90/10, and those have different shapes.</p>
 <div style="text-align: center;">
 <image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/split_light.png" title="Splitting Light between two branches" width="75%"/>
 </div>
-<p>The above image shows light from the left side being split evenly between the top and bottom arms on the right.</p>
+<p>The above image shows light from the left side being split evenly between the two output waveguides on the right. We can also see that there is light leaking out of the y-branch into the cladding. The light in the outputs also looks different from the light in the input because the light is now split between the fundamental mode (like the input) and higher order modes. The part of the light in higher order modes is often just considered “lost” since many photonic circuits assume that all the light is in the fundamental mode.</p>
 <section id="combining-light">
 <h3>Combining Light<a class="headerlink" href="#combining-light" title="Permalink to this heading">#</a></h3>
-<p>When combining light, the y-branch is more complex. For example, if you were to input light with and intensity <span class="math notranslate nohighlight">\(I_i\)</span> into say, the upper right right branch or the y-branch, you might expect almost all of the light to exit the left branch. However, the output intensity <span class="math notranslate nohighlight">\(I_o\)</span> in the left branch will only be half of the input intensity, or
-$<span class="math notranslate nohighlight">\(I_o=I_i/2\)</span>$
-This is because the y-branch splits the light in half going both direction. Going forward, the light is split into the 2 output branches, but going backward the light stays in one branch but is split between the 1st and 2nd order modes</p>
-<p>When light is put in both right ports, if it is in phase, the light coupled into the 2nd order mode will destructively interfere, and the light in the fundamental mode will constructively interfere, resulting in almost all the power exiting the left port in the fundamental mode. On the other hand, if the inputs are out of phase, then the opposite will happen. The power in the fundamental mode will destructively interfere, and constructively interfere in the 2nd order mode, resulting in almost no power in the fundamental mode.</p>
+<p>Recombining light with y-branches is more complicated than one might expect based on intuition. The behavior of electromagnetic fields in linear optical media is symmetric in time, which means that if we change the outputs to be inputs and vice-versa, then we get the exact same response. Therefore, in order to get perfect combination of light into the fundamental mode, we need to have both branches on the right side to have input light with the same phase. Then the light from the two branches constructively interferes and all the light ends up in the fundamental mode.</p>
+<p>When the light is completely out of phase, none of the light couples into the fundamental mode because of destructive interference.</p>
+<p>When you input light from only one branch, some of the light couples into the fundamental mode (0th order) and some into the 1st order mode, and some back-reflections into the second input branch. If you look at this from the time reversal perspective, if the y-branch is a 50-50 splitter, you can’t just have light in the fundamental mode coming from the input if you want the light to all go into a single output branch because the y-branch will split the light 50-50. However, if you introduce a higher order mode, you can now create interference that ensures most of the light goes into a single output. Which output that is is determined by the relative phase of the two modes.</p>
 <div style="text-align: center;">
 <image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/single_source_combine.png" title="Light split between two fundamental modes" width="75%"/>
 </div>
-<p>The above image shows light coming from the upper right arm being split between the first two fundamental modes in the the left waveguide. That is why the fields appear snake-like. Because this y-branch is not ideal, some light also exits the lower right arm.</p>
-</section>
-<section id="todo-add-simulation-of-combining-out-of-phase-light">
-<h3>TODO Add simulation of combining out of phase light<a class="headerlink" href="#todo-add-simulation-of-combining-out-of-phase-light" title="Permalink to this heading">#</a></h3>
+<p>The above image shows light coming from the upper right arm being split between the fundamental and 1st order modes in the left waveguide. There is also significant reflections going into the lower right waveguide.</p>
 <section id="design-considerations">
 <h4>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this heading">#</a></h4>
+<p>Directional couplers and y-branches both can be used to split and recombine light. Here are some things to consider when making design choices for splitters/combiners.</p>
 <ul class="simple">
-<li><p>Size</p></li>
-<li><p>Loss</p></li>
-<li><p>Splitting Ratio</p></li>
-<li><p>Can it be made?</p></li>
+<li><p>Size: Y-branches are significantly more compact than standard directional couplers. This is very significant in large circuits.</p></li>
+<li><p>Loss: Directional couplers have less loss since they don’t have reflections and multimode regions.</p></li>
+<li><p>Splitting Ratio: Directional couplers lengths/gaps can be adjusted for arbitrary splitting ratios easily while y-branches’ shape must be optimized for each case, making directional couplers easier to design.</p></li>
+<li><p>Manufacturing Variability: Due to the larger scale of directional couplers, they are more likely to be affected by fab variance.</p></li>
 </ul>
 </section>
 <section id="practice">
@@ -372,7 +368,7 @@ This is because the y-branch splits the light in half going both direction. Goin
 </details></section>
 <section id="sources">
 <h4>Sources<a class="headerlink" href="#sources" title="Permalink to this heading">#</a></h4>
-<p>Silicon Photonics Design - Chrostoski</p>
+<p>“Silicon Photonics Design” by Lukas Chrostowski</p>
 </section>
 </section>
 </section>
@@ -424,8 +420,7 @@ This is because the y-branch splits the light in half going both direction. Goin
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-light">Splitting Light</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-light">Combining Light</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-add-simulation-of-combining-out-of-phase-light">TODO Add simulation of combining out of phase light</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-light">Combining Light</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design Considerations</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practice">Practice</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
