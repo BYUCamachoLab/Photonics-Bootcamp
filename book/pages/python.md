@@ -36,6 +36,8 @@ Follow the Linux instructions in the [Quick Command Line Install](https://docs.c
 section of the Miniconda install page.
 :::
 
+
+
 ## Virtual Environments
 
 It's best practice to use a **virtual environment**. A virtual environment is
@@ -73,6 +75,16 @@ You can even specify a specific version of Python, if you'd like to use a specif
 conda create --name photonics python=3.11
 ```
 
+:::{note}
+If you are using an older Mac with an M-series chip, use these commands instead:
+
+```bash
+  conda create -n intel_env
+  conda activate intel_env
+  conda config --env --set subdir osx-64
+  conda install python=3.11
+```
+:::
 
 ## Package Managers
 
@@ -107,10 +119,10 @@ conda install -c conda-forge pymeep pymeep-extras
 
 It's also very easy to install packages from PyPI. Most base installations of Python
 include "pip", a tool used to install other packages from PyPI. It can be
-invoked from the command line, like so:
+invoked from the command line. Here are a few packages we'll need from pip.
 
 ```bash
-pip install numpy
+pip install gplugins
 ```
 
 It can be used to upgrade packages, too (including itself):
@@ -119,10 +131,10 @@ It can be used to upgrade packages, too (including itself):
 pip install --upgrade pip
 ```
 
-You can also stack package names to save some typing:
+You can also stack package names to save some typing. This line grabs some more packages we'll need:
 
 ```bash
-pip install numpy scipy matplotlib
+pip install nlopt simphony
 ```
 
 ## Package Versioning
