@@ -350,6 +350,36 @@ However, no y-branch is perfect and so there will always be loss. Thus, in a 50/
 <image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/single_source_combine.png" title="Light split between two fundamental modes" width="75%"/>
 </div>
 <p>The above image shows light coming from the upper right arm being split between the fundamental and 1st order modes in the left waveguide. There is also significant reflections going into the lower right waveguide.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+
+<span class="n">ybranch</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">"Y-branch"</span><span class="p">)</span>
+
+<span class="n">inwg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">splitter</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi1x2_with_sbend</span><span class="p">()</span>
+
+<span class="n">inwg_ref</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">inwg</span><span class="p">)</span>
+<span class="n">splitter_ref</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">splitter</span><span class="p">)</span>
+
+<span class="n">splitter_ref</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">inwg_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+
+<span class="n">ybranch</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">to_np</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/06f20dd1e8c64595b23ce44816f6bb49e1d087ef46983afbcd9b80d532334993.png" src="../_images/06f20dd1e8c64595b23ce44816f6bb49e1d087ef46983afbcd9b80d532334993.png">
+</img></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+</pre></div>
+</div>
+</div>
+</div>
 <section id="design-considerations">
 <h4>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this heading">#</a></h4>
 <p>Directional couplers and y-branches both can be used to split and recombine light. Here are some things to consider when making design choices for splitters/combiners.</p>
