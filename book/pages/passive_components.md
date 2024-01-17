@@ -1,6 +1,6 @@
 # Passive Components
 
-The main building blocks of photonic circuits are passive components. Passive meaning that the component interacts with the light only through refraction/reflection due to the first-order electrical permittivity, a.k.a. index of refraction of the material and there is no tuning on the device.
+The main building blocks of photonic circuits are passive components. Passive here means that the component interacts with the light only through refraction/reflection due to the first-order electrical permittivity, a.k.a. index of refraction of the material and there is no tuning on the device.
 
 In this section we will look at the following common photonic components and how to design them:
 
