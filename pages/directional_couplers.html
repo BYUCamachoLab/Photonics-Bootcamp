@@ -319,7 +319,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-splitting-ratios">Other splitting ratios</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-to-show-beating">Simulation to show beating</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-to-show-coupling-across-a-dc">Simulation to show coupling across a DC</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design considerations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
@@ -332,35 +332,43 @@ document.write(`
 <article class="bd-article">
 <section class="tex2jax_ignore mathjax_ignore" id="directional-couplers">
 <h1>Directional couplers<a class="headerlink" href="#directional-couplers" title="Permalink to this heading">#</a></h1>
-<p>Directional couplers “couple,” or transfer, light from one waveguide to another. This is done simply by bringing two waveguides parallel to each other for a certain distance, with a small gap between them. The evanescent fields (fields existing outside of the waveguide) of one waveguide interact with another and thus power is transferred. This principle can be used to split or combine light, depending on the coupling length (the length at which the waveguides are sufficiently close to each other) and the phase of the light in the waveguides.</p>
+<p>Directional couplers are two waveguides with a small gap between them that “couple,” or transfer, light from one waveguide to another. The term “coupling” comes from multiple eigenmodes of a waveguide interacting with light, resulting in light being transferred between the modes. Small parts of waveguide modes’ electric fields are outside the waveguide, these are called evanescent fields (you can read about them more <a class="reference external" href="https://en.wikipedia.org/wiki/Evanescent_field">here</a>). When the evanescent field of a waveguide mode overlap with a second waveguide, some of the light is transferred between the modes as the light propagates. This effect can be used to split or combine light in photonic circuits. The amount of light transferred depends on several things:</p>
+<ul class="simple">
+<li><p>coupling length: the length of the region where the waveguides are close enough for their modes to overlap</p></li>
+<li><p>phase of the incident light</p></li>
+<li><p>coupler gap: the distance between the waveguides</p></li>
+<li><p>waveguide geometry and material</p></li>
+<li><p>wavelength of the light</p></li>
+</ul>
 <div style="text-align: center;">
 <p><img alt="dir_cplr" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/dir_cplr.png?raw=true"/></p>
 </div>
-<p style="text-align: center;"> Layout of a directional coupler in gdsfactory </p><p>Directional couplers can be designed to produce any combination of power at the outputs. This could be a simple 50/50 split, a 60/40 split, or even a 100/0 split where all the input power in one waveguide is coupled to the other. The fraction of power that is coupled from one waveguide to another is dependent on geometric parameters and can be described as:</p>
+<p style="text-align: center;"> Layout of a directional coupler in gdsfactory </p><p>Directional couplers can be designed to produce any ratio of power at the outputs, e.g. 50/50, 75/25, or even a 100/0 split where all the input power in one waveguide is coupled to the other. The fraction of power that is coupled from one waveguide to another is dependent on geometric parameters and can be described as:</p>
 <div class="math notranslate nohighlight">
 \[ \kappa ^2 = \frac {P_{\text{cross}}}{P_0} = \sin^2(CL)\]</div>
 <p>Where <span class="math notranslate nohighlight">\(\kappa\)</span> is the field coupling, <span class="math notranslate nohighlight">\(P_{\text{cross}}\)</span> is the coupled power, <span class="math notranslate nohighlight">\(P_0\)</span> is the input power, <span class="math notranslate nohighlight">\(C\)</span> is the coupling coefficient, and <span class="math notranslate nohighlight">\(L\)</span> is the length of the coupler.</p>
 <p>The coupling coefficient is found with supermode analysis.</p>
 <section id="supermodes">
 <h2>Supermodes<a class="headerlink" href="#supermodes" title="Permalink to this heading">#</a></h2>
-<p>Just like there are modes that exist in one waveguide, supermodes are modes that exist in multiple waveguides based on the interactions between them. These modes interact with each other and the combination of these interactions results in what light is propagating in the waveguide.</p>
-<p>An “odd”, or antisymmetric, supermode occurs when light in the two waveguides are <span class="math notranslate nohighlight">\(180^\circ\)</span> out of phase i.e. perfectly out of phase. Similarly, an “even”, or symmetric, supermode occurs when the two waveguides are in phase.</p>
+<p>Just like there are modes that exist in one waveguide, supermodes are modes that exist in multiple waveguides based on the interactions between them. These modes interact with each other and the combination of these interactions determines how light propagates in the specific waveguide system.</p>
+<p>An “odd”/antisymmetric, supermode occurs when light in the two waveguides are <span class="math notranslate nohighlight">\(180^\circ\)</span> out of phase. Similarly, an even/symmetric, supermode occurs when the light in the two waveguides is in phase.</p>
 <section id="visualizing-supermodes">
 <h3>Visualizing supermodes<a class="headerlink" href="#visualizing-supermodes" title="Permalink to this heading">#</a></h3>
 <p>GDSFactory has a function that enables users to find the supermodes in a directional coupler, given the gap and permittivity of the waveguide core and cladding. Use the script below to visualize supermodes and their refractive indices. Change the gap value to see how the refractive indices of the even and odd mode change relative to each other as it increases or decreases. Also, notice how the electric field for an even mode is most intense between the waveguides, while for an odd field, the field is most intense inside of the waveguides.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory.simulation.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gplugins.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">modes</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">find_modes_coupler</span><span class="p">(</span>
-    <span class="n">wg_widths</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
-    <span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="mf">0.07</span><span class="p">,),</span> <span class="c1"># CHANGE GAP VALUE</span>
-    <span class="n">ncore</span><span class="o">=</span><span class="mf">3.45</span><span class="p">,</span>
-    <span class="n">nclad</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span>
-    <span class="n">wg_thickness</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">core_widths</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+    <span class="n">gaps</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,),</span> <span class="c1"># CHANGE GAP VALUE</span>
+    <span class="n">core_material</span><span class="o">=</span><span class="mf">3.45</span><span class="p">,</span>
+    <span class="n">clad_material</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span>
+    <span class="n">core_thickness</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
     <span class="n">sz</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-    <span class="n">nmodes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">nmodes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">m1</span> <span class="o">=</span> <span class="n">modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># even mode</span>
@@ -380,13 +388,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Refractive index of even mode: 2.492816344674945
-Refractive index of odd mode: 2.4190461250593778
-</pre></div>
-</div>
-<img alt="../_images/3a6cd6bcb4d4c87e460d3c4415b3cf6d4204c474c2823cf03c137ebd0a465c3a.png" src="../_images/3a6cd6bcb4d4c87e460d3c4415b3cf6d4204c474c2823cf03c137ebd0a465c3a.png">
-<img alt="../_images/a95b5e821f73dd38dc14a6dbfdaeeb4104f71a17ea2f83ba5005e4365f14e68b.png" src="../_images/a95b5e821f73dd38dc14a6dbfdaeeb4104f71a17ea2f83ba5005e4365f14e68b.png"/>
-<img alt="../_images/c5ceba8aaf75f12c6e750db0e20be9cf236f93b7da6403b841927b7277da3d99.png" src="../_images/c5ceba8aaf75f12c6e750db0e20be9cf236f93b7da6403b841927b7277da3d99.png"/>
+<img alt="../_images/947edb0506ac19801dd97565ee8f201796a33144402b9635cb44f6f1359b451c.png" src="../_images/947edb0506ac19801dd97565ee8f201796a33144402b9635cb44f6f1359b451c.png">
+<img alt="../_images/a4249cc44950953a9618bd0a532d66e4d77d159c058357bf464e8fb6eb2d5817.png" src="../_images/a4249cc44950953a9618bd0a532d66e4d77d159c058357bf464e8fb6eb2d5817.png"/>
+<img alt="../_images/b20d3d362497f4838b2487b324d1827c8124fc8393deb6973142ff286b89aeda.png" src="../_images/b20d3d362497f4838b2487b324d1827c8124fc8393deb6973142ff286b89aeda.png"/>
 </img></div>
 </div>
 </section>
@@ -394,7 +398,7 @@ Refractive index of odd mode: 2.4190461250593778
 <section id="coupling">
 <h2>Coupling<a class="headerlink" href="#coupling" title="Permalink to this heading">#</a></h2>
 <p>The two supermodes that are used to find the coupling coefficient are the first two modes (like we found in the script above), which happen to be an even and odd mode, respectively.</p>
-<p>The coupling coefficient is</p>
+<p>The coupling coefficient to determine the desired coupling length for a directional coupler is found by:</p>
 <div class="math notranslate nohighlight" id="equation-coupling-coefficient">
 <span class="eqno">(1)<a class="headerlink" href="#equation-coupling-coefficient" title="Permalink to this equation">#</a></span>\[
 C = \frac{\pi\Delta n}{\lambda}
@@ -404,25 +408,39 @@ C = \frac{\pi\Delta n}{\lambda}
 \[
 \Delta n = |n_{1} - n_{2}| = |n_{\text{eff,even}} - n_{\text{eff,odd}}|
 \]</div>
-<p>So, the coupling coefficient is dependent on the difference in the modes’ refractive indices, which in turn is dependent on the width of the gap between the waveguides.</p>
+<p>The effective indices of the even and odd modes depend on</p>
+<ul class="simple">
+<li><p>the coupler gap</p></li>
+<li><p>the wavelength of light</p></li>
+<li><p>the waveguide geometry and material</p></li>
+</ul>
 <section id="coupling-length-and-the-gap-between-waveguides">
 <h3>Coupling length and the gap between waveguides<a class="headerlink" href="#coupling-length-and-the-gap-between-waveguides" title="Permalink to this heading">#</a></h3>
-<p>There is a function, <code class="docutils literal notranslate"><span class="pre">find_coupling_vs_gap</span></code>, in gdsfactory that allows you to find the coupling length (or crossover length) given the gap. It outputs a table detailing the gap distance, even and odd mode refractive indices (ne and no, respectively), the coupling length in <span class="math notranslate nohighlight">\(\mu m\)</span> (lc), and the difference between ne and no, <span class="math notranslate nohighlight">\(\Delta n\)</span> (dn).</p>
+<p>There is a function, <code class="docutils literal notranslate"><span class="pre">find_coupling_vs_gap</span></code>, in gdsfactory that allows you to find the coupling length (or crossover length) given the gap. It outputs a table detailing the gap width, even and odd mode refractive indices (ne and no, respectively), the coupling length in units of <span class="math notranslate nohighlight">\(\mu m\)</span> (lc), and the difference between ne and no, <span class="math notranslate nohighlight">\(\Delta n\)</span> (dn).</p>
 <p>From the table, you should also be able to see that there is an exponential relationship between the gap and the coupling:</p>
 <div class="math notranslate nohighlight">
 \[C = B\cdot e^{-A \cdot g}\]</div>
 <p><span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are dependent on various parameters of the directional coupler, such as the geometry and the wavelength at which it is being operated.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">(</span><span class="n">gap1</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">gap2</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">nmodes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="n">gm</span><span class="o">.</span><span class="n">find_coupling_vs_gap</span><span class="p">(</span><span class="n">gap1</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                        <span class="n">gap2</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                        <span class="n">steps</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+                        <span class="n">nmodes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">wavelength</span><span class="o">=</span><span class="mf">1.55</span><span class="p">,</span>
+                        <span class="n">parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span><span class="p">,</span>
+                        <span class="n">core_widths</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+                        <span class="n">core_material</span><span class="o">=</span><span class="mf">3.45</span><span class="p">,</span>
+                        <span class="n">clad_material</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span>
+                        <span class="n">core_thickness</span><span class="o">=</span><span class="mf">0.22</span><span class="p">,</span>
+                        <span class="n">resolution</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                        <span class="n">sz</span><span class="o">=</span><span class="mi">6</span><span class="p">,)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 12/12 [00:00&lt;00:00, 163.90it/s]
-</pre></div>
-</div>
-<div class="output text_html"><div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6096fc914dc8466db5b23fb64d0ed5db", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -450,99 +468,91 @@ C = \frac{\pi\Delta n}{\lambda}
 <tbody>
 <tr>
 <th>0</th>
-<td>0.200000</td>
-<td>2.457895</td>
-<td>2.437607</td>
-<td>38.198673</td>
-<td>0.020289</td>
+<td>0.10</td>
+<td>2.463631</td>
+<td>2.409798</td>
+<td>14.396530</td>
+<td>0.053832</td>
 </tr>
 <tr>
 <th>1</th>
-<td>0.236364</td>
-<td>2.452193</td>
-<td>2.437659</td>
-<td>53.322086</td>
-<td>0.014534</td>
+<td>0.11</td>
+<td>2.460647</td>
+<td>2.410682</td>
+<td>15.510925</td>
+<td>0.049965</td>
 </tr>
 <tr>
 <th>2</th>
-<td>0.272727</td>
-<td>2.451249</td>
-<td>2.441058</td>
-<td>76.046040</td>
-<td>0.010191</td>
+<td>0.12</td>
+<td>2.459734</td>
+<td>2.411797</td>
+<td>16.166968</td>
+<td>0.047937</td>
 </tr>
 <tr>
 <th>3</th>
-<td>0.309091</td>
-<td>2.449446</td>
-<td>2.441517</td>
-<td>97.734993</td>
-<td>0.007930</td>
+<td>0.13</td>
+<td>2.452682</td>
+<td>2.411449</td>
+<td>18.795515</td>
+<td>0.041233</td>
 </tr>
 <tr>
 <th>4</th>
-<td>0.345455</td>
-<td>2.451721</td>
-<td>2.446248</td>
-<td>141.587204</td>
-<td>0.005474</td>
+<td>0.14</td>
+<td>2.448745</td>
+<td>2.412270</td>
+<td>21.247526</td>
+<td>0.036475</td>
 </tr>
 <tr>
 <th>5</th>
-<td>0.381818</td>
-<td>2.445594</td>
-<td>2.441408</td>
-<td>185.133981</td>
-<td>0.004186</td>
+<td>0.15</td>
+<td>2.447691</td>
+<td>2.414688</td>
+<td>23.482841</td>
+<td>0.033003</td>
 </tr>
 <tr>
 <th>6</th>
-<td>0.418182</td>
-<td>2.448444</td>
-<td>2.445451</td>
-<td>258.922097</td>
-<td>0.002993</td>
+<td>0.16</td>
+<td>2.447658</td>
+<td>2.416929</td>
+<td>25.220085</td>
+<td>0.030729</td>
 </tr>
 <tr>
 <th>7</th>
-<td>0.454545</td>
-<td>2.445440</td>
-<td>2.443229</td>
-<td>350.496899</td>
-<td>0.002211</td>
+<td>0.17</td>
+<td>2.447685</td>
+<td>2.418000</td>
+<td>26.107513</td>
+<td>0.029685</td>
 </tr>
 <tr>
 <th>8</th>
-<td>0.490909</td>
-<td>2.446468</td>
-<td>2.444858</td>
-<td>481.605747</td>
-<td>0.001609</td>
+<td>0.18</td>
+<td>2.442283</td>
+<td>2.416295</td>
+<td>29.821729</td>
+<td>0.025988</td>
 </tr>
 <tr>
 <th>9</th>
-<td>0.527273</td>
-<td>2.446622</td>
-<td>2.445395</td>
-<td>631.758579</td>
-<td>0.001227</td>
+<td>0.19</td>
+<td>2.439496</td>
+<td>2.416231</td>
+<td>33.311196</td>
+<td>0.023265</td>
 </tr>
 <tr>
 <th>10</th>
-<td>0.563636</td>
-<td>2.444822</td>
-<td>2.443938</td>
-<td>876.564477</td>
-<td>0.000884</td>
-</tr>
-<tr>
-<th>11</th>
-<td>0.600000</td>
-<td>2.447166</td>
-<td>2.446531</td>
-<td>1220.921162</td>
-<td>0.000635</td>
+<td>0.20</td>
+<td>2.438256</td>
+<td>2.417123</td>
+<td>36.672851</td>
+<td>0.021133</td>
 </tr>
 </tbody>
 </table>
@@ -556,10 +566,10 @@ C = \frac{\pi\Delta n}{\lambda}
 \]</div>
 <p>Because of this difference in propagation constants, the modes travel at different speeds down the waveguide and so the field intensity oscillates between the two waveguides. This is called beating. One beat is equivalent to the coupling length, or cross-over length, and it is the length it takes for all of the power from one waveguide to be coupled into the other. As the gap between the waveguides gets smaller, the beating gets faster since <span class="math notranslate nohighlight">\(\Delta n\)</span> gets larger, making the cross-over length shorter.</p>
 <p>This cross-over length <span class="math notranslate nohighlight">\(L\)</span>, that gives 100% power transfer is found with:</p>
-<div class="math notranslate nohighlight" id="equation-cross-over-length">
-<span class="eqno">(2)<a class="headerlink" href="#equation-cross-over-length" title="Permalink to this equation">#</a></span>\[
-L_{\text{cross-over}} = \frac {\lambda}{2\Delta n}
-\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-164aeafa-e3aa-4162-926d-96a0d2d42e23">
+<span class="eqno">(2)<a class="headerlink" href="#equation-164aeafa-e3aa-4162-926d-96a0d2d42e23" title="Permalink to this equation">#</a></span>\[\begin{align}
+L_{\text{cross-over}} = \frac {\lambda}{2\Delta n} \nonumber
+\end{align}\]</div>
 <p>This is found from determining what length when multiplied by the propagation constants makes the phase difference <span class="math notranslate nohighlight">\(\pi\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -579,9 +589,9 @@ P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda
 \]</div>
 </section>
 </section>
-<section id="simulation-to-show-beating">
-<h2>Simulation to show beating<a class="headerlink" href="#simulation-to-show-beating" title="Permalink to this heading">#</a></h2>
-<p>To further explore how electric field intensity oscillates between two close waveguides, a meep simulation is provided below that creates two long waveguides with a gap of 0.2um, excites a source at the end of one, and shows the electric field intensity over time in the waveguides. Change the gap distance to observe its affect on the cross-over length. You can also change the lengths of the waveguides to better see the beating. The simulation may take a couple of minutes depending on the length of your waveguide. The plot of the simulation setup and the outputted GIF showing the field intensities for a simulation with a gap of <span class="math notranslate nohighlight">\(0.07 \mu m\)</span> is shown below. This gap is much smaller than traditional gaps so that the beating is more easily seen in a Meep simulation.</p>
+<section id="simulation-to-show-coupling-across-a-dc">
+<h2>Simulation to show coupling across a DC<a class="headerlink" href="#simulation-to-show-coupling-across-a-dc" title="Permalink to this heading">#</a></h2>
+<p>To further explore how electric field intensity oscillates between two waveguides close together, we simulate the coupling process in meep. We send light into one of the waveguides and plot the electric field intensity over time in the waveguides. We recommend changing the gap width in the script and seeing how it affects the cross-over length. The simulation may take a couple minutes to run depending on the waveguide lengths. The plot of the simulation setup and the output GIF showing the field intensities is shown below. This gap is much smaller than is typically used in practice so the cross-over length is shorter so the simulation runs faster.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
@@ -644,6 +654,15 @@ P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel='X', ylabel='Y'&gt;
+</pre></div>
+</div>
+<img alt="../_images/2d2827693ae3c5832968e19f2d10e21b06e357cebd4fd7aef5c68a78692dd5c1.png" src="../_images/2d2827693ae3c5832968e19f2d10e21b06e357cebd4fd7aef5c68a78692dd5c1.png"/>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -651,6 +670,7 @@ P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
+<span class="n">sim</span><span class="o">.</span><span class="n">reset_meep</span><span class="p">()</span>
 <span class="c1"># Capture electric field intensity over time and output into a gif</span>
 <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">at_beginning</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">output_epsilon</span><span class="p">),</span>
         <span class="n">mp</span><span class="o">.</span><span class="n">to_appended</span><span class="p">(</span><span class="s2">"ez"</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">at_every</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">output_efield_z</span><span class="p">)),</span>
@@ -680,9 +700,17 @@ P_{\text{cross}}(L) = P_{\text{initial}}\sin^2 \left( \frac{\pi\Delta n}{\lambda
 <span class="c1"># Clean up workspace by deleting all generated images</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imgs</span><span class="p">:</span> 
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.h5"</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
+Warning: grid volume is not an integer number of pixels; cell size will be rounded to nearest pixel.
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e4d1efca4daf4a43a2d2a988a083811a", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p><strong>Note on h5utils:</strong>
 Sometimes the colormaps in h5utils are invalid when used with Meep. To circumvent this issue, specify the path to your desired colormap using:</p>
@@ -697,15 +725,15 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 </div></section>
 <section id="design-considerations">
 <h2>Design considerations<a class="headerlink" href="#design-considerations" title="Permalink to this heading">#</a></h2>
-<p>So, when designing a directional coupler, you must select a length and gap distance that will give you your desired fraction of the input power at each output port. Also, given the important role that geometry has in determining the characteristics of a directional coupler (such as the coupling coefficient), they are very susceptible to manufacturing variations. This is something to keep in mind as you build circuits that may have strict specifications.</p>
-<p>Another element to consider is that the principles that make a directional coupler work can also mess with the layout of your chip. Parasitic coupling occurs when two waveguides (that are not part of a directional coupler) are placed too close to each other, leading to power “leaking” from one to the other. Waveguides and components should be placed far enough away so that this does not happen.</p>
+<p>When designing a directional coupler, the length and gap must be chosen to produce the desired power splitting ratio at the output. Directional couplers are also sensitive to fabrication variations, so the length and gap should be chosen to be robust to these variations.</p>
+<p>Another element to consider is that the principles behind directional coupling can interfere with nearby circuit components on the chip. Parasitic coupling occurs when two waveguides that are not part of a directional coupler are placed too close to each other, leading to power “leaking” between them. Waveguides and components should be placed far enough away so this does not happen.</p>
 </section>
 <section id="exercises">
 <h2>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
-<p>How far apart should two silicon <span class="math notranslate nohighlight">\(0.5\mu m\)</span> waveguides be to have a coupling length of <span class="math notranslate nohighlight">\(20 \mu m\)</span>?</p>
+<p>How far apart should two <span class="math notranslate nohighlight">\(0.5\mu m\)</span> x <span class="math notranslate nohighlight">\(0.22 \mu m\)</span> silicon waveguides be to have a coupling length of <span class="math notranslate nohighlight">\(20 \mu m\)</span>?</p>
 <details>
 <summary>Answer</summary>
-    Here is the answer  
+    Approximately 0.135 microns. 
 </details></section>
 <section id="sources">
 <h2>Sources<a class="headerlink" href="#sources" title="Permalink to this heading">#</a></h2>
@@ -768,7 +796,7 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-splitting-ratios">Other splitting ratios</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-to-show-beating">Simulation to show beating</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-to-show-coupling-across-a-dc">Simulation to show coupling across a DC</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-considerations">Design considerations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
