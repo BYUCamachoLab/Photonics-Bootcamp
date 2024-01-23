@@ -448,7 +448,7 @@ Notes
 -----
 See also the PDK documentation:
 https://github.com/SiEPIC/SiEPIC_EBeam_PDK/blob/master/Documentation/SiEPIC_EBeam_PDK%20-%20Components%20with%20Models.docx
-<span class="-Color -Color-Red">File:</span>      ~/git/simphony/simphony/libraries/siepic/models.py
+<span class="-Color -Color-Red">File:</span>      ~/miniconda3/envs/photonics/lib/python3.11/site-packages/simphony/libraries/siepic/models.py
 <span class="-Color -Color-Red">Type:</span>      function
 </pre></div>
 </div>
@@ -581,34 +581,22 @@ dictionary which will be used to instantiate those components at simulation time
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'gc_in': {'wl': Array(1.55, dtype=float64),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'gc_in': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'dwidth': 0},
+ 'splitter': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'width': 500.0},
+ 'long_wg': {'wl': 1.55,
   'pol': 'te',
-  'thickness': Array(220., dtype=float64),
-  'dwidth': Array(0., dtype=float64)},
- 'splitter': {'wl': Array(1.55, dtype=float64),
+  'length': 0.0,
+  'width': 500.0,
+  'height': 220.0,
+  'loss': 0.0},
+ 'short_wg': {'wl': 1.55,
   'pol': 'te',
-  'thickness': Array(220., dtype=float64),
-  'width': Array(500., dtype=float64)},
- 'long_wg': {'wl': Array(1.55, dtype=float64),
-  'pol': 'te',
-  'length': Array(0., dtype=float64),
-  'width': Array(500., dtype=float64),
-  'height': Array(220., dtype=float64),
-  'loss': Array(0., dtype=float64)},
- 'short_wg': {'wl': Array(1.55, dtype=float64),
-  'pol': 'te',
-  'length': Array(0., dtype=float64),
-  'width': Array(500., dtype=float64),
-  'height': Array(220., dtype=float64),
-  'loss': Array(0., dtype=float64)},
- 'combiner': {'wl': Array(1.55, dtype=float64),
-  'pol': 'te',
-  'thickness': Array(220., dtype=float64),
-  'width': Array(500., dtype=float64)},
- 'gc_out': {'wl': Array(1.55, dtype=float64),
-  'pol': 'te',
-  'thickness': Array(220., dtype=float64),
-  'dwidth': Array(0., dtype=float64)}}
+  'length': 0.0,
+  'width': 500.0,
+  'height': 220.0,
+  'loss': 0.0},
+ 'combiner': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'width': 500.0},
+ 'gc_out': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'dwidth': 0}}
 </pre></div>
 </div>
 </div>
@@ -654,23 +642,16 @@ dictionary which will be used to instantiate those components at simulation time
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 
-<span class="n">PDK</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">get_generic_pdk</span><span class="p">()</span>
-<span class="n">PDK</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-
 <span class="c1"># The &lt;&lt; is shorthand for c.add_ref()</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">"my_component"</span><span class="p">)</span>
 <span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-09 23:00:01.222</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">785</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/sequoia/git/Photonics-Bootcamp/env/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
-<span class="-Color -Color-Green">2024-01-09 23:00:01.227</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">258</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
-</pre></div>
-</div>
-<img alt="../_images/d30d68ddd43e49e0882b36f1269edec6dc7dbfabcadf0dd3dea898b99afe6fe2.png" src="../_images/d30d68ddd43e49e0882b36f1269edec6dc7dbfabcadf0dd3dea898b99afe6fe2.png"/>
+<img alt="../_images/6f55ba31bf0a482c807b04fc82cf7fc9711ae9df443b39ff96562fa47613df31.png" src="../_images/6f55ba31bf0a482c807b04fc82cf7fc9711ae9df443b39ff96562fa47613df31.png"/>
 </div>
 </div>
 <p>There are there three different relevant amplitudes:</p>
@@ -738,22 +719,15 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 
-<span class="n">PDK</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">get_generic_pdk</span><span class="p">()</span>
-<span class="n">PDK</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-
 <span class="n">c</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">"my_component"</span><span class="p">)</span>
 <span class="n">mzi</span> <span class="o">=</span> <span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">plot_matplotlib</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-09 22:59:50.499</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">785</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/sequoia/git/Photonics-Bootcamp/env/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
-<span class="-Color -Color-Green">2024-01-09 22:59:50.508</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">258</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
-</pre></div>
-</div>
-<img alt="../_images/9a415e85d0c43a7a40bed466a818eb08f4cae62e6a4b0a95e4be1e379298b378.png" src="../_images/9a415e85d0c43a7a40bed466a818eb08f4cae62e6a4b0a95e4be1e379298b378.png"/>
+<img alt="../_images/1bf7001c97363cb5f3fb2601b97ec9d6273a66cee4a8621048021573cda77d12.png" src="../_images/1bf7001c97363cb5f3fb2601b97ec9d6273a66cee4a8621048021573cda77d12.png"/>
 </div>
 </div>
 <section id="id1">
