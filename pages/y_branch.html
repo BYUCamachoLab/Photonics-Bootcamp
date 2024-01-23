@@ -342,10 +342,16 @@ However, no y-branch is perfect and so there will always be loss. Thus, in a 50/
 <section id="combining-light">
 <h3>Combining Light<a class="headerlink" href="#combining-light" title="Permalink to this heading">#</a></h3>
 <p>Recombining light with y-branches is more complicated than one might expect based on intuition. The behavior of electromagnetic fields in linear optical media is symmetric in time, which means that if we change the outputs to be inputs and vice-versa, then we get the exact same response. Therefore, in order to get perfect combination of light into the fundamental mode, we need to have both branches on the right side to have input light with the same phase. Then the light from the two branches constructively interferes and all the light ends up in the fundamental mode.</p>
+<div style="text-align: center;">
+<image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/ybranch_combining_inphase.png" title="In phase combination of light in y-branch" width="75%"/>
+</div>
 <p>When the light is completely out of phase, none of the light couples into the fundamental mode because of destructive interference.</p>
+<div style="text-align: center;">
+<image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/ybranch_combining_outofphase.png" title="Out of phase combination of light in y-branch" width="75%"/>
+</div>
 <p>When you input light from only one branch, some of the light couples into the fundamental mode (0th order) and some into the 1st order mode, and some back-reflections into the second input branch. If you look at this from the time reversal perspective, if the y-branch is a 50-50 splitter, you can’t just have light in the fundamental mode coming from the input if you want the light to all go into a single output branch because the y-branch will split the light 50-50. However, if you introduce a higher order mode, you can now create interference that ensures most of the light goes into a single output. Which output that is is determined by the relative phase of the two modes.</p>
 <div style="text-align: center;">
-<image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/single_source_combine.png" title="Light split between two fundamental modes" width="75%"/>
+<image alt="y_branch" height="75%" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/single_source_combine.png" title="Fundamental and 1st order mode mixed at output" width="75%"/>
 </div>
 <p>The above image shows light coming from the upper right arm being split between the fundamental and 1st order modes in the left waveguide. There is also significant reflections going into the lower right waveguide.</p>
 <div class="cell docutils container">
@@ -354,29 +360,107 @@ However, no y-branch is perfect and so there will always be loss. Thus, in a 50/
 
 <span class="n">ybranch</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="s2">"Y-branch"</span><span class="p">)</span>
 
-<span class="n">inwg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">inwg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">outwg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 <span class="n">splitter</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mmi1x2_with_sbend</span><span class="p">()</span>
 
 <span class="n">inwg_ref</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">inwg</span><span class="p">)</span>
 <span class="n">splitter_ref</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">splitter</span><span class="p">)</span>
+<span class="n">outwg_top_ref</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">outwg</span><span class="p">)</span>
+<span class="n">outwg_bot_ref</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">outwg</span><span class="p">)</span>
 
-<span class="n">splitter_ref</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">inwg_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
-
+<span class="n">inwg_ref</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o2"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">splitter_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+<span class="n">outwg_top_ref</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">splitter_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">outwg_bot_ref</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">splitter_ref</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o3"</span><span class="p">])</span>
 <span class="n">ybranch</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">grid</span> <span class="o">=</span> <span class="n">ybranch</span><span class="o">.</span><span class="n">to_np</span><span class="p">()</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">'out/ybranch.gds'</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/06f20dd1e8c64595b23ce44816f6bb49e1d087ef46983afbcd9b80d532334993.png" src="../_images/06f20dd1e8c64595b23ce44816f6bb49e1d087ef46983afbcd9b80d532334993.png">
+<img alt="../_images/652565479e8dc1e82842b48104465e928307d73bd2ece9f2b1271a17699c278f.png" src="../_images/652565479e8dc1e82842b48104465e928307d73bd2ece9f2b1271a17699c278f.png">
 </img></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">mp</span><span class="o">.</span><span class="n">verbosity</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_geometry_from_gds_component</span><span class="p">(</span><span class="n">component</span><span class="p">:</span><span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">core_mat</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">),</span> <span class="n">cladding_mat</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)):</span>
+
+    <span class="n">component_points</span> <span class="o">=</span> <span class="n">component</span><span class="o">.</span><span class="n">to_np</span><span class="p">(</span><span class="mf">1e3</span><span class="o">/</span><span class="n">resolution</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">Nx</span> <span class="o">=</span> <span class="n">component_points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Ny</span> <span class="o">=</span> <span class="n">component_points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">sx</span> <span class="o">=</span> <span class="n">Nx</span> <span class="o">/</span> <span class="n">resolution</span>
+    <span class="n">sy</span> <span class="o">=</span> <span class="n">Ny</span> <span class="o">/</span> <span class="n">resolution</span>
+
+    <span class="n">matgrid</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">MaterialGrid</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span><span class="n">Ny</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                            <span class="n">cladding_mat</span><span class="p">,</span>
+                            <span class="n">core_mat</span><span class="p">,</span>
+                            <span class="n">weights</span><span class="o">=</span><span class="n">component_points</span><span class="p">,</span>
+                            <span class="n">beta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                            <span class="n">do_averaging</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">damping</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">Block</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span> <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">sx</span><span class="p">,</span><span class="n">sy</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">material</span><span class="o">=</span><span class="n">matgrid</span><span class="p">)]</span>
+    
+    <span class="k">return</span> <span class="n">geometry</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">geometry</span> <span class="o">=</span> <span class="n">make_geometry_from_gds_component</span><span class="p">(</span><span class="n">ybranch</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">)</span>
+
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">ContinuousSource</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">1.55</span><span class="p">),</span>
+                              <span class="n">volume</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">2.2</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+                              <span class="n">direction</span><span class="o">=-</span><span class="n">mp</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+                              <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                              <span class="n">component</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Ez</span><span class="p">),</span>
+           <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">ContinuousSource</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mf">1.55</span><span class="p">),</span>
+                              <span class="n">volume</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">2.2</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+                              <span class="n">direction</span><span class="o">=-</span><span class="n">mp</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
+                              <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                              <span class="n">component</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Ez</span><span class="p">,</span>
+                              <span class="n">amplitude</span><span class="o">=-</span><span class="mi">1</span><span class="p">)]</span>
+
+<span class="n">boundary_layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)]</span>
+
+<span class="n">cell_size</span> <span class="o">=</span> <span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">cell_size</span><span class="o">=</span><span class="n">cell_size</span><span class="p">,</span>
+                    <span class="n">boundary_layers</span><span class="o">=</span><span class="n">boundary_layers</span><span class="p">,</span>
+                    <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
+                    <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
+                    <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+                    <span class="n">default_material</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">))</span>
+
+<span class="n">dft</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_dft_fields</span><span class="p">([</span><span class="n">mp</span><span class="o">.</span><span class="n">Ez</span><span class="p">],</span> <span class="mi">1</span><span class="o">/</span><span class="mf">1.55</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">cell_size</span> <span class="o">-</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">()</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eps_data</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span> <span class="n">size</span><span class="o">=</span><span class="n">cell_size</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Dielectric</span><span class="p">)</span>
+<span class="n">e_data</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span> <span class="n">size</span><span class="o">=</span><span class="n">cell_size</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Ez</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">eps_data</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">'spline36'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'binary'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">e_data</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">'spline36'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'RdBu'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8ca96b2b88a2886697a369e5da1b4f046b43ae574b5fa57a8f4fd10bf36ba7c2.png" src="../_images/8ca96b2b88a2886697a369e5da1b4f046b43ae574b5fa57a8f4fd10bf36ba7c2.png">
+</img></div>
 </div>
 <section id="design-considerations">
 <h4>Design Considerations<a class="headerlink" href="#design-considerations" title="Permalink to this heading">#</a></h4>
