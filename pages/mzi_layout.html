@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>WSL (Windows-only) — CamachoLab Photonics Bootcamp</title>
+<title>Laying out a Mach-Zehnder Interferometer — CamachoLab Photonics Bootcamp</title>
 <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
@@ -49,13 +49,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
 <script async="async" src="../_static/sphinx-thebe.js"></script>
-<script>DOCUMENTATION_OPTIONS.pagename = 'pages/wsl';</script>
-<link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/wsl.html" rel="canonical"/>
+<script>DOCUMENTATION_OPTIONS.pagename = 'pages/mzi_layout';</script>
+<link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/mzi_layout.html" rel="canonical"/>
 <link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
-<link href="vscode.html" rel="next" title="Visual Studio Code"/>
-<link href="software.html" rel="prev" title="Software"/>
+<link href="advanced_components.html" rel="next" title="Advanced Components"/>
+<link href="mzi.html" rel="prev" title="Mach-Zehnder interferometers"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
 <link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
@@ -100,10 +100,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Environment</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="software.html">Software</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">WSL (Windows-only)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="wsl.html">WSL (Windows-only)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
@@ -153,10 +153,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pdks.html">Process design kits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder interferometers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mzi_layout.html">Laying out a Mach-Zehnder Interferometer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Laying out a Mach-Zehnder Interferometer</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
@@ -198,6 +198,27 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="header-article-items__end">
 <div class="header-article-item">
 <div class="article-header-buttons">
+<div class="dropdown dropdown-launch-buttons">
+<button aria-expanded="false" aria-label="Launch interactive content" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+<i class="fas fa-rocket"></i>
+</button>
+<ul class="dropdown-menu">
+<li><a class="btn btn-sm dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/mzi_layout.ipynb" target="_blank" title="Launch onBinder">
+<span class="btn__icon-container">
+<img src="../_static/images/logo_binder.svg"/>
+</span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+<li><a class="btn btn-sm dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/mzi_layout.ipynb" target="_blank" title="Launch onColab">
+<span class="btn__icon-container">
+<img src="../_static/images/logo_colab.png"/>
+</span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+</ul>
+</div>
 <div class="dropdown dropdown-source-buttons">
 <button aria-expanded="false" aria-label="Source repositories" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
 <i class="fab fa-github"></i>
@@ -210,14 +231,14 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__text-container">Repository</span>
 </a>
 </li>
-<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/wsl.md" target="_blank" title="Suggest edit">
+<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/mzi_layout.ipynb" target="_blank" title="Suggest edit">
 <span class="btn__icon-container">
 <i class="fas fa-pencil-alt"></i>
 </span>
 <span class="btn__text-container">Suggest edit</span>
 </a>
 </li>
-<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/wsl.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
+<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/mzi_layout.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
 <span class="btn__icon-container">
 <i class="fas fa-lightbulb"></i>
 </span>
@@ -231,11 +252,11 @@ const thebe_selector_output = ".output, .cell_output"
 <i class="fas fa-download"></i>
 </button>
 <ul class="dropdown-menu">
-<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/pages/wsl.md" target="_blank" title="Download source file">
+<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/pages/mzi_layout.ipynb" target="_blank" title="Download source file">
 <span class="btn__icon-container">
 <i class="fas fa-file"></i>
 </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
 <li>
@@ -274,7 +295,7 @@ document.write(`
 </div>
 </div>
 <div class="onlyprint" id="jb-print-docs-body">
-<h1>WSL (Windows-only)</h1>
+<h1>Laying out a Mach-Zehnder Interferometer</h1>
 <!-- Table of contents -->
 <div id="print-main-content">
 <div id="jb-print-toc">
@@ -283,48 +304,101 @@ document.write(`
 </div>
 <div id="searchbox"></div>
 <article class="bd-article">
-<section class="tex2jax_ignore mathjax_ignore" id="wsl-windows-only">
-<h1>WSL (Windows-only)<a class="headerlink" href="#wsl-windows-only" title="Permalink to this heading">#</a></h1>
-<p>If you are using Windows, you’ll need to install <a class="reference internal" href="glossary.html#term-WSL"><span class="xref std std-term">WSL</span></a>. This can be
-easily installed through the Windows store (recommended), or via the command
-line:</p>
-<ol class="arabic simple">
-<li><p>Open Command Prompt as Administrator.</p></li>
-<li><p>Run the command <code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--install</span></code>.</p></li>
-<li><p>Restart your computer.</p></li>
-<li><p>From the Start menu, run Ubuntu.</p></li>
-<li><p>On the first run, set up a new user account on the Linux machine (username
-and password, which can be different from your Windows machine).</p></li>
-</ol>
-<!-- ## Setup Script
-To install Miniconda and KLayouts we have created a setup script you can download [here](../scripts/setup.sh). If you want to install these manual, skip this step by going to the [next page](/pages/git_and_github).
+<section class="tex2jax_ignore mathjax_ignore" id="laying-out-a-mach-zehnder-interferometer">
+<h1>Laying out a Mach-Zehnder Interferometer<a class="headerlink" href="#laying-out-a-mach-zehnder-interferometer" title="Permalink to this heading">#</a></h1>
+<p>This page will walk you through the steps of laying out an MZI for fabrication. In the last tutorial we learned how to use Simphony to simulate an MZI, and now we will learn to prepare a GDS file using the SiEPIC PDK.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 
-If you are using Linux, and assuming the script was downloaded to your Downloads folder, run the following command:
+<span class="kn">import</span> <span class="nn">ubcpdk</span>
+<span class="kn">import</span> <span class="nn">ubcpdk.components</span> <span class="k">as</span> <span class="nn">uc</span>
 
-```{code-block} bash
-sh ~/Downloads/setup.sh
-```
-
-If you are using WSL, get the file path of the script by opening the file explorer, right clicking on the file, and selecting "Properties". Copy the "Location" field. Then, in the terminal, run the following command:
-
-```{code-block} bash
-wslpath <path to setup script> | sh
-```
-
-```{note}
-This script assumes you are using Ubuntu 22.04, which is the default WSL version. If you are using a different version, you'd have to edit the line of the script which downloads KLayout. Alternatively, if you are using a different version of Linux, you can install KLayout manually from the [downloads page](https://www.klayout.de/build.html).
-```
-
-It's normal for this to take a long time to install.
-
-To start using the tools, run this command:
-
-```{code-block} bash
-conda activate photonics
-```
-If everything installed correctly you are ready to move onto the [next chapter](/pages/what_is_a_photonic_device).
-
-The following pages in this section would explain how to use the tools. They also include instructions on how to install the tools individually, if you don't want to use Miniconda.   --></section>
+<span class="n">gf</span><span class="o">.</span><span class="n">CONF</span><span class="o">.</span><span class="n">display_type</span> <span class="o">=</span> <span class="s2">"klayout"</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-25 16:04:20.032</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
+<span class="-Color -Color-Green">2024-01-25 16:04:21.396</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk')</span>
+<span class="-Color -Color-Green">2024-01-25 16:04:21.468</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-01-25 16:04:21.472</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_crossing4</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/2a8b150e608c503f1085c69b4dc6df5b93739789dec5741b1f52d7e32fc59db7.png" src="../_images/2a8b150e608c503f1085c69b4dc6df5b93739789dec5741b1f52d7e32fc59db7.png">
+</img></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_bdc_te1550</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bbcf33aebc062320f796b921a9c5080b22109642f7adc10c41abc2f909d1f8fd.png" src="../_images/bbcf33aebc062320f796b921a9c5080b22109642f7adc10c41abc2f909d1f8fd.png">
+</img></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_y_1550</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fa25817bc16eb00c0e2820296328c2c8574e9d904f855fab955c0acb90b52485.png" src="../_images/fa25817bc16eb00c0e2820296328c2c8574e9d904f855fab955c0acb90b52485.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splitter</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_y_1550</span><span class="p">(</span><span class="n">decorator</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">auto_rename_ports</span><span class="p">)</span>
+<span class="n">mzi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">splitter</span><span class="o">=</span><span class="n">splitter</span><span class="p">)</span>
+<span class="n">mzi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/114ab0bdbc32d52884834b5f87da60f1bffe9c8880d814a314810626fb49b88e.png" src="../_images/114ab0bdbc32d52884834b5f87da60f1bffe9c8880d814a314810626fb49b88e.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">)</span>
+<span class="n">component_fiber_array</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e93cf5161e8880f3055eeb04aec58b4f3be7f77ff4c290779e55c899542664a6.png" src="../_images/e93cf5161e8880f3055eeb04aec58b4f3be7f77ff4c290779e55c899542664a6.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi.gds"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-25 16:21:50.622</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi.gds'</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi.gds')
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -347,17 +421,17 @@ The following pages in this section would explain how to use the tools. They als
 </article>
 <footer class="prev-next-footer">
 <div class="prev-next-area">
-<a class="left-prev" href="software.html" title="previous page">
+<a class="left-prev" href="mzi.html" title="previous page">
 <i class="fa-solid fa-angle-left"></i>
 <div class="prev-next-info">
 <p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Software</p>
+<p class="prev-next-title">Mach-Zehnder interferometers</p>
 </div>
 </a>
-<a class="right-next" href="vscode.html" title="next page">
+<a class="right-next" href="advanced_components.html" title="next page">
 <div class="prev-next-info">
 <p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">Visual Studio Code</p>
+<p class="prev-next-title">Advanced Components</p>
 </div>
 <i class="fa-solid fa-angle-right"></i>
 </a>
