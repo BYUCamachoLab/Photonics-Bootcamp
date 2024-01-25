@@ -487,22 +487,23 @@ Sometimes the colormaps in h5utils are invalid when used with Meep. To circumven
 <p><img alt="gif" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/gc_parameters.png?raw=true"/></p>
 </div><section id="grating-period">
 <h2>Grating period<a class="headerlink" href="#grating-period" title="Permalink to this heading">#</a></h2>
-<p>The grating period (typically denoted by <span class="math notranslate nohighlight">\(\Lambda\)</span>) is the parameter most likely to effect the efficiency of a grating coupler. It is the length of one period of the grating, and is measured in microns. The grating period is typically chosen to be near half the wavelength of the light being used. This is because the bragg grating period is related to the wavelength of light by the equation:</p>
+<p>The grating period (typically denoted by <span class="math notranslate nohighlight">\(\Lambda\)</span>) is the parameter most likely to effect the efficiency of a grating coupler. It is the length of one period of the grating, and is measured in microns. The grating period is related to the output angle of the light by the following equation, known as the Bragg condition:</p>
 <p><span class="math notranslate nohighlight">\(
-\Lambda = \frac{\lambda}{2n_{eff}}
+\frac{\lambda}{\Lambda} = n_{eff} - \sin(\theta_{air})
 \)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> is the free-space wavelength of the light, <span class="math notranslate nohighlight">\(n_{eff}\)</span> is the effective index of the grating, and <span class="math notranslate nohighlight">\(\theta_{air}\)</span> is the angle of propogation of the light in the air compared to the surface normal.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If we were to choose this period to be exactly half the wavelength, the light would be diffracted at 90 degrees, which is problematic since a byproduct of this diffraction would be a large amount of light reflected back into the waveguide. This is known as the “zeroth order” diffraction. To avoid this, the grating period is typically chosen to be slightly less than half the wavelength of the light. This results in a diffraction angle slightly less than 90 degrees, which is ideal for coupling light into a fiber optic cable.</p>
+<p>If we were choose the grating period such that the light would be diffracted at exactly 90 degrees, a byproduct of this diffraction would be a large amount of light reflected back into the waveguide. This is because there are different grating orders. The bragg equation above gives us the angle of the first order diffraction, but the second order will indcue twice the amount of change in direction. In the case of a waveguide, light would be reflected back along the waveguide. To avoid this, the grating period is typically chosen to result in a diffraction angle slightly less than 90 degrees, which is ideal for coupling light into a fiber optic cable.</p>
 </div>
 </section>
 <section id="grating-etch-depth">
 <h2>Grating etch depth<a class="headerlink" href="#grating-etch-depth" title="Permalink to this heading">#</a></h2>
-<p>The grating etch depth is the depth of the grating teeth into the silicon waveguide. As the etch depth increases, the effective index of refraction of the etched area also decreases. The overall effective index of refraction of the grating coupler is a weighted average of the effective index of the etched and unetched areas…</p>
+<p>The grating etch depth is the depth of the grating teeth into the silicon waveguide. As the etch depth increases, the effective index of refraction of the etched area also decreases. The overall effective index of refraction of the grating coupler is a weighted average of the effective index of the etched and unetched areas.</p>
 </section>
 <section id="grating-fill-factor">
 <h2>Grating fill factor<a class="headerlink" href="#grating-fill-factor" title="Permalink to this heading">#</a></h2>
-<p>The grating fill factor is the ratio of the width of the grating teeth to the width of the grating period.</p>
+<p>The grating fill factor is the ratio of the width of the grating teeth to the width of the grating period. The fill factor will affect the effective index of the grating.</p>
 <p><span class="math notranslate nohighlight">\(
 ff = \frac{w}{\Lambda}
 \)</span></p>
