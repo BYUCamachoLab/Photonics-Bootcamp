@@ -371,13 +371,13 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 <p>Now we can play around a little bit. First, we can change various lengths. We find the parameters in the <a class="reference external" href="https://gdsfactory.github.io/ubc/components_plot.html#ubcpdk.components.mzi">docs</a>. There is an ASCII drawing there that is helpful to understand what the different length parameters do.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">length_x</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">length_y</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">length_x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">length_y</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">mzi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/773efbd05e79f2d8bd222056f51900cf4ea9bb316866ee4ae3ecc3e716aa0bc8.png" src="../_images/773efbd05e79f2d8bd222056f51900cf4ea9bb316866ee4ae3ecc3e716aa0bc8.png"/>
+<img alt="../_images/9ca99d6bb5c282fd7df410c94b2aea870a59cf4dd340d792064a96ee896c7fb3.png" src="../_images/9ca99d6bb5c282fd7df410c94b2aea870a59cf4dd340d792064a96ee896c7fb3.png"/>
 </div>
 </div>
 <p>Finally, we can easily add a grating array to any component. Note that the component we want to add gratings to will be rotated so that its ports are oriented vertically. Also, though we can’t see it in the plot, adding the grating couplers also adds a label to one of the gratings, marking it as the input.</p>
@@ -406,15 +406,15 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 <p>We can export our design using the write_gds function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi2.gds"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi.gds"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 12:37:27.910</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi2.gds'</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 12:38:46.077</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi.gds'</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi2.gds')
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi.gds')
 </pre></div>
 </div>
 </div>
