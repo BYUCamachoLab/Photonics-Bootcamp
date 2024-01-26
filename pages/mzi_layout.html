@@ -324,70 +324,79 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-25 16:04:20.032</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
-<span class="-Color -Color-Green">2024-01-25 16:04:21.396</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk')</span>
-<span class="-Color -Color-Green">2024-01-25 16:04:21.468</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
-<span class="-Color -Color-Green">2024-01-25 16:04:21.472</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 11:16:10.112</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
+<span class="-Color -Color-Green">2024-01-26 11:16:11.376</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk')</span>
+<span class="-Color -Color-Green">2024-01-26 11:16:11.456</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-01-26 11:16:11.461</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>First, we can get a basic idea of what is going on by looking at a Y splitter. The code below creates the splitter, then plots it. pretty simple. The Y splitter is a fixed component in the PDK, which in this case means that it doesn’t take any arguments and we can’t change its geometry. All the components available in the PDK can be found in the <a class="reference external" href="https://gdsfactory.github.io/ubc/components.html">docs</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_crossing4</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_y_1550</span><span class="p">()</span>
+<span class="n">y</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2a8b150e608c503f1085c69b4dc6df5b93739789dec5741b1f52d7e32fc59db7.png" src="../_images/2a8b150e608c503f1085c69b4dc6df5b93739789dec5741b1f52d7e32fc59db7.png">
+<img alt="../_images/fa25817bc16eb00c0e2820296328c2c8574e9d904f855fab955c0acb90b52485.png" src="../_images/fa25817bc16eb00c0e2820296328c2c8574e9d904f855fab955c0acb90b52485.png">
 </img></div>
 </div>
+<p>Now let’s look at a component we can play with. We’ll use a single-coupled ring. The ring has many features we can adjust, which are all listed in the <a class="reference external" href="https://gdsfactory.github.io/ubc/components_plot.html#ubcpdk.components.ring_single">docs</a>. For now we’ll just play with the gap, the radius (of the bends), the length_x (which is the coupler length), and the length_y. Try a few of these values to try them out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_bdc_te1550</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ring</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ring_single</span><span class="p">(</span><span class="n">gap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">length_x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">length_y</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ring</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bbcf33aebc062320f796b921a9c5080b22109642f7adc10c41abc2f909d1f8fd.png" src="../_images/bbcf33aebc062320f796b921a9c5080b22109642f7adc10c41abc2f909d1f8fd.png">
+<img alt="../_images/62be762608586a3300bdd40bb2a76f0f6829b1fbbde8acd3ee2d9ac95e862ce4.png" src="../_images/62be762608586a3300bdd40bb2a76f0f6829b1fbbde8acd3ee2d9ac95e862ce4.png">
 </img></div>
 </div>
+<p>Now let’s make an MZI. First we will just see what the default parameters give us.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_y_1550</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/fa25817bc16eb00c0e2820296328c2c8574e9d904f855fab955c0acb90b52485.png" src="../_images/fa25817bc16eb00c0e2820296328c2c8574e9d904f855fab955c0acb90b52485.png"/>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splitter</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_y_1550</span><span class="p">(</span><span class="n">decorator</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">port</span><span class="o">.</span><span class="n">auto_rename_ports</span><span class="p">)</span>
-<span class="n">mzi</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">splitter</span><span class="o">=</span><span class="n">splitter</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">mzi</span><span class="p">()</span>
 <span class="n">mzi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/114ab0bdbc32d52884834b5f87da60f1bffe9c8880d814a314810626fb49b88e.png" src="../_images/114ab0bdbc32d52884834b5f87da60f1bffe9c8880d814a314810626fb49b88e.png"/>
+<img alt="../_images/97d04a193fd86808be449b919a9338de314cebb2e763201da07fe0e746e0201f.png" src="../_images/97d04a193fd86808be449b919a9338de314cebb2e763201da07fe0e746e0201f.png"/>
 </div>
 </div>
+<p>Now we can play around a little bit. First, we can change various lengths. We find the parameters in the <a class="reference external" href="https://gdsfactory.github.io/ubc/components_plot.html#ubcpdk.components.mzi">docs</a>. There is an ASCII drawing there that is helpful to understand what the different length parameters do.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">length_x</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">length_y</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">mzi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/773efbd05e79f2d8bd222056f51900cf4ea9bb316866ee4ae3ecc3e716aa0bc8.png" src="../_images/773efbd05e79f2d8bd222056f51900cf4ea9bb316866ee4ae3ecc3e716aa0bc8.png"/>
+</div>
+</div>
+<p>Finally, we can easily add a grating array to any component. Note that the component we want to add gratings to will be rotated so that its ports are oriented vertically. Also, though we can’t see it in the plot, adding the grating couplers also adds a label to one of the gratings, marking it as the input.</p>
+<div class="highlight-Warning notranslate"><div class="highlight"><pre><span></span>The label is essential for the automated testing that is part of the OpenEBL fabrication run. The label tells the tester what polarization to use, which port is the input, and what to name the data set it collects. 
+</pre></div>
+</div>
+<p>We can set the device name on this label usig the ‘name’ argument. The <a class="reference external" href="https://gdsfactory.github.io/ubc/components_plot.html#ubcpdk.components.add_fiber_array">docs</a> are always helpful.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'My_cool_MZI'</span><span class="p">)</span>
 <span class="n">component_fiber_array</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e93cf5161e8880f3055eeb04aec58b4f3be7f77ff4c290779e55c899542664a6.png" src="../_images/e93cf5161e8880f3055eeb04aec58b4f3be7f77ff4c290779e55c899542664a6.png"/>
+<img alt="../_images/7245f55df573520437030781097976737891a72b8d6dd1d5fa63a47ef1945e6e.png" src="../_images/7245f55df573520437030781097976737891a72b8d6dd1d5fa63a47ef1945e6e.png"/>
 </div>
 </div>
+<p>We can export our design using the write_gds function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi.gds"</span><span class="p">)</span>
@@ -395,7 +404,7 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-25 16:21:50.622</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi.gds'</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 12:09:16.270</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi.gds'</span>
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi.gds')
