@@ -389,13 +389,14 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>username:<span class="w"> </span><span class="s2">"YourName"</span>
 </pre></div>
 </div>
+<p>You may need to restart your kernel after creating the configuration file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The file must be named config.yml and must be placed in the same directory as your code. It will contain the line <code class="docutils literal notranslate"><span class="pre">username:</span> <span class="pre">"YourName"</span></code></p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolMZI-1'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolMZI1'</span><span class="p">)</span>
 <span class="n">component_fiber_array</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -404,18 +405,21 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 <img alt="../_images/efbbb472dff7ad7c42e717dba2e137bbf0c821309c1986cea80ced3ebea94445.png" src="../_images/efbbb472dff7ad7c42e717dba2e137bbf0c821309c1986cea80ced3ebea94445.png"/>
 </div>
 </div>
-<p>We can export our design using the write_gds function.</p>
+<p>We can export our design using the write_gds function. If you zoom in on where the lower coupler meets the waveguide, you can see the text label. It should say:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>opt_in_TE_1550_device_YourName_MyCoolMZI1
+</pre></div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi4.gds"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi.gds"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 15:00:56.000</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi4.gds'</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 16:12:00.066</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi.gds'</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi4.gds')
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi.gds')
 </pre></div>
 </div>
 </div>
