@@ -306,7 +306,12 @@ document.write(`
 <article class="bd-article">
 <section class="tex2jax_ignore mathjax_ignore" id="laying-out-a-mach-zehnder-interferometer">
 <h1>Laying out a Mach-Zehnder Interferometer<a class="headerlink" href="#laying-out-a-mach-zehnder-interferometer" title="Permalink to this heading">#</a></h1>
-<p>This page will walk you through the steps of laying out an MZI for fabrication. In the last tutorial we learned how to use Simphony to simulate an MZI, and now we will learn to prepare a GDS file using the SiEPIC PDK.</p>
+<p>This page will walk you through the steps of laying out an MZI for fabrication. In the last tutorial we learned how to use Simphony to simulate an MZI, and now we will learn to prepare a GDS file using the SiEPIC PDK. First we need to install the <a class="reference external" href="https://gdsfactory.github.io/ubc/index.html">ubcpdk package</a>. Following the installation instructions, we add it to our environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>gdstk<span class="w"> </span>-y
+pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w"> </span>--upgrade
+</pre></div>
+</div>
+<p>Then we can play with the components.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
