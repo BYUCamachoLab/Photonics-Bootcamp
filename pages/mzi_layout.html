@@ -390,27 +390,31 @@ pip<span class="w"> </span>install<span class="w"> </span>ubcpdk<span class="w">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ubcpdk.config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
 
 <span class="n">CONFIG</span><span class="o">.</span><span class="n">username</span><span class="o">=</span><span class="s1">'MyName'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
 <span class="n">component_fiber_array</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'My_cool_MZI'</span><span class="p">)</span>
 <span class="n">component_fiber_array</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyName
+</pre></div>
+</div>
 <img alt="../_images/7245f55df573520437030781097976737891a72b8d6dd1d5fa63a47ef1945e6e.png" src="../_images/7245f55df573520437030781097976737891a72b8d6dd1d5fa63a47ef1945e6e.png"/>
 </div>
 </div>
 <p>We can export our design using the write_gds function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi.gds"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">component_fiber_array</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"mzi2.gds"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 12:34:00.250</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi.gds'</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-01-26 12:37:27.910</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'mzi2.gds'</span>
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi.gds')
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('mzi2.gds')
 </pre></div>
 </div>
 </div>
