@@ -1,0 +1,799 @@
+
+<!DOCTYPE html>
+
+<html data-content_root="" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>&lt;no title&gt; — CamachoLab Photonics Bootcamp</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet"/>
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet"/>
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet"/>
+<link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" rel="stylesheet" type="text/css"/>
+<link href="../_static/togglebutton.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/sphinx-thebe.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css"/>
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" rel="preload"/>
+<link as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" rel="preload"/>
+<script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script>
+<script src="../_static/underscore.js"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../_static/doctools.js"></script>
+<script src="../_static/clipboard.min.js"></script>
+<script src="../_static/copybutton.js"></script>
+<script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+<script>let toggleHintShow = 'Click to show';</script>
+<script>let toggleHintHide = 'Click to hide';</script>
+<script>let toggleOpenOnPrint = 'true';</script>
+<script src="../_static/togglebutton.js"></script>
+<script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+<script src="../_static/design-tabs.js"></script>
+<script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+<script async="async" src="../_static/sphinx-thebe.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'pages/layout_demo';</script>
+<link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/layout_demo.html" rel="canonical"/>
+<link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="advanced_components.html" rel="next" title="Advanced Components"/>
+<link href="mzi_layout.html" rel="prev" title="Laying out a Mach-Zehnder Interferometer"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="en" name="docsearch:language"/>
+<link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
+<a class="skip-link" href="#main-content" id="pst-skip-link">Skip to main content</a>
+<div id="pst-scroll-pixel-helper"></div>
+<button class="btn rounded-pill" id="pst-back-to-top" type="button">
+<i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+<input class="sidebar-toggle" id="__primary" name="__primary" type="checkbox"/>
+<label class="overlay overlay-primary" for="__primary"></label>
+<input class="sidebar-toggle" id="__secondary" name="__secondary" type="checkbox"/>
+<label class="overlay overlay-secondary" for="__secondary"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search this book..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search this book..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+</div>
+<header class="bd-header navbar navbar-expand-lg bd-navbar">
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar">
+<div class="sidebar-header-items sidebar-primary__section">
+</div>
+<div class="sidebar-primary-items__start sidebar-primary__section">
+<div class="sidebar-primary-item">
+<a class="navbar-brand logo" href="../index.html">
+<img alt="CamachoLab Photonics Bootcamp - Home" class="logo__image only-light" src="../_static/logo.png"/>
+<script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="CamachoLab Photonics Bootcamp - Home"/>`);</script>
+</a></div>
+<div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links" id="bd-docs-nav">
+<div class="bd-toc-item navbar-nav active">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="wsl.html">WSL (Windows-only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="klayout.html">KLayout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="laboratory_tools.html">Laboratory Tools</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="photonic_devices.html">What are photonic devices?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layer_stack.html">Defining the layer stack</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="components.html">Components</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray_optic_model.html">Improving the Ray-optic Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive Components</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="optical_io.html">Optical I/O</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="grating_couplers.html">Grating couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="edge_couplers.html">Edge couplers</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="optimization.html">Optimization and inverse design</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="shape_optimization.html">Shape optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adjoint_optimization.html">Adjoint optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact models</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pdks.html">Process design kits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder interferometers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mzi_layout.html">Laying out a Mach-Zehnder Interferometer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="analyzing_circuits.html">Analyzing circuits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">PDK Documentation</a></li>
+</ul>
+</div>
+</nav></div>
+</div>
+<div class="sidebar-primary-items__end sidebar-primary__section">
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content">
+<div class="sbt-scroll-pixel-helper"></div>
+<div class="bd-content">
+<div class="bd-article-container">
+<div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+<div class="header-article-items__start">
+<div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__primary" title="Toggle primary sidebar">
+<span class="fa-solid fa-bars"></span>
+</label></div>
+</div>
+<div class="header-article-items__end">
+<div class="header-article-item">
+<div class="article-header-buttons">
+<div class="dropdown dropdown-launch-buttons">
+<button aria-expanded="false" aria-label="Launch interactive content" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+<i class="fas fa-rocket"></i>
+</button>
+<ul class="dropdown-menu">
+<li><a class="btn btn-sm dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://mybinder.org/v2/gh/BYUCamachoLab/Photonics-Bootcamp/main?urlpath=tree/book/pages/layout_demo.ipynb" target="_blank" title="Launch onBinder">
+<span class="btn__icon-container">
+<img src="../_static/images/logo_binder.svg"/>
+</span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+<li><a class="btn btn-sm dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://colab.research.google.com/github/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/pages/layout_demo.ipynb" target="_blank" title="Launch onColab">
+<span class="btn__icon-container">
+<img src="../_static/images/logo_colab.png"/>
+</span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="dropdown dropdown-source-buttons">
+<button aria-expanded="false" aria-label="Source repositories" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+<i class="fab fa-github"></i>
+</button>
+<ul class="dropdown-menu">
+<li><a class="btn btn-sm btn-source-repository-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp" target="_blank" title="Source repository">
+<span class="btn__icon-container">
+<i class="fab fa-github"></i>
+</span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/layout_demo.ipynb" target="_blank" title="Suggest edit">
+<span class="btn__icon-container">
+<i class="fas fa-pencil-alt"></i>
+</span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/layout_demo.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
+<span class="btn__icon-container">
+<i class="fas fa-lightbulb"></i>
+</span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="dropdown dropdown-download-buttons">
+<button aria-expanded="false" aria-label="Download this page" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+<i class="fas fa-download"></i>
+</button>
+<ul class="dropdown-menu">
+<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/pages/layout_demo.ipynb" target="_blank" title="Download source file">
+<span class="btn__icon-container">
+<i class="fas fa-file"></i>
+</span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+<li>
+<button class="btn btn-sm btn-download-pdf-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" onclick="window.print()" title="Print to PDF">
+<span class="btn__icon-container">
+<i class="fas fa-file-pdf"></i>
+</span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+</ul>
+</div>
+<button class="btn btn-sm btn-fullscreen-button" data-bs-placement="bottom" data-bs-toggle="tooltip" onclick="toggleFullScreen()" title="Fullscreen mode">
+<span class="btn__icon-container">
+<i class="fas fa-expand"></i>
+</span>
+</button>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__secondary" title="Toggle secondary sidebar">
+<span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+</div>
+</div>
+</div>
+<div class="onlyprint" id="jb-print-docs-body">
+<h1><no title=""></no></h1>
+<!-- Table of contents -->
+<div id="print-main-content">
+<div id="jb-print-toc">
+<div>
+<h2> Contents </h2>
+</div>
+<nav aria-label="Page">
+<ul class="simple visible nav section-nav flex-column">
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div id="searchbox"></div>
+<article class="bd-article">
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># import matplotlib</span>
+<span class="c1"># matplotlib.use('TkAgg')</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">gplugins.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+<span class="kn">import</span> <span class="nn">ipympl</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-02 10:32:11.133</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/meep']</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="kn">import</span> <span class="nn">ubcpdk</span>
+<span class="kn">import</span> <span class="nn">ubcpdk.components</span> <span class="k">as</span> <span class="nn">uc</span>
+
+<span class="n">gf</span><span class="o">.</span><span class="n">CONF</span><span class="o">.</span><span class="n">display_type</span> <span class="o">=</span> <span class="s2">"klayout"</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-02 10:32:24.512</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
+<span class="-Color -Color-Green">2024-02-02 10:32:24.572</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk')</span>
+<span class="-Color -Color-Green">2024-02-02 10:32:24.676</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-02-02 10:32:24.684</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">mzi</span><span class="p">(</span><span class="n">delta_length</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">length_x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">length_y</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">TE_MZI</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">mzi</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolMZI1'</span><span class="p">)</span>
+<span class="n">TE_MZI</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "50cfbbf14f3e430b91b5d2b7533e0146", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">spiral_external_io</span><span class="p">(</span><span class="n">x_inner_length_cutback</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">delay_line_1</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">wg</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolDelayLine1'</span><span class="p">)</span>
+<span class="n">delay_line_1</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1204ed654c1a4cedaf7ce90cca0cb96d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">delay_snake2</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">delay_line_2</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">wg</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolDelayLine2'</span><span class="p">)</span>
+<span class="n">delay_line_2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7a34146913684cd3b044a559cc630d9e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">delay_snake2</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">bend180</span><span class="o">=</span><span class="s2">"bend_circular180"</span><span class="p">)</span>
+<span class="n">delay_line_2</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">wg</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolDelayLine2'</span><span class="p">)</span>
+<span class="n">delay_line_2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "12db2040268b43eaab6ea30af877fbd3", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ring_double</span><span class="p">(</span><span class="n">length_y</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ring_double</span><span class="p">(</span><span class="n">length_y</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">r3</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ring_double</span><span class="p">(</span><span class="n">length_y</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">r1</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">r2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">r3</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "33ab87f4aa2c418da250ee3c1ad30b46", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_device</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"MyDevice"</span><span class="p">)</span>
+<span class="n">ring1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
+<span class="n">ring2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<span class="n">ring3</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">r3</span><span class="p">)</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "6e0ac848acc8446e9458634dc8a4bbd1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ring2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+<span class="n">ring3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "e08a6ad782384b519021bf77ccec36e5", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">end</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_terminator_te1550</span><span class="p">()</span>
+
+<span class="n">end1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="n">end2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="n">end3</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+
+<span class="n">end1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">end2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">end3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "46a644f109534ed091a8e2bea5c9c46b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">'all'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wg</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">wg1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">wg</span><span class="p">)</span>
+<span class="n">wg2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">wg</span><span class="p">)</span>
+
+<span class="n">wg1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+<span class="n">ring2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">wg1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">wg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+<span class="n">ring3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">wg2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "389052f08f384a1094dda3033ac831bd", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">end2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">end3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+
+<span class="n">end4</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>   
+<span class="n">end4</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2bbf857e83c6408f87bfe0f02a809a0e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o2"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o3"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o4"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+
+<span class="n">my_device_fibers</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">my_device</span><span class="p">,</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolDevice1'</span><span class="p">)</span>
+
+<span class="n">my_device_fibers</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2eb86cfa4a804006bc2d25a2c5112498", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_device</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"MyDevice"</span><span class="p">)</span>
+
+<span class="n">ring1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
+<span class="n">ring2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+<span class="n">ring3</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">r3</span><span class="p">)</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">ebeam_terminator_te1550</span><span class="p">()</span>
+<span class="n">end1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="n">end2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="n">end3</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+<span class="n">end4</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>   
+
+<span class="n">wg</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">wg1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">wg</span><span class="p">)</span>
+<span class="n">wg2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">wg</span><span class="p">)</span>
+
+<span class="n">wg1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+<span class="n">ring2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">wg1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">wg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+<span class="n">ring3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">wg2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+
+<span class="n">end1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">end2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">end3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">end4</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">destination</span><span class="o">=</span><span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o4"</span><span class="p">])</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "18aae99550c34f57ae146e49fcff1f00", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bend</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">bend</span><span class="p">()</span>
+<span class="n">bend_180</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">bend_euler180_sc</span><span class="p">()</span>
+
+<span class="n">bend1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+<span class="n">bend2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+<span class="n">bend3</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+<span class="n">bend_180</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend_180</span><span class="p">)</span>
+<span class="n">wg_out</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mi">40</span><span class="p">))</span>
+<span class="n">bend4</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+
+<span class="n">bend1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span> <span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o3'</span><span class="p">])</span>
+<span class="n">bend2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">ring1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">bend3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">ring2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">bend_180</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">ring3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">wg_out</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">bend_180</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+<span class="n">bend4</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">wg_out</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o2"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">bend2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">bend1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">bend3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o4"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">bend4</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o2"</span><span class="p">])</span>
+
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4f44e3c186ed4ed08acc74197118818f", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_device_fibers</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">add_fiber_array</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">rotate</span><span class="p">(),</span> <span class="n">component_name</span><span class="o">=</span><span class="s1">'MyCoolDevice1'</span><span class="p">)</span>
+
+<span class="n">my_device_fibers</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7ae22125a2a343ee8eb6bce3191dd97b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_submission</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"MySubmission"</span><span class="p">)</span>
+<span class="n">floorplan</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">605</span><span class="p">,</span> <span class="mi">410</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'FLOORPLAN'</span><span class="p">)</span>
+<span class="n">dl1</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">delay_line_1</span><span class="p">)</span>
+<span class="n">dl2</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">delay_line_2</span><span class="p">)</span>
+<span class="n">mzi</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">TE_MZI</span><span class="p">)</span>
+<span class="n">my</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_device_fibers</span><span class="p">)</span>
+
+<span class="n">my_submission</span><span class="o">.</span><span class="n">distribute</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">(</span><span class="n">dl1</span><span class="p">,</span> <span class="n">dl2</span><span class="p">,</span> <span class="n">mzi</span><span class="p">,</span> <span class="n">my</span><span class="p">),</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">separation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">my_submission</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">(</span><span class="n">dl1</span><span class="p">,</span> <span class="n">dl2</span><span class="p">,</span> <span class="n">mzi</span><span class="p">,</span> <span class="n">my</span><span class="p">),</span> <span class="n">alignment</span><span class="o">=</span><span class="s1">'ymax'</span><span class="p">)</span>
+
+<span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">floorplan</span><span class="p">)</span>
+
+<span class="n">my_submission</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5b4806204273406b80521ea9842a39a4", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">floorplan</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">605</span><span class="p">,</span> <span class="mi">410</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'FLOORPLAN'</span><span class="p">)</span>
+
+
+<span class="n">my_submission_2</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">pack</span><span class="p">([</span><span class="n">delay_line_1</span><span class="p">,</span> <span class="n">delay_line_2</span><span class="p">,</span> <span class="n">TE_MZI</span><span class="p">,</span> <span class="n">my_device_fibers</span><span class="p">],</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="p">(</span><span class="mi">605</span><span class="p">,</span> <span class="mi">410</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">my_submission_2</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">floorplan</span><span class="p">)</span>
+<span class="n">my_submission_2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "af85d7207f7842feadc72b9bc6486218", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_submission</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"MySubmission"</span><span class="p">)</span>
+<span class="n">floorplan</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">605</span><span class="p">,</span> <span class="mi">410</span><span class="p">),</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'FLOORPLAN'</span><span class="p">)</span>
+<span class="n">dl1</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">delay_line_1</span><span class="p">)</span>
+<span class="n">dl2</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">delay_line_2</span><span class="p">)</span>
+<span class="n">mzi</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">TE_MZI</span><span class="p">)</span>
+<span class="n">my</span> <span class="o">=</span> <span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">my_device_fibers</span><span class="p">)</span>
+
+<span class="n">my_submission</span><span class="o">.</span><span class="n">distribute</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">(</span><span class="n">my</span><span class="p">,</span> <span class="n">dl1</span><span class="p">,</span> <span class="n">mzi</span><span class="p">,</span> <span class="n">dl2</span><span class="p">,),</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">separation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">my_submission</span><span class="o">.</span><span class="n">align</span><span class="p">(</span><span class="n">elements</span><span class="o">=</span><span class="p">(</span><span class="n">dl1</span><span class="p">,</span> <span class="n">dl2</span><span class="p">,</span> <span class="n">mzi</span><span class="p">,</span> <span class="n">my</span><span class="p">),</span> <span class="n">alignment</span><span class="o">=</span><span class="s1">'ymax'</span><span class="p">)</span>
+
+<span class="n">my_submission</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">floorplan</span><span class="p">)</span>
+<span class="n">my_submission</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3e6417510ff14f23937ad48fd4b8441e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">'all'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dl2</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">dl2</span><span class="o">.</span><span class="n">center</span><span class="p">,</span> <span class="n">destination</span> <span class="o">=</span> <span class="n">dl2</span><span class="o">.</span><span class="n">center</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">250</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">))</span>
+<span class="n">my_submission</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fe5a4c23639f48dfb32c8f3386862d4b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_submission_2</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"my_submission.gds"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-02 11:06:32.477</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'my_submission.gds'</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('my_submission.gds')
+</pre></div>
+</div>
+</div>
+</div>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./pages"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+</article>
+<footer class="prev-next-footer">
+<div class="prev-next-area">
+<a class="left-prev" href="mzi_layout.html" title="previous page">
+<i class="fa-solid fa-angle-left"></i>
+<div class="prev-next-info">
+<p class="prev-next-subtitle">previous</p>
+<p class="prev-next-title">Laying out a Mach-Zehnder Interferometer</p>
+</div>
+</a>
+<a class="right-next" href="advanced_components.html" title="next page">
+<div class="prev-next-info">
+<p class="prev-next-subtitle">next</p>
+<p class="prev-next-title">Advanced Components</p>
+</div>
+<i class="fa-solid fa-angle-right"></i>
+</a>
+</div>
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<div class="sidebar-secondary-item">
+<div class="page-toc tocsection onthispage">
+<i class="fa-solid fa-list"></i> Contents
+  </div>
+<nav class="bd-toc-nav page-toc">
+<ul class="simple visible nav section-nav flex-column">
+</ul>
+</nav></div>
+</div></div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner container">
+<div class="footer-item">
+<p class="component-author">
+By CamachoLab and Google
+</p>
+</div>
+<div class="footer-item">
+<p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+</p>
+</div>
+<div class="footer-item">
+</div>
+<div class="footer-item">
+</div>
+</div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+<footer class="bd-footer">
+</footer>
+<script src="../_static/scripts/chattutor.config.js"></script><script src="../_static/scripts/chattutor.min.js" type="module"></script></body>
+</html>
