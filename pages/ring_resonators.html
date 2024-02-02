@@ -310,11 +310,15 @@ document.write(`
 </div>
 <nav aria-label="Page">
 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resonance">Resonance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#critical-coupling">Critical Coupling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fsr-free-spectral-range">FSR- Free Spectral Range</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-factor">Quality Factor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuitive-description">Intuitive Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-description">Mathematical Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resonance">Resonance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saturation">Saturation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical-coupling">Critical Coupling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fsr-free-spectral-range">FSR- Free Spectral Range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bandwidth-and-quality-factor">Bandwidth and Quality Factor</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fields-in-a-ring-resonator">Fields in a Ring Resonator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation</a></li>
 </ul>
@@ -326,52 +330,71 @@ document.write(`
 <article class="bd-article">
 <section class="tex2jax_ignore mathjax_ignore" id="ring-resonators">
 <h1>Ring Resonators<a class="headerlink" href="#ring-resonators" title="Permalink to this heading">#</a></h1>
-<p>A ring resonator is a device that consists of a ring and one or two other waveguides. Light enters the ring via a directional coupler, also called an access waveguide or a bus. There are single and double bus designs. In a single bus design, light is coupled in and out of the ring via the same waveguide. In a double bus design, there are two waveguides, one on each side of the ring, that can couple into or out of the ring. If you remember coupling theory from the directional coupler notebook, you remember that the distance between the ring and the waveguide, along with the length at which the waveguides are at this proximity, will affect how much light is coupled into the ring.</p>
-<p>When light propagates around a ring, the fields that overlap from each trip around the ring interfere. When waves overlap perfectly and the interference of the waves is constructive, we say that the ring is in resonance. Resonance is a useful quality because a particular ring can only be in resonance at certain wavelengths. Thus, we can isolate certain wavelengths with the ring. Such isolation has many applications.</p>
+<section id="intuitive-description">
+<h2>Intuitive Description<a class="headerlink" href="#intuitive-description" title="Permalink to this heading">#</a></h2>
+<p>A ring resonator is a waveguide loop with one or two waveguides next to it in a directional coupler configuration. Light enters the ring via directional coupling from one of the waveguides, also called an access waveguide or a bus. Single and double bus designs are the most common, corresponding to the number of coupler waveguides next to the ring. As we learned in the directional coupler section, the amount of light coupled into the ring depends on the gap between the bus and the ring waveguides, and the effective coupling length.</p>
 <div style="text-align: center;">
 <p><img alt="dir_cplr" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/ring_resonator.png?raw=true"/></p>
 </div>
 <p style="text-align: center;"> Layout of a racetrack ring resonator in gdsfactory </p>
-<p>To understand more about ring resonators, let’s build up some of their behavior mathematically. First, we want to examine how far the light has to travel around the ring. This is simply the familiar equation for the circumference of a circle if the ring is perfectly round.</p>
-<p><span class="math notranslate nohighlight">\(L = 2\pi r =\)</span> length of one trip around the ring</p>
-<p>Within this one loop around the ring, there is a round trip loss, or some attenuation that occurs. This is referred to as <span class="math notranslate nohighlight">\(A\)</span> and is described by</p>
+<p>Imagine a scenario where we turn on a laser input to a ring resonator. As light couples into the ring, it will go around until it arrives back at the coupling point. At the start of the 2nd round trip, the light in the ring interferes with the light coming from the bus waveguide. When the interference of the waves is constructive, the intensity of light in the ring increases for the next round trip until the round trip propagation loss is equal to input power from the coupler waveguide. When the constructive interference is perfect, we say that the ring is in resonance. Resonance significantly increases the intensity of the electric field in the ring. The wavelengths which interfere destructively in the ring instead couple back into the bus waveguide, and the intensity of the electric field is low in the ring for those wavelengths.</p>
+<div style="text-align: center;">
+<p><img alt="dir_cplr" src="https://github.com/BYUCamachoLab/Photonics-Bootcamp/blob/main/book/images/Notebook_Images/ring_resonator_buildup.gif"/></p>
+</div>
+<p>The main uses for ring resonators are as narrow-bandpass filters and electric field intensity amplifiers (inside the ring, on resonance). However, they are very flexible and are widely used in photonics.</p>
+</section>
+<section id="mathematical-description">
+<h2>Mathematical Description<a class="headerlink" href="#mathematical-description" title="Permalink to this heading">#</a></h2>
+<p>Let’s build up some of ring resonators’ behavior mathematically. First, we want to find how far the light has to travel around the ring, which is the “effective circumference” of the resonator. This can be approximated by drawing a line through the resonator’s waveguide center around the ring, and finding its length. For a perfect circle resonator, this is given by</p>
+<p><span class="math notranslate nohighlight">\(L = 2\pi r\)</span>.</p>
+<p>While the light is propagating in the resonator, some of the light scatters out due to the bending of the waveguide. This is referred to as propagation loss or bend loss (since the waveguide is bent). We write it as <span class="math notranslate nohighlight">\(A\)</span> and calculate it using</p>
 <p><span class="math notranslate nohighlight">\(A = e^{-\alpha L}\)</span></p>
-<p>where  <span class="math notranslate nohighlight">\(\alpha\)</span> is the waveguide loss <span class="math notranslate nohighlight">\((cm^{-1})\)</span>.</p>
-<p>Now that we know how to describe the power within the ring, we’ll want to solve for how much power goes in and out of a ring resonator. For this, you can find the ratio of the electric field at both the input and the output ports. This ratio will tell you if more light is going into the ring or out of it. To find the fields at each of the four ports of the directional coupler (two inside the ring and two in the waveguide), we start by defining the two output ports. We then move on to find the field on the input side of the ring resonator, seen on the right of the diagram. Plugging this into our two original equations and solving can lead us to the transfer function. The two electric fields are:</p>
-<p><span class="math notranslate nohighlight">\(E_{b1} = tE_{a1}+\kappa E_{a2}\)</span></p>
-<p><span class="math notranslate nohighlight">\(E_{b2} = -\kappa E_{a1}+tE_{a2}\)</span></p>
-<p>Where <span class="math notranslate nohighlight">\(|\kappa|^2\)</span> is the power transferred to and from the ring and <span class="math notranslate nohighlight">\(|t|^2 = 1 - |\kappa|^2\)</span> is the power remaining.</p>
-<p>Remembering that <span class="math notranslate nohighlight">\(\alpha\)</span> is the waveguide loss <span class="math notranslate nohighlight">\((cm^{-1})\)</span> and <span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n}{\lambda}\)</span> is the propagation constant <span class="math notranslate nohighlight">\((cm^{-1})\)</span>, we can then define the Ring Resonator Transfer Function as the ratio of the output and input electric fields squared.</p>
-<p><span class="math notranslate nohighlight">\( T = \left|\frac{E_{b1}}{E_{a1}}\right|^2 = \left|\frac{t-e^{-\alpha L/2}e^{j \beta L}}{1-e^{-\alpha L/2}e^{j \beta L}} \right|^2\)</span></p>
+<p>where  <span class="math notranslate nohighlight">\(\alpha\)</span> is the waveguide propagation loss, commonly in units of <span class="math notranslate nohighlight">\((cm^{-1})\)</span>.</p>
+<p>Next, we’ll want to find how much power goes in and out of a ring resonator. To do this, we find the ratio of the electric field at both the input and the output ports. This ratio will tell you if more light is going into the ring or out of it. The two electric fields are:</p>
+<p><span class="math notranslate nohighlight">\(E_{out,bus} = t\ E_{in,bus} + \kappa\ E_{in,ring}\)</span></p>
+<p><span class="math notranslate nohighlight">\(E_{out,ring} = t^*\ E_{in,ring} - \kappa^*\ E_{in,bus}\)</span></p>
+<p>Where <span class="math notranslate nohighlight">\(|\kappa|^2\)</span> is the power transferred to and from the ring and <span class="math notranslate nohighlight">\(|t|^2 = 1 - |\kappa|^2\)</span> is the power remaining (<span class="math notranslate nohighlight">\(\kappa\)</span> and <span class="math notranslate nohighlight">\(t\)</span> are also known as reflection/transmission or coupling coefficients).</p>
+<p>Remembering that <span class="math notranslate nohighlight">\(\beta = \frac{2 \pi n}{\lambda}\)</span> is the propagation constant, we can then define the Ring Resonator Transfer Function as the ratio of the output and input electric fields squared. Substituting the above two formulas finally gives us the transfer function of the ring resonator.</p>
+<p><span class="math notranslate nohighlight">\(T = \left|\frac{E_{out,bus}}{E_{in,bus}}\right|^2 = \left|\frac{t-e^{-\alpha L/2}e^{j \beta L}}{1-e^{-\alpha L/2}e^{j \beta L}} \right|^2\)</span></p>
 <section id="resonance">
-<h2>Resonance<a class="headerlink" href="#resonance" title="Permalink to this heading">#</a></h2>
-<p>We have already introduced the concept of resonance in this notebook. Let us now explain it more fully. A ring is in resonance when <span class="math notranslate nohighlight">\(\beta L = m2\pi\)</span>. Or rather,</p>
+<h3>Resonance<a class="headerlink" href="#resonance" title="Permalink to this heading">#</a></h3>
+<p>A ring is in resonance when the round trip length of the resonator accumulates an integer multiple of <span class="math notranslate nohighlight">\(2\pi\)</span> phase, i.e. <span class="math notranslate nohighlight">\(\beta L = m2\pi\)</span>, which is required for the round-trip light to be in phase with the newly coupled light from the bus waveguide. Another way we can write this is,</p>
 <p><span class="math notranslate nohighlight">\(m \frac{\lambda}{n_{\text{eff}( \lambda )}} = 2\pi r\)</span></p>
-<p><span class="math notranslate nohighlight">\(m\)</span> is the mode number (which must be positive) of the ring resonator and <span class="math notranslate nohighlight">\(\lambda\)</span> is the resonant wavelength. More intuitively, the equation says that the circumference of the ring must be an integer multiple of the resonant wavelength. If it is not, there is no way that the wave can interfere constructively with itself on multiple trips around the ring. Using these same quantities in the equation for resonance, we can also define the optical path length difference (OPD) as <span class="math notranslate nohighlight">\(=m \lambda\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(m\)</span> is the azimuthal mode number (which must be positive) of the resonator mode and <span class="math notranslate nohighlight">\(\lambda\)</span> is the resonant wavelength. We can then solve for the resonant wavelengths of the ring using</p>
+<p><span class="math notranslate nohighlight">\(\lambda_m = \frac{2\pi\ r\ n_{\text{eff}( \lambda )}}{m}\)</span></p>
+</section>
+<section id="saturation">
+<h3>Saturation<a class="headerlink" href="#saturation" title="Permalink to this heading">#</a></h3>
+<p>Resonator saturation happens when the input light from the bus waveguide is lost over one round trip due to propagation loss, i.e.</p>
+<p><span class="math notranslate nohighlight">\(|t| = e^{\frac{-\alpha L}{2}}\)</span></p>
+<p>which leads to</p>
+<p><span class="math notranslate nohighlight">\(|t|^2 = e^{-\alpha L}\)</span>.</p>
+<p>Note that <span class="math notranslate nohighlight">\(\alpha\)</span> depends on the intensity of the electric field inside the ring, so if the intensity in the resonator increases, <span class="math notranslate nohighlight">\(\alpha\)</span> also increases, which brings it closer to saturation. Saturation state is also called the steady-state operation of a ring resonator which is established after the input light has made many round trips around the resonator. Note that non-resonant wavelengths can also be in saturation, they will just have much smaller intensity at saturation than resonant wavelengths.</p>
 </section>
 <section id="critical-coupling">
-<h2>Critical Coupling<a class="headerlink" href="#critical-coupling" title="Permalink to this heading">#</a></h2>
-<p>Critical coupling occurs when all of the light from the waveguide is coupled into the ring and is not coupled back into the waveguide.</p>
-<p>Transmission is 0 when <span class="math notranslate nohighlight">\(t - e^{\frac{-\alpha L}{2}}= 0\)</span></p>
-<p>Or <span class="math notranslate nohighlight">\(t = e^{\frac{-\alpha L}{2}}\)</span> so that <span class="math notranslate nohighlight">\(t^2 = e^{-\alpha L}\)</span> which how much light transmitted around the ring.</p>
-<p>So the loss around the ring is <span class="math notranslate nohighlight">\(1-e^{-\alpha L}\)</span> and since <span class="math notranslate nohighlight">\(|\kappa|^2 = 1 - |t|^2 = \text{loss}\)</span>, then <span class="math notranslate nohighlight">\(|\kappa|^2 = 1-e^{-\alpha L}\)</span>. So, when the coupling loss is equal to the roundtrip loss around the ring, there is critical coupling.</p>
-<p>This is similar to the concept of impedance matching in electrical circuits, where the most power is transferred when the load matches the input impedance. However, it is more complicated in ring resonators.</p>
-<p><strong>Graph showing the behavior of the ring</strong></p>
+<h3>Critical Coupling<a class="headerlink" href="#critical-coupling" title="Permalink to this heading">#</a></h3>
+<p>Critical coupling occurs when all of the light from the bus waveguide is coupled into the ring. For this to happen, a few conditions must be met:</p>
+<ul class="simple">
+<li><p>The round-trip loss of the resonator must be smaller than the single-pass coupling power of the directional coupler. (Otherwise all of the light is lost before a round trip and the Efield intensity cannot build up in the resonator.)</p></li>
+<li><p>The resonator must be in saturation.</p></li>
+<li><p>The wavelength of light must be resonant (or close to resonant) in the ring.</p></li>
+</ul>
+<p>Under these conditions, <span class="math notranslate nohighlight">\(|t| = e^{-\alpha L/2}\)</span> and <span class="math notranslate nohighlight">\(e^{j \beta L} = 0\)</span>, so when we substitute into the transfer function above we get</p>
+<p><span class="math notranslate nohighlight">\(T = \left|\frac{E_{out,bus}}{E_{in,bus}}\right|^2 = 0\)</span>.</p>
+<p>Critical coupling is useful because it ensures that (almost) all the power at resonant wavelengths is filtered out from the bus waveguide.</p>
 </section>
 <section id="fsr-free-spectral-range">
-<h2>FSR- Free Spectral Range<a class="headerlink" href="#fsr-free-spectral-range" title="Permalink to this heading">#</a></h2>
-<p>The FSR is the space between resonant wavelengths. This can be seen on the graph as the distance from peak to peak.</p>
-<p><span class="math notranslate nohighlight">\(FSR \approx \frac{\lambda ^2}{n_{\text{eff}}L}\)</span></p>
-<p>The full-width half-maximum (FWHM) aka bandwidth of resonances, is used with the FSR to calculate finesse (the ratio of FSR to FWHM, measure of narrowness of peaks/resonances). With the FSR, FWHM, and finesse, the behavior of the rings’ resonances can be analyzed.</p>
+<h3>FSR- Free Spectral Range<a class="headerlink" href="#fsr-free-spectral-range" title="Permalink to this heading">#</a></h3>
+<p>The Free Spectral Range (FSR) of a resonator is the distance between resonant wavelengths, i.e. the peak-to-peak distance on a spectral response plot for a ring resonator.</p>
+<p><span class="math notranslate nohighlight">\(FSR = \frac{\lambda ^2}{n_{\text{eff}}(\lambda)L}\)</span></p>
 </section>
-<section id="quality-factor">
-<h2>Quality Factor<a class="headerlink" href="#quality-factor" title="Permalink to this heading">#</a></h2>
-<p>The quality factor measures how sharp the resonance peaks are with respect to the operating frequency of the ring. It defined as the ratio of the resonance frequency to the FWHM. A low quality factor indicates more loss in the resonator. A higher Q means less loss and a sharper peak.</p>
-<p>While finesse accounts for FSR when talking about the resonance bandwidth, the Q factor accounts for the frequency.</p>
+<section id="bandwidth-and-quality-factor">
+<h3>Bandwidth and Quality Factor<a class="headerlink" href="#bandwidth-and-quality-factor" title="Permalink to this heading">#</a></h3>
+<p>In photonics, the bandwidth of a resonant peak is defined as the Full Width at Half Maximum (FWHM) and can be calculated numerically from spectral response data of a resonator.</p>
+<p>An analogous quantity to describe resonance bandwidth/sharpness is Quality Factor (or Q-factor), defined as</p>
+<p><span class="math notranslate nohighlight">\(Q = \frac{\lambda}{\Delta\lambda} = \frac{f}{\Delta f}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\Delta\)</span> represents FWHM in either frequency or lambda. A low quality factor indicates more loss in the resonator. A higher Q means less loss and a sharper peak. Q factors are more commonly used than FWHM when comparing resonators because it is a unitless quantity that doesn’t scale with the operating wavelength of the resonator (NOTE: Q factors DO change with respect to wavelength due to dispersion, but it includes wavelength scaling: e.g. a FWHM of 10nm at 1500nm gives a Q of 150, while 10nm at 2000nm gives a Q of 200).</p>
 </section>
-<section id="applications">
-<h2>Applications<a class="headerlink" href="#applications" title="Permalink to this heading">#</a></h2>
-<p>Ring resonators have many applications since you can “filter” certain wavelengths with your ring. Two such applications are tuning and whispering gallery mode switches. More applications or variations of ring resonators can be seen on gdsfactory. There are many different implementations for the ring resonator in their documentation.</p>
 </section>
 <section id="fields-in-a-ring-resonator">
 <h2>Fields in a Ring Resonator<a class="headerlink" href="#fields-in-a-ring-resonator" title="Permalink to this heading">#</a></h2>
@@ -439,18 +462,20 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
 
-<span class="c1"># Capture electric field intensity over time and output into a gif</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">at_beginning</span><span class="p">(</span><span class="n">mp</span><span class="o">.</span><span class="n">output_epsilon</span><span class="p">),</span>
-        <span class="n">mp</span><span class="o">.</span><span class="n">to_appended</span><span class="p">(</span><span class="s2">"ez"</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">at_every</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">output_efield_z</span><span class="p">)),</span>
-        <span class="n">until</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="c1"># # Capture electric field intensity over time and output into a gif</span>
+<span class="c1"># sim.run(mp.at_beginning(mp.output_epsilon),</span>
+<span class="c1">#         mp.to_appended("ez", mp.at_every(2, mp.output_efield_z)),</span>
+<span class="c1">#         until=600)</span>
 
 <span class="c1"># Generate pngs from the simulation output</span>
 <span class="c1"># This line assumes that colormaps are working, </span>
 <span class="c1"># you are in the same directory as the output files, </span>
 <span class="c1"># and that h5py is installed</span>
 <span class="c1"># If you have a problem with h5utils, see note below</span>
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">"h5topng -t 0:299 -R -Zc /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/RdBu -A /home/ebang4/Github/Photonics-Bootcamp/book/pages/eps-000000.00.h5 -a /home/ebang4/miniconda3/envs/h5utils/share/h5utils/colormaps/gray /home/ebang4/Github/Photonics-Bootcamp/book/pages/ez.h5"</span><span class="p">)</span>
+<span class="n">username</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s2">"h5topng -t 0:299 -R -Zc /home/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">/miniconda3/envs/photonics/share/h5utils/colormaps/RdBu -A eps-000000.00.h5 -a /home/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">/miniconda3/envs/photonics/share/h5utils/colormaps/gray ez.h5"</span><span class="p">)</span>
 
 <span class="c1"># Create a gif from the pngs</span>
 <span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span>
@@ -589,11 +614,15 @@ document.write(`
   </div>
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resonance">Resonance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#critical-coupling">Critical Coupling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fsr-free-spectral-range">FSR- Free Spectral Range</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quality-factor">Quality Factor</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intuitive-description">Intuitive Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-description">Mathematical Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resonance">Resonance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saturation">Saturation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical-coupling">Critical Coupling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fsr-free-spectral-range">FSR- Free Spectral Range</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bandwidth-and-quality-factor">Bandwidth and Quality Factor</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fields-in-a-ring-resonator">Fields in a Ring Resonator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation">Simulation</a></li>
 </ul>
