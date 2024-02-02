@@ -71,6 +71,7 @@ parts:
     # - file: pages/design_for_testing
     - file: pages/mzi
     - file: pages/mzi_layout
+    - file: pages/layout_demo
   - caption: Active Device Design and Simulation
     chapters:
     - file: pages/advanced_components
