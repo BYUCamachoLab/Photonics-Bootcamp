@@ -375,10 +375,10 @@ document.write(`
 <h3>Critical Coupling<a class="headerlink" href="#critical-coupling" title="Permalink to this heading">#</a></h3>
 <p>Critical coupling occurs when all of the light from the bus waveguide is coupled into the ring. For this to happen, a few conditions must be met:</p>
 <ul class="simple">
-<li><p>The round-trip loss of the resonator must be smaller than the single-pass coupling power of the directional coupler. (Otherwise all of the light is lost before a round trip and the Efield intensity cannot build up in the resonator.)</p></li>
-<li><p>The resonator must be in saturation.</p></li>
-<li><p>The wavelength of light must be resonant (or close to resonant) in the ring.</p></li>
+<li><p>The wavelength of light must be resonant in the ring.</p></li>
+<li><p>The power loss coefficient over a round trip in the resonator must be equal to the power transmission constant in the directional coupler section.</p></li>
 </ul>
+<p>A critically coupled resonator is also in saturation. Intuitively explained, the phase of the light incoming from the ring is just right to completely destructively interfere with the light in the input bus waveguide, causing all the light to couple into the resonator.</p>
 <p>Under these conditions, <span class="math notranslate nohighlight">\(|t| = e^{-\alpha L/2}\)</span> and <span class="math notranslate nohighlight">\(e^{j \beta L} = 0\)</span>, so when we substitute into the transfer function above we get</p>
 <p><span class="math notranslate nohighlight">\(T = \left|\frac{E_{out,bus}}{E_{in,bus}}\right|^2 = 0\)</span>.</p>
 <p>Critical coupling is useful because it ensures that (almost) all the power at resonant wavelengths is filtered out from the bus waveguide.</p>
