@@ -49,6 +49,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
 <script async="async" src="../_static/sphinx-thebe.js"></script>
+<script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+<script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>DOCUMENTATION_OPTIONS.pagename = 'pages/scattering_parameters';</script>
 <link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/scattering_parameters.html" rel="canonical"/>
 <link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
@@ -308,8 +310,11 @@ document.write(`
 </div>
 <nav aria-label="Page">
 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-scattering-parameters">What are scattering parameters?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-why-are-s-parameters-useful">TODO: Why are S-Parameters useful?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-scattering-parameters">What are scattering parameters?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-s-parameters-useful">Why are S-Parameters useful?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">How to find S-Parameters for an arbitrary device using a meep simulation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-import-geometry">Step 1 - Import Geometry</a></li>
@@ -330,13 +335,22 @@ document.write(`
 <h1>Scattering parameters<a class="headerlink" href="#scattering-parameters" title="Permalink to this heading">#</a></h1>
 <section id="what-are-scattering-parameters">
 <h2>What are scattering parameters?<a class="headerlink" href="#what-are-scattering-parameters" title="Permalink to this heading">#</a></h2>
-<p>Scattering parameters (S-parameters) are values that represent linear characteristics of devices that operate at radio frequencies or higher and are used in both RF electronics and in photonics. For a given photonic device, while knowing the actual shape of the device is useful, what we really care about is how light propagates through it. S-Parameters give us this necessary information by telling us how much light will exit a given port based on how much light was inserted and where.</p>
-<p>For a device with N ports, there will be N<sup>2</sup> s-parameters, which are normally organized in an NxN matrix, ofen called the Scatter Matrix. Each S-parameter is a complex number that gives the magnitude and phase of the wave exiting the exit port given the wave entering the input port. The notation for S-Parameters is S<sub>(output port)(input port)</sub>. So, S<sub>13</sub> will be for the light entering port 3 and exiting port 1</p>
+<p>For a given photonic device, while knowing the actual shape of the device is useful, what we really care about is how light propagates through it. Scattering parameters (S-parameters) are complex numbers that represent the magnitude and phase multiplier acting on the light between every port in a device. S-parameters are collected into an s-matrix which then represents the complete 1st order (linear) input-output response of the device.</p>
+<p>For a device with N ports, there will be N<sup>2</sup> parameters. The notation for S-Matrices is S<sub>(output port)(input port)</sub>, so S<sub>13</sub> will be for the light entering port 3 and exiting port 1. Parameters with the input and output port represent reflections from the device back into the same port, while different output and input ports represent the transmission from the input port into the output ports.</p>
+<p>It is easiest to represent s-parameters in polar coordinate form.</p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h3>
+<p>A device has the s-parameter <span class="math notranslate nohighlight">\(S_{21} = 0.98 e^{j\frac{\pi}{2}}\)</span>. This means the light accumulates <span class="math notranslate nohighlight">\(90^\circ\)</span> of phase, and its intensity/power will be 96% (<span class="math notranslate nohighlight">\(0.98^2 = 0.9604\)</span>) of the input when we measure the output on port 2 and put input light in port 1.</p>
 </section>
-<section id="todo-why-are-s-parameters-useful">
-<h2>TODO: Why are S-Parameters useful?<a class="headerlink" href="#todo-why-are-s-parameters-useful" title="Permalink to this heading">#</a></h2>
-<p>Scattering parameters allow us to characterize the bechavior of photonic circuits in a comprehensive way. They describe the relationship between a photonic circuit’s input signals and its output signals in terms of power, phase, and impedance. They allow us to understand how various elements within a photonic circuit interact.</p>
-<p>When we know the scattering parameters of elements within a photonic circuit, we can use simulation software and modelling tools to design, simulate, and test circuits according to desired performance metrics. These tools enable us to optimize circuit designs before the fabrication process, and validate the fabrication process after they’ve been manufactured.</p>
+</section>
+<section id="why-are-s-parameters-useful">
+<h2>Why are S-Parameters useful?<a class="headerlink" href="#why-are-s-parameters-useful" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>S-parameters allow us to represent a potentially complex photonic component as a matrix, which is much simpler to store and use in computation than other options (e.g. nonlinear functions, FDTD simulations, etc.).</p></li>
+<li><p>It allows us to connect the device arbitrarily to other components and simulate its behavior in any photonic circuit.</p></li>
+<li><p>Wavelength dependence (dispersion) can be represented simply by adding an extra dimension to the s-matrix.</p></li>
+</ul>
+<p>S-Parameters are used in circuit-level simulation software, e.g. simphony, sax, Lumerical Interconnect, etc.</p>
 </section>
 <section id="todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">
 <h2>TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters<a class="headerlink" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters" title="Permalink to this heading">#</a></h2>
@@ -883,8 +897,11 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
   </div>
 <nav class="bd-toc-nav page-toc">
 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-scattering-parameters">What are scattering parameters?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-why-are-s-parameters-useful">TODO: Why are S-Parameters useful?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-scattering-parameters">What are scattering parameters?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-s-parameters-useful">Why are S-Parameters useful?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">How to find S-Parameters for an arbitrary device using a meep simulation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-import-geometry">Step 1 - Import Geometry</a></li>
