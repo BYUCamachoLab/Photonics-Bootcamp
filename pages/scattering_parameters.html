@@ -315,7 +315,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-s-parameters-useful">Why are S-Parameters useful?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">How to find S-Parameters for an arbitrary device using a meep simulation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-import-geometry">Step 1 - Import Geometry</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-run-simulation-for-a-single-source">Step 2: Run simulation for a single source</a></li>
@@ -323,6 +322,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-parameters-across-different-frequencies">S-Parameters across different Frequencies</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-generated-s-matrix-to-be-used-in-simphony">Import the generated s-matrix to be used in simphony</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </nav>
@@ -352,15 +352,13 @@ document.write(`
 </ul>
 <p>S-Parameters are used in circuit-level simulation software, e.g. simphony, sax, Lumerical Interconnect, etc.</p>
 </section>
-<section id="todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">
-<h2>TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters<a class="headerlink" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters" title="Permalink to this heading">#</a></h2>
-</section>
 <section id="how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">
 <h2>How to find S-Parameters for an arbitrary device using a meep simulation<a class="headerlink" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation" title="Permalink to this heading">#</a></h2>
-<p>In this section we’ll demonstrate how to find the s-params for any device using a meep simulation. We’ll show both 2D and 3D simulations, but keep in mind that 2D s-params are not very accurate. We’ll run through the steps using gdsfactory’s default 2x2 mmi, and explain on the way how the principles can be applied to any component. There are other ways to find s-parameters, and another method is shown on the <a class="reference internal" href="gds_to_meep.html"><span class="doc std std-doc">Gds To Meep</span></a> page</p>
+<p>In this section we’ll demonstrate how to find the s-params for any device using a meep simulation. We’ll show both 2D and 3D simulations, but keep in mind that 2D s-params are not very accurate, but the simulations run much faster. It is often recommended to set up the simulation in 2D to ensure everything works, then extend the simulation into 3D to run the final simulations. This can save us a lot of debugging time since the 2D simulations run faster.</p>
+<p>We’ll run through the steps using gdsfactory’s default 2x2 mmi, and explain on the way how the principles can be applied to any component. There are other ways to find s-parameters, and another method is shown on the <a class="reference internal" href="gds_to_meep.html"><span class="doc std std-doc">Gds To Meep</span></a> page</p>
 <section id="step-1-import-geometry">
 <h3>Step 1 - Import Geometry<a class="headerlink" href="#step-1-import-geometry" title="Permalink to this heading">#</a></h3>
-<p>For our simulation, it makes life easy if we add all of our sources and detectors into our gds before we import it into meep. For this tutorial I have already done this. For your simulations, you can modify your gds file directly in Klayout if you like a GUI, or you can use gdsfactory itself. If you like, you can also use meep to do the same thing, but I won’t be showing how to do that here. This tutorial is adapted from the <a class="reference external" href="https://meep.readthedocs.io/en/latest/Python_Tutorials/GDSII_Import/">GDSII Import</a> tutorial on the meep documentation</p>
+<p>If we have a gds of the device t can make life easy if we add all of our sources and detectors into our gds before we import it into meep. For this tutorial I have already done this. For your simulations, you can modify your gds file directly in Klayout if you like a GUI, or you can use gdsfactory itself. If you like, you can also use meep to do the same thing, but I won’t be showing how to do that here. This tutorial is adapted from the <a class="reference external" href="https://meep.readthedocs.io/en/latest/Python_Tutorials/GDSII_Import/">GDSII Import</a> tutorial on the meep documentation</p>
 <p>Here is a picture of the gds we will be using.</p>
 <p><img alt="Image of splitter file" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/mmi2x2_gds_with_ports.png"/></p>
 <p>I’ve added a box around the entire component (in purple) which will become the simulation region, and 8 lines, 2 on each end that will become the sources and detectors. I also added straight waveguides on the ports of the gdsfactory mmi so that my ports could be exactly where the light would enter and exit the component in an actual circuit. My sources are then slightly outside the mmi, in the waveguides.</p>
@@ -843,6 +841,9 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 <p>For most applications, you’ll want to know the S-parameters across a range of frequencies. This can be done using the simulations created here. When we get the S-parameters using the sim.get_eigenmode_coefficients().alpha[] we get a matrix. The first entry in the matrix specifies the wavelength. For brevities sake, we won’t show that here, but a good exercise would be to find and plot the s-paramters across a range of frequencies for the component shown here.</p>
 </section>
 </section>
+<section id="import-the-generated-s-matrix-to-be-used-in-simphony">
+<h2>Import the generated s-matrix to be used in simphony<a class="headerlink" href="#import-the-generated-s-matrix-to-be-used-in-simphony" title="Permalink to this heading">#</a></h2>
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://www.mathworks.com/discovery/s-parameter.html">MathWorks: What are S-Parameters</a></p>
@@ -902,7 +903,6 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-s-parameters-useful">Why are S-Parameters useful?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#todo-demonstration-of-using-simphony-to-simulate-a-circuit-quickly-using-s-parameters">TODO: Demonstration of using simphony to simulate a circuit quickly using s-parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-find-s-parameters-for-an-arbitrary-device-using-a-meep-simulation">How to find S-Parameters for an arbitrary device using a meep simulation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-import-geometry">Step 1 - Import Geometry</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-run-simulation-for-a-single-source">Step 2: Run simulation for a single source</a></li>
@@ -910,6 +910,7 @@ TODO: Explain briefly why we use the eig_parity we do, and what the eig_band and
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-parameters-across-different-frequencies">S-Parameters across different Frequencies</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-generated-s-matrix-to-be-used-in-simphony">Import the generated s-matrix to be used in simphony</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </nav></div>
