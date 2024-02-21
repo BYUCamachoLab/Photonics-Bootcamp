@@ -748,15 +748,21 @@ document.write(`
 <section id="using-gplugins-gmeep-write-sparameters-meep">
 <h2>Using <code class="docutils literal notranslate"><span class="pre">gplugins.gmeep.write_sparameters_meep</span></code><a class="headerlink" href="#using-gplugins-gmeep-write-sparameters-meep" title="Permalink to this heading">#</a></h2>
 <p>An alternative method to the one outlined above is using the gplugins package. The <code class="docutils literal notranslate"><span class="pre">write_sparameters_meep</span></code> function can automate the entire process that we outlined above, but it is less customizable in exchange for its ease of use. This is how we could use it to find the s-parameters for the 2x2 mmi.</p>
-<p>NOTE: Currently bugged, will be fixed soon.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gplugins.gmeep</span> <span class="kn">import</span> <span class="n">write_sparameters_meep</span>
 
+<span class="n">pwd</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">''</span><span class="p">))</span>
+<span class="n">gds_file</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"files/mmi2x2.gds"</span>
+<span class="n">mmi_comp</span> <span class="o">=</span> <span class="n">import_gds</span><span class="p">(</span><span class="n">gds_file</span><span class="p">)</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">sim_is_3D</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">port_xpos</span> <span class="o">=</span> <span class="mf">17.75</span>
 <span class="n">port_ypos</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.75</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">port_ysize</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="n">mmi_comp</span> <span class="o">=</span> <span class="n">import_gds</span><span class="p">(</span><span class="n">gds_file</span><span class="p">)</span>
 <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">port_xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
 <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o2"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">port_xpos</span><span class="p">,</span> <span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
 <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">port_xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
@@ -764,14 +770,17 @@ document.write(`
 
 <span class="n">sparams</span> <span class="o">=</span> <span class="n">write_sparameters_meep</span><span class="p">(</span>
         <span class="n">component</span><span class="o">=</span><span class="n">mmi_comp</span><span class="p">,</span>
-        <span class="n">port_margin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">port_source_offset</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-        <span class="n">run</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">xmargin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">ymargin</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
+        <span class="n">extend_ports_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">port_margin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">port_source_offset</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">port_monitor_offset</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">xmargin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">ymargin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">zmargin</span><span class="o">=</span><span class="mi">2</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
         <span class="n">is_3d</span><span class="o">=</span><span class="n">sim_is_3D</span><span class="p">,</span>
-        <span class="n">tpml</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">tpml</span><span class="o">=</span><span class="n">dpml</span><span class="p">,</span>
         <span class="n">clad_material</span><span class="o">=</span><span class="s2">"SiO2"</span><span class="p">,</span>
         <span class="n">wavelength_start</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
         <span class="n">wavelength_stop</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
