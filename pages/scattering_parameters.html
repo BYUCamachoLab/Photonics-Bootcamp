@@ -380,6 +380,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-23 10:46:51.728</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/meep']</span>
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
 </pre></div>
 </div>
@@ -417,7 +420,7 @@ document.write(`
 
 <span class="c1"># Create a 2D array to hold the S-Parameters for the device</span>
 <span class="n">n_ports</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># The number of ports, also the size of our array</span>
-<span class="n">s_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_ports</span><span class="p">,</span> <span class="n">n_ports</span><span class="p">))</span>
+<span class="n">s_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_ports</span><span class="p">,</span> <span class="n">n_ports</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span>
 
 <span class="n">mode_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span>
 </pre></div>
@@ -450,7 +453,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 10:01:43.073</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Unnamed cells, 1 in 'Unnamed_0da7224c'</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-23 10:46:54.692</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">309</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
+<span class="-Color -Color-Green">2024-02-23 10:46:55.168</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Unnamed cells, 1 in 'Unnamed_0da7224c'</span>
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/gdsfactory/component.py:1604: UserWarning: Unnamed cells, 1 in 'Unnamed_0da7224c'
@@ -579,21 +583,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 10:02:56.982</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Casting complex values to real discards the imaginary part</span>
-
------------------------------------------------------------------
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------------------------------------------------------
 
 Normalized s-params:
 Port1(Lower Left, S11): 0.048342, 2.648293818186258 deg  
 Port2(Upper Left, S12): 0.046153, 2.765397762485876 deg  
-Port3(Upper Right, S13): 0.748132, -0.6805131200859658 deg  
+Port3(Upper Right, S13): 0.748132, -0.680513120085835 deg  
 Port4(Lower Right, S14): 0.292468, 1.5714402438535198 deg
 
 -----------------------------------------------------------------
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_902/1167699112.py:8: ComplexWarning: Casting complex values to real discards the imaginary part
-  s_params[0] = [port1_coeff, port2_coeff, port3_coeff, port4_coeff]
 </pre></div>
 </div>
 </div>
@@ -775,43 +773,34 @@ Insertion Loss: 35.2631% = -4.5268db
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 10:05:12.347</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Casting complex values to real discards the imaginary part</span>
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_902/2590562574.py:37: ComplexWarning: Casting complex values to real discards the imaginary part
-  s_params[index] = [port1_coeff, port2_coeff, port3_coeff, port4_coeff]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"S-Params:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ports</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">1: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">2: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">3: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">4: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">1: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">2: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">3: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">4: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"Transmission:"</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ports</span><span class="p">):</span>
-    <span class="n">trans1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">trans2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">trans3</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">trans4</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans3</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">trans4</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">trans1</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %</span><span class="se">\t</span><span class="si">{</span><span class="n">trans2</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %</span><span class="se">\t</span><span class="si">{</span><span class="n">trans3</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %</span><span class="se">\t</span><span class="si">{</span><span class="n">trans4</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>S-Params:
-S11: -0.0212	S12: -0.0262	S13: 0.4334	S14: 0.1200
-S21: -0.0262	S22: -0.0213	S23: 0.1210	S24: 0.4326
-S31: 0.4340	S32: 0.1208	S33: -0.0244	S34: -0.0296
-S41: 0.1199	S42: 0.4332	S43: -0.0296	S44: -0.0224
+S11: (-0.0212+0.0444j)		S12: (-0.0262+0.0464j)		S13: (0.433-0.63j)		S14: (0.12+0.25j)
+S21: (-0.0262+0.0464j)		S22: (-0.0213+0.0443j)		S23: (0.121+0.25j)		S24: (0.433-0.63j)
+S31: (0.434-0.63j)		S32: (0.121+0.249j)		S33: (-0.0244+0.0494j)		S34: (-0.0296+0.052j)
+S41: (0.12+0.25j)		S42: (0.433-0.631j)		S43: (-0.0296+0.052j)		S44: (-0.0224+0.0488j)
 Transmission:
-0.0448617 %	0.068502 %	18.7843 %	1.4403 %
-0.0685165 %	0.045354 %	1.46314 %	18.7135 %
-18.8369 %	1.45937 %	0.059546 %	0.0874323 %
-1.43704 %	18.7687 %	0.0874329 %	0.0500182 %
+0.242098 %	0.283911 %	58.4426 %	7.70278 %
+0.283902 %	0.241526 %	7.7061 %	58.4593 %
+58.5023 %	7.68307 %	0.304059 %	0.357669 %
+7.68059 %	58.5269 %	0.357666 %	0.288482 %
 </pre></div>
 </div>
 </div>
@@ -839,11 +828,20 @@ Transmission:
 <span class="n">mmi_comp</span> <span class="o">=</span> <span class="n">import_gds</span><span class="p">(</span><span class="n">gds_file</span><span class="p">)</span>
 
 <span class="n">res</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">df</span> <span class="o">=</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">fcen</span>
 
 <span class="n">sim_is_3D</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">port_xpos</span> <span class="o">=</span> <span class="mf">17.75</span>
 <span class="n">port_ypos</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.75</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 <span class="n">port_ysize</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Enabling this symmetry works for specifically a device with mirror symmetries about the x and y axes and will make the simulation faster</span>
+<span class="n">port_symmetries_crossing</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"o1@0,o1@0"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"o2@0,o2@0"</span><span class="p">,</span> <span class="s2">"o3@0,o3@0"</span><span class="p">,</span> <span class="s2">"o4@0,o4@0"</span><span class="p">],</span>
+            <span class="s2">"o2@0,o1@0"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"o1@0,o2@0"</span><span class="p">,</span> <span class="s2">"o3@0,o4@0"</span><span class="p">,</span> <span class="s2">"o4@0,o3@0"</span><span class="p">],</span>
+            <span class="s2">"o3@0,o1@0"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"o1@0,o3@0"</span><span class="p">,</span> <span class="s2">"o2@0,o4@0"</span><span class="p">,</span> <span class="s2">"o4@0,o2@0"</span><span class="p">],</span>
+            <span class="s2">"o4@0,o1@0"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"o1@0,o4@0"</span><span class="p">,</span> <span class="s2">"o2@0,o3@0"</span><span class="p">,</span> <span class="s2">"o3@0,o2@0"</span><span class="p">],</span>
+        <span class="p">}</span>
 
 <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">port_xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
 <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o2"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">port_xpos</span><span class="p">,</span> <span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
@@ -854,10 +852,11 @@ Transmission:
         <span class="n">component</span><span class="o">=</span><span class="n">mmi_comp</span><span class="p">,</span>
         <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
         <span class="n">extend_ports_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">port_symmetries</span><span class="o">=</span><span class="n">port_symmetries_crossing</span><span class="p">,</span>
         <span class="n">port_margin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-        <span class="n">port_source_offset</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">port_source_offset</span><span class="o">=</span><span class="mf">4.7</span><span class="p">,</span>
         <span class="n">port_monitor_offset</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
-        <span class="n">run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">run</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">xmargin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">ymargin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">zmargin</span><span class="o">=</span><span class="mi">2</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
@@ -866,156 +865,29 @@ Transmission:
         <span class="n">clad_material</span><span class="o">=</span><span class="s2">"SiO2"</span><span class="p">,</span>
         <span class="n">wavelength_start</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
         <span class="n">wavelength_stop</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
-        <span class="n">wavelength_points</span><span class="o">=</span><span class="mi">100</span>
+        <span class="n">wavelength_points</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">dfcen</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 09:59:20.737</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Unnamed cells, 1 in 'Unnamed_0da7224c'</span>
-<span class="-Color -Color-Green">2024-02-21 09:59:20.743</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1959</span> - <span class="-Color -Color-Bold">Wrote to '/tmp/gdsfactory/Unnamed_0da7224c.gds'</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 10:44:01.085</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1959</span> - <span class="-Color -Color-Bold">Wrote to '/tmp/gdsfactory/Unnamed_0da7224c.gds'</span>
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/gplugins/common/utils/get_sparameters_path.py:23: UserWarning: Unnamed cells, 1 in 'Unnamed_0da7224c'
-  gdspath = pathlib.Path(component.write_gds())
+<img alt="../_images/8602ec7a3fc5f3af3d89f382b5de01f671a7839a0a07e0865f26aaaa0b99ba29.png" src="../_images/8602ec7a3fc5f3af3d89f382b5de01f671a7839a0a07e0865f26aaaa0b99ba29.png"/>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sparams</span><span class="p">[</span><span class="s1">'wavelengths'</span><span class="p">],</span> <span class="n">sparams</span><span class="p">[</span><span class="s1">'o1@0,o4@0'</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "5c2126c96cca40f5a15ba7133658d834", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 09:59:20.925</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Unnamed cells, 1 in '_container_6ef2acaf'</span>
-<span class="-Color -Color-Green">2024-02-21 09:59:20.931</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Could not connect to klive server. Is klayout open and klive plugin installed?</span>
-</pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/gdsfactory/show.py:47: UserWarning: Unnamed cells, 1 in '_container_6ef2acaf'
-  gdspath = component.write_gds(
-/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/gdsfactory/klive.py:49: UserWarning: Could not connect to klive server. Is klayout open and klive plugin installed?
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-21 09:59:21.016</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Casting complex values to real discards the imaginary part</span>
-<span class="-Color -Color-Green">2024-02-21 09:59:21.027</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Casting complex values to real discards the imaginary part</span>
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/meep/__init__.py:4436: ComplexWarning: Casting complex values to real discards the imaginary part
-  return _meep.create_structure(cell_size, dft_data_list_, pml_1d_vols_, pml_2d_vols_, pml_3d_vols_, absorber_vols_, gv, br, sym, num_chunks, Courant, use_anisotropic_averaging, tol, maxeval, gobj_list, center, _ensure_periodicity, _default_material, alist, extra_materials, split_chunks_evenly, set_materials, existing_s, output_chunk_costs, my_bp)
-/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/meep/__init__.py:4439: ComplexWarning: Casting complex values to real discards the imaginary part
-  return _meep._set_materials(s, cell_size, gv, use_anisotropic_averaging, tol, maxeval, gobj_list, center, _ensure_periodicity, _default_material, alist, extra_materials, split_chunks_evenly, set_materials, existing_geps, output_chunk_costs, my_bp)
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">37</span><span class="p">],</span> <span class="n">line</span> <span class="mi">19</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o3"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">port_xpos</span><span class="p">,</span> <span class="o">-</span><span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">mmi_comp</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o4"</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">port_xpos</span><span class="p">,</span> <span class="n">port_ypos</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">cross_section</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">cross_section</span><span class="o">.</span><span class="n">cross_section</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">port_ysize</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">'WG'</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">19</span> <span class="n">sparams</span> <span class="o">=</span> <span class="n">write_sparameters_meep</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>         <span class="n">component</span><span class="o">=</span><span class="n">mmi_comp</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span>         <span class="n">extend_ports_length</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>         <span class="n">port_margin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>         <span class="n">port_source_offset</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>         <span class="n">port_monitor_offset</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="n">run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span>         <span class="n">xmargin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span>         <span class="n">ymargin</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span>         <span class="n">zmargin</span><span class="o">=</span><span class="mi">2</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span>         <span class="n">is_3d</span><span class="o">=</span><span class="n">sim_is_3D</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>         <span class="n">tpml</span><span class="o">=</span><span class="n">dpml</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>         <span class="n">clad_material</span><span class="o">=</span><span class="s2">"SiO2"</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span>         <span class="n">wavelength_start</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="n">wavelength_stop</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>         <span class="n">wavelength_points</span><span class="o">=</span><span class="mi">100</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/pydantic/deprecated/decorator.py:55,</span> in <span class="ni">validate_arguments.&lt;locals&gt;.validate.&lt;locals&gt;.wrapper_function</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="nd">@wraps</span><span class="p">(</span><span class="n">_func</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">55</span>     <span class="k">return</span> <span class="n">vd</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/pydantic/deprecated/decorator.py:150,</span> in <span class="ni">ValidatedFunction.call</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_model_instance</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">150</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/pydantic/deprecated/decorator.py:222,</span> in <span class="ni">ValidatedFunction.execute</span><span class="nt">(self, m)</span>
-<span class="g g-Whitespace">    </span><span class="mi">220</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_function</span><span class="p">(</span><span class="o">*</span><span class="n">args_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">var_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">222</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_function</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">,</span> <span class="o">**</span><span class="n">var_kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/gplugins/gmeep/write_sparameters_meep.py:562,</span> in <span class="ni">write_sparameters_meep</span><span class="nt">(component, port_source_names, port_source_modes, port_modes, port_symmetries, resolution, wavelength_start, wavelength_stop, wavelength_points, dirpath, layer_stack, port_margin, port_monitor_offset, port_source_offset, filepath, overwrite, animate, animate_center, animate_size, lazy_parallelism, run, dispersive, xmargin, ymargin, zmargin, xmargin_left, xmargin_right, ymargin_top, ymargin_bot, zmargin_top, zmargin_bot, decay_by, is_3d, z, plot_args, only_return_filepath_sim_settings, verbosity, **settings)</span>
-<span class="g g-Whitespace">    </span><span class="mi">559</span> <span class="k">for</span> <span class="n">port_source_name</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">port_source_names</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">560</span>     <span class="k">for</span> <span class="n">port_source_mode</span> <span class="ow">in</span> <span class="n">port_source_modes</span><span class="p">[</span><span class="n">port_source_name</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">561</span>         <span class="n">sp</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-<span class="ne">--&gt; </span><span class="mi">562</span>             <span class="n">sparameter_calculation</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">563</span>                 <span class="n">port_source_name</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">564</span>                 <span class="n">port_source_mode</span><span class="o">=</span><span class="n">port_source_mode</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">565</span>                 <span class="n">component</span><span class="o">=</span><span class="n">component</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">566</span>                 <span class="n">port_symmetries</span><span class="o">=</span><span class="n">port_symmetries</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">567</span>                 <span class="n">wavelength_start</span><span class="o">=</span><span class="n">wavelength_start</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">568</span>                 <span class="n">wavelength_stop</span><span class="o">=</span><span class="n">wavelength_stop</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">569</span>                 <span class="n">wavelength_points</span><span class="o">=</span><span class="n">wavelength_points</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">570</span>                 <span class="n">animate</span><span class="o">=</span><span class="n">animate</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">571</span>                 <span class="n">port_names</span><span class="o">=</span><span class="n">port_names</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">572</span>                 <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">573</span>             <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">574</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">575</span> <span class="n">sp</span><span class="p">[</span><span class="s2">"wavelengths"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">576</span>     <span class="n">wavelength_start</span><span class="p">,</span> <span class="n">wavelength_stop</span><span class="p">,</span> <span class="n">wavelength_points</span>
-<span class="g g-Whitespace">    </span><span class="mi">577</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">578</span> <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="o">**</span><span class="n">sp</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/pydantic/deprecated/decorator.py:55,</span> in <span class="ni">validate_arguments.&lt;locals&gt;.validate.&lt;locals&gt;.wrapper_function</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="nd">@wraps</span><span class="p">(</span><span class="n">_func</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span> <span class="k">def</span> <span class="nf">wrapper_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">55</span>     <span class="k">return</span> <span class="n">vd</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/pydantic/deprecated/decorator.py:150,</span> in <span class="ni">ValidatedFunction.call</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span> <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_model_instance</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">150</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/pydantic/deprecated/decorator.py:222,</span> in <span class="ni">ValidatedFunction.execute</span><span class="nt">(self, m)</span>
-<span class="g g-Whitespace">    </span><span class="mi">220</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_function</span><span class="p">(</span><span class="o">*</span><span class="n">args_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="n">var_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">221</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">222</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_function</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">,</span> <span class="o">**</span><span class="n">var_kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/gplugins/gmeep/write_sparameters_meep.py:488,</span> in <span class="ni">write_sparameters_meep.&lt;locals&gt;.sparameter_calculation</span><span class="nt">(port_source_name, component, port_symmetries, port_names, port_source_mode, wavelength_start, wavelength_stop, wavelength_points, animate, animate_center, animate_size, plot_args, dispersive, decay_by, **settings)</span>
-<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="n">animate</span><span class="o">.</span><span class="n">to_mp4</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span>         <span class="mi">30</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">component</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">port_source_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">port_source_mode</span><span class="si">}</span><span class="s2">.mp4"</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">488</span>     <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="n">termination</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span> <span class="c1"># Calculate mode overlaps</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span> <span class="c1"># Get source monitor results</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="n">source_entering</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">parse_port_eigenmode_coeff</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="n">port_source_name</span><span class="p">,</span> <span class="n">component</span><span class="o">.</span><span class="n">ports</span><span class="p">,</span> <span class="n">sim_dict</span><span class="p">,</span> <span class="n">port_mode</span><span class="o">=</span><span class="n">port_source_mode</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/meep/simulation.py:4530,</span> in <span class="ni">Simulation.run</span><span class="nt">(self, *step_funcs, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4527</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unrecognized keyword arguments: </span><span class="si">{</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4529</span> <span class="k">if</span> <span class="n">until_after_sources</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">4530</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_run_sources_until</span><span class="p">(</span><span class="n">until_after_sources</span><span class="p">,</span> <span class="n">step_funcs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4531</span> <span class="k">elif</span> <span class="n">until</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4532</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_run_until</span><span class="p">(</span><span class="n">until</span><span class="p">,</span> <span class="n">step_funcs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/meep/simulation.py:2871,</span> in <span class="ni">Simulation._run_sources_until</span><span class="nt">(self, cond, step_funcs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2867</span>             <span class="k">return</span> <span class="n">cond</span><span class="p">[</span><span class="n">i</span><span class="p">](</span><span class="n">sim</span><span class="p">)</span> <span class="ow">and</span> <span class="n">sim</span><span class="o">.</span><span class="n">round_time</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">ts</span>
-<span class="g g-Whitespace">   </span><span class="mi">2869</span>         <span class="n">new_conds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2871</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_until</span><span class="p">(</span><span class="n">new_conds</span><span class="p">,</span> <span class="n">step_funcs</span><span class="p">)</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/meep/simulation.py:2829,</span> in <span class="ni">Simulation._run_until</span><span class="nt">(self, cond, step_funcs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2827</span>     <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">step_funcs</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2828</span>         <span class="n">_eval_step_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="s2">"step"</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2829</span>     <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">2831</span> <span class="c1"># Translating the recursive scheme version of run-until into an iterative version</span>
-<span class="g g-Whitespace">   </span><span class="mi">2832</span> <span class="c1"># (because python isn't tail-call-optimized) means we need one extra iteration to</span>
-<span class="g g-Whitespace">   </span><span class="mi">2833</span> <span class="c1"># be the same as scheme.</span>
-<span class="g g-Whitespace">   </span><span class="mi">2834</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">step_funcs</span><span class="p">:</span>
-
-<span class="nn">File ~/miniconda3/envs/photonics/lib/python3.11/site-packages/meep/__init__.py:3040,</span> in <span class="ni">fields.step</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3039</span> <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">3040</span>     <span class="k">return</span> <span class="n">_meep</span><span class="o">.</span><span class="n">fields_step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
+<div class="cell_output docutils container">
+<img alt="../_images/50e4ab6fce5644b61f84e586dd413bfad600a231a6d4c230434bdb84be6667c7.png" src="../_images/50e4ab6fce5644b61f84e586dd413bfad600a231a6d4c230434bdb84be6667c7.png"/>
 </div>
 </div>
 </section>
