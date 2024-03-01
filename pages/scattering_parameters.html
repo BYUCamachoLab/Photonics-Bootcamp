@@ -380,7 +380,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-28 13:52:52.398</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/meep']</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-03-01 12:46:09.088</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/meep']</span>
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
@@ -391,16 +391,11 @@ document.write(`
 <p>Next we’ll define a whole bunch of variables so our code is more readable down the line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="mi">40</span> <span class="c1"># the resolution of the simulation in pixels/um</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="mi">50</span> <span class="c1"># the resolution of the simulation in pixels/um</span>
 <span class="n">sim_is_3D</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Turn this to false for a 2D simulation</span>
 
 <span class="n">pwd</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">''</span><span class="p">))</span>
 <span class="n">gds_file</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"files/mmi2x2.gds"</span> <span class="c1"># The name of our gds file</span>
-
-<span class="c1"># The Parameters for the frequencies we'll be using</span>
-<span class="n">lcen</span> <span class="o">=</span> <span class="mf">1.55</span> <span class="c1"># Center wavelength</span>
-<span class="n">fcen</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">lcen</span> <span class="c1"># Center frequency</span>
-<span class="n">df</span> <span class="o">=</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">fcen</span> <span class="c1"># Frequency Diameter</span>
 
 <span class="c1"># The thickness of each material in our simulation (only used in 3D simulations)</span>
 <span class="n">t_oxide</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -443,6 +438,7 @@ document.write(`
               <span class="p">)</span>
 <span class="n">layer_stack</span> <span class="o">=</span> <span class="n">LayerStack</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">)</span>
 
+<span class="n">lcen</span> <span class="o">=</span> <span class="mf">1.55</span>
 <span class="n">mmi_comp</span> <span class="o">=</span> <span class="n">import_gds</span><span class="p">(</span><span class="n">gds_file</span><span class="p">)</span>
 <span class="n">geometry</span> <span class="o">=</span> <span class="n">get_meep_geometry_from_component</span><span class="p">(</span><span class="n">mmi_comp</span><span class="p">,</span> <span class="n">is_3d</span><span class="o">=</span><span class="n">sim_is_3D</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="n">lcen</span><span class="p">,</span> <span class="n">layer_stack</span><span class="o">=</span><span class="n">layer_stack</span><span class="p">)</span>
 <span class="c1"># Use this to modify the material of the loaded geometry if needed.</span>
@@ -453,10 +449,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-28 13:52:52.533</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">309</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-03-01 12:46:09.387</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">309</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-28 13:52:52.908</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Unnamed cells, 1 in 'Unnamed_0da7224c'</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-03-01 12:46:09.559</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.config</span>:<span class="-Color -Color-Cyan">showwarning</span>:<span class="-Color -Color-Cyan">281</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">Unnamed cells, 1 in 'Unnamed_0da7224c'</span>
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/andeloth/miniconda3/envs/photonics/lib/python3.11/site-packages/gdsfactory/component.py:1604: UserWarning: Unnamed cells, 1 in 'Unnamed_0da7224c'
@@ -501,10 +497,19 @@ document.write(`
 <p>Note, however, that the MMI we are using has mirror symmetry about both the x and y axes, which means we could just do the simulation once and then assign the s-parameters using symmetry arguments. This is a useful trick when working with devices with symmetries about the ports that can save a lot of time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the first source for the simulation in port 1 (lower left).</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up frequency points for simulation</span>
+<span class="n">npoints</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">lcen</span> <span class="o">=</span> <span class="mf">1.55</span>
+<span class="n">dlam</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">wl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lcen</span> <span class="o">-</span> <span class="n">dlam</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lcen</span> <span class="o">+</span> <span class="n">dlam</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">npoints</span><span class="p">)</span>
+<span class="n">fcen</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">lcen</span>
+<span class="n">df_source</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">dlam</span> <span class="o">/</span> <span class="n">lcen</span><span class="o">**</span><span class="mi">2</span> <span class="c1"># ONLY USE FOR SOURCES TO ENSURE LARGE ENOUGH FREQUENCY BANDWIDTH FOR SIMULATION</span>
+<span class="n">fpoints</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">wl</span> <span class="c1"># Center frequency</span>
+
+<span class="c1"># Set up the first source for the simulation in port 1 (lower left).</span>
 <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df_source</span><span class="p">),</span>
             <span class="n">volume</span><span class="o">=</span><span class="n">source1</span><span class="p">,</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mode_parity</span><span class="p">,</span>
@@ -530,15 +535,15 @@ document.write(`
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adds mode monitors at each of the ports to track the energy that goes in or out</span>
-
-<span class="n">mode_monitor_1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">))</span>
-<span class="n">mode_monitor_2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port2</span><span class="p">))</span>
-<span class="n">mode_monitor_3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port3</span><span class="p">))</span>
-<span class="n">mode_monitor_4</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">))</span>
+<span class="n">mode_monitor_1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">))</span>
+<span class="n">mode_monitor_2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port2</span><span class="p">))</span>
+<span class="n">mode_monitor_3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port3</span><span class="p">))</span>
+<span class="n">mode_monitor_4</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">))</span>
 
 <span class="c1"># Plot the simulation</span>
 <span class="n">plot_plane</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Volume</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cell</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">sim</span><span class="o">.</span><span class="n">plot2D</span><span class="p">(</span><span class="n">output_plane</span><span class="o">=</span><span class="n">plot_plane</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span> <span class="c1"># No parameters are needed for a 2D simulation. </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -548,10 +553,7 @@ document.write(`
 <span class="expanded">Hide code cell output</span>
 </summary>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel='X', ylabel='Y'&gt;
-</pre></div>
-</div>
-<img alt="../_images/3837be4f789135e726bcd5a2348bb9b8969a2fba468ccc66245950a3560c468c.png" src="../_images/3837be4f789135e726bcd5a2348bb9b8969a2fba468ccc66245950a3560c468c.png"/>
+<img alt="../_images/a43e385cb6c97fb198db8be9f1a60f485ad4d482648a79a0ef1bac0437edf677.png" src="../_images/a43e385cb6c97fb198db8be9f1a60f485ad4d482648a79a0ef1bac0437edf677.png"/>
 </div>
 </details>
 </div>
@@ -559,7 +561,7 @@ document.write(`
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Runs the simulation</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">stop_when_dft_decayed</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">stop_when_dft_decayed</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -568,32 +570,11 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finds the S parameters</span>
-<span class="n">norm_mode_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">port1_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-<span class="n">port2_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-<span class="n">port3_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-<span class="n">port4_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_4</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-<span class="c1"># Store the S parameters in s_params</span>
-<span class="n">s_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">port1_coeff</span><span class="p">,</span> <span class="n">port2_coeff</span><span class="p">,</span> <span class="n">port3_coeff</span><span class="p">,</span> <span class="n">port4_coeff</span><span class="p">]</span>
-
-
-<span class="c1"># Prints out the S parameters</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Normalized s-params:</span><span class="se">\n</span><span class="s2">Port1(Lower Left, S11): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">)</span><span class="si">}</span><span class="s2"> rad  </span><span class="se">\n</span><span class="s2">Port2(Upper Left, S12): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">port2_coeff</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port2_coeff</span><span class="p">)</span><span class="si">}</span><span class="s2"> rad  </span><span class="se">\n</span><span class="s2">Port3(Upper Right, S13): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">port3_coeff</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port3_coeff</span><span class="p">)</span><span class="si">}</span><span class="s2"> rad  </span><span class="se">\n</span><span class="s2">Port4(Lower Right, S14): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">port4_coeff</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port4_coeff</span><span class="p">)</span><span class="si">}</span><span class="s2"> rad"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------------------------------------------------------
-
-Normalized s-params:
-Port1(Lower Left, S11): 0.048342, 2.6482938181862616 rad  
-Port2(Upper Left, S12): 0.046153, 2.765397762485876 rad  
-Port3(Upper Right, S13): 0.748132, -0.6805131200859658 rad  
-Port4(Lower Right, S14): 0.292468, 1.5714402438535193 rad
-
------------------------------------------------------------------
+<span class="n">norm_mode_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">port1_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
+<span class="n">port2_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
+<span class="n">port3_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
+<span class="n">port4_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_4</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
 </pre></div>
 </div>
 </div>
@@ -610,65 +591,70 @@ Port4(Lower Right, S14): 0.292468, 1.5714402438535193 rad
 <span class="c1"># Calculates the Insertion loss as a percent and in dB</span>
 <span class="n">insertionLoss</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">port2_trans</span> <span class="o">+</span> <span class="n">port3_trans</span> <span class="o">+</span> <span class="n">port4_trans</span><span class="p">)</span>
 <span class="n">insertionLoss_dB</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">insertionLoss</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 
-<span class="c1"># Prints the Transmittance</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Transmittance/Reflectance: Port1: </span><span class="si">{</span><span class="n">port1_trans</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">% Port2: </span><span class="si">{</span><span class="n">port2_trans</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%, Port3: </span><span class="si">{</span><span class="n">port3_trans</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%, Port4: </span><span class="si">{</span><span class="n">port4_trans</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Insertion Loss: </span><span class="si">{</span><span class="n">insertionLoss</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">% = </span><span class="si">{</span><span class="n">insertionLoss_dB</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">db"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">-----------------------------------------------------------------</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">ax_trans1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Transmission per Port"</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">port1_trans</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'s11^2'</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">port2_trans</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'s21^2'</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">port3_trans</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'s31^2'</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">port4_trans</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'s41^2'</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Transmission"</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax_phase1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Phase per Port"</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port1_coeff</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'phase of s11'</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port2_coeff</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'phase of s21'</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port3_coeff</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'phase of s31'</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">port4_coeff</span><span class="p">)</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'phase of s41'</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Angle (deg)"</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax_loss</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax_loss</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Loss"</span><span class="p">)</span>
+<span class="n">ax_loss</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">insertionLoss_dB</span><span class="p">)</span>
+<span class="n">ax_loss</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_loss</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Loss (dB)"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-----------------------------------------------------------------
-
-Transmittance/Reflectance: Port1: 0.2337% Port2: 0.2130%, Port3: 55.9701%, Port4: 8.5538%
-Insertion Loss: 35.2631% = -4.5268db
-
------------------------------------------------------------------
-</pre></div>
-</div>
+<img alt="../_images/61de3d3127148894fc7a3a7754d699d4871955925c957be0204c957754f95524.png" src="../_images/61de3d3127148894fc7a3a7754d699d4871955925c957be0204c957754f95524.png"/>
 </div>
 </div>
 <p>We find that this component is actually terrible and would never be used in an actual photonic design. Over a third of the light is lost, and the light that isn’t lost is not split in any specific ratio. Fortunately, it was never meant to be used, and just exists as an example of the basic shape of an mmi.</p>
 <p>Finally, before we move on to the next step, we’ll run the simulation again and create a plot of the steady state of the mmi.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reset the simulation in order to run it again and visulaize the fields</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">reset_meep</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">reset_meep</span><span class="p">()</span>
 
-<span class="c1"># Create a continuous source</span>
-<span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-        <span class="n">src</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">ContinuousSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
-        <span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">,</span>
-        <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">eig_parity</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
-        <span class="n">eig_match_freq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span>
-<span class="p">]</span>
+<span class="n">whole_dft</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_dft_fields</span><span class="p">([</span><span class="n">mp</span><span class="o">.</span><span class="n">Ez</span><span class="p">],</span> <span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(),</span> <span class="n">size</span><span class="o">=</span><span class="n">cell</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">stop_when_dft_decayed</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">))</span>
 
-<span class="c1"># Sets up the simulation again</span>
-<span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
-    <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="p">,</span>
-    <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span>
-    <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
-    <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="c1"># Runs the simulation for a long time to ensure that the fields have reached a steady state</span>
-<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
-
-<span class="c1"># Gets data</span>
 <span class="n">eps_data</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_epsilon</span><span class="p">()</span> <span class="c1"># Epsilon Data / The Geometry / An array that holds what materials are where</span>
-<span class="n">ez_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">get_efield_z</span><span class="p">())</span> <span class="c1"># Values for the component of the E-field in the z direction (in/out of screen)</span>
-
-<span class="c1"># Creates the plot</span>
+<span class="n">ez_data</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_dft_array</span><span class="p">(</span><span class="n">whole_dft</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">Ez</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Values for the component of the E-field in the z direction (in/out of screen)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates the plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">eps_data</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">"spline36"</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"binary"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">ez_data</span><span class="p">)),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">ez_data</span><span class="p">))),</span>
     <span class="n">interpolation</span><span class="o">=</span><span class="s2">"spline36"</span><span class="p">,</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">"RdBu"</span><span class="p">,</span>
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
@@ -679,7 +665,7 @@ Insertion Loss: 35.2631% = -4.5268db
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ac43c9ac00c847ba9b66aaf683fccd7e", "version_major": 2, "version_minor": 0}</script><img alt="../_images/70f24a0b4e167a46e6d62f7e6207a43ea36011c04f9156479b414a1e41e34677.png" src="../_images/70f24a0b4e167a46e6d62f7e6207a43ea36011c04f9156479b414a1e41e34677.png"/>
+<img alt="../_images/d56c3a5c21d376441c6f333c9d6e95712424c86ba7d7d4ab31db8243a6c11851.png" src="../_images/d56c3a5c21d376441c6f333c9d6e95712424c86ba7d7d4ab31db8243a6c11851.png"/>
 </div>
 </div>
 </section>
@@ -693,37 +679,37 @@ Insertion Loss: 35.2631% = -4.5268db
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the rest of the sources for the simulation.</span>
 <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df_source</span><span class="p">),</span>
             <span class="n">size</span><span class="o">=</span><span class="n">port1</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">port1</span><span class="o">.</span><span class="n">center</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mode_parity</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df_source</span><span class="p">),</span>
             <span class="n">size</span><span class="o">=</span><span class="n">port2</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">port2</span><span class="o">.</span><span class="n">center</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mode_parity</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df_source</span><span class="p">),</span>
             <span class="n">size</span><span class="o">=</span><span class="n">port3</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">port3</span><span class="o">.</span><span class="n">center</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mode_parity</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
             <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
             <span class="n">direction</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_DIRECTION</span>
         <span class="p">),</span>
         <span class="n">mp</span><span class="o">.</span><span class="n">EigenModeSource</span><span class="p">(</span>
-            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">GaussianSource</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="n">fwidth</span><span class="o">=</span><span class="n">df_source</span><span class="p">),</span>
             <span class="n">size</span><span class="o">=</span><span class="n">port4</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="c1"># Here we input the geometry for our first source</span>
             <span class="n">center</span><span class="o">=</span><span class="n">port4</span><span class="o">.</span><span class="n">center</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
             <span class="n">eig_band</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_PARITY</span> <span class="k">if</span> <span class="n">sim_is_3D</span> <span class="k">else</span> <span class="n">mp</span><span class="o">.</span><span class="n">EVEN_Y</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">ODD_Z</span><span class="p">,</span>
+            <span class="n">eig_parity</span> <span class="o">=</span> <span class="n">mode_parity</span><span class="p">,</span>
             <span class="n">eig_match_freq</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
             <span class="n">eig_kpoint</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Vector3</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
             <span class="n">direction</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">NO_DIRECTION</span>
@@ -735,76 +721,88 @@ Insertion Loss: 35.2631% = -4.5268db
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ports</span><span class="p">)</span> <span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_params</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ports</span><span class="p">)</span> <span class="p">:</span>
 
     <span class="n">source</span> <span class="o">=</span> <span class="n">sources</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-
-    <span class="n">sim</span><span class="o">.</span><span class="n">reset_meep</span><span class="p">()</span> <span class="c1"># resets everything</span>
-
+    
     <span class="c1"># Create Simulation</span>
     <span class="n">sim</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="c1"># The resolution, defined further up</span>
-    <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="p">,</span> <span class="c1"># The cell size, taken from the gds</span>
-    <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span> <span class="c1"># the perfectly matched layers, with a diameter as defined above</span>
-    <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">source</span><span class="p">],</span> <span class="c1"># The source(s) we just defined</span>
-    <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="c1"># The geometry, from above</span>
+        <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="c1"># The resolution, defined further up</span>
+        <span class="n">cell_size</span><span class="o">=</span><span class="n">cell</span><span class="p">,</span> <span class="c1"># The cell size, taken from the gds</span>
+        <span class="n">boundary_layers</span><span class="o">=</span><span class="p">[</span><span class="n">mp</span><span class="o">.</span><span class="n">PML</span><span class="p">(</span><span class="n">dpml</span><span class="p">)],</span> <span class="c1"># the perfectly matched layers, with a diameter as defined above</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">source</span><span class="p">],</span> <span class="c1"># The source(s) we just defined</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="n">geometry</span> <span class="c1"># The geometry, from above</span>
     <span class="p">)</span>
     
     <span class="c1"># Adds mode monitors at each of the ports to track the energy that goes in or out</span>
-    <span class="n">mode_monitor_1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">))</span>
-    <span class="n">mode_monitor_2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port2</span><span class="p">))</span>
-    <span class="n">mode_monitor_3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port3</span><span class="p">))</span>
-    <span class="n">mode_monitor_4</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fcen</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">))</span>
+    <span class="n">mode_monitor_1</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port1</span><span class="p">))</span>
+    <span class="n">mode_monitor_2</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port2</span><span class="p">))</span>
+    <span class="n">mode_monitor_3</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port3</span><span class="p">))</span>
+    <span class="n">mode_monitor_4</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">add_mode_monitor</span><span class="p">(</span><span class="n">fpoints</span><span class="p">,</span> <span class="n">mp</span><span class="o">.</span><span class="n">ModeRegion</span><span class="p">(</span><span class="n">volume</span><span class="o">=</span><span class="n">port4</span><span class="p">))</span>
 
     <span class="c1"># Runs the simulation</span>
-    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">stop_when_dft_decayed</span><span class="p">)</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until_after_sources</span><span class="o">=</span><span class="n">mp</span><span class="o">.</span><span class="n">stop_when_dft_decayed</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">))</span>
 
     <span class="c1">#############################################################</span>
     <span class="c1"># Finds the S parameters</span>
     <span class="n">mode_monitors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="n">mode_monitor_2</span><span class="p">,</span> <span class="n">mode_monitor_3</span><span class="p">,</span> <span class="n">mode_monitor_4</span><span class="p">]</span>
     <span class="n">norm_mode</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span>
-    <span class="n">norm_mode_coeff</span> <span class="o">=</span> <span class="n">norm_mode</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">norm_mode</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">port1_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-    <span class="n">port2_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-    <span class="n">port3_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
-    <span class="n">port4_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_4</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span> <span class="c1"># This is the total amount of light that entered the devie</span>
+    <span class="n">norm_mode_coeff</span> <span class="o">=</span> <span class="n">norm_mode</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">norm_mode</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">port1_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
+    <span class="n">port2_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
+    <span class="n">port3_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_3</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
+    <span class="n">port4_coeff</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_eigenmode_coefficients</span><span class="p">(</span><span class="n">mode_monitor_4</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_parity</span><span class="o">=</span><span class="n">mode_parity</span><span class="p">)</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">norm_mode_coeff</span>
 
     <span class="c1"># Store the S parameters in s_params</span>
     <span class="n">index</span> <span class="o">=</span> <span class="n">i</span>
-    <span class="n">s_params</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">port1_coeff</span><span class="p">,</span> <span class="n">port2_coeff</span><span class="p">,</span> <span class="n">port3_coeff</span><span class="p">,</span> <span class="n">port4_coeff</span><span class="p">]</span>
+    <span class="n">s_params</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">port1_coeff</span><span class="p">,</span> <span class="n">port2_coeff</span><span class="p">,</span> <span class="n">port3_coeff</span><span class="p">,</span> <span class="n">port4_coeff</span><span class="p">])</span>
+
+<span class="n">s_params</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">s_params</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>We can now show that due to the symmetry, some of the s-parameters are the same, e.g. s31 and s42.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"S-Params:"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ports</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">1: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">2: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">3: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="se">\t\t</span><span class="s2">S</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">4: </span><span class="si">{</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span><span class="si">:</span><span class="s2">.3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Transmission:"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_ports</span><span class="p">):</span>
-    <span class="n">trans1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">trans2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">trans3</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">trans4</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">trans1</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %</span><span class="se">\t</span><span class="si">{</span><span class="n">trans2</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %</span><span class="se">\t</span><span class="si">{</span><span class="n">trans3</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %</span><span class="se">\t</span><span class="si">{</span><span class="n">trans4</span><span class="si">:</span><span class="s2">.6</span><span class="si">}</span><span class="s2"> %"</span><span class="p">)</span>
+<span class="n">ax_trans1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Transmission for s31"</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'s31^2'</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Transmission"</span><span class="p">)</span>
+<span class="n">ax_trans1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax_phase1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Phase for s31"</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'phase of s31'</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Angle (deg)"</span><span class="p">)</span>
+<span class="n">ax_phase1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax_trans2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax_trans2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Transmission for s42"</span><span class="p">)</span>
+<span class="n">ax_trans2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'s42^2'</span><span class="p">)</span>
+<span class="n">ax_trans2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_trans2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Transmission"</span><span class="p">)</span>
+<span class="n">ax_trans2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax_phase2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax_phase2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Phase for s42"</span><span class="p">)</span>
+<span class="n">ax_phase2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">s_params</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'phase of s42'</span><span class="p">)</span>
+<span class="n">ax_phase2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">"Wavelength (\mu m)"</span><span class="p">)</span>
+<span class="n">ax_phase2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Angle (deg)"</span><span class="p">)</span>
+<span class="n">ax_phase2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>S-Params:
-S11: (-0.0212+0.0444j)		S12: (-0.0262+0.0464j)		S13: (0.433-0.63j)		S14: (0.12+0.25j)
-S21: (-0.0262+0.0464j)		S22: (-0.0213+0.0443j)		S23: (0.121+0.25j)		S24: (0.433-0.63j)
-S31: (0.434-0.63j)		S32: (0.121+0.249j)		S33: (-0.0244+0.0494j)		S34: (-0.0296+0.052j)
-S41: (0.12+0.25j)		S42: (0.433-0.631j)		S43: (-0.0296+0.052j)		S44: (-0.0224+0.0488j)
-Transmission:
-0.242098 %	0.283911 %	58.4426 %	7.70278 %
-0.283902 %	0.241526 %	7.7061 %	58.4593 %
-58.5023 %	7.68307 %	0.304059 %	0.357669 %
-7.68059 %	58.5269 %	0.357666 %	0.288482 %
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7efb5fa43490&gt;
 </pre></div>
 </div>
+<img alt="../_images/2aabf2981f40f766f01b1921b99b01b38229fe1eb9c4812616bbedf4974a3326.png" src="../_images/2aabf2981f40f766f01b1921b99b01b38229fe1eb9c4812616bbedf4974a3326.png"/>
 </div>
 </div>
 <p>Above, we can see all of the S-parameters from the simulations, and we can verify that the S-parameters are in fact the same for every port, which is what we expected. We also calculated the transmission which is also the same no matter what port we use.</p>
@@ -829,8 +827,7 @@ Transmission:
 <span class="n">gds_file</span> <span class="o">=</span> <span class="n">pwd</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"files/mmi2x2.gds"</span>
 <span class="n">mmi_comp</span> <span class="o">=</span> <span class="n">import_gds</span><span class="p">(</span><span class="n">gds_file</span><span class="p">)</span>
 
-<span class="n">res</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="n">df</span> <span class="o">=</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">fcen</span>
+<span class="n">res</span> <span class="o">=</span> <span class="mi">50</span>
 
 <span class="n">sim_is_3D</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">port_xpos</span> <span class="o">=</span> <span class="mf">17.75</span>
@@ -878,13 +875,13 @@ Transmission:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">run_sim</span><span class="p">:</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sparams</span><span class="p">[</span><span class="s1">'wavelengths'</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sparams</span><span class="p">[</span><span class="s1">'o1@0,o4@0'</span><span class="p">]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sparams</span><span class="p">[</span><span class="s1">'wavelengths'</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sparams</span><span class="p">[</span><span class="s1">'o3@0,o1@0'</span><span class="p">]))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5aefbf5ac5bdcb36f6611b80359f4a06b762c82e0b5946e7ffd3e833c8dc5812.png" src="../_images/5aefbf5ac5bdcb36f6611b80359f4a06b762c82e0b5946e7ffd3e833c8dc5812.png"/>
+<img alt="../_images/83c156d2a034b9b863ad85fb21065af6f36a2ce50be6b2801cfb902e736004c8.png" src="../_images/83c156d2a034b9b863ad85fb21065af6f36a2ce50be6b2801cfb902e736004c8.png"/>
 </div>
 </div>
 </section>
