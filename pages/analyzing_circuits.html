@@ -312,6 +312,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curve-fitting">Curve fitting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-reference-circuit">Using a reference circuit</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-the-index-of-refraction">Extracting the index of refraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-simulate-and-compare-an-mzi">Design, Simulate, and Compare an MZI</a></li>
 </ul>
 </nav>
 </div>
@@ -421,6 +422,263 @@ document.write(`
 <section id="extracting-the-index-of-refraction">
 <h2>Extracting the index of refraction<a class="headerlink" href="#extracting-the-index-of-refraction" title="Permalink to this heading">#</a></h2>
 </section>
+<section id="design-simulate-and-compare-an-mzi">
+<h2>Design, Simulate, and Compare an MZI<a class="headerlink" href="#design-simulate-and-compare-an-mzi" title="Permalink to this heading">#</a></h2>
+<p>In this section, we will walk through the process of designing an MZI in gdsfactory, simulating its behavior using sax, and finally, comparing the simulated data with data that we collect from our circuits.</p>
+<p>To start the process, we will design an MZI using gdsfactory, we will assemble the components of an MZI in Python, leveraging the capabilities of gdsfactory to construct a detailed layout. Once the layout is finalized, Python will generate a GDS (Graphic Data System) file, encapsulating the design specifications, which we can then submit for actual fabrication.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
+<span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">gplugins.modes</span> <span class="k">as</span> <span class="nn">gm</span>
+<span class="kn">import</span> <span class="nn">ipympl</span>
+
+<span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
+<span class="kn">import</span> <span class="nn">ubcpdk</span>
+<span class="kn">import</span> <span class="nn">ubcpdk.components</span> <span class="k">as</span> <span class="nn">uc</span>
+
+<span class="n">gf</span><span class="o">.</span><span class="n">CONF</span><span class="o">.</span><span class="n">display_type</span> <span class="o">=</span> <span class="s2">"klayout"</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-04-22 15:47:34.887</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/yancesun/miniconda3/lib/python3.11/site-packages/meep']</span>
+<span class="-Color -Color-Green">2024-04-22 15:47:35.019</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/yancesun/miniconda3/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
+<span class="-Color -Color-Green">2024-04-22 15:47:35.072</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/yancesun/miniconda3/lib/python3.11/site-packages/ubcpdk')</span>
+<span class="-Color -Color-Green">2024-04-22 15:47:35.164</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/yancesun/miniconda3/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-04-22 15:47:35.166</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_branch</span><span class="o">=</span><span class="n">uc</span><span class="o">.</span><span class="n">ebeam_y_1550</span><span class="p">()</span>
+<span class="n">bend</span> <span class="o">=</span> <span class="n">uc</span><span class="o">.</span><span class="n">bend</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+
+<span class="n">my_device</span> <span class="o">=</span> <span class="n">gf</span><span class="o">.</span><span class="n">Component</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"MyDevice"</span><span class="p">)</span>
+<span class="n">y_in</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">y_branch</span><span class="p">)</span>
+<span class="n">y_out</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">y_branch</span><span class="p">)</span>
+
+<span class="n">short_waveguide</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mf">10.8186</span><span class="p">))</span>
+<span class="n">long_waveguide</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mf">20.299</span><span class="p">))</span>
+<span class="n">waveguide</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mf">111.5</span><span class="p">))</span>
+<span class="n">short_waveguide2</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mf">10.8186</span><span class="p">))</span>
+<span class="n">long_waveguide2</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mf">20.299</span><span class="p">))</span>
+<span class="n">waveguide2</span><span class="o">=</span><span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">uc</span><span class="o">.</span><span class="n">straight</span><span class="p">(</span><span class="mf">122.5</span><span class="p">))</span>
+
+<span class="n">bend1</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+<span class="n">bend2</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+<span class="n">bend3</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+<span class="n">bend4</span> <span class="o">=</span> <span class="n">my_device</span><span class="o">.</span><span class="n">add_ref</span><span class="p">(</span><span class="n">bend</span><span class="p">)</span>
+
+<span class="n">short_waveguide</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">y_in</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o3'</span><span class="p">])</span>
+<span class="n">bend1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">short_waveguide</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+<span class="n">waveguide</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span><span class="n">bend1</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">bend2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">waveguide</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+<span class="n">short_waveguide2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">bend2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">y_out</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">short_waveguide2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+
+<span class="n">long_waveguide</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span> <span class="n">y_in</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+<span class="n">bend3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">long_waveguide</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+<span class="n">waveguide2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o1'</span><span class="p">,</span><span class="n">bend3</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">bend4</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">waveguide2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o2'</span><span class="p">])</span>
+<span class="n">long_waveguide2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o2'</span><span class="p">,</span><span class="n">bend4</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+<span class="n">y_out</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">'o3'</span><span class="p">,</span><span class="n">long_waveguide2</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s1">'o1'</span><span class="p">])</span>
+
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o1"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">y_in</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+<span class="n">my_device</span><span class="o">.</span><span class="n">add_port</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"o2"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">y_out</span><span class="o">.</span><span class="n">ports</span><span class="p">[</span><span class="s2">"o1"</span><span class="p">])</span>
+
+<span class="n">my_device_gc</span><span class="o">=</span><span class="n">gf</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">add_grating_couplers</span><span class="p">(</span><span class="n">component</span><span class="o">=</span><span class="n">my_device</span><span class="p">)</span>
+<span class="n">my_device_gc</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">my_device_gc</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s2">"Sample_MZI"</span>
+<span class="n">my_device_gc</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="s2">"Sample_MZI.gds"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/yancesun/miniconda3/lib/python3.11/site-packages/gdsfactory/cross_section.py:205: UserWarning: min_bend_radius 5 &lt; CrossSection.radius 10.0. Increase CrossSection.radius or decrease the number of points
+  warnings.warn(message)
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0349453799bf4d8d926eebba3ccbb998", "version_major": 2, "version_minor": 0}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-04-22 15:47:59.761</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'Sample_MZI.gds'</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('Sample_MZI.gds')
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have successfully created the gds file for our sample MZI. Now, we will simulate the circuit. We’ll utilize JAX as a subsitute for NumPy, employ matplotlib to visualize our results, and leverage SAX for building our circuit and executing simulations.</p>
+<p>To simulate the circuit in SAX, we first create a list detailing all the parts of the MZI and how they connect. Then, we use pass parameters of waveguides using scattering parameters. We’re interested in the power transmitted from the input to the output, which is the magnitude squared of the s-parameter.
+We generate plots showing the relationship between wavelength and power using both linear and logarithmic scales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">"jax_enable_x64"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">jnp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sax</span>
+<span class="kn">from</span> <span class="nn">simphony.libraries</span> <span class="kn">import</span> <span class="n">siepic</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mzi</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">sax</span><span class="o">.</span><span class="n">circuit</span><span class="p">(</span>
+    <span class="n">netlist</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"instances"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"gc_in"</span><span class="p">:</span> <span class="s2">"gc"</span><span class="p">,</span>
+            <span class="s2">"splitter"</span><span class="p">:</span> <span class="s2">"ybranch"</span><span class="p">,</span>
+            <span class="s2">"long_wg"</span><span class="p">:</span> <span class="s2">"waveguide"</span><span class="p">,</span>
+            <span class="s2">"short_wg"</span><span class="p">:</span> <span class="s2">"waveguide"</span><span class="p">,</span>
+            <span class="s2">"combiner"</span><span class="p">:</span> <span class="s2">"ybranch"</span><span class="p">,</span>
+            <span class="s2">"gc_out"</span><span class="p">:</span> <span class="s2">"gc"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"connections"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"gc_in,o0"</span><span class="p">:</span> <span class="s2">"splitter,port 1"</span><span class="p">,</span>
+            <span class="s2">"splitter,port 2"</span><span class="p">:</span> <span class="s2">"long_wg,o0"</span><span class="p">,</span>
+            <span class="s2">"splitter,port 3"</span><span class="p">:</span> <span class="s2">"short_wg,o0"</span><span class="p">,</span>
+            <span class="s2">"long_wg,o1"</span><span class="p">:</span> <span class="s2">"combiner,port 2"</span><span class="p">,</span>
+            <span class="s2">"short_wg,o1"</span><span class="p">:</span> <span class="s2">"combiner,port 3"</span><span class="p">,</span>
+            <span class="s2">"combiner,port 1"</span><span class="p">:</span> <span class="s2">"gc_out,o0"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">"ports"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"in"</span><span class="p">:</span> <span class="s2">"gc_in,o1"</span><span class="p">,</span>
+            <span class="s2">"out"</span><span class="p">:</span> <span class="s2">"gc_out,o1"</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="n">models</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"ybranch"</span><span class="p">:</span> <span class="n">siepic</span><span class="o">.</span><span class="n">y_branch</span><span class="p">,</span>
+        <span class="s2">"waveguide"</span><span class="p">:</span> <span class="n">siepic</span><span class="o">.</span><span class="n">waveguide</span><span class="p">,</span>
+        <span class="s2">"gc"</span><span class="p">:</span> <span class="n">siepic</span><span class="o">.</span><span class="n">grating_coupler</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sax</span><span class="o">.</span><span class="n">get_settings</span><span class="p">(</span><span class="n">mzi</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'gc_in': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'dwidth': 0},
+ 'splitter': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'width': 500.0},
+ 'long_wg': {'wl': 1.55,
+  'pol': 'te',
+  'length': 0.0,
+  'width': 500.0,
+  'height': 220.0,
+  'loss': 0.0},
+ 'short_wg': {'wl': 1.55,
+  'pol': 'te',
+  'length': 0.0,
+  'width': 500.0,
+  'height': 220.0,
+  'loss': 0.0},
+ 'combiner': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'width': 500.0},
+ 'gc_out': {'wl': 1.55, 'pol': 'te', 'thickness': 220.0, 'dwidth': 0}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wl</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.52</span><span class="p">,</span> <span class="mf">1.58</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">S</span> <span class="o">=</span> <span class="n">mzi</span><span class="p">(</span><span class="n">wl</span><span class="o">=</span><span class="n">wl</span><span class="p">,</span> <span class="n">long_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">},</span> <span class="n">short_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">150.0</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mag</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S</span><span class="p">[</span><span class="s2">"out"</span><span class="p">,</span> <span class="s2">"in"</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Transmission"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Transmission (dB)"</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Wavelength (um)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"MZI Response"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8231bd91c5784ad7a5d8155ddc67c314", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>Now we have successfully simulated the MZI circuit, we will import the data that we collect from the acutal circuit and compare the results. We will use scipy package to import .mat file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.io</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">'/home/yancesun/sequoiap_MZIdL20u_478.mat'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scan_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'scandata'</span><span class="p">]</span>
+<span class="n">wl_data</span><span class="o">=</span><span class="n">scan_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+<span class="n">power</span><span class="o">=</span><span class="n">scan_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">power_t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">power</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+<span class="n">mag_norm</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl_data</span><span class="p">,</span><span class="n">power_t</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"Data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span><span class="n">mag_norm</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"Simulation"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"best"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Data comparsion"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8612626f621e4ca587640d018886470d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>As we can see, the simulated data doesn’t align closely with the actual data obtained from the fabricated circuit. To improve this alignment, we’ll adjust the width parameter. This adjustment aims to better account for potential fabrication errors, some possibilities are underdeveopling and overdeveloping, where the size the of patterned photoresist is wrong. Other possbility is over etching, where the acid remains on the photoresist for too long after it’s stripped. In our case, since the width is smaller than we anticipated, it is likely overetched.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scan_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'scandata'</span><span class="p">]</span>
+<span class="n">wl_data</span><span class="o">=</span><span class="n">scan_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span>
+<span class="n">power</span><span class="o">=</span><span class="n">scan_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">power_t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">power</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+
+<span class="n">S_460</span> <span class="o">=</span> <span class="n">mzi</span><span class="p">(</span><span class="n">wl</span><span class="o">=</span><span class="n">wl</span><span class="p">,</span> <span class="n">long_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">,</span><span class="s2">"width"</span><span class="p">:</span><span class="mi">460</span><span class="p">,</span><span class="s2">"height"</span><span class="p">:</span><span class="mi">220</span><span class="p">},</span> <span class="n">short_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">150.0</span><span class="p">,</span><span class="s2">"width"</span><span class="p">:</span><span class="mi">460</span><span class="p">,</span><span class="s2">"height"</span><span class="p">:</span><span class="mi">220</span><span class="p">})</span>
+<span class="n">S_480</span> <span class="o">=</span> <span class="n">mzi</span><span class="p">(</span><span class="n">wl</span><span class="o">=</span><span class="n">wl</span><span class="p">,</span> <span class="n">long_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">180.0</span><span class="p">,</span><span class="s2">"width"</span><span class="p">:</span><span class="mi">480</span><span class="p">,</span><span class="s2">"height"</span><span class="p">:</span><span class="mi">220</span><span class="p">},</span> <span class="n">short_wg</span><span class="o">=</span><span class="p">{</span><span class="s2">"length"</span><span class="p">:</span> <span class="mf">150.0</span><span class="p">,</span><span class="s2">"width"</span><span class="p">:</span><span class="mi">480</span><span class="p">,</span><span class="s2">"height"</span><span class="p">:</span><span class="mi">220</span><span class="p">})</span>
+<span class="n">mag_460</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S_460</span><span class="p">[</span><span class="s2">"out"</span><span class="p">,</span> <span class="s2">"in"</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">mag_480</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">S_480</span><span class="p">[</span><span class="s2">"out"</span><span class="p">,</span> <span class="s2">"in"</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">mag_norm_460</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag_460</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag_460</span><span class="p">))</span>
+<span class="n">mag_norm_480</span><span class="o">=</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag_480</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">mag_480</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl_data</span><span class="p">,</span><span class="n">power_t</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"Data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">mag_norm_460</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"460um"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wl</span><span class="p">,</span> <span class="n">mag_norm_480</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"480um"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"best"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">"Data comparsion"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "637a74456d314608a4e7fb4ad3773eeb", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>After adjusting the width parameter of the waveguide, we observe a more accurate match between the simulated data and the experimental results. Despite our initial design target of a 500um waveguide width, we find that the actual width ranges between 460um and 480um. This variation is likely due to fabrication inaccuracies inherent in the manufacturing process. By making these changes to the parameters, we can make our simulation model more accurate and better at predicting fabricated photonic circuits.</p>
+</section>
 </section>
 <script type="text/x-thebe-config">
     {
@@ -472,6 +730,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curve-fitting">Curve fitting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-reference-circuit">Using a reference circuit</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-the-index-of-refraction">Extracting the index of refraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-simulate-and-compare-an-mzi">Design, Simulate, and Compare an MZI</a></li>
 </ul>
 </nav></div>
 </div></div>
