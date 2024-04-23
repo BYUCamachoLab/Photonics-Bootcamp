@@ -433,7 +433,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">patches</span>
 <span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
 <span class="kn">import</span> <span class="nn">gplugins.modes</span> <span class="k">as</span> <span class="nn">gm</span>
-<span class="kn">import</span> <span class="nn">ipympl</span>
+<span class="c1"># import ipympl</span>
 
 <span class="kn">import</span> <span class="nn">gdsfactory</span> <span class="k">as</span> <span class="nn">gf</span>
 <span class="kn">import</span> <span class="nn">ubcpdk</span>
@@ -444,11 +444,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-04-22 15:47:34.887</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/yancesun/miniconda3/lib/python3.11/site-packages/meep']</span>
-<span class="-Color -Color-Green">2024-04-22 15:47:35.019</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/yancesun/miniconda3/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
-<span class="-Color -Color-Green">2024-04-22 15:47:35.072</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/yancesun/miniconda3/lib/python3.11/site-packages/ubcpdk')</span>
-<span class="-Color -Color-Green">2024-04-22 15:47:35.164</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/yancesun/miniconda3/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
-<span class="-Color -Color-Green">2024-04-22 15:47:35.166</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-04-23 13:59:01.776</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/meep']</span>
+<span class="-Color -Color-Green">2024-04-23 13:59:01.876</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk/layers.yaml'.</span>
+<span class="-Color -Color-Green">2024-04-23 13:59:01.894</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">ubcpdk</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">30</span> - <span class="-Color -Color-Bold">Found UBCpdk '2.3.4' installed at PosixPath('/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/ubcpdk')</span>
+<span class="-Color -Color-Green">2024-04-23 13:59:01.980</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-04-23 13:59:01.986</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'ubcpdk' PDK is now active</span>
 </pre></div>
 </div>
 </div>
@@ -501,11 +501,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/yancesun/miniconda3/lib/python3.11/site-packages/gdsfactory/cross_section.py:205: UserWarning: min_bend_radius 5 &lt; CrossSection.radius 10.0. Increase CrossSection.radius or decrease the number of points
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/cross_section.py:205: UserWarning: min_bend_radius 5 &lt; CrossSection.radius 10.0. Increase CrossSection.radius or decrease the number of points
   warnings.warn(message)
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0349453799bf4d8d926eebba3ccbb998", "version_major": 2, "version_minor": 0}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-04-22 15:47:59.761</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'Sample_MZI.gds'</span>
+<img alt="../_images/c57a015d9d44be9c324cca3c06217a0caaa516ac265b23d7c85f7c1f44cb2b49.png" src="../_images/c57a015d9d44be9c324cca3c06217a0caaa516ac265b23d7c85f7c1f44cb2b49.png"/>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-04-23 13:59:02.469</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to 'Sample_MZI.gds'</span>
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('Sample_MZI.gds')
@@ -568,6 +569,11 @@ We generate plots showing the relationship between wavelength and power using bo
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>An NVIDIA GPU may be present on this machine, but a CUDA-enabled jaxlib is not installed. Falling back to cpu.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -604,6 +610,14 @@ We generate plots showing the relationship between wavelength and power using bo
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/numpy/core/getlimits.py:549: UserWarning: The value of the smallest subnormal for &lt;class 'numpy.float64'&gt; type is zero.
+  setattr(self, word, getattr(machar, word).flat[0])
+/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/numpy/core/getlimits.py:89: UserWarning: The value of the smallest subnormal for &lt;class 'numpy.float64'&gt; type is zero.
+  return self._float_to_str(self.smallest_subnormal)
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -620,7 +634,8 @@ We generate plots showing the relationship between wavelength and power using bo
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8231bd91c5784ad7a5d8155ddc67c314", "version_major": 2, "version_minor": 0}</script></div>
+<img alt="../_images/8b0055a60ec43b984a8e488030ba3f60df7420eaa4153e215fabcc3e287f1201.png" src="../_images/8b0055a60ec43b984a8e488030ba3f60df7420eaa4153e215fabcc3e287f1201.png"/>
+</div>
 </div>
 <p>Now we have successfully simulated the MZI circuit, we will import the data that we collect from the acutal circuit and compare the results. We will use scipy package to import .mat file.</p>
 <div class="cell docutils container">
@@ -628,7 +643,7 @@ We generate plots showing the relationship between wavelength and power using bo
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">scipy.io</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">'/home/yancesun/sequoiap_MZIdL20u_478.mat'</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">'../files/sequoiap_MZIdL20u_478.mat'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -649,7 +664,8 @@ We generate plots showing the relationship between wavelength and power using bo
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8612626f621e4ca587640d018886470d", "version_major": 2, "version_minor": 0}</script></div>
+<img alt="../_images/3750ec0cd05a4e2c8ad617b558f95836791e985fedf048ef25689149ca377aae.png" src="../_images/3750ec0cd05a4e2c8ad617b558f95836791e985fedf048ef25689149ca377aae.png"/>
+</div>
 </div>
 <p>As we can see, the simulated data doesn’t align closely with the actual data obtained from the fabricated circuit. To improve this alignment, we’ll adjust the width parameter. This adjustment aims to better account for potential fabrication errors, some possibilities are underdeveopling and overdeveloping, where the size the of patterned photoresist is wrong. Other possbility is over etching, where the acid remains on the photoresist for too long after it’s stripped. In our case, since the width is smaller than we anticipated, it is likely overetched.</p>
 <div class="cell docutils container">
@@ -675,7 +691,8 @@ We generate plots showing the relationship between wavelength and power using bo
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "637a74456d314608a4e7fb4ad3773eeb", "version_major": 2, "version_minor": 0}</script></div>
+<img alt="../_images/74467b7205c9df4c8d41859fb5d40bcf11a543ce8a5ad4a00f836855e011ceb8.png" src="../_images/74467b7205c9df4c8d41859fb5d40bcf11a543ce8a5ad4a00f836855e011ceb8.png"/>
+</div>
 </div>
 <p>After adjusting the width parameter of the waveguide, we observe a more accurate match between the simulated data and the experimental results. Despite our initial design target of a 500um waveguide width, we find that the actual width ranges between 460um and 480um. This variation is likely due to fabrication inaccuracies inherent in the manufacturing process. By making these changes to the parameters, we can make our simulation model more accurate and better at predicting fabricated photonic circuits.</p>
 </section>
