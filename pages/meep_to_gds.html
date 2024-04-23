@@ -312,8 +312,8 @@ document.write(`
 <p>Example code for these functions is shown below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">from</span> <span class="nn">gdsfactory.simulation.gmeep.meep_adjoint_optimization</span> <span class="kn">import</span> <span class="n">get_component_from_sim</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">meep</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">from</span> <span class="nn">gplugins.gmeep.meep_adjoint_optimization</span> <span class="kn">import</span> <span class="n">get_component_from_sim</span>
 
 <span class="n">Si</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">3.45</span><span class="p">)</span>
 <span class="n">SiO2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Medium</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mf">1.45</span><span class="p">)</span>
@@ -391,6 +391,20 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class="-Color -Color-Green">2024-02-14 10:20:23.688</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gplugins.gmeep</span>:<span class="-Color -Color-Cyan">&lt;module&gt;</span>:<span class="-Color -Color-Cyan">39</span> - <span class="-Color -Color-Bold">Meep '1.28.0' installed at ['/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/meep']</span>
+<span class="-Color -Color-Green">2024-02-14 10:20:23.826</span> | <span class="-Color -Color-Bold -Color-Bold-Yellow">WARNING </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">get_active_pdk</span>:<span class="-Color -Color-Cyan">734</span> - <span class="-Color -Color-Bold -Color-Bold-Yellow">No active PDK. Activating generic PDK.</span>
+
+<span class="-Color -Color-Green">2024-02-14 10:20:23.947</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.technology.layer_views</span>:<span class="-Color -Color-Cyan">__init__</span>:<span class="-Color -Color-Cyan">790</span> - <span class="-Color -Color-Bold">Importing LayerViews from YAML file: '/home/parkeraa/miniconda3/envs/mp/lib/python3.11/site-packages/gdsfactory/generic_tech/layer_views.yaml'.</span>
+<span class="-Color -Color-Green">2024-02-14 10:20:23.949</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.pdk</span>:<span class="-Color -Color-Cyan">activate</span>:<span class="-Color -Color-Cyan">307</span> - <span class="-Color -Color-Bold">'generic' PDK is now active</span>
+<span class="-Color -Color-Green">2024-02-14 10:20:24.161</span> | <span class="-Color -Color-Bold">INFO    </span> | <span class="-Color -Color-Cyan">gdsfactory.component</span>:<span class="-Color -Color-Cyan">_write_library</span>:<span class="-Color -Color-Cyan">1913</span> - <span class="-Color -Color-Bold">Wrote to '2x2MMI.gds'</span>
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PosixPath('2x2MMI.gds')
+</pre></div>
+</div>
+<img alt="../_images/8998e4b80e4f538e420e7f5b18c235260025012fb4d20181b39d56102c0b3b08.png" src="../_images/8998e4b80e4f538e420e7f5b18c235260025012fb4d20181b39d56102c0b3b08.png">
+</img></div>
 </div>
 </section>
 <script type="text/x-thebe-config">
