@@ -766,78 +766,41 @@ def _(mo):
 
 @app.cell
 def _(np, view_mode):
-    if view_mode.value not in ["Simphony only", "Overlay (analytic + Simphony)"]:
-        jnp = np
-        mzi_circuit = None
-        mzi_circuit_with_gc = None
-        simphony_error = ""
-        return jnp, mzi_circuit, mzi_circuit_with_gc, simphony_error
-
     jnp = np  # Fallback if JAX is not available.
     mzi_circuit = None
     mzi_circuit_with_gc = None
     simphony_error = ""
 
-    try:  # pragma: no cover - depends on environment
-        from jax import config
+    simphony_selected = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
+    if simphony_selected:
+        try:  # pragma: no cover - depends on environment
+            from jax import config
 
-        config.update("jax_enable_x64", True)
+            config.update("jax_enable_x64", True)
 
-        import jax.numpy as jnp_mod
+            import jax.numpy as jnp_mod
 
-        jnp = jnp_mod
-        import sax
-        from simphony.libraries import siepic
+            jnp = jnp_mod
+            import sax
+            from simphony.libraries import siepic
 
-        try:  # pragma: no cover - depends on simphony / sax versions
-            # Y-branch MZI: 1x2 splitter (forward) + 2x1 combiner (reverse).
-            # This provides a single output port at the combiner.
-            if not hasattr(siepic, "y_branch"):
-                raise AttributeError("simphony.libraries.siepic missing y_branch model")
-            if not hasattr(siepic, "waveguide"):
-                raise AttributeError("simphony.libraries.siepic missing waveguide model")
+            try:  # pragma: no cover - depends on simphony / sax versions
+                # Y-branch MZI: 1x2 splitter (forward) + 2x1 combiner (reverse).
+                # This provides a single output port at the combiner.
+                if not hasattr(siepic, "y_branch"):
+                    raise AttributeError("simphony.libraries.siepic missing y_branch model")
+                if not hasattr(siepic, "waveguide"):
+                    raise AttributeError("simphony.libraries.siepic missing waveguide model")
 
-            mzi_circuit, _ = sax.circuit(
-                netlist={
-                    "instances": {
-                        "splitter": "y_branch",
-                        "short_wg": "waveguide",
-                        "long_wg": "waveguide",
-                        "combiner": "y_branch",
-                    },
-                    "connections": {
-                        # Splitter outputs to arms.
-                        "splitter,port_2": "short_wg,o0",
-                        "splitter,port_3": "long_wg,o0",
-                        # Arms into combiner (used in reverse as a 2x1 combiner).
-                        "short_wg,o1": "combiner,port_2",
-                        "long_wg,o1": "combiner,port_3",
-                    },
-                    "ports": {
-                        "input": "splitter,port_1",
-                        "through": "combiner,port_1",
-                    },
-                },
-                models={
-                    "y_branch": siepic.y_branch,
-                    "waveguide": siepic.waveguide,
-                },
-            )
-
-            if hasattr(siepic, "grating_coupler"):
-                mzi_circuit_with_gc, _ = sax.circuit(
+                mzi_circuit, _ = sax.circuit(
                     netlist={
                         "instances": {
-                            "gc_in": "grating_coupler",
                             "splitter": "y_branch",
                             "short_wg": "waveguide",
                             "long_wg": "waveguide",
                             "combiner": "y_branch",
-                            "gc_out": "grating_coupler",
                         },
                         "connections": {
-                            "gc_in,o1": "splitter,port_1",
-                            "combiner,port_1": "gc_out,o1",
                             # Splitter outputs to arms.
                             "splitter,port_2": "short_wg,o0",
                             "splitter,port_3": "long_wg,o0",
@@ -846,24 +809,56 @@ def _(np, view_mode):
                             "long_wg,o1": "combiner,port_3",
                         },
                         "ports": {
-                            "input": "gc_in,o0",
-                            "through": "gc_out,o0",
+                            "input": "splitter,port_1",
+                            "through": "combiner,port_1",
                         },
                     },
                     models={
-                        "grating_coupler": siepic.grating_coupler,
                         "y_branch": siepic.y_branch,
                         "waveguide": siepic.waveguide,
                     },
                 )
+
+                if hasattr(siepic, "grating_coupler"):
+                    mzi_circuit_with_gc, _ = sax.circuit(
+                        netlist={
+                            "instances": {
+                                "gc_in": "grating_coupler",
+                                "splitter": "y_branch",
+                                "short_wg": "waveguide",
+                                "long_wg": "waveguide",
+                                "combiner": "y_branch",
+                                "gc_out": "grating_coupler",
+                            },
+                            "connections": {
+                                "gc_in,o1": "splitter,port_1",
+                                "combiner,port_1": "gc_out,o1",
+                                # Splitter outputs to arms.
+                                "splitter,port_2": "short_wg,o0",
+                                "splitter,port_3": "long_wg,o0",
+                                # Arms into combiner (used in reverse as a 2x1 combiner).
+                                "short_wg,o1": "combiner,port_2",
+                                "long_wg,o1": "combiner,port_3",
+                            },
+                            "ports": {
+                                "input": "gc_in,o0",
+                                "through": "gc_out,o0",
+                            },
+                        },
+                        models={
+                            "grating_coupler": siepic.grating_coupler,
+                            "y_branch": siepic.y_branch,
+                            "waveguide": siepic.waveguide,
+                        },
+                    )
+            except Exception as e:
+                mzi_circuit = None
+                mzi_circuit_with_gc = None
+                simphony_error = f"Simphony/SAX circuit unavailable: {e}"
         except Exception as e:
             mzi_circuit = None
             mzi_circuit_with_gc = None
-            simphony_error = f"Simphony/SAX circuit unavailable: {e}"
-    except Exception as e:
-        mzi_circuit = None
-        mzi_circuit_with_gc = None
-        simphony_error = f"Simphony/JAX imports unavailable: {e}"
+            simphony_error = f"Simphony/JAX imports unavailable: {e}"
     return jnp, mzi_circuit, mzi_circuit_with_gc, simphony_error
 
 
