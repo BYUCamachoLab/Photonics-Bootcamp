@@ -1314,8 +1314,36 @@ def _(
     if semilog:
         left_items.append(mo.md(f"Semilog note: values are floored at **{log_floor:g}** for display."))
 
+    simphony_status = ""
+    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
+        if sim_circuit is None:
+            simphony_status = f"Unavailable: `{simphony_error}`"
+        elif simphony_runtime_error:
+            simphony_status = f"Runtime error: `{simphony_runtime_error}`"
+        elif simphony_plotted:
+            simphony_status = "OK (Simphony curve computed)"
+        else:
+            simphony_status = "No curve produced (unexpected)"
+
+    status_lines = []
+    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
+        status_lines.append(f"<span class=\"doc-badge\">Simphony: <strong>{simphony_status}</strong></span>")
+    else:
+        status_lines.append("<span class=\"doc-badge\">Simphony: <strong>(not requested)</strong></span>")
+
+    model_status_line = mo.md(
+        _dedent(
+            f"""
+            <div class="doc-badges" style="margin: 0.15rem 0 0.25rem 0;">
+              {''.join(status_lines)}
+            </div>
+            """
+        )
+    )
+
     right_items = [
         mo.md("**Model**"),
+        model_status_line,
         view_mode,
         show_advanced,
         show_plot_debug,
