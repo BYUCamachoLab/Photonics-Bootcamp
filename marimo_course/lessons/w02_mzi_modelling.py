@@ -1480,10 +1480,20 @@ def _(mo):
 
 
 @app.cell
-def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
+def _(
+    delta_length,
+    delta_length_um_effective,
+    lam1_nm,
+    lam2_nm,
+    mo,
+    ng,
+    preset_active,
+    spectrum_center,
+):
     wl0_um = float(spectrum_center.value)
     ng_for_fsr_tool = float(ng.value)
     dL_um = float(delta_length_um_effective)
+    dL_slider_um = float(delta_length.value)
     pi = 3.141592653589793
 
     fsr_est_nm = None
@@ -1509,7 +1519,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
     except Exception as e:
         parse_error = f"{type(e).__name__}: {e}"
 
-    blocks = [
+    fsr_tool_blocks = [
         mo.md(
             r"""
             <div class="callout exercise">
@@ -1525,30 +1535,55 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
             </div>
             """
         ),
-        mo.md("Derivation link: an FSR is the Δλ that makes the relative phase change by **2π** near λ0."),
+        mo.md(
+            "Derivation link: an FSR is the Δλ that makes the relative phase change by **2π** near λ0."
+        ),
+        mo.md(
+            f"Using: **ΔL = {dL_um:.2f} µm** (effective), **λ0 = {wl0_um*1e3:.1f} nm**, **ng = {ng_for_fsr_tool:.2f}**."
+        ),
         mo.hstack([lam1_nm, lam2_nm]),
     ]
+    if preset_active and abs(dL_slider_um - dL_um) > 1e-9:
+        fsr_tool_blocks.append(
+            mo.md(
+                f"**Note:** a ΔL preset is active, so the ΔL slider is ignored "
+                f"(slider shows {dL_slider_um:.2f} µm). Set *Parameter preset* to **Custom** to use the slider."
+            )
+        )
 
     if parse_error:
-        blocks.append(mo.md(f"**Parse error:** `{parse_error}`"))
+        fsr_tool_blocks.append(mo.md(f"**Parse error:** `{parse_error}`"))
     elif fsr_est_nm is None:
-        blocks.append(mo.md("Estimated FSR: **(ΔL = 0 → no fringes)**"))
+        fsr_tool_blocks.append(mo.md("Estimated FSR: **(ΔL = 0 → no fringes)**"))
     else:
-        blocks.append(mo.md(f"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**"))
+        fsr_tool_blocks.append(
+            mo.md(f"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**")
+        )
         if measured is not None:
-            blocks.append(mo.md(f"Measured FSR: **{measured:.2f} nm**"))
+            fsr_tool_blocks.append(mo.md(f"Measured FSR: **{measured:.2f} nm**"))
             if delta_phi_est_rad is not None and delta_phi_est_cycles is not None:
-                blocks.append(
+                fsr_tool_blocks.append(
                     mo.md(
                         f"Phase change estimate near λ0: **Δφ ≈ {delta_phi_est_rad:.2f} rad** "
                         f"(≈ **{delta_phi_est_cycles:.2f}×2π**)"
                     )
                 )
             if error_pct is not None:
-                blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
+                fsr_tool_blocks.append(
+                    mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**")
+                )
+                if abs(error_pct) > 25:
+                    fsr_tool_blocks.append(
+                        mo.md(
+                            "**Tip:** if you changed ΔL or the view mode, re-pick λ1 and λ2 from the *current* plot "
+                            "(old values often produce a mismatch)."
+                        )
+                    )
         else:
-            blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-    mo.vstack(blocks)
+            fsr_tool_blocks.append(
+                mo.md("Enter `λ1` and `λ2` to compute the measured FSR.")
+            )
+    mo.vstack(fsr_tool_blocks)
     return
 
 
