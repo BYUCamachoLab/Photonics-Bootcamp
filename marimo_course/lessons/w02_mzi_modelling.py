@@ -718,6 +718,30 @@ def _(np):
 
 
 @app.cell
+def _(np):
+    def fsr_estimate_nm(wl0_um: float, ng: float, delta_length_um: float) -> float | None:
+        if delta_length_um <= 0:
+            return None
+        return (wl0_um * wl0_um) / (ng * delta_length_um) * 1e3
+
+    def phase_slope_rad_per_nm(wl0_um: float, ng: float, delta_length_um: float) -> float | None:
+        if delta_length_um <= 0:
+            return None
+        # |dΔφ/dλ| ≈ 2π n_g ΔL / λ0^2, with λ0 and ΔL in µm.
+        return (2 * np.pi * ng * delta_length_um / (wl0_um**2)) / 1e3
+
+    def neff_linear_from_ng(
+        wl_um: np.ndarray, wl0_um: float, n_eff0: float, ng: float
+    ) -> tuple[np.ndarray, float]:
+        # n_g = n_eff - λ dn_eff/dλ  ⇒  dn_eff/dλ = (n_eff - n_g)/λ
+        dn_eff_dlambda_per_um = (n_eff0 - ng) / wl0_um
+        n_eff_lambda = n_eff0 + dn_eff_dlambda_per_um * (wl_um - wl0_um)
+        return n_eff_lambda, float(dn_eff_dlambda_per_um)
+
+    return fsr_estimate_nm, neff_linear_from_ng, phase_slope_rad_per_nm
+
+
+@app.cell
 def _(gf, mo):
     gf_version = getattr(gf, "__version__", None)
     mo.md("## gdsfactory quick check")
@@ -1072,15 +1096,18 @@ def _(
     csv,
     delta_length,
     delta_length_um_effective,
+    fsr_estimate_nm,
     io,
     jnp,
     mo,
     mzi_circuit,
     mzi_circuit_with_gc,
+    neff_linear_from_ng,
     n_eff,
     ng,
     np,
     param_preset,
+    phase_slope_rad_per_nm,
     pl,
     playground_enabled,
     playground_expr,
@@ -1108,12 +1135,16 @@ def _(
     wl = np.linspace(wl_min_um, wl_max_um, n_points)
 
     n_index = float(n_eff.value)
-    # Make the "ng" slider physically meaningful: use ng to set the wavelength-slope of n_eff(λ)
-    # around λ0 via n_g = n_eff - λ dn_eff/dλ. This makes fringe spacing respond to ng.
-    plot_ng = float(ng.value)
-    plot_dn_eff_dlambda = (n_index - plot_ng) / wl_center_um  # per µm
-    plot_n_eff_lambda = n_index + plot_dn_eff_dlambda * (wl - wl_center_um)
-    delta_phi = 2 * np.pi * plot_n_eff_lambda * float(delta_length_um_effective) / wl
+    ng_for_analytic = float(ng.value)
+    analytic_n_eff_lambda, analytic_dn_eff_dlambda = neff_linear_from_ng(
+        wl_um=wl,
+        wl0_um=wl_center_um,
+        n_eff0=n_index,
+        ng=ng_for_analytic,
+    )
+    delta_phi = (
+        2 * np.pi * analytic_n_eff_lambda * float(delta_length_um_effective) / wl
+    )
     T = 0.5 * (1 + np.cos(delta_phi))
 
     semilog = y_scale.value == "Semilog (log y)"
@@ -1269,15 +1300,10 @@ def _(
     short_length_mm = base_length_um / 1e3
     long_length_mm = (base_length_um + delta_length_um) / 1e3
 
-    fsr_nm = None
-    if delta_length_um > 0:
-        fsr_nm = (wl_center_um * wl_center_um) / (float(ng.value) * delta_length_um) * 1e3
-    phase_slope_rad_per_nm = None
-    if delta_length_um > 0:
-        ng_for_phase = float(ng.value)
-        phase_slope_rad_per_nm = (
-            2 * np.pi * ng_for_phase * delta_length_um / (wl_center_um**2)
-        ) / 1e3
+    fsr_nm = fsr_estimate_nm(wl0_um=wl_center_um, ng=float(ng.value), delta_length_um=delta_length_um)
+    phase_slope_est_rad_per_nm = phase_slope_rad_per_nm(
+        wl0_um=wl_center_um, ng=float(ng.value), delta_length_um=delta_length_um
+    )
 
     geometry_items = [base_length, param_preset]
     if preset_active:
@@ -1372,7 +1398,7 @@ def _(
                 n_eff,
                 mo.md(
                     f"Analytic uses `n_eff(λ0) = {n_index:.5f}` and `n_g = {float(ng.value):.3f}` "
-                    f"(implies `dn_eff/dλ ≈ {plot_dn_eff_dlambda:.3f} per µm` near λ0)."
+                    f"(implies `dn_eff/dλ ≈ {analytic_dn_eff_dlambda:.3f} per µm` near λ0)."
                 ),
                 mo.md("#### Student playground"),
                 playground_enabled,
@@ -1444,8 +1470,8 @@ def _(
         else '<span class="doc-badge">FSR: <strong>(ΔL = 0)</strong></span>'
     )
     phase_slope_badge = (
-        f'<span class="doc-badge">|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_rad_per_nm:.2f} rad/nm</strong></span>'
-        if phase_slope_rad_per_nm is not None
+        f'<span class="doc-badge">|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_est_rad_per_nm:.2f} rad/nm</strong></span>'
+        if phase_slope_est_rad_per_nm is not None
         else ""
     )
     fringes_badge = (
@@ -1522,10 +1548,12 @@ def _(mo):
 def _(
     delta_length,
     delta_length_um_effective,
+    fsr_estimate_nm,
     lam1_nm,
     lam2_nm,
     mo,
     ng,
+    phase_slope_rad_per_nm,
     preset_active,
     spectrum_center,
 ):
@@ -1533,11 +1561,8 @@ def _(
     ng_for_fsr_tool = float(ng.value)
     dL_um = float(delta_length_um_effective)
     dL_slider_um = float(delta_length.value)
-    pi = 3.141592653589793
 
-    fsr_est_nm = None
-    if dL_um > 0:
-        fsr_est_nm = (wl0_um * wl0_um) / (ng_for_fsr_tool * dL_um) * 1e3
+    fsr_est_nm = fsr_estimate_nm(wl0_um=wl0_um, ng=ng_for_fsr_tool, delta_length_um=dL_um)
 
     measured = None
     error_pct = None
@@ -1550,9 +1575,13 @@ def _(
             l2 = float(lam2_nm.value)
             measured = abs(l2 - l1)
             if dL_um > 0:
-                slope_rad_per_nm = (2 * pi * ng_for_fsr_tool * dL_um / (wl0_um**2)) / 1e3
-                delta_phi_est_rad = float(slope_rad_per_nm * measured)
-                delta_phi_est_cycles = float(delta_phi_est_rad / (2 * pi))
+                fsr_tool_phase_slope = phase_slope_rad_per_nm(
+                    wl0_um=wl0_um, ng=ng_for_fsr_tool, delta_length_um=dL_um
+                )
+                if fsr_tool_phase_slope is not None:
+                    fsr_tool_two_pi = 6.283185307179586
+                    delta_phi_est_rad = float(fsr_tool_phase_slope * measured)
+                    delta_phi_est_cycles = float(delta_phi_est_rad / fsr_tool_two_pi)
             if fsr_est_nm is not None and fsr_est_nm > 0:
                 error_pct = 100.0 * (measured - fsr_est_nm) / fsr_est_nm
     except Exception as e:
