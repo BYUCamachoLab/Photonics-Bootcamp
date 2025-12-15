@@ -1267,10 +1267,12 @@ def _(
     fsr_nm = None
     if delta_length_um > 0:
         fsr_nm = (wl_center_um * wl_center_um) / (float(ng.value) * delta_length_um) * 1e3
-    ng_val = float(ng.value)
     phase_slope_rad_per_nm = None
     if delta_length_um > 0:
-        phase_slope_rad_per_nm = (2 * np.pi * ng_val * delta_length_um / (wl_center_um**2)) / 1e3
+        ng_for_phase = float(ng.value)
+        phase_slope_rad_per_nm = (
+            2 * np.pi * ng_for_phase * delta_length_um / (wl_center_um**2)
+        ) / 1e3
 
     left_items = [
         mo.md("**Spectrum**"),
@@ -1468,7 +1470,7 @@ def _(
 
     out = mo.vstack([chart_out, status_badges, mo.md("### Controls"), controls])
     out
-    return out
+    return
 
 
 @app.cell
@@ -1481,13 +1483,13 @@ def _(mo):
 @app.cell
 def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
     wl0_um = float(spectrum_center.value)
-    ng_val = float(ng.value)
+    ng_for_fsr_tool = float(ng.value)
     dL_um = float(delta_length_um_effective)
     pi = 3.141592653589793
 
     fsr_est_nm = None
     if dL_um > 0:
-        fsr_est_nm = (wl0_um * wl0_um) / (ng_val * dL_um) * 1e3
+        fsr_est_nm = (wl0_um * wl0_um) / (ng_for_fsr_tool * dL_um) * 1e3
 
     measured = None
     error_pct = None
@@ -1500,7 +1502,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
             l2 = float(lam2_nm.value)
             measured = abs(l2 - l1)
             if dL_um > 0:
-                slope_rad_per_nm = (2 * pi * ng_val * dL_um / (wl0_um**2)) / 1e3
+                slope_rad_per_nm = (2 * pi * ng_for_fsr_tool * dL_um / (wl0_um**2)) / 1e3
                 delta_phi_est_rad = float(slope_rad_per_nm * measured)
                 delta_phi_est_cycles = float(delta_phi_est_rad / (2 * pi))
             if fsr_est_nm is not None and fsr_est_nm > 0:
@@ -1549,7 +1551,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
     out = mo.vstack(blocks)
     out
-    return out
+    return
 
 
 @app.cell
