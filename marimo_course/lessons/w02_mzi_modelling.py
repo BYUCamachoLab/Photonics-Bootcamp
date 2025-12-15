@@ -1377,17 +1377,17 @@ def _(
     download_badge = ""
     try:
         if plot_rows:
-            out = io.StringIO()
+            csv_out = io.StringIO()
             preferred_fields = ["wavelength_nm", "value", "value_plot", "curve"]
             extra_fields = sorted(
                 {k for row in plot_rows for k in row.keys() if k not in preferred_fields}
             )
             fieldnames = preferred_fields + extra_fields
-            writer = csv.DictWriter(out, fieldnames=fieldnames)
+            writer = csv.DictWriter(csv_out, fieldnames=fieldnames)
             writer.writeheader()
             for row in plot_rows:
                 writer.writerow({k: row.get(k, "") for k in fieldnames})
-            csv_b64 = b64.b64encode(out.getvalue().encode("utf-8")).decode("ascii")
+            csv_b64 = b64.b64encode(csv_out.getvalue().encode("utf-8")).decode("ascii")
             download_badge = (
                 "<a class=\"doc-badge\" "
                 "style=\"cursor:pointer;\" "
@@ -1468,8 +1468,7 @@ def _(
         except Exception as e:  # pragma: no cover
             chart_out = mo.md(f"**Plot render error:** `{type(e).__name__}: {e}`")
 
-    out = mo.vstack([chart_out, status_badges, mo.md("### Controls"), controls])
-    out
+    mo.vstack([chart_out, status_badges, mo.md("### Controls"), controls])
     return
 
 
@@ -1549,8 +1548,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
                 blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
         else:
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-    out = mo.vstack(blocks)
-    out
+    mo.vstack(blocks)
     return
 
 
