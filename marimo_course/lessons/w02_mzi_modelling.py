@@ -1108,7 +1108,12 @@ def _(
     wl = np.linspace(wl_min_um, wl_max_um, n_points)
 
     n_index = float(n_eff.value)
-    delta_phi = 2 * np.pi * n_index * float(delta_length_um_effective) / wl
+    # Make the "ng" slider physically meaningful: use ng to set the wavelength-slope of n_eff(λ)
+    # around λ0 via n_g = n_eff - λ dn_eff/dλ. This makes fringe spacing respond to ng.
+    plot_ng = float(ng.value)
+    plot_dn_eff_dlambda = (n_index - plot_ng) / wl_center_um  # per µm
+    plot_n_eff_lambda = n_index + plot_dn_eff_dlambda * (wl - wl_center_um)
+    delta_phi = 2 * np.pi * plot_n_eff_lambda * float(delta_length_um_effective) / wl
     T = 0.5 * (1 + np.cos(delta_phi))
 
     semilog = y_scale.value == "Semilog (log y)"
@@ -1338,7 +1343,10 @@ def _(
             [
                 mo.md("#### Analytic tuning"),
                 n_eff,
-                mo.md(f"Analytic phase uses `n_eff = {n_index:.5f}`."),
+                mo.md(
+                    f"Analytic uses `n_eff(λ0) = {n_index:.5f}` and `n_g = {float(ng.value):.3f}` "
+                    f"(implies `dn_eff/dλ ≈ {plot_dn_eff_dlambda:.3f} per µm` near λ0)."
+                ),
                 mo.md("#### Student playground"),
                 playground_enabled,
             ]
@@ -1366,7 +1374,11 @@ def _(
             if playground_error:
                 right_items.append(mo.md(f"**Playground error:** `{playground_error}`"))
     else:
-        right_items.append(mo.md(f"Analytic phase tuning uses `n_eff = {n_index:.5f}`."))
+        right_items.append(
+            mo.md(
+                f"Analytic uses `n_eff(λ0) = {n_index:.5f}` and `n_g = {float(ng.value):.3f}`."
+            )
+        )
 
     controls = mo.hstack([mo.vstack(left_items), mo.vstack(right_items)])
 
