@@ -8,7 +8,7 @@ Planned structure:
 
 Tooling for the marimo course (students):
 - Python 3.11+ with a course virtual environment.
-- `marimo` for notebooks/apps.
+- `marimo` for notebooks/apps (this repo currently targets **marimo 0.18.4**; using a very different marimo version to *edit/save* notebooks can sometimes corrupt exports).
 - `gdsfactory[full]` for parametric layout and device-level modelling.
 - `simphony` for circuit-level modelling and simulation.
 - KLayout + SiEPIC-EBeam-PDK for verification and final openEBL layout checks.

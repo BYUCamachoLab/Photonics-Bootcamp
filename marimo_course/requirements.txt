@@ -1,4 +1,4 @@
-marimo
+marimo==0.18.4
 gdsfactory[full]
 simphony==0.7.3
 altair
