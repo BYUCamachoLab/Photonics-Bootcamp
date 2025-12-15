@@ -1654,6 +1654,42 @@ def _(mo, task_compare, task_export, task_fsr):
     )
     mo.md("### Checklist (before moving on)")
     mo.vstack([task_fsr, task_compare, task_export])
+
+    mo.md(
+        r"""
+        <div class="callout exercise">
+          <div class="callout-title">
+            <span class="tag">Checkpoint</span>
+            <span>Record your results</span>
+          </div>
+          <p>Fill in the table below (copy into your lab notes). Use the tool above to measure FSR from two adjacent maxima.</p>
+        </div>
+
+        | Case | ΔL (µm) | ng | λ0 (nm) | Estimated FSR (nm) | Measured FSR (nm) | % difference |
+        |---|---:|---:|---:|---:|---:|---:|
+        | A (default) | 10 | 4.19 | 1550 |  |  |  |
+        | B (your choice) |  |  |  |  |  |  |
+
+        <small>Tip: if a ΔL preset is active, the notebook uses the **effective ΔL** shown in the tool readout (not the slider value).</small>
+        """
+    )
+
+    mo.md(
+        r"""
+        <div class="callout warning">
+          <div class="callout-title">
+            <span class="tag">Common mistakes</span>
+            <span>Debugging “my FSR doesn’t match”</span>
+          </div>
+          <ul>
+            <li><strong>Preset override:</strong> if a ΔL preset is active, moving the ΔL slider won’t change the plot—set <em>Parameter preset → Custom</em>.</li>
+            <li><strong>Stale λ1/λ2:</strong> if you change ΔL, λ0, ng, or View mode, re-pick new adjacent maxima; old values won’t match.</li>
+            <li><strong>ng vs neff:</strong> <code>n_g</code> sets fringe spacing (FSR); <code>n_eff(λ0)</code> sets phase offset. Don’t expect them to do the same thing.</li>
+            <li><strong>Simphony availability:</strong> if Simphony is unavailable or errors, Overlay won’t show a second curve—check the <em>Simphony:</em> status in the Model panel.</li>
+          </ul>
+        </div>
+        """
+    )
     return
 
 
