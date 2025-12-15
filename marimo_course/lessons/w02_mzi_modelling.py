@@ -18,7 +18,7 @@ app = marimo.App()
 
 
 @app.cell
-def _(mo):
+def _(doc_badges, doc_callout_html, mo):
     mo.md(r"""
     <style>
       :root {
@@ -189,7 +189,6 @@ def _(mo):
                 """
             )
         )
-
     return doc_badges, doc_callout_html, doc_callout_list
 
 
@@ -229,7 +228,7 @@ def _(mo):
 
 
 @app.cell
-def _(doc_callout_list, mo):
+def _(doc_callout_list):
     doc_callout_list(
         "info",
         tag="Roadmap",
@@ -346,30 +345,28 @@ def _(mo):
             problems.append(f"Duplicate exported variables detected:<ul>{items}</ul>")
 
     if problems:
-        _self_check_view = mo.md(
-            f"""
-            <div class="callout warning">
-              <div class="callout-title">
-                <span class="tag">Self-check</span>
-                <span>Notebook health warning</span>
-              </div>
-              <p>This notebook may behave unexpectedly (or be partially corrupted).</p>
-              {''.join(f'<div style="margin: 0.25rem 0;">{p}</div>' for p in problems)}
-              <p style="margin-top: 0.6rem;">
-                If you just edited this file in the marimo UI/VS Code and things broke, run
-                <code>git restore marimo_course/lessons/w02_mzi_modelling.py</code> and restart marimo.
-              </p>
-            </div>
-            """
+        _details = "".join(
+            f'<div style="margin: 0.25rem 0;">{p}</div>' for p in problems
+        )
+        _self_check_view = doc_callout_html(
+            "warning",
+            tag="Self-check",
+            title="Notebook health warning",
+            html=(
+                "<p>This notebook may behave unexpectedly (or be partially corrupted).</p>"
+                f"{_details}"
+                "<p style=\"margin-top: 0.6rem;\">"
+                "If you just edited this file in the marimo UI/VS Code and things broke, run "
+                "<code>git restore marimo_course/lessons/w02_mzi_modelling.py</code> and restart marimo."
+                "</p>"
+            ),
         )
     else:
-        _self_check_view = mo.md(
-            f"""
-            <div class="doc-badges">
-              <span class="doc-badge">Self-check: <strong>OK</strong></span>
-              <span class="doc-badge"><code>{notebook_path.name}</code></span>
-            </div>
-            """
+        _self_check_view = doc_badges(
+            [
+                "Self-check: <strong>OK</strong>",
+                f"<code>{notebook_path.name}</code>",
+            ]
         )
 
     _self_check_view
@@ -377,7 +374,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _(doc_callout_html, mo):
     mo.md(r"""
     <a id="mzi-intro"></a>
     ## What is an MZI (and why do we start here)?
@@ -399,24 +396,24 @@ def _(mo):
     - They use standard PDK primitives you’ll need all semester (splitters/combiners, waveguides, routing).
     - There’s a clean, testable signature: the arm length difference **ΔL sets the fringe spacing (FSR)**.
     - They expose key layout skills early: ports, symmetry, routing discipline, and tolerance to fabrication errors.
-
-    <div class="callout info">
-      <div class="callout-title">
-        <span class="tag">Learning goals</span>
-        <span>What you should be able to do after this notebook</span>
-      </div>
-      <ul>
-        <li>Explain how interference converts a phase difference into a power difference.</li>
-        <li>Compute the ideal transfer function for a 50/50 MZI.</li>
-        <li>Relate a layout parameter (ΔL) to a measurable spectral feature (FSR).</li>
-      </ul>
-      <p><strong>Deliverables:</strong></p>
-      <ul>
-        <li>A screenshot (or saved image) of an MZI spectrum showing at least 2 fringes.</li>
-        <li>Your measured FSR from the plot and your predicted FSR from the rule-of-thumb equation.</li>
-      </ul>
-    </div>
     """)
+    doc_callout_html(
+        "info",
+        tag="Learning goals",
+        title="What you should be able to do after this notebook",
+        html="""
+        <ul>
+          <li>Explain how interference converts a phase difference into a power difference.</li>
+          <li>Compute the ideal transfer function for a 50/50 MZI.</li>
+          <li>Relate a layout parameter (ΔL) to a measurable spectral feature (FSR).</li>
+        </ul>
+        <p><strong>Deliverables:</strong></p>
+        <ul>
+          <li>A screenshot (or saved image) of an MZI spectrum showing at least 2 fringes.</li>
+          <li>Your measured FSR from the plot and your predicted FSR from the rule-of-thumb equation.</li>
+        </ul>
+        """,
+    )
     return
 
 
@@ -462,7 +459,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _(doc_callout_html, mo):
     from textwrap import dedent as _dedent
 
     mo.md(_dedent(r"""
@@ -662,18 +659,18 @@ def _(mo):
     In frequency units the same idea gives $\Delta f \approx c/(n_g\,\Delta L)$, which is why this is often quoted as an “inverse length” relationship.
 
     Later lessons will introduce group index and propagation loss in a more realistic way.
-
-    <div class="callout warning">
-      <div class="callout-title">
-        <span class="tag">Note</span>
-        <span><code>n_eff</code> vs <code>n_g</code></span>
-      </div>
-      <p>
-        The phase term uses <strong>effective index</strong> (<code>n_eff</code>), but the fringe spacing (FSR) depends on
-        <strong>group index</strong> (<code>n_g</code>). In a dispersive waveguide, these are not the same.
-      </p>
-    </div>
     """))
+    doc_callout_html(
+        "warning",
+        tag="Note",
+        title="<code>n_eff</code> vs <code>n_g</code>",
+        html="""
+        <p>
+          The phase term uses <strong>effective index</strong> (<code>n_eff</code>), but the fringe spacing (FSR) depends on
+          <strong>group index</strong> (<code>n_g</code>). In a dispersive waveguide, these are not the same.
+        </p>
+        """,
+    )
     return
 
 
@@ -1454,6 +1451,7 @@ def _(
     b64,
     base_length,
     csv,
+    doc_callout_html,
     delta_length,
     delta_length_um_effective,
     fsr_estimate_nm,
@@ -1616,19 +1614,16 @@ def _(
             if playground_preset.value == "Custom":
                 right_items.append(playground_expr)
             right_items.append(
-                mo.md(
-                    r"""
-                    <div class="callout info">
-                      <div class="callout-title">
-                        <span class="tag">Playground</span>
-                        <span>How it works</span>
-                      </div>
-                      <p>The dashed curve is computed from your preset/expression and plotted alongside the analytic/Simphony curves.</p>
-                      <p>Use these variables: <code>wl_um</code>, <code>wl_nm</code>, <code>delta_L</code>, <code>n_eff</code>, <code>n_g</code>, <code>pi</code>.</p>
-                      <p>Allowed functions: <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>sqrt</code>, <code>log</code>, <code>log10</code>, <code>abs</code>, <code>where</code>, <code>clip</code>, <code>min</code>, <code>max</code>.</p>
-                      <p><strong>Tip:</strong> Expressions may return a scalar (applied to all wavelengths) or an array with the same length as <code>wl_um</code>.</p>
-                    </div>
-                    """
+                doc_callout_html(
+                    "info",
+                    tag="Playground",
+                    title="How it works",
+                    html="""
+                    <p>The dashed curve is computed from your preset/expression and plotted alongside the analytic/Simphony curves.</p>
+                    <p>Use these variables: <code>wl_um</code>, <code>wl_nm</code>, <code>delta_L</code>, <code>n_eff</code>, <code>n_g</code>, <code>pi</code>.</p>
+                    <p>Allowed functions: <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>sqrt</code>, <code>log</code>, <code>log10</code>, <code>abs</code>, <code>where</code>, <code>clip</code>, <code>min</code>, <code>max</code>.</p>
+                    <p><strong>Tip:</strong> Expressions may return a scalar (applied to all wavelengths) or an array with the same length as <code>wl_um</code>.</p>
+                    """,
                 )
             )
             if w02_playground.get("error"):
@@ -1777,6 +1772,7 @@ def _(mo):
 def _(
     delta_length,
     delta_length_um_effective,
+    doc_callout_html,
     fsr_estimate_nm,
     lam1_nm,
     lam2_nm,
@@ -1817,20 +1813,17 @@ def _(
         parse_error = f"{type(e).__name__}: {e}"
 
     fsr_tool_blocks = [
-        mo.md(
-            r"""
-            <div class="callout exercise">
-              <div class="callout-title">
-                <span class="tag">Tool</span>
-                <span>Measure the FSR from the plot</span>
-              </div>
-              <p>
-                Hover a curve to read wavelengths from the tooltip. Enter two <em>adjacent maxima</em> wavelengths
-                (in nm) below; the tool computes the measured FSR and compares it to the rule-of-thumb estimate
-                $\mathrm{FSR} \approx \lambda_0^2/(n_g\,\Delta L)$.
-              </p>
-            </div>
-            """
+        doc_callout_html(
+            "exercise",
+            tag="Tool",
+            title="Measure the FSR from the plot",
+            html=r"""
+            <p>
+              Hover a curve to read wavelengths from the tooltip. Enter two <em>adjacent maxima</em> wavelengths
+              (in nm) below; the tool computes the measured FSR and compares it to the rule-of-thumb estimate
+              $\mathrm{FSR} \approx \lambda_0^2/(n_g\,\Delta L)$.
+            </p>
+            """,
         ),
         mo.md(
             "Derivation link: an FSR is the Δλ that makes the relative phase change by **2π** near λ0."
@@ -1893,36 +1886,32 @@ def _(mo):
 
 
 @app.cell
-def _(mo, task_compare, task_export, task_fsr):
-    mo.md(
-        r"""
-        <div class="callout info">
-          <div class="callout-title">
-            <span class="tag">Key ideas</span>
-            <span>What you should learn from the plot</span>
-          </div>
-          <ul>
-            <li><strong>Interference:</strong> the output power oscillates because the two arms recombine with a phase difference Δφ.</li>
-            <li><strong>ΔL sets the fringe spacing:</strong> increasing ΔL makes fringes get closer together (smaller FSR).</li>
-            <li><strong>n<sub>eff</sub> vs n<sub>g</sub>:</strong> phase uses an effective index, but FSR depends on group index (dispersion matters).</li>
-            <li><strong>Why two curves:</strong> analytic is an idealized model; Simphony/SAX assembles wavelength-dependent compact models.</li>
-          </ul>
-        </div>
-        """
+def _(doc_callout_html, doc_callout_list, mo, task_compare, task_export, task_fsr):
+    doc_callout_list(
+        "info",
+        tag="Key ideas",
+        title="What you should learn from the plot",
+        items=[
+            "<strong>Interference:</strong> the output power oscillates because the two arms recombine with a phase difference Δφ.",
+            "<strong>ΔL sets the fringe spacing:</strong> increasing ΔL makes fringes get closer together (smaller FSR).",
+            "<strong>n<sub>eff</sub> vs n<sub>g</sub>:</strong> phase uses an effective index, but FSR depends on group index (dispersion matters).",
+            "<strong>Why two curves:</strong> analytic is an idealized model; Simphony/SAX assembles wavelength-dependent compact models.",
+        ],
     )
     mo.md("### Checklist (before moving on)")
     mo.vstack([task_fsr, task_compare, task_export])
 
+    doc_callout_html(
+        "exercise",
+        tag="Checkpoint",
+        title="Record your results",
+        html="""
+        <p>Fill in the table below (copy into your lab notes). Use the tool above to measure FSR from two adjacent maxima.</p>
+        """,
+    )
+
     mo.md(
         r"""
-        <div class="callout exercise">
-          <div class="callout-title">
-            <span class="tag">Checkpoint</span>
-            <span>Record your results</span>
-          </div>
-          <p>Fill in the table below (copy into your lab notes). Use the tool above to measure FSR from two adjacent maxima.</p>
-        </div>
-
         | Case | ΔL (µm) | ng | λ0 (nm) | Estimated FSR (nm) | Measured FSR (nm) | % difference |
         |---|---:|---:|---:|---:|---:|---:|
         | A (default) | 10 | 4.19 | 1550 |  |  |  |
@@ -1932,21 +1921,16 @@ def _(mo, task_compare, task_export, task_fsr):
         """
     )
 
-    mo.md(
-        r"""
-        <div class="callout warning">
-          <div class="callout-title">
-            <span class="tag">Common mistakes</span>
-            <span>Debugging “my FSR doesn’t match”</span>
-          </div>
-          <ul>
-            <li><strong>Preset override:</strong> if a ΔL preset is active, moving the ΔL slider won’t change the plot—set <em>Parameter preset → Custom</em>.</li>
-            <li><strong>Stale λ1/λ2:</strong> if you change ΔL, λ0, ng, or View mode, re-pick new adjacent maxima; old values won’t match.</li>
-            <li><strong>ng vs neff:</strong> <code>n_g</code> sets fringe spacing (FSR); <code>n_eff(λ0)</code> sets phase offset. Don’t expect them to do the same thing.</li>
-            <li><strong>Simphony availability:</strong> if Simphony is unavailable or errors, Overlay won’t show a second curve—check the <em>Simphony:</em> status in the Model panel.</li>
-          </ul>
-        </div>
-        """
+    doc_callout_list(
+        "warning",
+        tag="Common mistakes",
+        title="Debugging “my FSR doesn’t match”",
+        items=[
+            "<strong>Preset override:</strong> if a ΔL preset is active, moving the ΔL slider won’t change the plot—set <em>Parameter preset → Custom</em>.",
+            "<strong>Stale λ1/λ2:</strong> if you change ΔL, λ0, ng, or View mode, re-pick new adjacent maxima; old values won’t match.",
+            "<strong>ng vs neff:</strong> <code>n_g</code> sets fringe spacing (FSR); <code>n_eff(λ0)</code> sets phase offset. Don’t expect them to do the same thing.",
+            "<strong>Simphony availability:</strong> if Simphony is unavailable or errors, Overlay won’t show a second curve—check the <em>Simphony:</em> status in the Model panel.",
+        ],
     )
     return
 
