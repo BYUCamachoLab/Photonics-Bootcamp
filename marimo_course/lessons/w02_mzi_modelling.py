@@ -1466,8 +1466,9 @@ def _(
         except Exception as e:  # pragma: no cover
             chart_out = mo.md(f"**Plot render error:** `{type(e).__name__}: {e}`")
 
-    mo.vstack([chart_out, status_badges, mo.md("### Controls"), controls])
-    return
+    out = mo.vstack([chart_out, status_badges, mo.md("### Controls"), controls])
+    out
+    return out
 
 
 @app.cell
@@ -1546,8 +1547,9 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
                 blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
         else:
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-    mo.vstack(blocks)
-    return
+    out = mo.vstack(blocks)
+    out
+    return out
 
 
 @app.cell
