@@ -771,8 +771,8 @@ def _(np, view_mode):
     mzi_circuit_with_gc = None
     simphony_error = ""
 
-    simphony_selected = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
-    if simphony_selected:
+    needs_simphony = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
+    if needs_simphony:
         try:  # pragma: no cover - depends on environment
             from jax import config
 
