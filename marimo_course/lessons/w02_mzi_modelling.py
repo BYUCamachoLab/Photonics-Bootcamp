@@ -1357,7 +1357,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
                 blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
         else:
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-    return mo.vstack(blocks)
+    return
 
 
 @app.cell
@@ -1474,6 +1474,7 @@ def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
     from pathlib import Path
 
     blocks = []
+
     c = None
     build_error = ""
     try:
@@ -1482,7 +1483,7 @@ def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
         build_error = f"{type(e).__name__}: {e}"
 
     if c is None:
-        return mo.md(f"(Could not build `gf.components.mzi`: `{build_error}`)")
+        return mo.md(f"(Could not build gf.components.mzi: `{build_error}`)")
 
     if show_layout.value:
         svg = None
@@ -1505,7 +1506,9 @@ def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
                 ]
             )
         else:
-            blocks.append(mo.md("(Preview unavailable in this environment; SVG export was not available.)"))
+            blocks.append(
+                mo.md("(Preview unavailable in this environment; SVG export was not available.)")
+            )
 
     if export_gds.value and export_gds.value > 0:
         out_path = Path(gds_out.value).expanduser()
