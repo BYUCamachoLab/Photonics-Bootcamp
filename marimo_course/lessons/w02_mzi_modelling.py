@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "marimo==0.18.4",
+#   "marimo>=0.17.0",
 #   "gdsfactory[full]==9.25.2",
 #   "simphony==0.7.3",
 #   "altair==6.0.0",
@@ -1347,19 +1347,16 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
 
     if parse_error:
         blocks.append(mo.md(f"**Parse error:** `{parse_error}`"))
-        return mo.vstack(blocks)
-
-    if fsr_est_nm is None:
+    elif fsr_est_nm is None:
         blocks.append(mo.md("Estimated FSR: **(ΔL = 0 → no fringes)**"))
-        return mo.vstack(blocks)
-
-    blocks.append(mo.md(f"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**"))
-    if measured is not None:
-        blocks.append(mo.md(f"Measured FSR: **{measured:.2f} nm**"))
-        if error_pct is not None:
-            blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
     else:
-        blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
+        blocks.append(mo.md(f"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**"))
+        if measured is not None:
+            blocks.append(mo.md(f"Measured FSR: **{measured:.2f} nm**"))
+            if error_pct is not None:
+                blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
+        else:
+            blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
 
     return mo.vstack(blocks)
 
@@ -1478,11 +1475,11 @@ def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
     from pathlib import Path
 
     blocks = []
+    c = None
+    build_error = ""
     try:
         c = gf.components.mzi(delta_length=float(delta_length_um_effective))
-        build_error = ""
     except Exception as e:  # pragma: no cover
-        c = None
         build_error = f"{type(e).__name__}: {e}"
 
     if c is None:
@@ -1509,9 +1506,7 @@ def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
                 ]
             )
         else:
-            blocks.append(
-                mo.md("(Preview unavailable in this environment; SVG export was not available.)")
-            )
+            blocks.append(mo.md("(Preview unavailable in this environment; SVG export was not available.)"))
 
     if export_gds.value and export_gds.value > 0:
         out_path = Path(gds_out.value).expanduser()
