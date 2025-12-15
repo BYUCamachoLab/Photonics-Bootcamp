@@ -1318,6 +1318,12 @@ def _(
     fsr_nm = None
     if delta_length_um > 0:
         fsr_nm = (wl_center_um * wl_center_um) / (float(ng.value) * delta_length_um) * 1e3
+    ng_val = float(ng.value)
+    phase_slope_rad_per_nm = None
+    if delta_length_um > 0:
+        # From the FSR derivation: adjacent fringes occur when Δφ changes by 2π.
+        # Using the group index, |dΔφ/dλ| ≈ 2π n_g ΔL / λ0^2. Here λ0 and ΔL are in µm.
+        phase_slope_rad_per_nm = (2 * np.pi * ng_val * delta_length_um / (wl_center_um**2)) / 1e3
 
     left_items = [
         mo.md("**Spectrum**"),
@@ -1469,6 +1475,11 @@ def _(
         if fsr_nm is not None
         else '<span class="doc-badge">FSR: <strong>(ΔL = 0)</strong></span>'
     )
+    phase_slope_badge = (
+        f'<span class="doc-badge">|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_rad_per_nm:.2f} rad/nm</strong></span>'
+        if phase_slope_rad_per_nm is not None
+        else ""
+    )
     fringes_badge = (
         f'<span class="doc-badge">~ fringes in view ≈ <strong>{fringes_est:.1f}</strong></span>'
         if fringes_est is not None
@@ -1476,14 +1487,15 @@ def _(
     )
     status_badges = mo.md(
         f"""
-        <div class="doc-badges" style="margin: 0.35rem 0 0.25rem 0;">
-          <span class="doc-badge">ΔL = <strong>{delta_length_um_effective:.1f} µm</strong></span>
-          {fsr_badge}
-          <span class="doc-badge">span = <strong>{float(spectrum_span_nm.value):.0f} nm</strong></span>
-          {fringes_badge}
-          <span class="doc-badge">View: <strong>{view_mode.value}</strong></span>
-          {download_badge}
-        </div>
+	        <div class="doc-badges" style="margin: 0.35rem 0 0.25rem 0;">
+	          <span class="doc-badge">ΔL = <strong>{delta_length_um_effective:.1f} µm</strong></span>
+	          {fsr_badge}
+	          {phase_slope_badge}
+	          <span class="doc-badge">span = <strong>{float(spectrum_span_nm.value):.0f} nm</strong></span>
+	          {fringes_badge}
+	          <span class="doc-badge">View: <strong>{view_mode.value}</strong></span>
+	          {download_badge}
+	        </div>
         """
     )
     mo.vstack(
@@ -1509,6 +1521,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
     wl0_um = float(spectrum_center.value)
     ng_val = float(ng.value)
     dL_um = float(delta_length_um_effective)
+    pi = 3.141592653589793
 
     fsr_est_nm = None
     if dL_um > 0:
@@ -1516,12 +1529,18 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
 
     measured = None
     error_pct = None
+    delta_phi_est_rad = None
+    delta_phi_est_cycles = None
     parse_error = ""
     try:
         if lam1_nm.value.strip() and lam2_nm.value.strip():
             l1 = float(lam1_nm.value)
             l2 = float(lam2_nm.value)
             measured = abs(l2 - l1)
+            if dL_um > 0:
+                slope_rad_per_nm = (2 * pi * ng_val * dL_um / (wl0_um**2)) / 1e3
+                delta_phi_est_rad = float(slope_rad_per_nm * measured)
+                delta_phi_est_cycles = float(delta_phi_est_rad / (2 * pi))
             if fsr_est_nm is not None and fsr_est_nm > 0:
                 error_pct = 100.0 * (measured - fsr_est_nm) / fsr_est_nm
     except Exception as e:
@@ -1543,6 +1562,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
             </div>
             """
         ),
+        mo.md("Derivation link: an FSR is the Δλ that makes the relative phase change by **2π** near λ0."),
         mo.hstack([lam1_nm, lam2_nm]),
     ]
 
@@ -1554,11 +1574,18 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
         blocks.append(mo.md(f"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**"))
         if measured is not None:
             blocks.append(mo.md(f"Measured FSR: **{measured:.2f} nm**"))
+            if delta_phi_est_rad is not None and delta_phi_est_cycles is not None:
+                blocks.append(
+                    mo.md(
+                        f"Phase change estimate near λ0: **Δφ ≈ {delta_phi_est_rad:.2f} rad** "
+                        f"(≈ **{delta_phi_est_cycles:.2f}×2π**)"
+                    )
+                )
             if error_pct is not None:
                 blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
         else:
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-    return
+    return mo.vstack(blocks)
 
 
 @app.cell
