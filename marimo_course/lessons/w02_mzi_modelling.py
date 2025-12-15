@@ -394,7 +394,9 @@ def _(mo):
 
 @app.cell
 def _(mo):
-    mo.md(r"""
+    from textwrap import dedent as _dedent
+
+    mo.md(_dedent(r"""
     <a id="theory"></a>
     ## Analytic MZI model
 
@@ -526,73 +528,73 @@ def _(mo):
 
     $$
     \mathrm{FSR} \approx \frac{\lambda_0^2}{n_g \, \Delta L},
-	    $$
+    $$
 
-	    where **n_g** is the group index. (This is why **n_eff** shows up in phase, but **n_g** shows up in FSR.)
+    where **n_g** is the group index. (This is why **n_eff** shows up in phase, but **n_g** shows up in FSR.)
 
-	    #### Derivation: where the FSR rule-of-thumb comes from
+    #### Derivation: where the FSR rule-of-thumb comes from
 
-	    Key idea: **adjacent fringes occur when the relative phase changes by** $2\pi$.
+    Key idea: **adjacent fringes occur when the relative phase changes by** $2\pi$.
 
-	    Write the wavelength-dependent propagation constant as
+    Write the wavelength-dependent propagation constant as
 
-	    $$
-	    \beta(\lambda)=\frac{2\pi}{\lambda}n_\mathrm{eff}(\lambda),
-	    $$
+    $$
+    \beta(\lambda)=\frac{2\pi}{\lambda}n_\mathrm{eff}(\lambda),
+    $$
 
-	    so the arm phase difference is
+    so the arm phase difference is
 
-	    $$
-	    \Delta\phi(\lambda)=\beta(\lambda)\,\Delta L.
-	    $$
+    $$
+    \Delta\phi(\lambda)=\beta(\lambda)\,\Delta L.
+    $$
 
-	    A “fringe-to-fringe” step in wavelength (the FSR) is the smallest $\Delta\lambda$ such that
+    A “fringe-to-fringe” step in wavelength (the FSR) is the smallest $\Delta\lambda$ such that
 
-	    $$
-	    \Delta\phi(\lambda+\Delta\lambda)-\Delta\phi(\lambda)=2\pi.
-	    $$
+    $$
+    \Delta\phi(\lambda+\Delta\lambda)-\Delta\phi(\lambda)=2\pi.
+    $$
 
-	    For small $\Delta\lambda$ we linearize:
+    For small $\Delta\lambda$ we linearize:
 
-	    $$
-	    \frac{d\Delta\phi}{d\lambda}\,\Delta\lambda \approx 2\pi
-	    \quad\Rightarrow\quad
-	    \Delta\lambda \approx \frac{2\pi}{\Delta L\,\left|d\beta/d\lambda\right|}.
-	    $$
+    $$
+    \frac{d\Delta\phi}{d\lambda}\,\Delta\lambda \approx 2\pi
+    \quad\Rightarrow\quad
+    \Delta\lambda \approx \frac{2\pi}{\Delta L\,\left|d\beta/d\lambda\right|}.
+    $$
 
-	    Now differentiate $\beta(\lambda)$:
+    Now differentiate $\beta(\lambda)$:
 
-	    $$
-	    \frac{d\beta}{d\lambda}
-	    =\frac{d}{d\lambda}\left(\frac{2\pi}{\lambda}n_\mathrm{eff}(\lambda)\right)
-	    =\frac{2\pi}{\lambda^2}\left(\lambda\frac{dn_\mathrm{eff}}{d\lambda}-n_\mathrm{eff}\right).
-	    $$
+    $$
+    \frac{d\beta}{d\lambda}
+    =\frac{d}{d\lambda}\left(\frac{2\pi}{\lambda}n_\mathrm{eff}(\lambda)\right)
+    =\frac{2\pi}{\lambda^2}\left(\lambda\frac{dn_\mathrm{eff}}{d\lambda}-n_\mathrm{eff}\right).
+    $$
 
-	    Define the **group index**
+    Define the **group index**
 
-	    $$
-	    n_g \equiv n_\mathrm{eff}-\lambda\frac{dn_\mathrm{eff}}{d\lambda},
-	    $$
+    $$
+    n_g \equiv n_\mathrm{eff}-\lambda\frac{dn_\mathrm{eff}}{d\lambda},
+    $$
 
-	    which makes
+    which makes
 
-	    $$
-	    \left|\frac{d\beta}{d\lambda}\right|=\frac{2\pi}{\lambda^2}n_g.
-	    $$
+    $$
+    \left|\frac{d\beta}{d\lambda}\right|=\frac{2\pi}{\lambda^2}n_g.
+    $$
 
-	    Substituting gives
+    Substituting gives
 
-	    $$
-	    \mathrm{FSR}=\Delta\lambda \approx \frac{\lambda^2}{n_g\,\Delta L}.
-	    $$
+    $$
+    \mathrm{FSR}=\Delta\lambda \approx \frac{\lambda^2}{n_g\,\Delta L}.
+    $$
 
-	    Evaluated at $\lambda=\lambda_0$, this is the rule-of-thumb used in the notebook.
+    Evaluated at $\lambda=\lambda_0$, this is the rule-of-thumb used in the notebook.
 
-	    In frequency units the same idea gives $\Delta f \approx c/(n_g\,\Delta L)$, which is why this is often quoted as an “inverse length” relationship.
+    In frequency units the same idea gives $\Delta f \approx c/(n_g\,\Delta L)$, which is why this is often quoted as an “inverse length” relationship.
 
-	    Later lessons will introduce group index and propagation loss in a more realistic way.
+    Later lessons will introduce group index and propagation loss in a more realistic way.
 
-	    <div class="callout warning">
+    <div class="callout warning">
       <div class="callout-title">
         <span class="tag">Note</span>
         <span><code>n_eff</code> vs <code>n_g</code></span>
@@ -602,7 +604,7 @@ def _(mo):
         <strong>group index</strong> (<code>n_g</code>). In a dispersive waveguide, these are not the same.
       </p>
     </div>
-    """)
+    """))
     return
 
 
