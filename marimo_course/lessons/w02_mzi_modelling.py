@@ -1096,416 +1096,440 @@ def _(
     view_mode,
     y_scale,
 ):
-    n_points = 400
+    def _():
+        from textwrap import dedent as _dedent
 
-    wl_center_um = float(spectrum_center.value)
-    span_um = float(spectrum_span_nm.value) / 1e3
-    wl_min_um = wl_center_um - span_um / 2
-    wl_max_um = wl_center_um + span_um / 2
+        n_points = 400
 
-    wl = np.linspace(wl_min_um, wl_max_um, n_points)
+        wl_center_um = float(spectrum_center.value)
+        span_um = float(spectrum_span_nm.value) / 1e3
+        wl_min_um = wl_center_um - span_um / 2
+        wl_max_um = wl_center_um + span_um / 2
 
-    # Analytic MZI model (lossless, constant index parameter).
-    #
-    # Note: the SiEPIC waveguide compact model used by Simphony is dispersive. Here we
-    # keep a constant index parameter chosen to match the approximate FSR near 1550 nm
-    # for the default SiEPIC TE strip waveguide (500 nm x 220 nm).
-    n_index = float(n_eff.value)
-    delta_phi = 2 * np.pi * n_index * float(delta_length_um_effective) / wl
-    T = 0.5 * (1 + np.cos(delta_phi))
+        wl = np.linspace(wl_min_um, wl_max_um, n_points)
 
-    semilog = y_scale.value == "Semilog (log y)"
-    log_floor = 1e-6
-    analytic_value_plot = np.clip(T, log_floor, None) if semilog else T
+        # Analytic MZI model (lossless, constant index parameter).
+        #
+        # Note: the SiEPIC waveguide compact model used by Simphony is dispersive. Here we
+        # keep a constant index parameter chosen to match the approximate FSR near 1550 nm
+        # for the default SiEPIC TE strip waveguide (500 nm x 220 nm).
+        n_index = float(n_eff.value)
+        delta_phi = 2 * np.pi * n_index * float(delta_length_um_effective) / wl
+        T = 0.5 * (1 + np.cos(delta_phi))
 
-    analytic_df = pl.DataFrame(
-        {
-            "wavelength_nm": wl * 1e3,
-            "value": T,
-            "value_plot": analytic_value_plot,
-            "curve": ["Analytic through"] * len(wl),
-        }
-    )
+        semilog = y_scale.value == "Semilog (log y)"
+        log_floor = 1e-6
+        analytic_value_plot = np.clip(T, log_floor, None) if semilog else T
 
-    try:
-        analytic_data = analytic_df.to_pandas()
-    except Exception:
-        # Altair expects table-like data; use row dicts when pandas isn't available.
-        analytic_data = analytic_df.to_dicts()
-
-    # Vega-Lite in the VS Code marimo viewer can be fragile with layered Altair charts.
-    # Build a single "long" table and plot everything with one chart.
-    plot_rows: list[dict] = []
-
-    if view_mode.value in ["Analytic only", "Overlay (analytic + Simphony)"]:
-        plot_rows.extend(analytic_df.to_dicts())
-
-    playground_error = ""
-    if playground_enabled.value:
-        preset = playground_preset.value
-        preset_exprs = {
-            "Ideal MZI (default)": "0.5*(1 + cos(2*pi*n_eff*delta_L/wl_um))",
-            "Reduced visibility (V=0.8)": "0.5*(1 + 0.8*cos(2*pi*n_eff*delta_L/wl_um))",
-            "Add loss floor (2%)": "0.02 + 0.98*0.5*(1 + cos(2*pi*n_eff*delta_L/wl_um))",
-        }
-        expr_str = (
-            preset_exprs[preset].strip()
-            if preset in preset_exprs
-            else (playground_expr.value or "").strip()
+        analytic_df = pl.DataFrame(
+            {
+                "wavelength_nm": wl * 1e3,
+                "value": T,
+                "value_plot": analytic_value_plot,
+                "curve": ["Analytic through"] * len(wl),
+            }
         )
-        if not expr_str:
-            playground_error = "Enter an expression to plot."
-        else:
-            try:
-                env = {
-                    "wl_um": wl,
-                    "wl_nm": wl * 1e3,
-                    "pi": float(np.pi),
-                    "delta_L": float(delta_length_um_effective),
-                    "n_eff": float(n_index),
-                    "n_g": float(ng.value),
-                }
-                y = safe_math_eval(expr_str, env)
-                y_arr = np.asarray(y, dtype=float)
-                if y_arr.shape == ():
-                    y_arr = np.full_like(wl, float(y_arr))
-                else:
-                    y_arr = y_arr.reshape(-1)
-                if len(y_arr) != len(wl):
-                    raise ValueError(
-                        f"Expression returned {len(y_arr)} values; expected {len(wl)} (or a scalar)."
-                    )
 
-                y_plot = np.clip(y_arr, log_floor, None) if semilog else y_arr
-                user_df = pl.DataFrame(
+        try:
+            analytic_data = analytic_df.to_pandas()
+        except Exception:
+            # Altair expects table-like data; use row dicts when pandas isn't available.
+            analytic_data = analytic_df.to_dicts()
+
+        # Vega-Lite in the VS Code marimo viewer can be fragile with layered Altair charts.
+        # Build a single "long" table and plot everything with one chart.
+        plot_rows: list[dict] = []
+
+        if view_mode.value in ["Analytic only", "Overlay (analytic + Simphony)"]:
+            plot_rows.extend(analytic_df.to_dicts())
+
+        playground_error = ""
+        if playground_enabled.value:
+            preset = playground_preset.value
+            preset_exprs = {
+                "Ideal MZI (default)": "0.5*(1 + cos(2*pi*n_eff*delta_L/wl_um))",
+                "Reduced visibility (V=0.8)": "0.5*(1 + 0.8*cos(2*pi*n_eff*delta_L/wl_um))",
+                "Add loss floor (2%)": "0.02 + 0.98*0.5*(1 + cos(2*pi*n_eff*delta_L/wl_um))",
+            }
+            expr_str = (
+                preset_exprs[preset].strip()
+                if preset in preset_exprs
+                else (playground_expr.value or "").strip()
+            )
+            if not expr_str:
+                playground_error = "Enter an expression to plot."
+            else:
+                try:
+                    env = {
+                        "wl_um": wl,
+                        "wl_nm": wl * 1e3,
+                        "pi": float(np.pi),
+                        "delta_L": float(delta_length_um_effective),
+                        "n_eff": float(n_index),
+                        "n_g": float(ng.value),
+                    }
+                    y = safe_math_eval(expr_str, env)
+                    y_arr = np.asarray(y, dtype=float)
+                    if y_arr.shape == ():
+                        y_arr = np.full_like(wl, float(y_arr))
+                    else:
+                        y_arr = y_arr.reshape(-1)
+                    if len(y_arr) != len(wl):
+                        raise ValueError(
+                            f"Expression returned {len(y_arr)} values; expected {len(wl)} (or a scalar)."
+                        )
+
+                    y_plot = np.clip(y_arr, log_floor, None) if semilog else y_arr
+                    user_df = pl.DataFrame(
+                        {
+                            "wavelength_nm": wl * 1e3,
+                            "value": y_arr,
+                            "value_plot": y_plot,
+                            "curve": ["Student expression"] * len(wl),
+                        }
+                    )
+                    plot_rows.extend(user_df.to_dicts())
+                except Exception as e:
+                    playground_error = f"{type(e).__name__}: {e}"
+
+        simphony_selected = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
+        use_gratings = simphony_io.value == "Include grating couplers (in + out)"
+
+        # Guard against any environment/editor issues where the Simphony cell fails to
+        # define these symbols; in that case, Simphony view gracefully becomes unavailable.
+        mzi_circuit_local = locals().get("mzi_circuit", None)
+        mzi_circuit_with_gc_local = locals().get("mzi_circuit_with_gc", None)
+
+        sim_circuit = None
+        if simphony_selected:
+            sim_circuit = (
+                mzi_circuit_with_gc_local
+                if (use_gratings and mzi_circuit_with_gc_local is not None)
+                else mzi_circuit_local
+            )
+
+        simphony_runtime_error = ""
+        if simphony_selected and sim_circuit is not None:
+            try:
+                # Simphony MZI model using SAX / siepic library.
+                wl_sim = jnp.linspace(wl_min_um, wl_max_um, n_points)
+
+                # NOTE: simphony's SiEPIC library uses microns for geometric parameters like `length`,
+                # and nanometers for `width`/`height`.
+                base_length_um = float(base_length.value)
+
+                # SiEPIC compact-model parameters (explicitly passed so the notebook is reproducible).
+                wg_pol = "te"
+                wg_width_nm = 500.0
+                wg_height_nm = 220.0
+                wg_loss = 0.0
+                gc_pol = "te"
+                gc_thickness_nm = 220.0
+                gc_dwidth_nm = 0.0
+
+                sim_kwargs = {
+                    "wl": wl_sim,
+                    "short_wg": {
+                        "length": base_length_um,
+                        "pol": wg_pol,
+                        "width": wg_width_nm,
+                        "height": wg_height_nm,
+                        "loss": wg_loss,
+                    },
+                    "long_wg": {
+                        "length": (base_length_um + float(delta_length_um_effective)),
+                        "pol": wg_pol,
+                        "width": wg_width_nm,
+                        "height": wg_height_nm,
+                        "loss": wg_loss,
+                    },
+                }
+
+                if use_gratings and mzi_circuit_with_gc is not None:
+                    sim_kwargs["gc_in"] = {
+                        "pol": gc_pol,
+                        "thickness": gc_thickness_nm,
+                        "dwidth": gc_dwidth_nm,
+                    }
+                    sim_kwargs["gc_out"] = {
+                        "pol": gc_pol,
+                        "thickness": gc_thickness_nm,
+                        "dwidth": gc_dwidth_nm,
+                    }
+
+                S = sim_circuit(**sim_kwargs)
+
+                transmission_through = S["through", "input"]
+                intensity_through = jnp.abs(transmission_through) ** 2
+
+                wl_nm = np.array(wl_sim) * 1e3
+                intensity_through_np = np.array(intensity_through)
+                sim_value_plot = (
+                    np.clip(intensity_through_np, log_floor, None)
+                    if semilog
+                    else intensity_through_np
+                )
+
+                curve_label = (
+                    "Through (Simphony, with grating couplers)"
+                    if use_gratings
+                    else "Through (Simphony)"
+                )
+                sim_df = pl.DataFrame(
                     {
-                        "wavelength_nm": wl * 1e3,
-                        "value": y_arr,
-                        "value_plot": y_plot,
-                        "curve": ["Student expression"] * len(wl),
+                        "wavelength_nm": wl_nm,
+                        "value": intensity_through_np,
+                        "value_plot": sim_value_plot,
+                        "curve": [curve_label] * len(wl_nm),
                     }
                 )
-                plot_rows.extend(user_df.to_dicts())
-            except Exception as e:
-                playground_error = f"{type(e).__name__}: {e}"
+                plot_rows.extend(sim_df.to_dicts())
+            except Exception as e:  # pragma: no cover
+                simphony_runtime_error = f"{type(e).__name__}: {e}"
 
-    simphony_selected = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
-    use_gratings = simphony_io.value == "Include grating couplers (in + out)"
+        if not plot_rows:
+            plot_rows.extend(analytic_df.to_dicts())
 
-    # Guard against any environment/editor issues where the Simphony cell fails to
-    # define these symbols; in that case, Simphony view gracefully becomes unavailable.
-    mzi_circuit_local = locals().get("mzi_circuit", None)
-    mzi_circuit_with_gc_local = locals().get("mzi_circuit_with_gc", None)
-
-    sim_circuit = None
-    if simphony_selected:
-        sim_circuit = (
-            mzi_circuit_with_gc_local
-            if (use_gratings and mzi_circuit_with_gc_local is not None)
-            else mzi_circuit_local
+        y_scale_obj = (
+            alt.Scale(type="log", domain=[log_floor, 1]) if semilog else alt.Scale(domain=[0, 1])
+        )
+        y_field = "value_plot" if semilog else "value"
+        # Inline data explicitly; passing a raw list can be rejected by Altair depending on version.
+        chart = (
+            alt.Chart(alt.Data(values=plot_rows))
+            .mark_line(point=True)
+            .encode(
+                x=alt.X("wavelength_nm", type="quantitative", title="Wavelength (nm)"),
+                y=alt.Y(
+                    y_field,
+                    type="quantitative",
+                    title="Through power (log scale)" if semilog else "Through power",
+                    scale=y_scale_obj,
+                ),
+                color=alt.Color("curve", type="nominal", title="Curve"),
+                tooltip=[
+                    alt.Tooltip("wavelength_nm", type="quantitative", title="Wavelength (nm)"),
+                    alt.Tooltip("value", type="quantitative", title="Through power"),
+                    alt.Tooltip("curve", type="nominal", title="Curve"),
+                ],
+            )
         )
 
-    if simphony_selected and sim_circuit is not None:
-        # Simphony MZI model using SAX / siepic library.
-        wl_sim = jnp.linspace(wl_min_um, wl_max_um, n_points)
+        chart = chart.properties(
+            title="MZI transfer function",
+            width=500,
+            height=250,
+        ).interactive()
 
-        # NOTE: simphony's SiEPIC library uses microns for geometric parameters like `length`,
-        # and nanometers for `width`/`height`.
         base_length_um = float(base_length.value)
+        delta_length_um = float(delta_length_um_effective)
+        short_length_mm = base_length_um / 1e3
+        long_length_mm = (base_length_um + delta_length_um) / 1e3
 
-        # SiEPIC compact-model parameters (explicitly passed so the notebook is reproducible).
-        wg_pol = "te"
-        wg_width_nm = 500.0
-        wg_height_nm = 220.0
-        wg_loss = 0.0
-        gc_pol = "te"
-        gc_thickness_nm = 220.0
-        gc_dwidth_nm = 0.0
+        fsr_nm = None
+        if delta_length_um > 0:
+            fsr_nm = (wl_center_um * wl_center_um) / (float(ng.value) * delta_length_um) * 1e3
+        ng_val = float(ng.value)
+        phase_slope_rad_per_nm = None
+        if delta_length_um > 0:
+            # From the FSR derivation: adjacent fringes occur when Δφ changes by 2π.
+            # Using the group index, |dΔφ/dλ| ≈ 2π n_g ΔL / λ0^2. Here λ0 and ΔL are in µm.
+            phase_slope_rad_per_nm = (2 * np.pi * ng_val * delta_length_um / (wl_center_um**2)) / 1e3
 
-        sim_kwargs = {
-            "wl": wl_sim,
-            "short_wg": {
-                "length": base_length_um,
-                "pol": wg_pol,
-                "width": wg_width_nm,
-                "height": wg_height_nm,
-                "loss": wg_loss,
-            },
-            "long_wg": {
-                "length": (base_length_um + float(delta_length_um_effective)),
-                "pol": wg_pol,
-                "width": wg_width_nm,
-                "height": wg_height_nm,
-                "loss": wg_loss,
-            },
-        }
-
-        if use_gratings and mzi_circuit_with_gc is not None:
-            sim_kwargs["gc_in"] = {
-                "pol": gc_pol,
-                "thickness": gc_thickness_nm,
-                "dwidth": gc_dwidth_nm,
-            }
-            sim_kwargs["gc_out"] = {
-                "pol": gc_pol,
-                "thickness": gc_thickness_nm,
-                "dwidth": gc_dwidth_nm,
-            }
-
-        S = sim_circuit(**sim_kwargs)
-
-        transmission_through = S["through", "input"]
-        intensity_through = jnp.abs(transmission_through) ** 2
-
-        wl_nm = np.array(wl_sim) * 1e3
-        intensity_through_np = np.array(intensity_through)
-        sim_value_plot = (
-            np.clip(intensity_through_np, log_floor, None) if semilog else intensity_through_np
-        )
-
-        curve_label = (
-            "Through (Simphony, with grating couplers)" if use_gratings else "Through (Simphony)"
-        )
-        sim_df = pl.DataFrame(
-            {
-                "wavelength_nm": wl_nm,
-                "value": intensity_through_np,
-                "value_plot": sim_value_plot,
-                "curve": [curve_label] * len(wl_nm),
-            }
-        )
-        plot_rows.extend(sim_df.to_dicts())
-
-    if not plot_rows:
-        plot_rows.extend(analytic_df.to_dicts())
-
-    y_scale_obj = (
-        alt.Scale(type="log", domain=[log_floor, 1]) if semilog else alt.Scale(domain=[0, 1])
-    )
-    y_field = "value_plot" if semilog else "value"
-    # Inline data explicitly; passing a raw list can be rejected by Altair depending on version.
-    chart = (
-        alt.Chart(alt.Data(values=plot_rows))
-        .mark_line(point=True)
-        .encode(
-            x=alt.X("wavelength_nm", type="quantitative", title="Wavelength (nm)"),
-            y=alt.Y(
-                y_field,
-                type="quantitative",
-                title="Through power (log scale)" if semilog else "Through power",
-                scale=y_scale_obj,
+        left_items = [
+            mo.md("**Spectrum**"),
+            spectrum_center,
+            spectrum_span_nm,
+            y_scale,
+            mo.md(f"Wavelength window: **{wl_min_um*1e3:.1f}–{wl_max_um*1e3:.1f} nm**"),
+            mo.md("**Geometry**"),
+            base_length,
+            delta_length,
+            param_preset,
+            *(
+                [
+                    mo.md(
+                        f"Preset active: using **ΔL = {delta_length_um_effective:.1f} µm** "
+                        "(set preset to *Custom* to use the slider)."
+                    )
+                ]
+                if preset_active
+                else []
             ),
-            color=alt.Color("curve", type="nominal", title="Curve"),
-            tooltip=[
-                alt.Tooltip("wavelength_nm", type="quantitative", title="Wavelength (nm)"),
-                alt.Tooltip("value", type="quantitative", title="Through power"),
-                alt.Tooltip("curve", type="nominal", title="Curve"),
-            ],
-        )
-    )
-
-    chart = chart.properties(
-        title="MZI transfer function",
-        width=500,
-        height=250,
-    ).interactive()
-
-    base_length_um = float(base_length.value)
-    delta_length_um = float(delta_length_um_effective)
-    short_length_mm = base_length_um / 1e3
-    long_length_mm = (base_length_um + delta_length_um) / 1e3
-
-    fsr_nm = None
-    if delta_length_um > 0:
-        fsr_nm = (wl_center_um * wl_center_um) / (float(ng.value) * delta_length_um) * 1e3
-    ng_val = float(ng.value)
-    phase_slope_rad_per_nm = None
-    if delta_length_um > 0:
-        # From the FSR derivation: adjacent fringes occur when Δφ changes by 2π.
-        # Using the group index, |dΔφ/dλ| ≈ 2π n_g ΔL / λ0^2. Here λ0 and ΔL are in µm.
-        phase_slope_rad_per_nm = (2 * np.pi * ng_val * delta_length_um / (wl_center_um**2)) / 1e3
-
-    left_items = [
-        mo.md("**Spectrum**"),
-        spectrum_center,
-        spectrum_span_nm,
-        y_scale,
-        mo.md(f"Wavelength window: **{wl_min_um*1e3:.1f}–{wl_max_um*1e3:.1f} nm**"),
-        mo.md("**Geometry**"),
-        base_length,
-        delta_length,
-        param_preset,
-        *(
-            [
-                mo.md(
-                    f"Preset active: using **ΔL = {delta_length_um_effective:.1f} µm** "
-                    "(set preset to *Custom* to use the slider)."
-                )
-            ]
-            if preset_active
-            else []
-        ),
-        ng,
-        mo.md(r"FSR rule of thumb: $\mathrm{FSR} \approx \lambda_0^2 / (n_g\,\Delta L)$"),
-        mo.md(
-            "Estimated ideal FSR: "
-            + (
-                f"**{fsr_nm:.2f} nm** (using ng)"
-                if fsr_nm is not None
-                else "**(ΔL = 0 → no fringes)**"
-            )
-        ),
-        mo.md(f"Lengths: short={short_length_mm:.2f} mm, long={long_length_mm:.2f} mm"),
-    ]
-
-    if semilog:
-        left_items.append(mo.md(f"Semilog note: values are floored at **{log_floor:g}** for display."))
-
-    right_items = [
-        mo.md("**Model**"),
-        view_mode,
-        show_advanced,
-        show_plot_debug,
-    ]
-
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
-        right_items.append(simphony_io)
-
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"] and mzi_circuit is None:
-        right_items.append(
+            ng,
+            mo.md(r"FSR rule of thumb: $\mathrm{FSR} \approx \lambda_0^2 / (n_g\,\Delta L)$"),
             mo.md(
-                "**Note:** Simphony-based circuit view is unavailable in this environment.\n\n"
-                f"`{simphony_error}`"
-            )
-        )
+                "Estimated ideal FSR: "
+                + (
+                    f"**{fsr_nm:.2f} nm** (using ng)"
+                    if fsr_nm is not None
+                    else "**(ΔL = 0 → no fringes)**"
+                )
+            ),
+            mo.md(f"Lengths: short={short_length_mm:.2f} mm, long={long_length_mm:.2f} mm"),
+        ]
 
-    if show_advanced.value:
-        right_items.extend(
-            [
-                mo.md("#### Analytic tuning"),
-                n_eff,
-                mo.md(f"Analytic phase uses `n_eff = {n_index:.5f}`."),
-                mo.md("#### Student playground"),
-                playground_enabled,
-            ]
-        )
+        if semilog:
+            left_items.append(mo.md(f"Semilog note: values are floored at **{log_floor:g}** for display."))
 
-        if playground_enabled.value:
-            right_items.append(playground_preset)
-            if playground_preset.value == "Custom":
-                right_items.append(playground_expr)
+        right_items = [
+            mo.md("**Model**"),
+            view_mode,
+            show_advanced,
+            show_plot_debug,
+        ]
+
+        if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
+            right_items.append(simphony_io)
+
+        if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"] and mzi_circuit is None:
             right_items.append(
                 mo.md(
-                    r"""
-                    <div class="callout info">
-                      <div class="callout-title">
-                        <span class="tag">Playground</span>
-                        <span>How it works</span>
-                      </div>
-                      <p>The dashed curve is computed from your preset/expression and plotted alongside the analytic/Simphony curves.</p>
-                      <p>Use these variables: <code>wl_um</code>, <code>wl_nm</code>, <code>delta_L</code>, <code>n_eff</code>, <code>n_g</code>, <code>pi</code>.</p>
-                      <p>Allowed functions: <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>sqrt</code>, <code>log</code>, <code>log10</code>, <code>abs</code>, <code>where</code>, <code>clip</code>, <code>min</code>, <code>max</code>.</p>
-                      <p><strong>Tip:</strong> Expressions may return a scalar (applied to all wavelengths) or an array with the same length as <code>wl_um</code>.</p>
-                    </div>
-                    """
+                    "**Note:** Simphony-based circuit view is unavailable in this environment.\n\n"
+                    f"`{simphony_error}`"
                 )
             )
-            if playground_error:
-                right_items.append(mo.md(f"**Playground error:** `{playground_error}`"))
-    else:
-        right_items.append(mo.md(f"Analytic phase tuning uses `n_eff = {n_index:.5f}`."))
+        if simphony_runtime_error:
+            right_items.append(
+                mo.md(
+                    "**Simphony runtime error:** the circuit was available, but evaluation failed.\n\n"
+                    f"`{simphony_runtime_error}`\n\n"
+                    "Tip: switch to **Analytic only** to continue."
+                )
+            )
 
-    if show_plot_debug.value:
+        if show_advanced.value:
+            right_items.extend(
+                [
+                    mo.md("#### Analytic tuning"),
+                    n_eff,
+                    mo.md(f"Analytic phase uses `n_eff = {n_index:.5f}`."),
+                    mo.md("#### Student playground"),
+                    playground_enabled,
+                ]
+            )
+
+            if playground_enabled.value:
+                right_items.append(playground_preset)
+                if playground_preset.value == "Custom":
+                    right_items.append(playground_expr)
+                right_items.append(
+                    mo.md(
+                        r"""
+                        <div class="callout info">
+                          <div class="callout-title">
+                            <span class="tag">Playground</span>
+                            <span>How it works</span>
+                          </div>
+                          <p>The dashed curve is computed from your preset/expression and plotted alongside the analytic/Simphony curves.</p>
+                          <p>Use these variables: <code>wl_um</code>, <code>wl_nm</code>, <code>delta_L</code>, <code>n_eff</code>, <code>n_g</code>, <code>pi</code>.</p>
+                          <p>Allowed functions: <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>sqrt</code>, <code>log</code>, <code>log10</code>, <code>abs</code>, <code>where</code>, <code>clip</code>, <code>min</code>, <code>max</code>.</p>
+                          <p><strong>Tip:</strong> Expressions may return a scalar (applied to all wavelengths) or an array with the same length as <code>wl_um</code>.</p>
+                        </div>
+                        """
+                    )
+                )
+                if playground_error:
+                    right_items.append(mo.md(f"**Playground error:** `{playground_error}`"))
+        else:
+            right_items.append(mo.md(f"Analytic phase tuning uses `n_eff = {n_index:.5f}`."))
+
+        if show_plot_debug.value:
+            try:
+                y_key = "value_plot" if semilog else "value"
+                y_vals = np.array([r.get(y_key) for r in plot_rows if r.get("curve") == "Analytic through"], dtype=float)
+                finite = y_vals[np.isfinite(y_vals)]
+                y_min = float(np.min(finite)) if finite.size else None
+                y_max = float(np.max(finite)) if finite.size else None
+            except Exception:
+                y_min = None
+                y_max = None
+            right_items.append(
+                mo.md(
+                    f"**Debug:** rows={len(plot_rows)}; analytic {y_key} min/max={y_min}/{y_max}"
+                )
+            )
+
         try:
-            y_key = "value_plot" if semilog else "value"
-            y_vals = np.array([r.get(y_key) for r in plot_rows if r.get("curve") == "Analytic through"], dtype=float)
-            finite = y_vals[np.isfinite(y_vals)]
-            y_min = float(np.min(finite)) if finite.size else None
-            y_max = float(np.max(finite)) if finite.size else None
-        except Exception:
-            y_min = None
-            y_max = None
-        right_items.append(
-            mo.md(
-                f"**Debug:** rows={len(plot_rows)}; analytic {y_key} min/max={y_min}/{y_max}"
+            chart_out = mo.ui.altair_chart(chart) if hasattr(mo.ui, "altair_chart") else chart
+        except Exception as e:  # pragma: no cover
+            chart_out = mo.md(f"**Plot render error:** `{type(e).__name__}: {e}`")
+        controls = mo.hstack([mo.vstack(left_items), mo.vstack(right_items)])
+        fringes_est = None
+        if fsr_nm is not None and fsr_nm > 0:
+            fringes_est = float(spectrum_span_nm.value) / fsr_nm
+
+        download_badge = ""
+        try:
+            if plot_rows:
+                out = io.StringIO()
+                preferred_fields = ["wavelength_nm", "value", "value_plot", "curve"]
+                extra_fields = sorted(
+                    {
+                        k
+                        for row in plot_rows
+                        for k in row.keys()
+                        if k not in preferred_fields
+                    }
+                )
+                fieldnames = preferred_fields + extra_fields
+                writer = csv.DictWriter(out, fieldnames=fieldnames)
+                writer.writeheader()
+                for row in plot_rows:
+                    writer.writerow({k: row.get(k, "") for k in fieldnames})
+                csv_b64 = b64.b64encode(out.getvalue().encode("utf-8")).decode("ascii")
+                download_badge = (
+                    "<a class=\"doc-badge\" "
+                    "style=\"cursor:pointer;\" "
+                    "download=\"mzi_spectrum.csv\" "
+                    f"href=\"data:text/csv;base64,{csv_b64}\">"
+                    "<strong>Download CSV</strong>"
+                    "</a>"
+                )
+        except Exception:  # pragma: no cover
+            download_badge = ""
+
+        fsr_badge = (
+            f'<span class="doc-badge">FSR ≈ <strong>{fsr_nm:.2f} nm</strong></span>'
+            if fsr_nm is not None
+            else '<span class="doc-badge">FSR: <strong>(ΔL = 0)</strong></span>'
+        )
+        phase_slope_badge = (
+            f'<span class="doc-badge">|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_rad_per_nm:.2f} rad/nm</strong></span>'
+            if phase_slope_rad_per_nm is not None
+            else ""
+        )
+        fringes_badge = (
+            f'<span class="doc-badge">~ fringes in view ≈ <strong>{fringes_est:.1f}</strong></span>'
+            if fringes_est is not None
+            else ""
+        )
+        status_badges = mo.md(
+            _dedent(
+                f"""
+                <div class="doc-badges" style="margin: 0.35rem 0 0.25rem 0;">
+                  <span class="doc-badge">ΔL = <strong>{delta_length_um_effective:.1f} µm</strong></span>
+                  {fsr_badge}
+                  {phase_slope_badge}
+                  <span class="doc-badge">span = <strong>{float(spectrum_span_nm.value):.0f} nm</strong></span>
+                  {fringes_badge}
+                  <span class="doc-badge">View: <strong>{view_mode.value}</strong></span>
+                  {download_badge}
+                </div>
+                """
             )
         )
+        return mo.vstack(
+            [
+                chart_out,
+                status_badges,
+                mo.md("### Controls"),
+                controls,
+            ]
+        )
 
-    try:
-        chart_out = mo.ui.altair_chart(chart) if hasattr(mo.ui, "altair_chart") else chart
-    except Exception as e:  # pragma: no cover
-        chart_out = mo.md(f"**Plot render error:** `{type(e).__name__}: {e}`")
-    controls = mo.hstack([mo.vstack(left_items), mo.vstack(right_items)])
-    fringes_est = None
-    if fsr_nm is not None and fsr_nm > 0:
-        fringes_est = float(spectrum_span_nm.value) / fsr_nm
 
-    download_badge = ""
-    try:
-        if plot_rows:
-            out = io.StringIO()
-            preferred_fields = ["wavelength_nm", "value", "value_plot", "curve"]
-            extra_fields = sorted(
-                {
-                    k
-                    for row in plot_rows
-                    for k in row.keys()
-                    if k not in preferred_fields
-                }
-            )
-            fieldnames = preferred_fields + extra_fields
-            writer = csv.DictWriter(out, fieldnames=fieldnames)
-            writer.writeheader()
-            for row in plot_rows:
-                writer.writerow({k: row.get(k, "") for k in fieldnames})
-            csv_b64 = b64.b64encode(out.getvalue().encode("utf-8")).decode("ascii")
-            download_badge = (
-                "<a class=\"doc-badge\" "
-                "style=\"cursor:pointer;\" "
-                "download=\"mzi_spectrum.csv\" "
-                f"href=\"data:text/csv;base64,{csv_b64}\">"
-                "<strong>Download CSV</strong>"
-                "</a>"
-            )
-    except Exception:  # pragma: no cover
-        download_badge = ""
-
-    fsr_badge = (
-        f'<span class="doc-badge">FSR ≈ <strong>{fsr_nm:.2f} nm</strong></span>'
-        if fsr_nm is not None
-        else '<span class="doc-badge">FSR: <strong>(ΔL = 0)</strong></span>'
-    )
-    phase_slope_badge = (
-        f'<span class="doc-badge">|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_rad_per_nm:.2f} rad/nm</strong></span>'
-        if phase_slope_rad_per_nm is not None
-        else ""
-    )
-    fringes_badge = (
-        f'<span class="doc-badge">~ fringes in view ≈ <strong>{fringes_est:.1f}</strong></span>'
-        if fringes_est is not None
-        else ""
-    )
-    status_badges = mo.md(
-        f"""
-	        <div class="doc-badges" style="margin: 0.35rem 0 0.25rem 0;">
-	          <span class="doc-badge">ΔL = <strong>{delta_length_um_effective:.1f} µm</strong></span>
-	          {fsr_badge}
-	          {phase_slope_badge}
-	          <span class="doc-badge">span = <strong>{float(spectrum_span_nm.value):.0f} nm</strong></span>
-	          {fringes_badge}
-	          <span class="doc-badge">View: <strong>{view_mode.value}</strong></span>
-	          {download_badge}
-	        </div>
-        """
-    )
-    mo.vstack(
-        [
-            chart_out,
-            status_badges,
-            mo.md("### Controls"),
-            controls,
-        ]
-    )
+    _()
     return
 
 
@@ -1585,7 +1609,7 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
                 blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
         else:
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-    return mo.vstack(blocks)
+    return
 
 
 @app.cell
