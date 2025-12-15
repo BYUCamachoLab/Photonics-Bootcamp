@@ -939,7 +939,7 @@ def _(mo):
         value="Direct waveguide I/O",
         label="Simphony I/O",
     )
-    return simphony_io
+    return (simphony_io,)
 
 
 @app.cell
@@ -948,7 +948,7 @@ def _(mo):
         label="Compute Simphony curve (manual trigger)",
         value=False,
     )
-    return run_simphony
+    return (run_simphony,)
 
 
 @app.cell
@@ -1640,13 +1640,24 @@ def _(
     )
 
     if view_mode.value == "Simphony only" and not w02_simphony.get("plotted", False):
+        _reason_lines: list[str] = []
+        if not w02_simphony.get("should_run", False):
+            _reason_lines.append("Status: **Not computed** (manual trigger is off).")
+            _reason_lines.append("Fix: enable **Compute Simphony curve** in the controls.")
+        elif not w02_simphony.get("circuit_available", False):
+            _reason_lines.append("Status: **Unavailable** (Simphony/SAX circuit not available here).")
+            _reason_lines.append(f"Details: `{w02_simphony.get('import_error','')}`")
+        elif w02_simphony.get("runtime_error"):
+            _reason_lines.append("Status: **Runtime error** during circuit evaluation.")
+            _reason_lines.append(f"Details: `{w02_simphony.get('runtime_error','')}`")
+        else:
+            _reason_lines.append("Status: **No curve produced** (unexpected).")
+            _reason_lines.append("Fix: try toggling **Compute Simphony curve** off/on and re-run.")
+
         chart_out = mo.md(
             "**Simphony-only view:** no Simphony curve to display.\n\n"
-            + (
-                "Enable **Compute Simphony curve** in the controls and re-run."
-                if not w02_simphony.get("should_run", False)
-                else "Switch to **Analytic only** or **Overlay**."
-            )
+            + "\n".join(f"- {line}" for line in _reason_lines)
+            + "\n\nTip: switch to **Overlay** to compare with the analytic curve."
         )
     else:
         if not _plot_rows:
