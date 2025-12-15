@@ -124,6 +124,77 @@ def _(mo):
 
 @app.cell
 def _(mo):
+    from textwrap import dedent as _dedent
+
+    def _escape_attr(value: str) -> str:
+        return (
+            value.replace("&", "&amp;")
+            .replace('"', "&quot;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+        )
+
+    def doc_badges(
+        badges: list[str],
+        *,
+        style: str | None = None,
+    ):
+        style_attr = f' style="{_escape_attr(style)}"' if style else ""
+        inner = "".join(f'<span class="doc-badge">{b}</span>' for b in badges)
+        return mo.md(f'<div class="doc-badges"{style_attr}>{inner}</div>')
+
+    def doc_callout_list(
+        kind: str,
+        *,
+        tag: str,
+        title: str,
+        items: list[str],
+        ordered: bool = False,
+    ):
+        list_tag = "ol" if ordered else "ul"
+        inner = "".join(f"<li>{item}</li>" for item in items)
+        return mo.md(
+            _dedent(
+                f"""
+                <div class="callout {kind}">
+                  <div class="callout-title">
+                    <span class="tag">{tag}</span>
+                    <span>{title}</span>
+                  </div>
+                  <{list_tag}>
+                    {inner}
+                  </{list_tag}>
+                </div>
+                """
+            )
+        )
+
+    def doc_callout_html(
+        kind: str,
+        *,
+        tag: str,
+        title: str,
+        html: str,
+    ):
+        return mo.md(
+            _dedent(
+                f"""
+                <div class="callout {kind}">
+                  <div class="callout-title">
+                    <span class="tag">{tag}</span>
+                    <span>{title}</span>
+                  </div>
+                  {html}
+                </div>
+                """
+            )
+        )
+
+    return doc_badges, doc_callout_html, doc_callout_list
+
+
+@app.cell
+def _(mo):
     mo.md(
         r"""
         <div class="doc-hero">
@@ -158,45 +229,41 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
-    mo.md(r"""
-    <div class="callout info">
-      <div class="callout-title">
-        <span class="tag">Roadmap</span>
-        <span>How this notebook fits together</span>
-      </div>
-      <ol>
-        <li><strong>Analytic model:</strong> derive a simple MZI transfer function from interference.</li>
-        <li><strong>Circuit model (Simphony + SAX):</strong> build the same MZI from component (compact) models and compare.</li>
-        <li><strong>Layout (gdsfactory):</strong> transition from “response vs wavelength” to “geometry you can export as GDS”.</li>
-      </ol>
-    </div>
+def _(doc_callout_list, mo):
+    doc_callout_list(
+        "info",
+        tag="Roadmap",
+        title="How this notebook fits together",
+        ordered=True,
+        items=[
+            "<strong>Analytic model:</strong> derive a simple MZI transfer function from interference.",
+            "<strong>Circuit model (Simphony + SAX):</strong> build the same MZI from component (compact) models and compare.",
+            "<strong>Layout (gdsfactory):</strong> transition from “response vs wavelength” to “geometry you can export as GDS”.",
+        ],
+    )
 
-    <div class="callout warning">
-      <div class="callout-title">
-        <span class="tag">Quickstart</span>
-        <span>Running and troubleshooting</span>
-      </div>
-      <ul>
-        <li>If you don’t see plots, make sure you’re in <strong>App view</strong> (not just the code editor), then restart/re-run the app.</li>
-        <li>If <strong>Simphony</strong> isn’t available, the analytic model still works; use <em>View → Analytic only</em>.</li>
-        <li>Units: the plot shows wavelength in <strong>nm</strong>; internal calculations use <strong>µm</strong>.</li>
-      </ul>
-    </div>
+    doc_callout_list(
+        "warning",
+        tag="Quickstart",
+        title="Running and troubleshooting",
+        items=[
+            "If you don’t see plots, make sure you’re in <strong>App view</strong> (not just the code editor), then restart/re-run the app.",
+            "If <strong>Simphony</strong> isn’t available, the analytic model still works; use <em>View → Analytic only</em>.",
+            "Units: the plot shows wavelength in <strong>nm</strong>; internal calculations use <strong>µm</strong>.",
+        ],
+    )
 
-    <div class="callout info">
-      <div class="callout-title">
-        <span class="tag">Expected outputs</span>
-        <span>What “working” looks like</span>
-      </div>
-      <ul>
-        <li>An interactive transmission plot that changes when you move <strong>ΔL</strong>.</li>
-        <li>FSR decreases when ΔL increases (approximately inverse proportional).</li>
-        <li>Optional overlay with a Simphony/SAX curve if the compact-model libraries are available.</li>
-        <li>A gdsfactory MZI layout preview (SVG) and a button to export a <strong>GDS</strong>.</li>
-      </ul>
-    </div>
-    """)
+    doc_callout_list(
+        "info",
+        tag="Expected outputs",
+        title="What “working” looks like",
+        items=[
+            "An interactive transmission plot that changes when you move <strong>ΔL</strong>.",
+            "FSR decreases when ΔL increases (approximately inverse proportional).",
+            "Optional overlay with a Simphony/SAX curve if the compact-model libraries are available.",
+            "A gdsfactory MZI layout preview (SVG) and a button to export a <strong>GDS</strong>.",
+        ],
+    )
     return
 
 
@@ -762,70 +829,71 @@ def _(gf, mo):
 
 
 @app.cell
-def _(mo):
+def _(doc_callout_html, doc_callout_list, mo):
     mo.md(r"""
     <a id="interactive"></a>
     ## Interactive MZI spectrum
 
     Use the controls to explore how **ΔL** sets the **fringe spacing** (FSR).
     You can compare a simple analytic model to an optional **Simphony/SAX circuit model** built from compact component models (if available in your environment).
-
-    <div class="callout info">
-      <div class="callout-title">
-        <span class="tag">Assumptions</span>
-        <span>What this plot is (and isn’t)</span>
-      </div>
-      <ul>
-        <li><strong>Ideal analytic curve:</strong> lossless, perfect 50/50 couplers, and a simplified phase term with a constant <code>n_eff</code>.</li>
-        <li><strong>FSR physics:</strong> the rule-of-thumb comes from the condition “adjacent fringes ↔ Δφ changes by 2π” and uses <code>n_g</code> (group index).</li>
-        <li><strong>What’s missing:</strong> wavelength-dependent dispersion in <code>n_eff(λ)</code>, propagation loss, and non-ideal couplers (unless you use the Simphony/SAX view).</li>
-      </ul>
-    </div>
-
-    <div class="callout warning">
-      <div class="callout-title">
-        <span class="tag">Why two curves?</span>
-        <span>Analytic vs circuit compact-model simulation</span>
-      </div>
-      <ul>
-        <li><strong>Analytic</strong>: ideal, lossless, and uses a simple phase term with a tunable <code>n_eff</code>.</li>
-        <li><strong>Simphony/SAX</strong>: assembles an MZI from wavelength-dependent component models (splitter + waveguides + combiner).</li>
-      </ul>
-      <p>
-        Differences typically come from dispersion, the specific splitter/coupler model, and model conventions.
-        Use the <code>n_eff</code> tuning knob to align the analytic fringe spacing near λ0.
-      </p>
-    </div>
-
-    <div class="callout info">
-      <div class="callout-title">
-        <span class="tag">Concept check</span>
-        <span>Quick questions before you touch the sliders</span>
-      </div>
-      <ol>
-        <li>
-          If you <strong>double ΔL</strong>, does the FSR get bigger, smaller, or stay the same?
-          <details><summary><em>Answer</em></summary><p>Smaller (approximately halves), because FSR ∝ 1/ΔL.</p></details>
-        </li>
-        <li>
-          If you change the <strong>base arm length</strong> (both arms equally), does the FSR change in the ideal analytic model?
-          <details><summary><em>Answer</em></summary><p>No. Only the <em>difference</em> ΔL changes the interference period.</p></details>
-        </li>
-      </ol>
-    </div>
-
-    <div class="callout exercise">
-      <div class="callout-title">
-        <span class="tag">Exercise</span>
-        <span>FSR vs ΔL (mini-lab)</span>
-      </div>
-      <ol>
-        <li>Set ΔL to 10 µm and estimate the FSR from the plot (distance between adjacent maxima).</li>
-        <li>Double ΔL. Predict the new FSR using the rule of thumb, then verify it on the plot.</li>
-        <li>Change the base arm length. Does the FSR change in the ideal analytic model? Why or why not?</li>
-      </ol>
-    </div>
     """)
+
+    doc_callout_list(
+        "info",
+        tag="Assumptions",
+        title="What this plot is (and isn’t)",
+        items=[
+            "<strong>Ideal analytic curve:</strong> lossless, perfect 50/50 couplers, and a simplified phase term with a constant <code>n_eff</code>.",
+            "<strong>FSR physics:</strong> the rule-of-thumb comes from the condition “adjacent fringes ↔ Δφ changes by 2π” and uses <code>n_g</code> (group index).",
+            "<strong>What’s missing:</strong> wavelength-dependent dispersion in <code>n_eff(λ)</code>, propagation loss, and non-ideal couplers (unless you use the Simphony/SAX view).",
+        ],
+    )
+
+    doc_callout_html(
+        "warning",
+        tag="Why two curves?",
+        title="Analytic vs circuit compact-model simulation",
+        html="""
+        <ul>
+          <li><strong>Analytic</strong>: ideal, lossless, and uses a simple phase term with a tunable <code>n_eff</code>.</li>
+          <li><strong>Simphony/SAX</strong>: assembles an MZI from wavelength-dependent component models (splitter + waveguides + combiner).</li>
+        </ul>
+        <p>
+          Differences typically come from dispersion, the specific splitter/coupler model, and model conventions.
+          Use the <code>n_eff</code> tuning knob to align the analytic fringe spacing near λ0.
+        </p>
+        """,
+    )
+
+    doc_callout_html(
+        "info",
+        tag="Concept check",
+        title="Quick questions before you touch the sliders",
+        html="""
+        <ol>
+          <li>
+            If you <strong>double ΔL</strong>, does the FSR get bigger, smaller, or stay the same?
+            <details><summary><em>Answer</em></summary><p>Smaller (approximately halves), because FSR ∝ 1/ΔL.</p></details>
+          </li>
+          <li>
+            If you change the <strong>base arm length</strong> (both arms equally), does the FSR change in the ideal analytic model?
+            <details><summary><em>Answer</em></summary><p>No. Only the <em>difference</em> ΔL changes the interference period.</p></details>
+          </li>
+        </ol>
+        """,
+    )
+
+    doc_callout_list(
+        "exercise",
+        tag="Exercise",
+        title="FSR vs ΔL (mini-lab)",
+        ordered=True,
+        items=[
+            "Set ΔL to 10 µm and estimate the FSR from the plot (distance between adjacent maxima).",
+            "Double ΔL. Predict the new FSR using the rule of thumb, then verify it on the plot.",
+            "Change the base arm length. Does the FSR change in the ideal analytic model? Why or why not?",
+        ],
+    )
     return
 
 
