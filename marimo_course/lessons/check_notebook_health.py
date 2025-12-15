@@ -19,8 +19,8 @@ def _check_file(path: Path) -> int:
     errors: list[str] = []
     warnings: list[str] = []
 
-    if "app._unparsable_cell(" in text:
-        warnings.append("Found `app._unparsable_cell(...)` (often indicates corrupted marimo export).")
+    if any(line.lstrip().startswith("app._unparsable_cell(") for line in text.splitlines()):
+        errors.append("Found `app._unparsable_cell(...)` (often indicates corrupted marimo export).")
 
     try:
         mod = ast.parse(text)
@@ -31,8 +31,8 @@ def _check_file(path: Path) -> int:
     if mod is not None:
         for node in ast.walk(mod):
             if isinstance(node, ast.Return) and isinstance(node.value, ast.Tuple) and len(node.value.elts) == 1:
-                errors.append(
-                    f"Single-element tuple return at line {node.lineno} (likely `return (widget,)` bug)."
+                warnings.append(
+                    f"Single-element tuple return at line {node.lineno} (common in marimo exports)."
                 )
 
     # Heuristic: if the notebook defines a "Plot status" line, ensure it is actually returned nearby.
@@ -74,4 +74,3 @@ def main(argv: list[str]) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv))
-

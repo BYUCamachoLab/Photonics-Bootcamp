@@ -202,6 +202,113 @@ def _(mo):
 
 @app.cell
 def _(mo):
+    import ast as _ast
+    from pathlib import Path as _Path
+
+    notebook_path = _Path(__file__)
+    problems: list[str] = []
+
+    try:
+        text = notebook_path.read_text(encoding="utf-8")
+    except Exception as e:  # pragma: no cover
+        problems.append(f"Could not read notebook source: `{type(e).__name__}: {e}`")
+        text = ""
+
+    def _has_unparsable_cell_line(source: str) -> bool:
+        for line in source.splitlines():
+            if line.lstrip().startswith("app._unparsable_cell("):
+                return True
+        return False
+
+    if _has_unparsable_cell_line(text):
+        problems.append("Found `app._unparsable_cell(...)` (usually means the file was corrupted by an export).")
+
+    try:
+        mod = _ast.parse(text) if text else None
+    except SyntaxError as e:
+        problems.append(f"Notebook has a SyntaxError: `{e}`")
+        mod = None
+
+    def _is_app_cell(decorator: _ast.AST) -> bool:
+        d = decorator
+        if isinstance(d, _ast.Call):
+            d = d.func
+        return (
+            isinstance(d, _ast.Attribute)
+            and isinstance(d.value, _ast.Name)
+            and d.value.id == "app"
+            and d.attr == "cell"
+        )
+
+    if mod is not None:
+        exported: dict[str, list[int]] = {}
+
+        for node in mod.body:
+            if not isinstance(node, _ast.FunctionDef):
+                continue
+            if not any(_is_app_cell(d) for d in node.decorator_list):
+                continue
+
+            return_nodes = [n for n in _ast.walk(node) if isinstance(n, _ast.Return)]
+            if not return_nodes:
+                continue
+
+            ret = return_nodes[-1].value
+            if ret is None:
+                continue
+
+            if isinstance(ret, _ast.Name):
+                returned_names = [ret.id]
+            elif isinstance(ret, _ast.Tuple):
+                returned_names = [e.id for e in ret.elts if isinstance(e, _ast.Name)]
+            else:
+                returned_names = []
+
+            for name in returned_names:
+                exported.setdefault(name, []).append(node.lineno)
+
+        duplicates = {k: v for k, v in exported.items() if len(v) > 1}
+        if duplicates:
+            sensitive = ["blocks", "base64", "csv", "io", "Path"]
+            sensitive_dupes = {k: v for k, v in duplicates.items() if k in sensitive}
+            to_report = sensitive_dupes or duplicates
+            items = "".join(
+                f"<li><code>{name}</code> exported by multiple cells (lines {', '.join(map(str, lines))})</li>"
+                for name, lines in sorted(to_report.items())
+            )
+            problems.append(f"Duplicate exported variables detected:<ul>{items}</ul>")
+
+    if problems:
+        mo.md(
+            f"""
+            <div class="callout warning">
+              <div class="callout-title">
+                <span class="tag">Self-check</span>
+                <span>Notebook health warning</span>
+              </div>
+              <p>This notebook may behave unexpectedly (or be partially corrupted).</p>
+              {''.join(f'<div style="margin: 0.25rem 0;">{p}</div>' for p in problems)}
+              <p style="margin-top: 0.6rem;">
+                If you just edited this file in the marimo UI/VS Code and things broke, run
+                <code>git restore marimo_course/lessons/w02_mzi_modelling.py</code> and restart marimo.
+              </p>
+            </div>
+            """
+        )
+    else:
+        mo.md(
+            f"""
+            <div class="doc-badges">
+              <span class="doc-badge">Self-check: <strong>OK</strong></span>
+              <span class="doc-badge"><code>{notebook_path.name}</code></span>
+            </div>
+            """
+        )    # No return value: this cell only displays status.
+    return
+
+
+@app.cell
+def _(mo):
     mo.md(r"""
     <a id="mzi-intro"></a>
     ## What is an MZI (and why do we start here)?
@@ -446,7 +553,11 @@ def _():
     import altair as alt
     import gdsfactory as gf
     import polars as pl
-    return alt, gf, mo, np, pl
+    import base64 as b64
+    import csv
+    import io
+    from pathlib import Path
+    return Path, alt, b64, csv, gf, io, mo, np, pl
 
 
 @app.cell
@@ -541,7 +652,7 @@ def _(np):
         )
         code = compile(tree, "<student-expression>", "eval")
         return eval(code, safe_globals, safe_locals)  # noqa: S307 (restricted env)
-    return safe_math_eval
+    return (safe_math_eval,)
 
 
 @app.cell
@@ -634,7 +745,7 @@ def _(mo):
         value="Custom (use sliders)",
         label="Parameter preset",
     )
-    return param_preset
+    return (param_preset,)
 
 
 @app.cell
@@ -699,7 +810,7 @@ def _(mo):
         value="Analytic only",
         label="View",
     )
-    return view_mode
+    return (view_mode,)
 
 
 @app.cell
@@ -712,7 +823,7 @@ def _(mo):
         value="Direct waveguide I/O",
         label="Simphony I/O",
     )
-    return simphony_io
+    return (simphony_io,)
 
 
 @app.cell
@@ -725,19 +836,19 @@ def _(mo):
         value="Linear",
         label="Y scale",
     )
-    return y_scale
+    return (y_scale,)
 
 
 @app.cell
 def _(mo):
     show_plot_debug = mo.ui.checkbox(label="Show plot debug info", value=False)
-    return show_plot_debug
+    return (show_plot_debug,)
 
 
 @app.cell
 def _(mo):
     show_advanced = mo.ui.checkbox(label="Show advanced controls", value=False)
-    return show_advanced
+    return (show_advanced,)
 
 
 @app.cell
@@ -865,9 +976,12 @@ def _(np, view_mode):
 @app.cell
 def _(
     alt,
+    b64,
     base_length,
+    csv,
     delta_length,
     delta_length_um_effective,
+    io,
     jnp,
     mo,
     mzi_circuit,
@@ -1231,10 +1345,6 @@ def _(
 
     download_badge = ""
     try:
-        import base64
-        import csv
-        import io
-
         if plot_rows:
             out = io.StringIO()
             preferred_fields = ["wavelength_nm", "value", "value_plot", "curve"]
@@ -1251,7 +1361,7 @@ def _(
             writer.writeheader()
             for row in plot_rows:
                 writer.writerow({k: row.get(k, "") for k in fieldnames})
-            csv_b64 = base64.b64encode(out.getvalue().encode("utf-8")).decode("ascii")
+            csv_b64 = b64.b64encode(out.getvalue().encode("utf-8")).decode("ascii")
             download_badge = (
                 "<a class=\"doc-badge\" "
                 "style=\"cursor:pointer;\" "
@@ -1465,15 +1575,21 @@ def _(mo):
         kind="success",
         label="Write GDS",
     )
-    return show_layout, gds_out, export_gds
+    return export_gds, gds_out, show_layout
 
 
 @app.cell
-def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
-    import base64
-    from pathlib import Path
-
-    blocks = []
+def _(
+    Path,
+    b64,
+    delta_length_um_effective,
+    export_gds,
+    gds_out,
+    gf,
+    mo,
+    show_layout,
+):
+    layout_blocks = []
 
     c = None
     build_error = ""
@@ -1483,45 +1599,49 @@ def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
         build_error = f"{type(e).__name__}: {e}"
 
     if c is None:
-        return mo.md(f"(Could not build gf.components.mzi: `{build_error}`)")
-
-    if show_layout.value:
-        svg = None
-        try:
-            if hasattr(gf, "export") and hasattr(gf.export, "to_svg"):
-                svg = gf.export.to_svg(c)
-        except Exception:  # pragma: no cover
-            svg = None
-
-        if isinstance(svg, str) and "<svg" in svg:
-            b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
-            blocks.extend(
-                [
-                    mo.md("### Layout preview"),
-                    mo.md(
-                        "<div style='max-width:100%; overflow:auto;'>"
-                        f"<img src='data:image/svg+xml;base64,{b64}' style='max-width:100%; height:auto;'/>"
-                        "</div>"
-                    ),
-                ]
-            )
-        else:
-            blocks.append(
-                mo.md("(Preview unavailable in this environment; SVG export was not available.)")
-            )
-
-    if export_gds.value and export_gds.value > 0:
-        out_path = Path(gds_out.value).expanduser()
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            written = c.write_gds(gdspath=out_path)
-            blocks.append(mo.md(f"Wrote: `{written}`"))
-        except Exception as e:  # pragma: no cover
-            blocks.append(mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)"))
+        layout_blocks.append(mo.md(f"(Could not build `gf.components.mzi`: `{build_error}`)"))
     else:
-        blocks.append(mo.md("Click **Write GDS** to export the example layout."))
+        if show_layout.value:
+            svg = None
+            try:
+                if hasattr(gf, "export") and hasattr(gf.export, "to_svg"):
+                    svg = gf.export.to_svg(c)
+            except Exception:  # pragma: no cover
+                svg = None
 
-    return mo.vstack(blocks)
+            if isinstance(svg, str) and "<svg" in svg:
+                svg_b64 = b64.b64encode(svg.encode("utf-8")).decode("ascii")
+                layout_blocks.extend(
+                    [
+                        mo.md("### Layout preview"),
+                        mo.md(
+                            "<div style='max-width:100%; overflow:auto;'>"
+                            f"<img src='data:image/svg+xml;base64,{svg_b64}' style='max-width:100%; height:auto;'/>"
+                            "</div>"
+                        ),
+                    ]
+                )
+            else:
+                layout_blocks.append(
+                    mo.md(
+                        "(Preview unavailable in this environment; SVG export was not available.)"
+                    )
+                )
+
+        if export_gds.value and export_gds.value > 0:
+            out_path = Path(gds_out.value).expanduser()
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                written = c.write_gds(gdspath=out_path)
+                layout_blocks.append(mo.md(f"Wrote: `{written}`"))
+            except Exception as e:  # pragma: no cover
+                layout_blocks.append(mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)"))
+        else:
+            layout_blocks.append(mo.md("Click **Write GDS** to export the example layout."))
+
+    if not layout_blocks:
+        layout_blocks.append(mo.md(""))
+    return
 
 
 @app.cell
