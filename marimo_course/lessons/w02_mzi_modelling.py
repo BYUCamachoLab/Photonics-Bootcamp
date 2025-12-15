@@ -306,6 +306,7 @@ def _(mo):
         )
 
     _self_check_view
+    return
 
 
 @app.cell
@@ -938,7 +939,16 @@ def _(mo):
         value="Direct waveguide I/O",
         label="Simphony I/O",
     )
-    return (simphony_io,)
+    return simphony_io
+
+
+@app.cell
+def _(mo):
+    run_simphony = mo.ui.checkbox(
+        label="Compute Simphony curve (manual trigger)",
+        value=False,
+    )
+    return run_simphony
 
 
 @app.cell
@@ -1239,6 +1249,7 @@ def _(
     mzi_circuit_with_gc,
     np,
     pl,
+    run_simphony,
     simphony_error,
     simphony_io,
     view_mode,
@@ -1268,7 +1279,9 @@ def _(
     _simphony_plotted = False
     _sim_df = None
 
-    if _simphony_selected and _sim_circuit is not None:
+    _should_run = bool(run_simphony.value) and _simphony_selected
+
+    if _should_run and _sim_circuit is not None:
         try:
             _wl_sim = jnp.linspace(_wl_min_um, _wl_max_um, _n_points)
             _base_length_um = float(base_length.value)
@@ -1342,7 +1355,9 @@ def _(
 
     _simphony_status = ""
     if _simphony_selected:
-        if _sim_circuit is None:
+        if not _should_run:
+            _simphony_status = "Not computed (enable “Compute Simphony curve”)"
+        elif _sim_circuit is None:
             _simphony_status = f"Unavailable: `{simphony_error}`"
         elif _simphony_runtime_error:
             _simphony_status = f"Runtime error: `{_simphony_runtime_error}`"
@@ -1353,6 +1368,7 @@ def _(
 
     w02_simphony = {
         "selected": _simphony_selected,
+        "should_run": _should_run,
         "use_gratings": _use_gratings,
         "circuit_available": _sim_circuit is not None,
         "plotted": _simphony_plotted,
@@ -1383,6 +1399,7 @@ def _(
     playground_expr,
     playground_preset,
     preset_active,
+    run_simphony,
     show_advanced,
     show_plot_debug,
     simphony_io,
@@ -1493,6 +1510,7 @@ def _(
     ]
     if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
         right_items.append(simphony_io)
+        right_items.append(run_simphony)
     if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"] and not w02_simphony.get(
         "circuit_available", False
     ):
@@ -1623,8 +1641,12 @@ def _(
 
     if view_mode.value == "Simphony only" and not w02_simphony.get("plotted", False):
         chart_out = mo.md(
-            "**Simphony-only view:** no Simphony curve was produced in this environment.\n\n"
-            "Switch to **Analytic only** or **Overlay**."
+            "**Simphony-only view:** no Simphony curve to display.\n\n"
+            + (
+                "Enable **Compute Simphony curve** in the controls and re-run."
+                if not w02_simphony.get("should_run", False)
+                else "Switch to **Analytic only** or **Overlay**."
+            )
         )
     else:
         if not _plot_rows:
@@ -1886,6 +1908,7 @@ def _(delta_length, delta_length_um_effective, mo, preset_active):
         )
 
     _deltaL_note
+    return
 
 
 @app.cell
