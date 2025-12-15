@@ -541,7 +541,7 @@ def _(np):
         )
         code = compile(tree, "<student-expression>", "eval")
         return eval(code, safe_globals, safe_locals)  # noqa: S307 (restricted env)
-    return (safe_math_eval,)
+    return safe_math_eval
 
 
 @app.cell
@@ -634,7 +634,7 @@ def _(mo):
         value="Custom (use sliders)",
         label="Parameter preset",
     )
-    return (param_preset,)
+    return param_preset
 
 
 @app.cell
@@ -699,7 +699,7 @@ def _(mo):
         value="Analytic only",
         label="View",
     )
-    return (view_mode,)
+    return view_mode
 
 
 @app.cell
@@ -712,7 +712,7 @@ def _(mo):
         value="Direct waveguide I/O",
         label="Simphony I/O",
     )
-    return (simphony_io,)
+    return simphony_io
 
 
 @app.cell
@@ -725,19 +725,19 @@ def _(mo):
         value="Linear",
         label="Y scale",
     )
-    return (y_scale,)
+    return y_scale
 
 
 @app.cell
 def _(mo):
     show_plot_debug = mo.ui.checkbox(label="Show plot debug info", value=False)
-    return (show_plot_debug,)
+    return show_plot_debug
 
 
 @app.cell
 def _(mo):
     show_advanced = mo.ui.checkbox(label="Show advanced controls", value=False)
-    return (show_advanced,)
+    return show_advanced
 
 
 @app.cell
@@ -765,7 +765,14 @@ def _(mo):
 
 
 @app.cell
-def _(np):
+def _(np, view_mode):
+    if view_mode.value not in ["Simphony only", "Overlay (analytic + Simphony)"]:
+        jnp = np
+        mzi_circuit = None
+        mzi_circuit_with_gc = None
+        simphony_error = ""
+        return jnp, mzi_circuit, mzi_circuit_with_gc, simphony_error
+
     jnp = np  # Fallback if JAX is not available.
     mzi_circuit = None
     mzi_circuit_with_gc = None
@@ -1290,11 +1297,11 @@ def _(
 def _(mo):
     lam1_nm = mo.ui.text(value="", label="λ1 (nm)")
     lam2_nm = mo.ui.text(value="", label="λ2 (nm)")
-    return
+    return lam1_nm, lam2_nm
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
     wl0_um = float(spectrum_center.value)
     ng_val = float(ng.value)
     dL_um = float(delta_length_um_effective)
@@ -1305,7 +1312,7 @@ app._unparsable_cell(
 
     measured = None
     error_pct = None
-    parse_error = \"\"
+    parse_error = ""
     try:
         if lam1_nm.value.strip() and lam2_nm.value.strip():
             l1 = float(lam1_nm.value)
@@ -1314,14 +1321,14 @@ app._unparsable_cell(
             if fsr_est_nm is not None and fsr_est_nm > 0:
                 error_pct = 100.0 * (measured - fsr_est_nm) / fsr_est_nm
     except Exception as e:
-        parse_error = f\"{type(e).__name__}: {e}\"
+        parse_error = f"{type(e).__name__}: {e}"
 
     blocks = [
         mo.md(
-            r\"\"\"
-            <div class=\"callout exercise\">
-              <div class=\"callout-title\">
-                <span class=\"tag\">Tool</span>
+            r"""
+            <div class="callout exercise">
+              <div class="callout-title">
+                <span class="tag">Tool</span>
                 <span>Measure the FSR from the plot</span>
               </div>
               <p>
@@ -1330,29 +1337,28 @@ app._unparsable_cell(
                 $\mathrm{FSR} \approx \lambda_0^2/(n_g\,\Delta L)$.
               </p>
             </div>
-            \"\"\"
+            """
         ),
         mo.hstack([lam1_nm, lam2_nm]),
     ]
 
     if parse_error:
-        blocks.append(mo.md(f\"**Parse error:** `{parse_error}`\"))
+        blocks.append(mo.md(f"**Parse error:** `{parse_error}`"))
         return mo.vstack(blocks)
 
     if fsr_est_nm is None:
-        blocks.append(mo.md(\"Estimated FSR: **(ΔL = 0 → no fringes)**\"))
+        blocks.append(mo.md("Estimated FSR: **(ΔL = 0 → no fringes)**"))
         return mo.vstack(blocks)
 
-    blocks.append(mo.md(f\"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**\"))
+    blocks.append(mo.md(f"Estimated ideal FSR (using ng): **{fsr_est_nm:.2f} nm**"))
     if measured is not None:
-        blocks.append(mo.md(f\"Measured FSR: **{measured:.2f} nm**\"))
+        blocks.append(mo.md(f"Measured FSR: **{measured:.2f} nm**"))
         if error_pct is not None:
-            blocks.append(mo.md(f\"Percent difference vs estimate: **{error_pct:+.1f}%**\"))
+            blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
     else:
-        blocks.append(mo.md(\"Enter `λ1` and `λ2` to compute the measured FSR.\"))
-    """,
-    name="_"
-)
+        blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
+
+    return mo.vstack(blocks)
 
 
 @app.cell
@@ -1460,48 +1466,48 @@ def _(mo):
         kind="success",
         label="Write GDS",
     )
-    return
+    return show_layout, gds_out, export_gds
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _(delta_length_um_effective, export_gds, gf, gds_out, mo, show_layout):
     import base64
     from pathlib import Path
 
     blocks = []
     try:
         c = gf.components.mzi(delta_length=float(delta_length_um_effective))
-        build_error = \"\"
+        build_error = ""
     except Exception as e:  # pragma: no cover
         c = None
-        build_error = f\"{type(e).__name__}: {e}\"
+        build_error = f"{type(e).__name__}: {e}"
 
     if c is None:
-        return mo.md(f\"(Could not build `gf.components.mzi`: `{build_error}`)\")
+        return mo.md(f"(Could not build `gf.components.mzi`: `{build_error}`)")
 
     if show_layout.value:
         svg = None
         try:
-            if hasattr(gf, \"export\") and hasattr(gf.export, \"to_svg\"):
+            if hasattr(gf, "export") and hasattr(gf.export, "to_svg"):
                 svg = gf.export.to_svg(c)
         except Exception:  # pragma: no cover
             svg = None
 
-        if isinstance(svg, str) and \"<svg\" in svg:
-            b64 = base64.b64encode(svg.encode(\"utf-8\")).decode(\"ascii\")
+        if isinstance(svg, str) and "<svg" in svg:
+            b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
             blocks.extend(
                 [
-                    mo.md(\"### Layout preview\"),
+                    mo.md("### Layout preview"),
                     mo.md(
-                        \"<div style='max-width:100%; overflow:auto;'>\"
-                        f\"<img src='data:image/svg+xml;base64,{b64}' style='max-width:100%; height:auto;'/>\"
-                        \"</div>\"
+                        "<div style='max-width:100%; overflow:auto;'>"
+                        f"<img src='data:image/svg+xml;base64,{b64}' style='max-width:100%; height:auto;'/>"
+                        "</div>"
                     ),
                 ]
             )
         else:
             blocks.append(
-                mo.md(\"(Preview unavailable in this environment; SVG export was not available.)\")
+                mo.md("(Preview unavailable in this environment; SVG export was not available.)")
             )
 
     if export_gds.value and export_gds.value > 0:
@@ -1509,14 +1515,13 @@ app._unparsable_cell(
         out_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             written = c.write_gds(gdspath=out_path)
-            blocks.append(mo.md(f\"Wrote: `{written}`\"))
+            blocks.append(mo.md(f"Wrote: `{written}`"))
         except Exception as e:  # pragma: no cover
-            blocks.append(mo.md(f\"(GDS write failed: `{type(e).__name__}: {e}`)\"))
+            blocks.append(mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)"))
     else:
-        blocks.append(mo.md(\"Click **Write GDS** to export the example layout.\"))
-    """,
-    name="_"
-)
+        blocks.append(mo.md("Click **Write GDS** to export the example layout."))
+
+    return mo.vstack(blocks)
 
 
 @app.cell
