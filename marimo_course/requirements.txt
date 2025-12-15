@@ -1,0 +1,6 @@
+marimo
+gdsfactory[full]
+simphony==0.7.3
+altair
+polars
+pyzmq
