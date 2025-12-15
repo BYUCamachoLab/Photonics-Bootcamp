@@ -1357,7 +1357,6 @@ def _(delta_length_um_effective, lam1_nm, lam2_nm, mo, ng, spectrum_center):
                 blocks.append(mo.md(f"Percent difference vs estimate: **{error_pct:+.1f}%**"))
         else:
             blocks.append(mo.md("Enter `λ1` and `λ2` to compute the measured FSR."))
-
     return mo.vstack(blocks)
 
 
