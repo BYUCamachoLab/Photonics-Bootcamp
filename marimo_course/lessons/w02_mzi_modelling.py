@@ -834,7 +834,7 @@ def _(mo):
             "ΔL = 100 µm",
         ],
         value="Custom (use sliders)",
-        label="Parameter preset",
+        label="Parameter preset (overrides ΔL slider)",
     )
     return (param_preset,)
 
@@ -1279,6 +1279,17 @@ def _(
             2 * np.pi * ng_for_phase * delta_length_um / (wl_center_um**2)
         ) / 1e3
 
+    geometry_items = [base_length, param_preset]
+    if preset_active:
+        geometry_items.append(
+            mo.md(
+                f"**ΔL preset active:** using **ΔL = {delta_length_um_effective:.1f} µm**. "
+                f"(ΔL slider is ignored; it currently shows {float(delta_length.value):.1f} µm.)"
+            )
+        )
+    else:
+        geometry_items.append(delta_length)
+
     left_items = [
         mo.md("**Spectrum**"),
         spectrum_center,
@@ -1286,19 +1297,7 @@ def _(
         y_scale,
         mo.md(f"Wavelength window: **{wl_min_um*1e3:.1f}–{wl_max_um*1e3:.1f} nm**"),
         mo.md("**Geometry**"),
-        base_length,
-        delta_length,
-        param_preset,
-        *(
-            [
-                mo.md(
-                    f"Preset active: using **ΔL = {delta_length_um_effective:.1f} µm** "
-                    "(set preset to *Custom* to use the slider)."
-                )
-            ]
-            if preset_active
-            else []
-        ),
+        *geometry_items,
         ng,
         mo.md(r"FSR rule of thumb: $\mathrm{FSR} \approx \lambda_0^2 / (n_g\,\Delta L)$"),
         mo.md(
