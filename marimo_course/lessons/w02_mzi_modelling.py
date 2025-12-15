@@ -1090,81 +1090,91 @@ def _(np, view_mode):
 
 @app.cell
 def _(
-    alt,
-    b64,
-    base_length,
-    csv,
-    delta_length,
     delta_length_um_effective,
-    fsr_estimate_nm,
-    io,
-    jnp,
-    mo,
-    mzi_circuit,
-    mzi_circuit_with_gc,
     neff_linear_from_ng,
     n_eff,
     ng,
     np,
-    param_preset,
-    phase_slope_rad_per_nm,
     pl,
-    playground_enabled,
-    playground_expr,
-    playground_preset,
-    preset_active,
-    safe_math_eval,
-    show_advanced,
-    show_plot_debug,
-    simphony_error,
-    simphony_io,
     spectrum_center,
     spectrum_span_nm,
-    view_mode,
     y_scale,
 ):
-    from textwrap import dedent as _dedent
-
     n_points = 400
-
     wl_center_um = float(spectrum_center.value)
     span_um = float(spectrum_span_nm.value) / 1e3
     wl_min_um = wl_center_um - span_um / 2
     wl_max_um = wl_center_um + span_um / 2
 
-    wl = np.linspace(wl_min_um, wl_max_um, n_points)
+    wl_um = np.linspace(wl_min_um, wl_max_um, n_points)
+    wl_nm = wl_um * 1e3
+
+    semilog = y_scale.value == "Semilog (log y)"
+    log_floor = 1e-6
 
     n_index = float(n_eff.value)
     ng_for_analytic = float(ng.value)
     analytic_n_eff_lambda, analytic_dn_eff_dlambda = neff_linear_from_ng(
-        wl_um=wl,
+        wl_um=wl_um,
         wl0_um=wl_center_um,
         n_eff0=n_index,
         ng=ng_for_analytic,
     )
     delta_phi = (
-        2 * np.pi * analytic_n_eff_lambda * float(delta_length_um_effective) / wl
+        2 * np.pi * analytic_n_eff_lambda * float(delta_length_um_effective) / wl_um
     )
     T = 0.5 * (1 + np.cos(delta_phi))
-
-    semilog = y_scale.value == "Semilog (log y)"
-    log_floor = 1e-6
     analytic_value_plot = np.clip(T, log_floor, None) if semilog else T
 
     analytic_df = pl.DataFrame(
         {
-            "wavelength_nm": wl * 1e3,
+            "wavelength_nm": wl_nm,
             "value": T,
             "value_plot": analytic_value_plot,
-            "curve": ["Analytic through"] * len(wl),
+            "curve": ["Analytic through"] * len(wl_nm),
         }
     )
 
-    plot_rows: list[dict] = []
-    if view_mode.value in ["Analytic only", "Overlay (analytic + Simphony)"]:
-        plot_rows.extend(analytic_df.to_dicts())
+    w02_spectrum = {
+        "n_points": n_points,
+        "wl_center_um": wl_center_um,
+        "wl_min_um": wl_min_um,
+        "wl_max_um": wl_max_um,
+        "wl_um": wl_um,
+        "wl_nm": wl_nm,
+        "semilog": semilog,
+        "log_floor": log_floor,
+    }
+    w02_analytic = {
+        "n_eff0": n_index,
+        "n_g": ng_for_analytic,
+        "dn_eff_dlambda_um_inv": float(analytic_dn_eff_dlambda),
+        "df": analytic_df,
+    }
+    return w02_spectrum, w02_analytic
+
+
+@app.cell
+def _(
+    delta_length_um_effective,
+    n_eff,
+    ng,
+    np,
+    pl,
+    playground_enabled,
+    playground_expr,
+    playground_preset,
+    safe_math_eval,
+    w02_spectrum,
+):
+    wl_um = w02_spectrum["wl_um"]
+    wl_nm = w02_spectrum["wl_nm"]
+    semilog = w02_spectrum["semilog"]
+    log_floor = w02_spectrum["log_floor"]
 
     playground_error = ""
+    playground_df = None
+
     if playground_enabled.value:
         preset = playground_preset.value
         preset_exprs = {
@@ -1182,37 +1192,58 @@ def _(
         else:
             try:
                 env = {
-                    "wl_um": wl,
-                    "wl_nm": wl * 1e3,
+                    "wl_um": wl_um,
+                    "wl_nm": wl_nm,
                     "pi": float(np.pi),
                     "delta_L": float(delta_length_um_effective),
-                    "n_eff": float(n_index),
+                    "n_eff": float(n_eff.value),
                     "n_g": float(ng.value),
                 }
                 y = safe_math_eval(expr_str, env)
                 y_arr = np.asarray(y, dtype=float)
                 if y_arr.shape == ():
-                    y_arr = np.full_like(wl, float(y_arr))
+                    y_arr = np.full_like(wl_um, float(y_arr))
                 else:
                     y_arr = y_arr.reshape(-1)
-                if len(y_arr) != len(wl):
+                if len(y_arr) != len(wl_um):
                     raise ValueError(
-                        f"Expression returned {len(y_arr)} values; expected {len(wl)} (or a scalar)."
+                        f"Expression returned {len(y_arr)} values; expected {len(wl_um)} (or a scalar)."
                     )
 
                 y_plot = np.clip(y_arr, log_floor, None) if semilog else y_arr
-                user_df = pl.DataFrame(
+                playground_df = pl.DataFrame(
                     {
-                        "wavelength_nm": wl * 1e3,
+                        "wavelength_nm": wl_nm,
                         "value": y_arr,
                         "value_plot": y_plot,
-                        "curve": ["Student expression"] * len(wl),
+                        "curve": ["Student expression"] * len(wl_nm),
                     }
                 )
-                plot_rows.extend(user_df.to_dicts())
             except Exception as e:
                 playground_error = f"{type(e).__name__}: {e}"
 
+    w02_playground = {
+        "enabled": bool(playground_enabled.value),
+        "error": playground_error,
+        "df": playground_df,
+    }
+    return (w02_playground,)
+
+
+@app.cell
+def _(
+    base_length,
+    delta_length_um_effective,
+    jnp,
+    mzi_circuit,
+    mzi_circuit_with_gc,
+    np,
+    pl,
+    simphony_error,
+    simphony_io,
+    view_mode,
+    w02_spectrum,
+):
     simphony_selected = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
     use_gratings = simphony_io.value == "Include grating couplers (in + out)"
 
@@ -1224,8 +1255,16 @@ def _(
             else mzi_circuit
         )
 
+    wl_min_um = float(w02_spectrum["wl_min_um"])
+    wl_max_um = float(w02_spectrum["wl_max_um"])
+    n_points = int(w02_spectrum["n_points"])
+    semilog = bool(w02_spectrum["semilog"])
+    log_floor = float(w02_spectrum["log_floor"])
+
     simphony_runtime_error = ""
     simphony_plotted = False
+    sim_df = None
+
     if simphony_selected and sim_circuit is not None:
         try:
             wl_sim = jnp.linspace(wl_min_um, wl_max_um, n_points)
@@ -1276,11 +1315,15 @@ def _(
             wl_nm = np.array(wl_sim) * 1e3
             intensity_through_np = np.array(intensity_through)
             sim_value_plot = (
-                np.clip(intensity_through_np, log_floor, None) if semilog else intensity_through_np
+                np.clip(intensity_through_np, log_floor, None)
+                if semilog
+                else intensity_through_np
             )
 
             curve_label = (
-                "Through (Simphony, with grating couplers)" if use_gratings else "Through (Simphony)"
+                "Through (Simphony, with grating couplers)"
+                if use_gratings
+                else "Through (Simphony)"
             )
             sim_df = pl.DataFrame(
                 {
@@ -1290,17 +1333,94 @@ def _(
                     "curve": [curve_label] * len(wl_nm),
                 }
             )
-            plot_rows.extend(sim_df.to_dicts())
             simphony_plotted = True
         except Exception as e:  # pragma: no cover
             simphony_runtime_error = f"{type(e).__name__}: {e}"
+
+    simphony_status = ""
+    if simphony_selected:
+        if sim_circuit is None:
+            simphony_status = f"Unavailable: `{simphony_error}`"
+        elif simphony_runtime_error:
+            simphony_status = f"Runtime error: `{simphony_runtime_error}`"
+        elif simphony_plotted:
+            simphony_status = "OK (Simphony curve computed)"
+        else:
+            simphony_status = "No curve produced (unexpected)"
+
+    w02_simphony = {
+        "selected": simphony_selected,
+        "use_gratings": use_gratings,
+        "circuit_available": sim_circuit is not None,
+        "plotted": simphony_plotted,
+        "status": simphony_status,
+        "runtime_error": simphony_runtime_error,
+        "df": sim_df,
+        "import_error": simphony_error,
+    }
+    return (w02_simphony,)
+
+
+@app.cell
+def _(
+    alt,
+    b64,
+    base_length,
+    csv,
+    delta_length,
+    delta_length_um_effective,
+    fsr_estimate_nm,
+    io,
+    mo,
+    n_eff,
+    ng,
+    param_preset,
+    phase_slope_rad_per_nm,
+    playground_enabled,
+    playground_expr,
+    playground_preset,
+    preset_active,
+    show_advanced,
+    show_plot_debug,
+    simphony_io,
+    spectrum_center,
+    spectrum_span_nm,
+    view_mode,
+    w02_analytic,
+    w02_playground,
+    w02_simphony,
+    w02_spectrum,
+    y_scale,
+):
+    from textwrap import dedent as _dedent
+
+    wl_center_um = float(w02_spectrum["wl_center_um"])
+    wl_min_um = float(w02_spectrum["wl_min_um"])
+    wl_max_um = float(w02_spectrum["wl_max_um"])
+    semilog = bool(w02_spectrum["semilog"])
+    log_floor = float(w02_spectrum["log_floor"])
+
+    analytic_df = w02_analytic["df"]
+
+    plot_rows: list[dict] = []
+    if view_mode.value in ["Analytic only", "Overlay (analytic + Simphony)"]:
+        plot_rows.extend(analytic_df.to_dicts())
+
+    if w02_playground.get("df") is not None:
+        plot_rows.extend(w02_playground["df"].to_dicts())
+
+    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
+        if w02_simphony.get("df") is not None:
+            plot_rows.extend(w02_simphony["df"].to_dicts())
 
     base_length_um = float(base_length.value)
     delta_length_um = float(delta_length_um_effective)
     short_length_mm = base_length_um / 1e3
     long_length_mm = (base_length_um + delta_length_um) / 1e3
 
-    fsr_nm = fsr_estimate_nm(wl0_um=wl_center_um, ng=float(ng.value), delta_length_um=delta_length_um)
+    fsr_nm = fsr_estimate_nm(
+        wl0_um=wl_center_um, ng=float(ng.value), delta_length_um=delta_length_um
+    )
     phase_slope_est_rad_per_nm = phase_slope_rad_per_nm(
         wl0_um=wl_center_um, ng=float(ng.value), delta_length_um=delta_length_um
     )
@@ -1337,24 +1457,19 @@ def _(
         mo.md(f"Lengths: short={short_length_mm:.2f} mm, long={long_length_mm:.2f} mm"),
     ]
     if semilog:
-        left_items.append(mo.md(f"Semilog note: values are floored at **{log_floor:g}** for display."))
-
-    simphony_status = ""
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
-        if sim_circuit is None:
-            simphony_status = f"Unavailable: `{simphony_error}`"
-        elif simphony_runtime_error:
-            simphony_status = f"Runtime error: `{simphony_runtime_error}`"
-        elif simphony_plotted:
-            simphony_status = "OK (Simphony curve computed)"
-        else:
-            simphony_status = "No curve produced (unexpected)"
+        left_items.append(
+            mo.md(f"Semilog note: values are floored at **{log_floor:g}** for display.")
+        )
 
     status_lines = []
     if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
-        status_lines.append(f"<span class=\"doc-badge\">Simphony: <strong>{simphony_status}</strong></span>")
+        status_lines.append(
+            f"<span class=\"doc-badge\">Simphony: <strong>{w02_simphony.get('status','')}</strong></span>"
+        )
     else:
-        status_lines.append("<span class=\"doc-badge\">Simphony: <strong>(not requested)</strong></span>")
+        status_lines.append(
+            "<span class=\"doc-badge\">Simphony: <strong>(not requested)</strong></span>"
+        )
 
     model_status_line = mo.md(
         _dedent(
@@ -1375,22 +1490,25 @@ def _(
     ]
     if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
         right_items.append(simphony_io)
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"] and sim_circuit is None:
+    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"] and not w02_simphony.get(
+        "circuit_available", False
+    ):
         right_items.append(
             mo.md(
                 "**Note:** Simphony-based circuit view is unavailable in this environment.\n\n"
-                f"`{simphony_error}`"
+                f"`{w02_simphony.get('import_error','')}`"
             )
         )
-    if simphony_runtime_error:
+    if w02_simphony.get("runtime_error"):
         right_items.append(
             mo.md(
                 "**Simphony runtime error:** the circuit was available, but evaluation failed.\n\n"
-                f"`{simphony_runtime_error}`\n\n"
+                f"`{w02_simphony.get('runtime_error')}`\n\n"
                 "Tip: switch to **Analytic only** to continue."
             )
         )
 
+    n_index = float(w02_analytic["n_eff0"])
     if show_advanced.value:
         right_items.extend(
             [
@@ -1398,7 +1516,7 @@ def _(
                 n_eff,
                 mo.md(
                     f"Analytic uses `n_eff(λ0) = {n_index:.5f}` and `n_g = {float(ng.value):.3f}` "
-                    f"(implies `dn_eff/dλ ≈ {analytic_dn_eff_dlambda:.3f} per µm` near λ0)."
+                    f"(implies `dn_eff/dλ ≈ {float(w02_analytic['dn_eff_dlambda_um_inv']):.3f} per µm` near λ0)."
                 ),
                 mo.md("#### Student playground"),
                 playground_enabled,
@@ -1424,13 +1542,11 @@ def _(
                     """
                 )
             )
-            if playground_error:
-                right_items.append(mo.md(f"**Playground error:** `{playground_error}`"))
+            if w02_playground.get("error"):
+                right_items.append(mo.md(f"**Playground error:** `{w02_playground['error']}`"))
     else:
         right_items.append(
-            mo.md(
-                f"Analytic uses `n_eff(λ0) = {n_index:.5f}` and `n_g = {float(ng.value):.3f}`."
-            )
+            mo.md(f"Analytic uses `n_eff(λ0) = {n_index:.5f}` and `n_g = {float(ng.value):.3f}`.")
         )
 
     controls = mo.hstack([mo.vstack(left_items), mo.vstack(right_items)])
@@ -1495,7 +1611,7 @@ def _(
         )
     )
 
-    if view_mode.value == "Simphony only" and not simphony_plotted:
+    if view_mode.value == "Simphony only" and not w02_simphony.get("plotted", False):
         chart_out = mo.md(
             "**Simphony-only view:** no Simphony curve was produced in this environment.\n\n"
             "Switch to **Analytic only** or **Overlay**."
@@ -1505,7 +1621,9 @@ def _(
             plot_rows.extend(analytic_df.to_dicts())
 
         y_scale_obj = (
-            alt.Scale(type="log", domain=[log_floor, 1]) if semilog else alt.Scale(domain=[0, 1])
+            alt.Scale(type="log", domain=[log_floor, 1])
+            if semilog
+            else alt.Scale(domain=[0, 1])
         )
         y_field = "value_plot" if semilog else "value"
         chart = (
