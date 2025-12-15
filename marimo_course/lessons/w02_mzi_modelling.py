@@ -745,6 +745,18 @@ def _(mo):
     Use the controls to explore how **ΔL** sets the **fringe spacing** (FSR).
     You can compare a simple analytic model to an optional **Simphony/SAX circuit model** built from compact component models (if available in your environment).
 
+    <div class="callout info">
+      <div class="callout-title">
+        <span class="tag">Assumptions</span>
+        <span>What this plot is (and isn’t)</span>
+      </div>
+      <ul>
+        <li><strong>Ideal analytic curve:</strong> lossless, perfect 50/50 couplers, and a simplified phase term with a constant <code>n_eff</code>.</li>
+        <li><strong>FSR physics:</strong> the rule-of-thumb comes from the condition “adjacent fringes ↔ Δφ changes by 2π” and uses <code>n_g</code> (group index).</li>
+        <li><strong>What’s missing:</strong> wavelength-dependent dispersion in <code>n_eff(λ)</code>, propagation loss, and non-ideal couplers (unless you use the Simphony/SAX view).</li>
+      </ul>
+    </div>
+
     <div class="callout warning">
       <div class="callout-title">
         <span class="tag">Why two curves?</span>
@@ -758,6 +770,23 @@ def _(mo):
         Differences typically come from dispersion, the specific splitter/coupler model, and model conventions.
         Use the <code>n_eff</code> tuning knob to align the analytic fringe spacing near λ0.
       </p>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-title">
+        <span class="tag">Concept check</span>
+        <span>Quick questions before you touch the sliders</span>
+      </div>
+      <ol>
+        <li>
+          If you <strong>double ΔL</strong>, does the FSR get bigger, smaller, or stay the same?
+          <details><summary><em>Answer</em></summary><p>Smaller (approximately halves), because FSR ∝ 1/ΔL.</p></details>
+        </li>
+        <li>
+          If you change the <strong>base arm length</strong> (both arms equally), does the FSR change in the ideal analytic model?
+          <details><summary><em>Answer</em></summary><p>No. Only the <em>difference</em> ΔL changes the interference period.</p></details>
+        </li>
+      </ol>
     </div>
 
     <div class="callout exercise">
