@@ -252,7 +252,7 @@ def _(mo):
 
     - **ΔL**: physical path-length difference between the two arms (µm).
     - **λ**: wavelength (µm here).
-    - **n_eff**: effective index for phase accumulation (used in the phase term).
+    - **n_eff**: (phase) effective index used in the toy phase term.
     - **n_g**: group index (sets fringe spacing / FSR).
     - **FSR**: free spectral range, the wavelength spacing between fringes.
     """)
@@ -295,7 +295,7 @@ def _(mo):
 
     - Two identical 50/50 couplers.
     - One arm longer than the other by a physical length difference ΔL (in µm).
-    - A constant effective index parameter `n_eff` (we’ll refine this later).
+    - A constant phase index parameter `n_eff` (toy model; we’ll refine this later).
 
     A simple schematic is:
 
@@ -681,9 +681,9 @@ def _(mo):
     n_eff = mo.ui.slider(
         start=1.0,
         stop=6.0,
-        value=4.19088,
+        value=2.40,
         step=0.0001,
-        label="Analytic effective index n_eff (phase tuning knob)",
+        label="Phase effective index n_eff (toy model; tune fringes)",
     )
     return n_eff, ng, spectrum_center, spectrum_span_nm
 
