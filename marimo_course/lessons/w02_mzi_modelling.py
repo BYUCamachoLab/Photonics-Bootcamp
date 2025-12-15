@@ -991,11 +991,19 @@ def _(
 
     simphony_selected = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
     use_gratings = simphony_io.value == "Include grating couplers (in + out)"
-    sim_circuit = (
-        mzi_circuit_with_gc
-        if (use_gratings and mzi_circuit_with_gc is not None)
-        else mzi_circuit
-    )
+
+    # Guard against any environment/editor issues where the Simphony cell fails to
+    # define these symbols; in that case, Simphony view gracefully becomes unavailable.
+    mzi_circuit_local = locals().get("mzi_circuit", None)
+    mzi_circuit_with_gc_local = locals().get("mzi_circuit_with_gc", None)
+
+    sim_circuit = None
+    if simphony_selected:
+        sim_circuit = (
+            mzi_circuit_with_gc_local
+            if (use_gratings and mzi_circuit_with_gc_local is not None)
+            else mzi_circuit_local
+        )
 
     if simphony_selected and sim_circuit is not None:
         # Simphony MZI model using SAX / siepic library.
