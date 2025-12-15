@@ -2,7 +2,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "marimo>=0.17.0",
+#   "marimo==0.18.4",
 #   "gdsfactory[full]==9.25.2",
 #   "simphony==0.7.3",
 #   "altair==6.0.0",
