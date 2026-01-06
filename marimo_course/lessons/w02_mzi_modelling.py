@@ -18,217 +18,129 @@ app = marimo.App()
 
 
 @app.cell
-def _(doc_badges, doc_callout_html, mo):
-    mo.md(r"""
-    <style>
-      :root {
-        --doc-max: 920px;
-        --doc-muted: color-mix(in srgb, currentColor 65%, transparent);
-        --doc-border: color-mix(in srgb, currentColor 18%, transparent);
-        --doc-accent: #2563eb;
-        --doc-bg: color-mix(in srgb, currentColor 3%, transparent);
-      }
+def _(mo):
+    from _notebook_template import inject_css
 
-      /* "Docs-like" typography + width */
-      .markdown.prose,
-      .markdown.prose > :is(h1,h2,h3,h4,h5,h6,p,ul,ol,pre,blockquote,table,hr,div) {
-        max-width: var(--doc-max);
-      }
-      .markdown.prose { padding-right: 1rem; }
-      .markdown.prose :is(h1,h2,h3) { letter-spacing: -0.01em; }
-      .markdown.prose a { color: var(--doc-accent); text-decoration: none; }
-      .markdown.prose a:hover { text-decoration: underline; }
-      .markdown.prose code {
-        background: var(--doc-bg);
-        padding: 0.12rem 0.28rem;
-        border-radius: 0.3rem;
-      }
-      .markdown.prose pre code { background: transparent; padding: 0; }
-      .markdown.prose pre {
-        border: 1px solid var(--doc-border);
-        border-radius: 0.7rem;
-        padding: 0.9rem 1rem;
-        overflow: auto;
-      }
-
-      .doc-hero {
-        max-width: var(--doc-max);
-        border: 1px solid var(--doc-border);
-        border-radius: 1rem;
-        padding: 1.2rem 1.2rem 0.9rem 1.2rem;
-        background: linear-gradient(
-          180deg,
-          color-mix(in srgb, var(--doc-accent) 10%, transparent),
-          transparent
-        );
-      }
-      .doc-hero h1 { margin: 0.2rem 0 0.4rem 0; }
-      .doc-hero p { margin: 0.2rem 0 0.8rem 0; color: var(--doc-muted); }
-      .doc-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.2rem 0; }
-      .doc-badge {
-        border: 1px solid var(--doc-border);
-        border-radius: 999px;
-        padding: 0.15rem 0.55rem;
-        font-size: 0.85rem;
-        background: color-mix(in srgb, currentColor 2%, transparent);
-      }
-      .doc-toc {
-        max-width: var(--doc-max);
-        border: 1px solid var(--doc-border);
-        border-radius: 0.9rem;
-        padding: 0.8rem 1rem;
-        background: color-mix(in srgb, currentColor 1%, transparent);
-      }
-      .doc-toc ul { margin: 0.4rem 0 0 1.2rem; }
-
-      /* Standard callouts */
-      .callout {
-        max-width: var(--doc-max);
-        border: 1px solid var(--doc-border);
-        border-radius: 0.9rem;
-        padding: 0.85rem 1rem;
-        margin: 0.9rem 0;
-        background: color-mix(in srgb, currentColor 1%, transparent);
-      }
-      .callout-title {
-        display: flex;
-        align-items: center;
-        gap: 0.55rem;
-        font-weight: 700;
-        margin-bottom: 0.35rem;
-      }
-      .callout-title .tag {
-        font-size: 0.8rem;
-        border: 1px solid var(--doc-border);
-        border-radius: 999px;
-        padding: 0.1rem 0.5rem;
-        color: var(--doc-muted);
-        font-weight: 600;
-      }
-      .callout.info { border-left: 5px solid #2563eb; }
-      .callout.warning { border-left: 5px solid #b45309; }
-      .callout.exercise { border-left: 5px solid #059669; }
-
-      /* Slightly more compact widgets (sliders/buttons/inputs) */
-      label, input, select, textarea, button {
-        font-size: 0.92rem;
-      }
-
-      @media (max-width: 980px) {
-        .markdown.prose { padding-right: 1rem; }
-      }
-    </style>
-    """)
+    inject_css(mo)
     return
 
 
 @app.cell
 def _(mo):
-    from textwrap import dedent as _dedent
+    from _notebook_template import make_doc_helpers
 
-    def _escape_attr(value: str) -> str:
-        return (
-            value.replace("&", "&amp;")
-            .replace('"', "&quot;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;")
-        )
-
-    def doc_badges(
-        badges: list[str],
-        *,
-        style: str | None = None,
-    ):
-        style_attr = f' style="{_escape_attr(style)}"' if style else ""
-        inner = "".join(f'<span class="doc-badge">{b}</span>' for b in badges)
-        return mo.md(f'<div class="doc-badges"{style_attr}>{inner}</div>')
-
-    def doc_callout_list(
-        kind: str,
-        *,
-        tag: str,
-        title: str,
-        items: list[str],
-        ordered: bool = False,
-    ):
-        list_tag = "ol" if ordered else "ul"
-        inner = "".join(f"<li>{item}</li>" for item in items)
-        return mo.md(
-            _dedent(
-                f"""
-                <div class="callout {kind}">
-                  <div class="callout-title">
-                    <span class="tag">{tag}</span>
-                    <span>{title}</span>
-                  </div>
-                  <{list_tag}>
-                    {inner}
-                  </{list_tag}>
-                </div>
-                """
-            )
-        )
-
-    def doc_callout_html(
-        kind: str,
-        *,
-        tag: str,
-        title: str,
-        html: str,
-    ):
-        return mo.md(
-            _dedent(
-                f"""
-                <div class="callout {kind}">
-                  <div class="callout-title">
-                    <span class="tag">{tag}</span>
-                    <span>{title}</span>
-                  </div>
-                  {html}
-                </div>
-                """
-            )
-        )
+    doc_badges, doc_callout_html, doc_callout_list = make_doc_helpers(mo)
     return doc_badges, doc_callout_html, doc_callout_list
 
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""
-        <div class="doc-hero">
-          <div class="doc-badges">
-            <span class="doc-badge">Week 2</span>
-            <span class="doc-badge">Interference</span>
-            <span class="doc-badge">Transfer functions</span>
-            <span class="doc-badge">gdsfactory + Simphony</span>
-          </div>
-          <h1>MZI modelling with gdsfactory</h1>
-          <p>Build intuition for a Mach–Zehnder interferometer (MZI), derive its transfer function, and connect one key layout parameter (ΔL) to a measurable signature (FSR).</p>
-          <p><small><em>Notebook build: 2025-12-14</em></small></p>
-        </div>
-        """
+    from _notebook_template import make_section_tabs
+
+    section_tabs, view_state, set_view = make_section_tabs(mo)
+    section_tabs
+    return set_view, view_state
+
+
+@app.cell
+def _(view_state):
+    view = view_state()
+    show_overview = view in ["All", "Overview"]
+    show_theory = view in ["All", "Theory"]
+    show_interactive = view in ["All", "Interactive"]
+    show_layout_section = view in ["All", "Layout"]
+    return (
+        show_interactive,
+        show_layout_section,
+        show_overview,
+        show_theory,
+        view,
     )
-    mo.md(
-        r"""
-        <div class="doc-toc">
-          <strong>On this page</strong>
-          <ul>
-            <li><a href="#mzi-intro">What is an MZI?</a></li>
-            <li><a href="#glossary">Key terms</a></li>
-            <li><a href="#gdsfactory">What is gdsfactory?</a></li>
-            <li><a href="#theory">Analytic model</a></li>
-            <li><a href="#interactive">Interactive spectrum</a></li>
-            <li><a href="#layout">Layout preview + GDS export</a></li>
-          </ul>
-        </div>
-        """
+
+
+@app.cell
+def _(
+    doc_badges,
+    show_interactive,
+    show_layout_section,
+    show_overview,
+    show_theory,
+    view,
+):
+    doc_badges(
+        [
+            f"Notebook view: <strong>{view}</strong>",
+            (
+                "Flags: "
+                f"overview={show_overview}, "
+                f"theory={show_theory}, "
+                f"interactive={show_interactive}, "
+                f"layout={show_layout_section}"
+            ),
+        ]
     )
     return
 
 
 @app.cell
-def _(doc_callout_list):
+def _(mo, show_overview):
+    mo.stop(not show_overview)
+    from _style import header
+
+    header(
+        mo,
+        title="MZI modelling",
+        subtitle=(
+            "Build intuition for a Mach–Zehnder interferometer (MZI), derive its transfer function, "
+            "and connect one key layout parameter (ΔL) to a measurable signature (FSR). "
+            "We’ll also preview how this maps to layout, but layout work happens in the next lesson."
+        ),
+        badges=[
+            "Week 2",
+            "Lab companion",
+            "Interference",
+            "Transfer functions",
+            "1550 nm (default)",
+            "Simphony (optional)",
+            "Layout bridge",
+        ],
+        toc=[
+            ("Overview", "overview"),
+            ("Glossary", "glossary"),
+            ("Theory", "theory"),
+            ("Interactive", "interactive"),
+            ("Layout", "layout"),
+        ],
+        build="2025-12-14",
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    from _notebook_template import make_health_refresh_button
+
+    health_refresh = make_health_refresh_button(mo)
+    return (health_refresh,)
+
+
+@app.cell
+def _(doc_callout_html, health_refresh, mo):
+    from _notebook_template import safe_editing_panel
+
+    safe_editing_panel(
+        mo,
+        doc_callout_html,
+        health_refresh,
+        restore_command="git -C Photonics-Bootcamp restore marimo_course/lessons/w02_mzi_modelling.py",
+        external_check_command="python3 marimo_course/lessons/check_notebook_health.py marimo_course/lessons/w02_mzi_modelling.py",
+    )
+    return
+
+
+@app.cell
+def _(doc_callout_list, mo, show_overview):
+    mo.stop(not show_overview)
     doc_callout_list(
         "info",
         tag="Roadmap",
@@ -255,7 +167,7 @@ def _(doc_callout_list):
     doc_callout_list(
         "info",
         tag="Expected outputs",
-        title="What “working” looks like",
+        title="What “working” looks like (in lab)",
         items=[
             "An interactive transmission plot that changes when you move <strong>ΔL</strong>.",
             "FSR decreases when ΔL increases (approximately inverse proportional).",
@@ -267,116 +179,43 @@ def _(doc_callout_list):
 
 
 @app.cell
-def _(mo):
-    import ast as _ast
-    from pathlib import Path as _Path
+def _(mo, set_view, show_overview):
+    mo.stop(not show_overview)
+    go_interactive = mo.ui.button(
+        value=0,
+        kind="success",
+        label="Go to Interactive section",
+        on_click=lambda v: (set_view("Interactive"), (v or 0) + 1)[-1],
+    )
+    go_layout = mo.ui.button(
+        value=0,
+        kind="neutral",
+        label="Go to Layout section",
+        on_click=lambda v: (set_view("Layout"), (v or 0) + 1)[-1],
+    )
+    mo.hstack([go_interactive, go_layout])
+    return
 
-    notebook_path = _Path(__file__)
-    problems: list[str] = []
 
-    try:
-        text = notebook_path.read_text(encoding="utf-8")
-    except Exception as e:  # pragma: no cover
-        problems.append(f"Could not read notebook source: `{type(e).__name__}: {e}`")
-        text = ""
+@app.cell
+def _(doc_badges, doc_callout_html, health_refresh):
+    from _notebook_template import notebook_self_check_view
 
-    def _has_unparsable_cell_line(source: str) -> bool:
-        for line in source.splitlines():
-            if line.lstrip().startswith("app._unparsable_cell("):
-                return True
-        return False
-
-    if _has_unparsable_cell_line(text):
-        problems.append("Found `app._unparsable_cell(...)` (usually means the file was corrupted by an export).")
-
-    try:
-        mod = _ast.parse(text) if text else None
-    except SyntaxError as e:
-        problems.append(f"Notebook has a SyntaxError: `{e}`")
-        mod = None
-
-    def _is_app_cell(decorator: _ast.AST) -> bool:
-        d = decorator
-        if isinstance(d, _ast.Call):
-            d = d.func
-        return (
-            isinstance(d, _ast.Attribute)
-            and isinstance(d.value, _ast.Name)
-            and d.value.id == "app"
-            and d.attr == "cell"
-        )
-
-    if mod is not None:
-        exported: dict[str, list[int]] = {}
-
-        for node in mod.body:
-            if not isinstance(node, _ast.FunctionDef):
-                continue
-            if not any(_is_app_cell(d) for d in node.decorator_list):
-                continue
-
-            return_nodes = [n for n in _ast.walk(node) if isinstance(n, _ast.Return)]
-            if not return_nodes:
-                continue
-
-            ret = return_nodes[-1].value
-            if ret is None:
-                continue
-
-            if isinstance(ret, _ast.Name):
-                returned_names = [ret.id]
-            elif isinstance(ret, _ast.Tuple):
-                returned_names = [e.id for e in ret.elts if isinstance(e, _ast.Name)]
-            else:
-                returned_names = []
-
-            for name in returned_names:
-                exported.setdefault(name, []).append(node.lineno)
-
-        duplicates = {k: v for k, v in exported.items() if len(v) > 1}
-        if duplicates:
-            sensitive = ["blocks", "base64", "csv", "io", "Path"]
-            sensitive_dupes = {k: v for k, v in duplicates.items() if k in sensitive}
-            to_report = sensitive_dupes or duplicates
-            items = "".join(
-                f"<li><code>{name}</code> exported by multiple cells (lines {', '.join(map(str, lines))})</li>"
-                for name, lines in sorted(to_report.items())
-            )
-            problems.append(f"Duplicate exported variables detected:<ul>{items}</ul>")
-
-    if problems:
-        _details = "".join(
-            f'<div style="margin: 0.25rem 0;">{p}</div>' for p in problems
-        )
-        _self_check_view = doc_callout_html(
-            "warning",
-            tag="Self-check",
-            title="Notebook health warning",
-            html=(
-                "<p>This notebook may behave unexpectedly (or be partially corrupted).</p>"
-                f"{_details}"
-                "<p style=\"margin-top: 0.6rem;\">"
-                "If you just edited this file in the marimo UI/VS Code and things broke, run "
-                "<code>git restore marimo_course/lessons/w02_mzi_modelling.py</code> and restart marimo."
-                "</p>"
-            ),
-        )
-    else:
-        _self_check_view = doc_badges(
-            [
-                "Self-check: <strong>OK</strong>",
-                f"<code>{notebook_path.name}</code>",
-            ]
-        )
-
+    _self_check_view = notebook_self_check_view(
+        doc_badges=doc_badges,
+        doc_callout_html=doc_callout_html,
+        notebook_path=__file__,
+        refresh_token=health_refresh.value,
+    )
     _self_check_view
     return
 
 
 @app.cell
-def _(doc_callout_html, mo):
+def _(doc_callout_html, mo, show_overview):
+    mo.stop(not show_overview)
     mo.md(r"""
-    <a id="mzi-intro"></a>
+    <a id="overview"></a>
     ## What is an MZI (and why do we start here)?
 
     A **Mach–Zehnder interferometer (MZI)** is a small optical circuit that turns a **phase difference**
@@ -407,18 +246,18 @@ def _(doc_callout_html, mo):
           <li>Compute the ideal transfer function for a 50/50 MZI.</li>
           <li>Relate a layout parameter (ΔL) to a measurable spectral feature (FSR).</li>
         </ul>
-        <p><strong>Deliverables:</strong></p>
-        <ul>
-          <li>A screenshot (or saved image) of an MZI spectrum showing at least 2 fringes.</li>
-          <li>Your measured FSR from the plot and your predicted FSR from the rule-of-thumb equation.</li>
-        </ul>
+        <p>
+          This is a <strong>lab companion</strong> notebook. For graded work and “turn-in” items, use
+          <code>marimo_course/assignments/hw02_mzi_modelling.py</code>.
+        </p>
         """,
     )
     return
 
 
 @app.cell
-def _(mo):
+def _(mo, show_overview):
+    mo.stop(not show_overview)
     mo.md(r"""
     <a id="glossary"></a>
     ## Key terms (quick glossary)
@@ -433,9 +272,9 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _(mo, show_overview):
+    mo.stop(not show_overview)
     mo.md(r"""
-    <a id="gdsfactory"></a>
     ## What is gdsfactory (and why are we using it)?
 
     **gdsfactory** is a Python library for building **parametric photonic layouts**.
@@ -459,10 +298,11 @@ def _(mo):
 
 
 @app.cell
-def _(doc_callout_html, mo):
+def _(doc_callout_html, mo, show_theory):
+    mo.stop(not show_theory)
     from textwrap import dedent as _dedent
 
-    mo.md(_dedent(r"""
+    theory_md = mo.md(_dedent(r"""
     <a id="theory"></a>
     ## Analytic MZI model
 
@@ -660,7 +500,7 @@ def _(doc_callout_html, mo):
 
     Later lessons will introduce group index and propagation loss in a more realistic way.
     """))
-    doc_callout_html(
+    theory_note = doc_callout_html(
         "warning",
         tag="Note",
         title="<code>n_eff</code> vs <code>n_g</code>",
@@ -671,21 +511,89 @@ def _(doc_callout_html, mo):
         </p>
         """,
     )
+    mo.vstack([theory_md, theory_note])
+    return
+
+
+@app.cell
+def _(doc_callout_html, mo, show_interactive, show_theory):
+    mo.stop(not (show_theory or show_interactive))
+    interactive_anchor = mo.md('<a id="interactive"></a>') if show_interactive else mo.md("")
+    verify_callout = doc_callout_html(
+        "exercise",
+        tag="Verify",
+        title="Use the plot to confirm the derivation",
+        html="""
+        <ol>
+          <li>Switch to the <strong>Interactive</strong> section using the <em>Notebook sections</em> tabs.</li>
+          <li>Set <strong>ΔL = 10 µm</strong> and note the displayed <strong>FSR estimate</strong>.</li>
+          <li>Double ΔL to <strong>20 µm</strong>. Prediction: the FSR should be roughly <strong>half</strong>.</li>
+          <li>Use the <strong>FSR measurement tool</strong> (enter two adjacent maxima wavelengths) to measure the FSR and compare.</li>
+          <li>Change <strong>base arm length</strong> (both arms equally). In the ideal model, the FSR should not change — explain why in one sentence.</li>
+        </ol>
+        <p><small>
+          Tip: if you don’t see at least ~2 fringes, increase the spectrum span or increase ΔL.
+        </small></p>
+        """,
+    )
+    mo.vstack([interactive_anchor, verify_callout])
+    return
+
+
+@app.cell
+def _(doc_callout_html, mo, show_theory):
+    mo.stop(not show_theory)
+    doc_callout_html(
+        "info",
+        tag="Concept check",
+        title="Three quick checks before moving on",
+        html="""
+        <ol>
+          <li>
+            In the ideal analytic model here, which knob mostly changes the <em>fringe spacing</em> (FSR): <strong>ΔL</strong> or <strong>n<sub>eff</sub></strong>?
+            <details><summary><em>Answer</em></summary>
+              <p><strong>ΔL</strong> (and <strong>n<sub>g</sub></strong>) set the spacing; <strong>n<sub>eff</sub></strong> mostly shifts the phase / where the fringes land.</p>
+            </details>
+          </li>
+          <li>
+            Why does the FSR formula use <strong>n<sub>g</sub></strong> instead of <strong>n<sub>eff</sub></strong>?
+            <details><summary><em>Answer</em></summary>
+              <p>FSR comes from how quickly phase changes with wavelength, which depends on dispersion (a derivative); that derivative is captured by the <strong>group index</strong>.</p>
+            </details>
+          </li>
+          <li>
+            If the Simphony/SAX curve (when available) doesn’t match the analytic curve perfectly, name <em>one</em> likely reason.
+            <details><summary><em>Answer</em></summary>
+              <p>Common causes: splitter/coupler model conventions, wavelength-dependent component responses, dispersion, and loss (depending on models).</p>
+            </details>
+          </li>
+        </ol>
+        """,
+    )
     return
 
 
 @app.cell
 def _():
+    import os
     import marimo as mo
     import numpy as np
     import altair as alt
-    import gdsfactory as gf
     import polars as pl
     import base64 as b64
-    import csv
-    import io
     from pathlib import Path
-    return Path, alt, b64, csv, gf, io, mo, np, pl
+
+    gf = None
+    gf_import_error = ""
+    if os.environ.get("PB_SKIP_GF") == "1":
+        gf_import_error = "PB_SKIP_GF=1"
+    else:
+        try:
+            import gdsfactory as gf
+        except Exception as exc:  # pragma: no cover - depends on environment
+            gf_import_error = f"{type(exc).__name__}: {exc}"
+
+    return Path, alt, b64, gf, gf_import_error, mo, np, pl
 
 
 @app.cell
@@ -807,33 +715,152 @@ def _(np):
 
 
 @app.cell
-def _(gf, mo):
-    gf_version = getattr(gf, "__version__", None)
-    mo.md("## gdsfactory quick check")
-    if gf_version:
-        mo.md(f"`gdsfactory` version (this environment): **{gf_version}**")
-    mo.md(
-        r"""
-        Minimal usage example:
-        ```python
-        import gdsfactory as gf
-        c = gf.components.mzi(delta_length=50)  # µm
-        c.write_gds("mzi.gds")
-        ```
+def _(np):
+    def _local_maxima_indices(y: np.ndarray) -> np.ndarray:
+        """Return indices i where y[i] is a strict local maximum."""
+        y = np.asarray(y, dtype=float).reshape(-1)
+        if y.size < 3:
+            return np.array([], dtype=int)
+        left = y[1:-1] > y[:-2]
+        right = y[1:-1] >= y[2:]
+        idx = np.where(left & right)[0] + 1
+        return idx.astype(int)
+
+    def auto_fsr_from_curve(
+        *,
+        wl_nm: np.ndarray,
+        y: np.ndarray,
+        wl0_nm: float,
+    ) -> dict:
         """
-    )
+        Detect adjacent maxima and estimate FSR near wl0.
+
+        Returns keys:
+          ok: bool
+          message: str
+          lam1_nm, lam2_nm, fsr_nm: float|None
+          n_peaks: int
+        """
+        wl_nm = np.asarray(wl_nm, dtype=float).reshape(-1)
+        y = np.asarray(y, dtype=float).reshape(-1)
+        if wl_nm.size != y.size or wl_nm.size < 5:
+            return {
+                "ok": False,
+                "message": "Curve data unavailable (need arrays of the same length).",
+                "lam1_nm": None,
+                "lam2_nm": None,
+                "fsr_nm": None,
+                "n_peaks": 0,
+            }
+
+        idx = _local_maxima_indices(y)
+        if idx.size < 2:
+            return {
+                "ok": False,
+                "message": "Could not find at least two maxima (try increasing ΔL or spectrum span).",
+                "lam1_nm": None,
+                "lam2_nm": None,
+                "fsr_nm": None,
+                "n_peaks": int(idx.size),
+            }
+
+        # Filter out maxima that are effectively flat due to numerical issues.
+        y_min = float(np.nanmin(y))
+        y_max = float(np.nanmax(y))
+        y_rng = max(y_max - y_min, 0.0)
+        eps = 1e-9 if y_rng == 0 else 1e-6 * y_rng
+        idx = np.array([i for i in idx if (y[i] - max(y[i - 1], y[i + 1])) > eps], dtype=int)
+        if idx.size < 2:
+            return {
+                "ok": False,
+                "message": "Found maxima but they are too flat to measure reliably.",
+                "lam1_nm": None,
+                "lam2_nm": None,
+                "fsr_nm": None,
+                "n_peaks": int(idx.size),
+            }
+
+        peaks_nm = wl_nm[idx]
+        peaks_nm = peaks_nm[np.argsort(peaks_nm)]
+        if peaks_nm.size < 2:
+            return {
+                "ok": False,
+                "message": "Could not compute peak spacing (unexpected).",
+                "lam1_nm": None,
+                "lam2_nm": None,
+                "fsr_nm": None,
+                "n_peaks": int(peaks_nm.size),
+            }
+
+        mids = (peaks_nm[:-1] + peaks_nm[1:]) / 2.0
+        k = int(np.argmin(np.abs(mids - float(wl0_nm))))
+        lam1 = float(peaks_nm[k])
+        lam2 = float(peaks_nm[k + 1])
+        fsr = float(abs(lam2 - lam1))
+
+        return {
+            "ok": True,
+            "message": "OK",
+            "lam1_nm": lam1,
+            "lam2_nm": lam2,
+            "fsr_nm": fsr,
+            "n_peaks": int(peaks_nm.size),
+        }
+
+    return auto_fsr_from_curve,
+
+
+@app.cell
+def _(gf, gf_import_error, mo, show_overview):
+    mo.stop(not show_overview)
+    blocks = [mo.md("## gdsfactory quick check")]
+    if gf is None:
+        blocks.append(mo.md("`gdsfactory` is not available in this environment."))
+        if gf_import_error:
+            blocks.append(mo.md(f"Details: `{gf_import_error}`"))
+    else:
+        gf_version = getattr(gf, "__version__", None)
+        if gf_version:
+            blocks.append(
+                mo.md(f"`gdsfactory` version (this environment): **{gf_version}**")
+            )
+
+        blocks.append(
+            mo.md(
+                r"""
+                Minimal usage example:
+                ```python
+                import gdsfactory as gf
+                c = gf.components.mzi(delta_length=50)  # µm
+                c.write_gds("mzi.gds")
+                ```
+                """
+            )
+        )
+    mo.vstack(blocks)
     return
 
 
 @app.cell
-def _(doc_callout_html, doc_callout_list, mo):
+def _(doc_callout_html, doc_callout_list, mo, show_interactive):
+    mo.stop(not show_interactive)
     mo.md(r"""
-    <a id="interactive"></a>
     ## Interactive MZI spectrum
 
     Use the controls to explore how **ΔL** sets the **fringe spacing** (FSR).
     You can compare a simple analytic model to an optional **Simphony/SAX circuit model** built from compact component models (if available in your environment).
     """)
+
+    doc_callout_list(
+        "info",
+        tag="openEBL context",
+        title="Default band and why",
+        items=[
+            "This course’s first openEBL design targets the **1550 nm band** by default (e.g., TE 1550 grating-coupler cells in the SiEPIC EBeam PDK).",
+            "So the default center wavelength here is **λ0 ≈ 1550 nm**.",
+            "Advanced option: explore **1310 nm** by switching the wavelength band under **Controls → Advanced**.",
+        ],
+    )
 
     doc_callout_list(
         "info",
@@ -930,31 +957,29 @@ def _(mo):
 
 
 @app.cell
-def _(delta_length, param_preset):
-    preset_deltaL_um = {
-        "Reset to defaults (ΔL=10 µm)": 10.0,
-        "ΔL = 25 µm": 25.0,
-        "ΔL = 50 µm": 50.0,
-        "ΔL = 100 µm": 100.0,
-    }
-    preset_label = param_preset.value
-    if preset_label in preset_deltaL_um:
-        delta_length_um_effective = float(preset_deltaL_um[preset_label])
-        preset_active = True
-    else:
-        delta_length_um_effective = float(delta_length.value)
-        preset_active = False
-    return delta_length_um_effective, preset_active
-
-
-@app.cell
 def _(mo):
     spectrum_center = mo.ui.slider(
         start=1.50,
         stop=1.60,
         value=1.55,
         step=0.001,
-        label="Spectrum center λ0 (µm)",
+        label="Spectrum center λ0 (µm, 1550 band)",
+    )
+    wl_band = mo.ui.radio(
+        options=[
+            "1550 nm (default)",
+            "1310 nm (advanced)",
+        ],
+        value="1550 nm (default)",
+        label="Wavelength band",
+        inline=True,
+    )
+    spectrum_center_1310 = mo.ui.slider(
+        start=1.26,
+        stop=1.36,
+        value=1.31,
+        step=0.001,
+        label="Spectrum center λ0 (µm, 1310 band)",
     )
     spectrum_span_nm = mo.ui.slider(
         start=10.0,
@@ -977,12 +1002,12 @@ def _(mo):
         step=0.0001,
         label="Phase effective index n_eff (toy model; tune fringes)",
     )
-    return n_eff, ng, spectrum_center, spectrum_span_nm
+    return n_eff, ng, spectrum_center, spectrum_center_1310, spectrum_span_nm, wl_band
 
 
 @app.cell
 def _(mo):
-    view_mode = mo.ui.radio(
+    view_mode = mo.ui.dropdown(
         options=[
             "Analytic only",
             "Simphony only",
@@ -1010,7 +1035,7 @@ def _(mo):
 @app.cell
 def _(mo):
     run_simphony = mo.ui.checkbox(
-        label="Compute Simphony curve (manual trigger)",
+        label="Compute Simphony curve",
         value=False,
     )
     return (run_simphony,)
@@ -1066,13 +1091,182 @@ def _(mo):
 
 
 @app.cell
-def _(np, view_mode):
+def _(
+    base_length,
+    delta_length,
+    mo,
+    n_eff,
+    ng,
+    param_preset,
+    playground_enabled,
+    playground_expr,
+    playground_preset,
+    run_simphony,
+    show_advanced,
+    show_interactive,
+    show_plot_debug,
+    simphony_io,
+    spectrum_center,
+    spectrum_center_1310,
+    spectrum_span_nm,
+    wl_band,
+    view_mode,
+    y_scale,
+):
+    mo.stop(not show_interactive)
+    live_update = mo.ui.checkbox(label="Live update", value=True)
+    apply_update = mo.ui.button(
+        value=0,
+        label="Apply",
+        kind="neutral",
+        tooltip="When Live update is off, click Apply to recompute.",
+        on_click=lambda v: (v or 0) + 1,
+    )
+
+    basic_controls = mo.vstack(
+        [
+            mo.hstack([spectrum_center, spectrum_span_nm]),
+            mo.hstack([y_scale, view_mode]),
+            mo.hstack([base_length, delta_length]),
+            mo.hstack([param_preset, ng]),
+            n_eff,
+        ]
+    )
+    advanced_controls = mo.vstack(
+        [
+            mo.hstack([show_advanced, show_plot_debug]),
+            wl_band,
+            spectrum_center_1310,
+            mo.hstack([playground_enabled, playground_preset]),
+            playground_expr,
+        ]
+    )
+
+    controls_tabs = mo.ui.tabs(
+        {
+            "Basic": mo.vstack([basic_controls, mo.hstack([simphony_io, run_simphony])]),
+            "Advanced": advanced_controls,
+        },
+        value="Basic",
+        lazy=True,
+    )
+
+    controls_ui = mo.vstack([mo.hstack([live_update, apply_update]), controls_tabs])
+    return apply_update, controls_ui, live_update
+
+
+@app.cell
+def _(
+    apply_update,
+    base_length,
+    delta_length,
+    live_update,
+    mo,
+    n_eff,
+    ng,
+    param_preset,
+    playground_enabled,
+    playground_expr,
+    playground_preset,
+    run_simphony,
+    show_advanced,
+    show_interactive,
+    show_plot_debug,
+    simphony_io,
+    spectrum_center,
+    spectrum_center_1310,
+    spectrum_span_nm,
+    wl_band,
+    view_mode,
+    y_scale,
+):
+    mo.stop(not show_interactive)
+
+    raw = {
+        "base_length": float(base_length.value),
+        "delta_length": float(delta_length.value),
+        "param_preset": str(param_preset.value),
+        "spectrum_center": float(spectrum_center.value),
+        "spectrum_center_1310": float(spectrum_center_1310.value),
+        "wl_band": str(wl_band.value),
+        "spectrum_span_nm": float(spectrum_span_nm.value),
+        "y_scale": str(y_scale.value),
+        "ng": float(ng.value),
+        "n_eff": float(n_eff.value),
+        "view_mode": str(view_mode.value),
+        "simphony_io": str(simphony_io.value),
+        "run_simphony": bool(run_simphony.value),
+        "show_plot_debug": bool(show_plot_debug.value),
+        "show_advanced": bool(show_advanced.value),
+        "playground_enabled": bool(playground_enabled.value),
+        "playground_preset": str(playground_preset.value),
+        "playground_expr": str(playground_expr.value or ""),
+    }
+
+    applied_state, set_applied_state = mo.state(raw)
+    last_apply_click, set_last_apply_click = mo.state(0)
+
+    if not bool(live_update.value) and int(apply_update.value) != int(last_apply_click()):
+        set_applied_state(raw)
+        set_last_apply_click(int(apply_update.value))
+
+    effective = raw if bool(live_update.value) else dict(applied_state())
+
+    _band = str(effective.get("wl_band", "1550 nm (default)"))
+    if _band.startswith("1310"):
+        wl0_um_effective = float(effective["spectrum_center_1310"])
+    else:
+        wl0_um_effective = float(effective["spectrum_center"])
+
+    preset_deltaL_um = {
+        "Reset to defaults (ΔL=10 µm)": 10.0,
+        "ΔL = 25 µm": 25.0,
+        "ΔL = 50 µm": 50.0,
+        "ΔL = 100 µm": 100.0,
+    }
+    preset_label = str(effective["param_preset"])
+    if preset_label in preset_deltaL_um:
+        delta_length_um_effective = float(preset_deltaL_um[preset_label])
+        preset_active = True
+    else:
+        delta_length_um_effective = float(effective["delta_length"])
+        preset_active = False
+
+    w02_params = {
+        "base_length_um": float(effective["base_length"]),
+        "delta_length_um_slider": float(effective["delta_length"]),
+        "delta_length_um_effective": delta_length_um_effective,
+        "preset_active": preset_active,
+        "param_preset": preset_label,
+        "wl_band": _band,
+        "wl0_um": wl0_um_effective,
+        "spectrum_span_nm": float(effective["spectrum_span_nm"]),
+        "y_scale": str(effective["y_scale"]),
+        "semilog": str(effective["y_scale"]) == "Semilog (log y)",
+        "n_g": float(effective["ng"]),
+        "n_eff0": float(effective["n_eff"]),
+        "view_mode": str(effective["view_mode"]),
+        "simphony_io": str(effective["simphony_io"]),
+        "run_simphony": bool(effective["run_simphony"]),
+        "show_plot_debug": bool(effective["show_plot_debug"]),
+        "show_advanced": bool(effective["show_advanced"]),
+        "playground_enabled": bool(effective["playground_enabled"]),
+        "playground_preset": str(effective["playground_preset"]),
+        "playground_expr": str(effective["playground_expr"] or ""),
+        "live_update": bool(live_update.value),
+        "applied": (not bool(live_update.value)) and int(apply_update.value) > 0,
+    }
+    return delta_length_um_effective, w02_params
+
+
+@app.cell
+def _(np, w02_params):
     jnp = np  # Fallback if JAX is not available.
     mzi_circuit = None
     mzi_circuit_with_gc = None
     simphony_error = ""
 
-    needs_simphony = view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]
+    needs_simphony = w02_params["view_mode"] in ["Simphony only", "Overlay (analytic + Simphony)"]
     if needs_simphony:
         try:  # pragma: no cover - depends on environment
             from jax import config
@@ -1164,31 +1358,22 @@ def _(np, view_mode):
 
 
 @app.cell
-def _(
-    delta_length_um_effective,
-    n_eff,
-    neff_linear_from_ng,
-    ng,
-    np,
-    pl,
-    spectrum_center,
-    spectrum_span_nm,
-    y_scale,
-):
+def _(mo, neff_linear_from_ng, np, pl, show_interactive, w02_params):
+    mo.stop(not show_interactive)
     _n_points = 400
-    _wl_center_um = float(spectrum_center.value)
-    _span_um = float(spectrum_span_nm.value) / 1e3
+    _wl_center_um = float(w02_params["wl0_um"])
+    _span_um = float(w02_params["spectrum_span_nm"]) / 1e3
     _wl_min_um = _wl_center_um - _span_um / 2
     _wl_max_um = _wl_center_um + _span_um / 2
 
     _wl_um = np.linspace(_wl_min_um, _wl_max_um, _n_points)
     _wl_nm = _wl_um * 1e3
 
-    _semilog = y_scale.value == "Semilog (log y)"
+    _semilog = bool(w02_params["semilog"])
     _log_floor = 1e-6
 
-    _n_index = float(n_eff.value)
-    _ng_for_analytic = float(ng.value)
+    _n_index = float(w02_params["n_eff0"])
+    _ng_for_analytic = float(w02_params["n_g"])
     _analytic_n_eff_lambda, _analytic_dn_eff_dlambda = neff_linear_from_ng(
         wl_um=_wl_um,
         wl0_um=_wl_center_um,
@@ -1196,7 +1381,11 @@ def _(
         ng=_ng_for_analytic,
     )
     _delta_phi = (
-        2 * np.pi * _analytic_n_eff_lambda * float(delta_length_um_effective) / _wl_um
+        2
+        * np.pi
+        * _analytic_n_eff_lambda
+        * float(w02_params["delta_length_um_effective"])
+        / _wl_um
     )
     _T = 0.5 * (1 + np.cos(_delta_phi))
     _analytic_value_plot = np.clip(_T, _log_floor, None) if _semilog else _T
@@ -1230,18 +1419,8 @@ def _(
 
 
 @app.cell
-def _(
-    delta_length_um_effective,
-    n_eff,
-    ng,
-    np,
-    pl,
-    playground_enabled,
-    playground_expr,
-    playground_preset,
-    safe_math_eval,
-    w02_spectrum,
-):
+def _(mo, np, pl, safe_math_eval, show_interactive, w02_params, w02_spectrum):
+    mo.stop(not show_interactive)
     _wl_um = w02_spectrum["wl_um"]
     _wl_nm = w02_spectrum["wl_nm"]
     _semilog = w02_spectrum["semilog"]
@@ -1250,8 +1429,8 @@ def _(
     _playground_error = ""
     _playground_df = None
 
-    if playground_enabled.value:
-        _preset = playground_preset.value
+    if bool(w02_params["playground_enabled"]):
+        _preset = str(w02_params["playground_preset"])
         _preset_exprs = {
             "Ideal MZI (default)": "0.5*(1 + cos(2*pi*n_eff*delta_L/wl_um))",
             "Reduced visibility (V=0.8)": "0.5*(1 + 0.8*cos(2*pi*n_eff*delta_L/wl_um))",
@@ -1260,7 +1439,7 @@ def _(
         _expr_str = (
             _preset_exprs[_preset].strip()
             if _preset in _preset_exprs
-            else (playground_expr.value or "").strip()
+            else str(w02_params["playground_expr"] or "").strip()
         )
         if not _expr_str:
             _playground_error = "Enter an expression to plot."
@@ -1270,9 +1449,9 @@ def _(
                     "wl_um": _wl_um,
                     "wl_nm": _wl_nm,
                     "pi": float(np.pi),
-                    "delta_L": float(delta_length_um_effective),
-                    "n_eff": float(n_eff.value),
-                    "n_g": float(ng.value),
+                    "delta_L": float(w02_params["delta_length_um_effective"]),
+                    "n_eff": float(w02_params["n_eff0"]),
+                    "n_g": float(w02_params["n_g"]),
                 }
                 _y = safe_math_eval(_expr_str, _env)
                 _y_arr = np.asarray(_y, dtype=float)
@@ -1298,7 +1477,7 @@ def _(
                 _playground_error = f"{type(e).__name__}: {e}"
 
     w02_playground = {
-        "enabled": bool(playground_enabled.value),
+        "enabled": bool(w02_params["playground_enabled"]),
         "error": _playground_error,
         "df": _playground_df,
     }
@@ -1307,24 +1486,20 @@ def _(
 
 @app.cell
 def _(
-    base_length,
-    delta_length_um_effective,
     jnp,
     mzi_circuit,
     mzi_circuit_with_gc,
     np,
     pl,
-    run_simphony,
     simphony_error,
-    simphony_io,
-    view_mode,
+    w02_params,
     w02_spectrum,
 ):
-    _simphony_selected = view_mode.value in [
+    _simphony_selected = w02_params["view_mode"] in [
         "Simphony only",
         "Overlay (analytic + Simphony)",
     ]
-    _use_gratings = simphony_io.value == "Include grating couplers (in + out)"
+    _use_gratings = w02_params["simphony_io"] == "Include grating couplers (in + out)"
 
     _sim_circuit = None
     if _simphony_selected:
@@ -1344,12 +1519,13 @@ def _(
     _simphony_plotted = False
     _sim_df = None
 
-    _should_run = bool(run_simphony.value) and _simphony_selected
+    _should_run = bool(w02_params["run_simphony"]) and _simphony_selected
 
     if _should_run and _sim_circuit is not None:
         try:
             _wl_sim = jnp.linspace(_wl_min_um, _wl_max_um, _n_points)
-            _base_length_um = float(base_length.value)
+            _base_length_um = float(w02_params["base_length_um"])
+            _delta_length_um_effective = float(w02_params["delta_length_um_effective"])
 
             wg_pol = "te"
             wg_width_nm = 500.0
@@ -1369,7 +1545,7 @@ def _(
                     "loss": wg_loss,
                 },
                 "long_wg": {
-                    "length": (_base_length_um + float(delta_length_um_effective)),
+                    "length": (_base_length_um + _delta_length_um_effective),
                     "pol": wg_pol,
                     "width": wg_width_nm,
                     "height": wg_height_nm,
@@ -1448,37 +1624,20 @@ def _(
 @app.cell
 def _(
     alt,
-    b64,
-    base_length,
-    csv,
-    doc_callout_html,
-    delta_length,
-    delta_length_um_effective,
+    controls_ui,
     fsr_estimate_nm,
-    io,
     mo,
-    n_eff,
-    ng,
-    param_preset,
     phase_slope_rad_per_nm,
-    playground_enabled,
-    playground_expr,
-    playground_preset,
-    preset_active,
-    run_simphony,
-    show_advanced,
-    show_plot_debug,
-    simphony_io,
-    spectrum_center,
-    spectrum_span_nm,
-    view_mode,
+    show_interactive,
     w02_analytic,
+    w02_params,
     w02_playground,
     w02_simphony,
     w02_spectrum,
-    y_scale,
 ):
-    from textwrap import dedent as _dedent
+    from _notebook_template import badge_row, download_csv_button
+
+    mo.stop(not show_interactive)
 
     _wl_center_um = float(w02_spectrum["wl_center_um"])
     _wl_min_um = float(w02_spectrum["wl_min_um"])
@@ -1489,224 +1648,86 @@ def _(
     _analytic_df = w02_analytic["df"]
 
     _plot_rows: list[dict] = []
-    if view_mode.value in ["Analytic only", "Overlay (analytic + Simphony)"]:
+    _view_mode = str(w02_params["view_mode"])
+    if _view_mode in ["Analytic only", "Overlay (analytic + Simphony)"]:
         _plot_rows.extend(_analytic_df.to_dicts())
 
     if w02_playground.get("df") is not None:
         _plot_rows.extend(w02_playground["df"].to_dicts())
 
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
+    if _view_mode in ["Simphony only", "Overlay (analytic + Simphony)"]:
         if w02_simphony.get("df") is not None:
             _plot_rows.extend(w02_simphony["df"].to_dicts())
 
-    _base_length_um = float(base_length.value)
-    _delta_length_um = float(delta_length_um_effective)
+    _base_length_um = float(w02_params["base_length_um"])
+    _delta_length_um = float(w02_params["delta_length_um_effective"])
     _short_length_mm = _base_length_um / 1e3
     _long_length_mm = (_base_length_um + _delta_length_um) / 1e3
 
     fsr_nm = fsr_estimate_nm(
-        wl0_um=_wl_center_um, ng=float(ng.value), delta_length_um=_delta_length_um
+        wl0_um=_wl_center_um, ng=float(w02_params["n_g"]), delta_length_um=_delta_length_um
     )
     phase_slope_est_rad_per_nm = phase_slope_rad_per_nm(
-        wl0_um=_wl_center_um, ng=float(ng.value), delta_length_um=_delta_length_um
+        wl0_um=_wl_center_um, ng=float(w02_params["n_g"]), delta_length_um=_delta_length_um
     )
-
-    geometry_items = [base_length, param_preset]
-    if preset_active:
-        geometry_items.append(
-            mo.md(
-                f"**ΔL preset active:** using **ΔL = {delta_length_um_effective:.1f} µm**. "
-                f"(ΔL slider is ignored; it currently shows {float(delta_length.value):.1f} µm.)"
-            )
-        )
-    else:
-        geometry_items.append(delta_length)
-
-    left_items = [
-        mo.md("**Spectrum**"),
-        spectrum_center,
-        spectrum_span_nm,
-        y_scale,
-        mo.md(f"Wavelength window: **{_wl_min_um*1e3:.1f}–{_wl_max_um*1e3:.1f} nm**"),
-        mo.md("**Geometry**"),
-        *geometry_items,
-        ng,
-        mo.md(r"FSR rule of thumb: $\mathrm{FSR} \approx \lambda_0^2 / (n_g\,\Delta L)$"),
-        mo.md(
-            "Estimated ideal FSR: "
-            + (
-                f"**{fsr_nm:.2f} nm** (using ng)"
-                if fsr_nm is not None
-                else "**(ΔL = 0 → no fringes)**"
-            )
-        ),
-        mo.md(f"Lengths: short={_short_length_mm:.2f} mm, long={_long_length_mm:.2f} mm"),
-    ]
-    if _semilog:
-        left_items.append(
-            mo.md(f"Semilog note: values are floored at **{_log_floor:g}** for display.")
-        )
-
-    status_lines = []
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
-        status_lines.append(
-            f"<span class=\"doc-badge\">Simphony: <strong>{w02_simphony.get('status','')}</strong></span>"
-        )
-    else:
-        status_lines.append(
-            "<span class=\"doc-badge\">Simphony: <strong>(not requested)</strong></span>"
-        )
-
-    model_status_line = mo.md(
-        _dedent(
-            f"""
-            <div class="doc-badges" style="margin: 0.15rem 0 0.25rem 0;">
-              {''.join(status_lines)}
-            </div>
-            """
-        )
-    )
-
-    right_items = [
-        mo.md("**Model**"),
-        model_status_line,
-        view_mode,
-        show_advanced,
-        show_plot_debug,
-    ]
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"]:
-        right_items.append(simphony_io)
-        right_items.append(run_simphony)
-    if view_mode.value in ["Simphony only", "Overlay (analytic + Simphony)"] and not w02_simphony.get(
-        "circuit_available", False
-    ):
-        right_items.append(
-            mo.md(
-                "**Note:** Simphony-based circuit view is unavailable in this environment.\n\n"
-                f"`{w02_simphony.get('import_error','')}`"
-            )
-        )
-    if w02_simphony.get("runtime_error"):
-        right_items.append(
-            mo.md(
-                "**Simphony runtime error:** the circuit was available, but evaluation failed.\n\n"
-                f"`{w02_simphony.get('runtime_error')}`\n\n"
-                "Tip: switch to **Analytic only** to continue."
-            )
-        )
-
-    _n_index = float(w02_analytic["n_eff0"])
-    if show_advanced.value:
-        right_items.extend(
-            [
-                mo.md("#### Analytic tuning"),
-                n_eff,
-                mo.md(
-                    f"Analytic uses `n_eff(λ0) = {_n_index:.5f}` and `n_g = {float(ng.value):.3f}` "
-                    f"(implies `dn_eff/dλ ≈ {float(w02_analytic['dn_eff_dlambda_um_inv']):.3f} per µm` near λ0)."
-                ),
-                mo.md("#### Student playground"),
-                playground_enabled,
-            ]
-        )
-        if playground_enabled.value:
-            right_items.append(playground_preset)
-            if playground_preset.value == "Custom":
-                right_items.append(playground_expr)
-            right_items.append(
-                doc_callout_html(
-                    "info",
-                    tag="Playground",
-                    title="How it works",
-                    html="""
-                    <p>The dashed curve is computed from your preset/expression and plotted alongside the analytic/Simphony curves.</p>
-                    <p>Use these variables: <code>wl_um</code>, <code>wl_nm</code>, <code>delta_L</code>, <code>n_eff</code>, <code>n_g</code>, <code>pi</code>.</p>
-                    <p>Allowed functions: <code>sin</code>, <code>cos</code>, <code>tan</code>, <code>exp</code>, <code>sqrt</code>, <code>log</code>, <code>log10</code>, <code>abs</code>, <code>where</code>, <code>clip</code>, <code>min</code>, <code>max</code>.</p>
-                    <p><strong>Tip:</strong> Expressions may return a scalar (applied to all wavelengths) or an array with the same length as <code>wl_um</code>.</p>
-                    """,
-                )
-            )
-            if w02_playground.get("error"):
-                right_items.append(mo.md(f"**Playground error:** `{w02_playground['error']}`"))
-    else:
-        right_items.append(
-            mo.md(
-                f"Analytic uses `n_eff(λ0) = {_n_index:.5f}` and `n_g = {float(ng.value):.3f}`."
-            )
-        )
-
-    controls = mo.hstack([mo.vstack(left_items), mo.vstack(right_items)])
 
     fringes_est = None
     if fsr_nm is not None and fsr_nm > 0:
-        fringes_est = float(spectrum_span_nm.value) / fsr_nm
+        fringes_est = float(w02_params["spectrum_span_nm"]) / fsr_nm
 
-    download_badge = ""
+    download_button = mo.md("")
     try:
-        if _plot_rows:
-            csv_out = io.StringIO()
-            preferred_fields = ["wavelength_nm", "value", "value_plot", "curve"]
-            extra_fields = sorted(
-                {
-                    k
-                    for row in _plot_rows
-                    for k in row.keys()
-                    if k not in preferred_fields
-                }
-            )
-            fieldnames = preferred_fields + extra_fields
-            writer = csv.DictWriter(csv_out, fieldnames=fieldnames)
-            writer.writeheader()
-            for row in _plot_rows:
-                writer.writerow({k: row.get(k, "") for k in fieldnames})
-            csv_b64 = b64.b64encode(csv_out.getvalue().encode("utf-8")).decode("ascii")
-            download_badge = (
-                "<a class=\"doc-badge\" "
-                "style=\"cursor:pointer;\" "
-                "download=\"mzi_spectrum.csv\" "
-                f"href=\"data:text/csv;base64,{csv_b64}\">"
-                "<strong>Download CSV</strong>"
-                "</a>"
-            )
-    except Exception:  # pragma: no cover
-        download_badge = ""
-
-    fsr_badge = (
-        f'<span class="doc-badge">FSR ≈ <strong>{fsr_nm:.2f} nm</strong></span>'
-        if fsr_nm is not None
-        else '<span class="doc-badge">FSR: <strong>(ΔL = 0)</strong></span>'
-    )
-    phase_slope_badge = (
-        f'<span class="doc-badge">|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_est_rad_per_nm:.2f} rad/nm</strong></span>'
-        if phase_slope_est_rad_per_nm is not None
-        else ""
-    )
-    fringes_badge = (
-        f'<span class="doc-badge">~ fringes in view ≈ <strong>{fringes_est:.1f}</strong></span>'
-        if fringes_est is not None
-        else ""
-    )
-    status_badges = mo.md(
-        _dedent(
-            f"""
-            <div class="doc-badges" style="margin: 0.35rem 0 0.25rem 0;">
-              <span class="doc-badge">ΔL = <strong>{delta_length_um_effective:.1f} µm</strong></span>
-              {fsr_badge}
-              {phase_slope_badge}
-              <span class="doc-badge">span = <strong>{float(spectrum_span_nm.value):.0f} nm</strong></span>
-              {fringes_badge}
-              <span class="doc-badge">View: <strong>{view_mode.value}</strong></span>
-              {download_badge}
-            </div>
-            """
+        download_button = download_csv_button(
+            mo,
+            _plot_rows,
+            filename="mzi_spectrum.csv",
+            label="Download CSV",
+            preferred_fields=["wavelength_nm", "value", "value_plot", "curve"],
         )
+    except Exception:  # pragma: no cover
+        download_button = mo.md("")
+
+    _sim_requested = _view_mode in ["Simphony only", "Overlay (analytic + Simphony)"]
+
+    status_badges_list = [
+        f"ΔL = <strong>{_delta_length_um:.1f} µm</strong>",
+        (
+            f"FSR ≈ <strong>{fsr_nm:.2f} nm</strong>"
+            if fsr_nm is not None
+            else "FSR: <strong>(ΔL = 0)</strong>"
+        ),
+    ]
+    if phase_slope_est_rad_per_nm is not None:
+        status_badges_list.append(
+            f"|dΔφ/dλ|@λ0 ≈ <strong>{phase_slope_est_rad_per_nm:.2f} rad/nm</strong>"
+        )
+    status_badges_list.append(
+        f"span = <strong>{float(w02_params['spectrum_span_nm']):.0f} nm</strong>"
+    )
+    if fringes_est is not None:
+        status_badges_list.append(
+            f"~ fringes in view ≈ <strong>{fringes_est:.1f}</strong>"
+        )
+    status_badges_list.extend(
+        [
+            f"View: <strong>{_view_mode}</strong>",
+            f"Update: <strong>{'Live' if w02_params['live_update'] else 'Apply'}</strong>",
+            (
+                f"Simphony: <strong>{w02_simphony.get('status','')}</strong>"
+                if _sim_requested
+                else "Simphony: <strong>(not requested)</strong>"
+            ),
+        ]
+    )
+    status_badges = badge_row(
+        mo, status_badges_list, style="margin: 0.35rem 0 0.25rem 0;"
     )
 
-    if view_mode.value == "Simphony only" and not w02_simphony.get("plotted", False):
+    if _view_mode == "Simphony only" and not w02_simphony.get("plotted", False):
         _reason_lines: list[str] = []
         if not w02_simphony.get("should_run", False):
-            _reason_lines.append("Status: **Not computed** (manual trigger is off).")
-            _reason_lines.append("Fix: enable **Compute Simphony curve** in the controls.")
+            _reason_lines.append("Status: **Not computed** (Compute Simphony curve is off).")
+            _reason_lines.append("Fix: enable **Compute Simphony curve** under Controls.")
         elif not w02_simphony.get("circuit_available", False):
             _reason_lines.append("Status: **Unavailable** (Simphony/SAX circuit not available here).")
             _reason_lines.append(f"Details: `{w02_simphony.get('import_error','')}`")
@@ -1757,35 +1778,75 @@ def _(
         except Exception as e:  # pragma: no cover
             chart_out = mo.md(f"**Plot render error:** `{type(e).__name__}: {e}`")
 
-    mo.vstack([chart_out, status_badges, mo.md("### Controls"), controls])
+    simphony_help = mo.md("")
+
+    if w02_params.get("preset_active") and abs(
+        float(w02_params["delta_length_um_slider"]) - float(w02_params["delta_length_um_effective"])
+    ) > 1e-9:
+        preset_note = mo.md(
+            f"**ΔL preset active:** using **ΔL = {float(w02_params['delta_length_um_effective']):.1f} µm** "
+            f"(slider shows {float(w02_params['delta_length_um_slider']):.1f} µm)."
+        )
+    else:
+        preset_note = mo.md("")
+
+    playground_error = (
+        mo.md(f"**Playground error:** `{w02_playground['error']}`")
+        if w02_playground.get("error")
+        else mo.md("")
+    )
+
+    mo.vstack(
+        [
+            chart_out,
+            status_badges,
+            download_button,
+            preset_note,
+            playground_error,
+            controls_ui,
+            mo.md("**Next:** scroll down for the **FSR measurement tool**."),
+        ]
+    )
     return
 
 
 @app.cell
-def _(mo):
-    lam1_nm = mo.ui.text(value="", label="λ1 (nm)")
-    lam2_nm = mo.ui.text(value="", label="λ2 (nm)")
-    return lam1_nm, lam2_nm
+def _(mo, show_interactive):
+    mo.stop(not show_interactive)
+    from _notebook_template import make_fsr_tool_widgets
+
+    auto_source, lam1_nm, lam2_nm, lam1_state, lam2_state, set_lam1, set_lam2 = (
+        make_fsr_tool_widgets(mo)
+    )
+    return auto_source, lam1_nm, lam1_state, lam2_nm, lam2_state, set_lam1, set_lam2
 
 
 @app.cell
 def _(
-    delta_length,
-    delta_length_um_effective,
+    auto_fsr_from_curve,
+    auto_source,
     doc_callout_html,
     fsr_estimate_nm,
     lam1_nm,
+    lam1_state,
     lam2_nm,
+    lam2_state,
     mo,
-    ng,
     phase_slope_rad_per_nm,
-    preset_active,
-    spectrum_center,
+    set_lam1,
+    set_lam2,
+    show_interactive,
+    w02_analytic,
+    w02_params,
+    w02_playground,
+    w02_simphony,
 ):
-    wl0_um = float(spectrum_center.value)
-    ng_for_fsr_tool = float(ng.value)
-    dL_um = float(delta_length_um_effective)
-    dL_slider_um = float(delta_length.value)
+    mo.stop(not show_interactive)
+    wl0_um = float(w02_params["wl0_um"])
+    ng_for_fsr_tool = float(w02_params["n_g"])
+    dL_um = float(w02_params["delta_length_um_effective"])
+    dL_slider_um = float(w02_params["delta_length_um_slider"])
+    _preset_active = bool(w02_params["preset_active"])
 
     fsr_est_nm = fsr_estimate_nm(wl0_um=wl0_um, ng=ng_for_fsr_tool, delta_length_um=dL_um)
 
@@ -1795,9 +1856,9 @@ def _(
     delta_phi_est_cycles = None
     parse_error = ""
     try:
-        if lam1_nm.value.strip() and lam2_nm.value.strip():
-            l1 = float(lam1_nm.value)
-            l2 = float(lam2_nm.value)
+        if lam1_state().strip() and lam2_state().strip():
+            l1 = float(lam1_state())
+            l2 = float(lam2_state())
             measured = abs(l2 - l1)
             if dL_um > 0:
                 fsr_tool_phase_slope = phase_slope_rad_per_nm(
@@ -1812,6 +1873,38 @@ def _(
     except Exception as e:
         parse_error = f"{type(e).__name__}: {e}"
 
+    def _curve_df(source: str):
+        if source == "Analytic":
+            return w02_analytic.get("df"), ""
+        if source == "Simphony":
+            if not bool(w02_simphony.get("plotted", False)) or w02_simphony.get("df") is None:
+                return None, "Simphony curve not available (compute it first, or switch view)."
+            return w02_simphony["df"], ""
+        if source == "Student expression":
+            if not bool(w02_playground.get("enabled", False)) or w02_playground.get("df") is None:
+                return None, "Student expression curve not available (enable the playground)."
+            return w02_playground["df"], ""
+        return None, "Unknown source."
+
+    auto_choice = str(auto_source.value)
+    if auto_choice == "Best available":
+        if bool(w02_simphony.get("plotted", False)) and w02_simphony.get("df") is not None:
+            auto_choice = "Simphony"
+        elif bool(w02_playground.get("enabled", False)) and w02_playground.get("df") is not None:
+            auto_choice = "Student expression"
+        else:
+            auto_choice = "Analytic"
+
+    auto_df, auto_df_error = _curve_df(auto_choice)
+    auto_result = None
+    if auto_df is not None:
+        try:
+            wl_nm = auto_df.get_column("wavelength_nm").to_numpy()
+            y = auto_df.get_column("value").to_numpy()
+            auto_result = auto_fsr_from_curve(wl_nm=wl_nm, y=y, wl0_nm=float(wl0_um * 1e3))
+        except Exception as e:  # pragma: no cover
+            auto_df_error = f"{type(e).__name__}: {e}"
+
     fsr_tool_blocks = [
         doc_callout_html(
             "exercise",
@@ -1821,25 +1914,56 @@ def _(
             <p>
               Hover a curve to read wavelengths from the tooltip. Enter two <em>adjacent maxima</em> wavelengths
               (in nm) below; the tool computes the measured FSR and compares it to the rule-of-thumb estimate
-              $\mathrm{FSR} \approx \lambda_0^2/(n_g\,\Delta L)$.
+              shown below.
             </p>
             """,
         ),
+        mo.md(r"Rule-of-thumb: $\mathrm{FSR} \approx \lambda_0^2/(n_g\,\Delta L)$."),
         mo.md(
             "Derivation link: an FSR is the Δλ that makes the relative phase change by **2π** near λ0."
         ),
         mo.md(
             f"Using: **ΔL = {dL_um:.2f} µm** (effective), **λ0 = {wl0_um*1e3:.1f} nm**, **ng = {ng_for_fsr_tool:.2f}**."
         ),
-        mo.hstack([lam1_nm, lam2_nm]),
+        mo.hstack([auto_source]),
     ]
-    if preset_active and abs(dL_slider_um - dL_um) > 1e-9:
+    if _preset_active and abs(dL_slider_um - dL_um) > 1e-9:
         fsr_tool_blocks.append(
             mo.md(
                 f"**Note:** a ΔL preset is active, so the ΔL slider is ignored "
                 f"(slider shows {dL_slider_um:.2f} µm). Set *Parameter preset* to **Custom** to use the slider."
             )
         )
+
+    if auto_df_error:
+        fsr_tool_blocks.append(mo.md(f"**Auto-measure ({auto_choice}):** {auto_df_error}"))
+    elif isinstance(auto_result, dict) and bool(auto_result.get("ok", False)):
+        _a1 = float(auto_result["lam1_nm"])
+        _a2 = float(auto_result["lam2_nm"])
+        _afsr = float(auto_result["fsr_nm"])
+        use_auto = mo.ui.button(
+            value=0,
+            kind="neutral",
+            label=f"Use auto peaks (λ1={_a1:.2f} nm, λ2={_a2:.2f} nm)",
+            on_click=lambda v: (
+                set_lam1(f"{_a1:.2f}"),
+                set_lam2(f"{_a2:.2f}"),
+                (v or 0) + 1,
+            )[-1],
+        )
+        fsr_tool_blocks.append(
+            mo.md(
+                f"**Auto-measured FSR ({auto_choice}, {int(auto_result.get('n_peaks',0))} peaks found):** "
+                f"**{_afsr:.2f} nm**"
+            )
+        )
+        fsr_tool_blocks.append(use_auto)
+    elif isinstance(auto_result, dict):
+        fsr_tool_blocks.append(
+            mo.md(f"**Auto-measure ({auto_choice}):** {auto_result.get('message','Could not measure.')}")
+        )
+
+    fsr_tool_blocks.append(mo.hstack([lam1_nm, lam2_nm]))
 
     if parse_error:
         fsr_tool_blocks.append(mo.md(f"**Parse error:** `{parse_error}`"))
@@ -1873,12 +1997,14 @@ def _(
             fsr_tool_blocks.append(
                 mo.md("Enter `λ1` and `λ2` to compute the measured FSR.")
             )
-    mo.vstack(fsr_tool_blocks)
+    fsr_tool_view = mo.vstack([mo.md("### FSR measurement tool")] + fsr_tool_blocks)
+    fsr_tool_view
     return
 
 
 @app.cell
-def _(mo):
+def _(mo, show_interactive):
+    mo.stop(not show_interactive)
     task_fsr = mo.ui.checkbox(label="Measured FSR for two ΔL values", value=False)
     task_compare = mo.ui.checkbox(label="Compared Analytic vs Simphony (Overlay)", value=False)
     task_export = mo.ui.checkbox(label="Downloaded CSV (and/or exported GDS)", value=False)
@@ -1886,7 +2012,16 @@ def _(mo):
 
 
 @app.cell
-def _(doc_callout_html, doc_callout_list, mo, task_compare, task_export, task_fsr):
+def _(
+    doc_callout_html,
+    doc_callout_list,
+    mo,
+    show_interactive,
+    task_compare,
+    task_export,
+    task_fsr,
+):
+    mo.stop(not show_interactive)
     doc_callout_list(
         "info",
         tag="Key ideas",
@@ -1936,7 +2071,8 @@ def _(doc_callout_html, doc_callout_list, mo, task_compare, task_export, task_fs
 
 
 @app.cell
-def _(mo):
+def _(mo, show_interactive):
+    mo.stop(not show_interactive)
     mo.md(r"""
     ### Guided exploration
 
@@ -1951,7 +2087,8 @@ def _(mo):
 
 
 @app.cell
-def _(delta_length, delta_length_um_effective, mo, preset_active):
+def _(mo, show_layout_section, w02_params):
+    mo.stop(not show_layout_section)
     mo.md(
         r"""
         ### Connecting model and layout
@@ -1960,14 +2097,15 @@ def _(delta_length, delta_length_um_effective, mo, preset_active):
         In layout, ΔL corresponds to the extra physical length you route into one arm of the interferometer.
         """
     )
-    if preset_active:
+    _delta_length_um_effective = float(w02_params["delta_length_um_effective"])
+    if bool(w02_params["preset_active"]):
         _deltaL_note = mo.md(
-            f"Analytic model currently uses ΔL = **{delta_length_um_effective:.1f} µm** "
-            f"(preset overrides slider: {delta_length.value:.1f} µm)."
+            f"Analytic model currently uses ΔL = **{_delta_length_um_effective:.1f} µm** "
+            f"(preset overrides slider: {float(w02_params['delta_length_um_slider']):.1f} µm)."
         )
     else:
         _deltaL_note = mo.md(
-            f"Analytic model currently uses ΔL = **{delta_length_um_effective:.1f} µm**."
+            f"Analytic model currently uses ΔL = **{_delta_length_um_effective:.1f} µm**."
         )
 
     _deltaL_note
@@ -1975,7 +2113,8 @@ def _(delta_length, delta_length_um_effective, mo, preset_active):
 
 
 @app.cell
-def _(mo):
+def _(mo, show_layout_section):
+    mo.stop(not show_layout_section)
     mo.md(r"""
     <a id="layout"></a>
     ## From model to layout: gdsfactory
@@ -2001,7 +2140,8 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _(mo, show_layout_section):
+    mo.stop(not show_layout_section)
     show_layout = mo.ui.checkbox(label="Show layout preview", value=True)
     gds_out = mo.ui.text(
         value="marimo_course/build/week2_mzi_example.gds",
@@ -2024,68 +2164,81 @@ def _(
     export_gds,
     gds_out,
     gf,
+    gf_import_error,
     mo,
     show_layout,
+    show_layout_section,
 ):
+    mo.stop(not show_layout_section)
     layout_blocks = []
 
     c = None
     build_error = ""
-    try:
-        c = gf.components.mzi(delta_length=float(delta_length_um_effective))
-    except Exception as e:  # pragma: no cover
-        build_error = f"{type(e).__name__}: {e}"
-
-    if c is None:
-        layout_blocks.append(mo.md(f"(Could not build `gf.components.mzi`: `{build_error}`)"))
+    if gf is None:
+        layout_blocks.append(mo.md("`gdsfactory` is not available in this environment."))
+        if gf_import_error:
+            layout_blocks.append(mo.md(f"Details: `{gf_import_error}`"))
     else:
-        if show_layout.value:
-            svg = None
-            try:
-                if hasattr(gf, "export") and hasattr(gf.export, "to_svg"):
-                    svg = gf.export.to_svg(c)
-            except Exception:  # pragma: no cover
-                svg = None
+        try:
+            c = gf.components.mzi(delta_length=float(delta_length_um_effective))
+        except Exception as e:  # pragma: no cover
+            build_error = f"{type(e).__name__}: {e}"
 
-            if isinstance(svg, str) and "<svg" in svg:
-                svg_b64 = b64.b64encode(svg.encode("utf-8")).decode("ascii")
-                layout_blocks.extend(
-                    [
-                        mo.md("### Layout preview"),
+        if c is None:
+            layout_blocks.append(mo.md(f"(Could not build `gf.components.mzi`: `{build_error}`)"))
+        else:
+            if show_layout.value:
+                svg = None
+                try:
+                    if hasattr(gf, "export") and hasattr(gf.export, "to_svg"):
+                        svg = gf.export.to_svg(c)
+                except Exception:  # pragma: no cover
+                    svg = None
+
+                if isinstance(svg, str) and "<svg" in svg:
+                    svg_b64 = b64.b64encode(svg.encode("utf-8")).decode("ascii")
+                    layout_blocks.extend(
+                        [
+                            mo.md("### Layout preview"),
+                            mo.md(
+                                "<div style='max-width:100%; overflow:auto;'>"
+                                f"<img src='data:image/svg+xml;base64,{svg_b64}' style='max-width:100%; height:auto;'/>"
+                                "</div>"
+                            ),
+                        ]
+                    )
+                else:
+                    layout_blocks.append(
                         mo.md(
-                            "<div style='max-width:100%; overflow:auto;'>"
-                            f"<img src='data:image/svg+xml;base64,{svg_b64}' style='max-width:100%; height:auto;'/>"
-                            "</div>"
-                        ),
-                    ]
-                )
+                            "(Preview unavailable in this environment; SVG export was not available.)"
+                        )
+                    )
+
+            if export_gds.value and export_gds.value > 0:
+                out_path = Path(gds_out.value).expanduser()
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                try:
+                    written = c.write_gds(gdspath=out_path)
+                    layout_blocks.append(mo.md(f"Wrote: `{written}`"))
+                except Exception as e:  # pragma: no cover
+                    layout_blocks.append(
+                        mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)")
+                    )
             else:
                 layout_blocks.append(
-                    mo.md(
-                        "(Preview unavailable in this environment; SVG export was not available.)"
-                    )
+                    mo.md("Click **Write GDS** to export the example layout.")
                 )
-
-        if export_gds.value and export_gds.value > 0:
-            out_path = Path(gds_out.value).expanduser()
-            out_path.parent.mkdir(parents=True, exist_ok=True)
-            try:
-                written = c.write_gds(gdspath=out_path)
-                layout_blocks.append(mo.md(f"Wrote: `{written}`"))
-            except Exception as e:  # pragma: no cover
-                layout_blocks.append(mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)"))
-        else:
-            layout_blocks.append(mo.md("Click **Write GDS** to export the example layout."))
 
     if not layout_blocks:
         layout_blocks.append(mo.md(""))
+    mo.vstack(layout_blocks)
     return
 
 
 @app.cell
-def _(mo):
+def _(mo, show_overview):
+    mo.stop(not show_overview)
     mo.md(r"""
-    <a id="next"></a>
     ## What’s next
 
     In `marimo_course/lessons/w02_pdk_mzi_layout.py`, you’ll shift from modelling to implementation:
@@ -2093,6 +2246,13 @@ def _(mo):
     - Build an MZI layout from PDK building blocks with correct ports and routing.
     - Control ΔL in geometry and verify it matches the modelling intuition from this notebook.
     - Export GDS and inspect it (KLayout), preparing for more realistic PDK-accurate circuits.
+
+    In upcoming modelling lessons, we’ll add realism step-by-step:
+
+    - **Dispersion:** use a wavelength-dependent `n_eff(λ)` so `n_g` emerges naturally (and FSR becomes a local approximation).
+    - **Loss + visibility:** include propagation loss (and later, imbalance) so fringes aren’t perfectly 0–1.
+    - **Non-ideal couplers:** explore splitter imbalance and phase conventions, and how they affect “through vs cross”.
+    - **Tuning/modulation:** connect phase tuning (thermal/electrical) to a shift in the interference pattern.
     """)
     return
 

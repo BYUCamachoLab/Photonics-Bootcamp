@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
@@ -14,333 +15,468 @@ app = marimo.App()
 
 @app.cell
 def _():
-    return
+    import marimo as mo
+    return (mo,)
 
 
 @app.cell
-def _():
-    return
+def _(mo):
+    from _notebook_template import inject_css
 
-
-@app.cell
-def _():
-    return
-
-
-@app.cell
-def _():
+    inject_css(mo)
     return
 
 
 @app.cell
 def _(mo):
-    klayout_open = mo.ui.checkbox(label="KLayout open with SiEPIC-EBeam-PDK", value=False)
-    placed_couplers = mo.ui.checkbox(
-        label="Placed I/O couplers and splitter/combiner", value=False
+    from _notebook_template import make_doc_helpers
+
+    doc_badges, doc_callout_html, doc_callout_list = make_doc_helpers(mo)
+    return doc_badges, doc_callout_html, doc_callout_list
+
+
+@app.cell
+def _(mo):
+    from _notebook_template import make_section_tabs
+
+    section_tabs, view_state, set_view = make_section_tabs(
+        mo,
+        options=("All", "Overview", "Targets", "KLayout + PDK", "Layout skeleton", "Submission"),
+        value="All",
     )
-    routed_skeleton = mo.ui.checkbox(label="Routed simple MZI skeleton", value=False)
-    built_parametric = mo.ui.checkbox(
-        label="Built parametric MZI in gdsfactory (optional)", value=False
-    )
-    saved_design = mo.ui.checkbox(label="Saved design in openEBL-2026-02 repo", value=False)
+    section_tabs
+    return set_view, view_state
+
+
+@app.cell
+def _(view_state):
+    view = view_state()
+    show_overview = view in ["All", "Overview"]
+    show_targets = view in ["All", "Targets"]
+    show_klayout = view in ["All", "KLayout + PDK"]
+    show_skeleton = view in ["All", "Layout skeleton"]
+    show_submission = view in ["All", "Submission"]
     return (
-        built_parametric,
-        klayout_open,
-        placed_couplers,
-        routed_skeleton,
-        saved_design,
+        show_klayout,
+        show_overview,
+        show_skeleton,
+        show_submission,
+        show_targets,
+        view,
     )
 
 
 @app.cell
-def _(
-    built_parametric,
-    klayout_open,
-    placed_couplers,
-    routed_skeleton,
-    saved_design,
-):
-    checks = [
-        klayout_open,
-        placed_couplers,
-        routed_skeleton,
-        built_parametric,
-        saved_design,
-    ]
-    completed = sum(int(c.value) for c in checks)
-    progress = completed / len(checks) if checks else 0.0
-    progress_bar = (
-        "<div style='margin:10px 0 6px; border:1px solid rgba(120,120,120,0.35);"
-        " border-radius:999px; height:12px; overflow:hidden;'>"
-        f"<div style='height:100%; width:{progress*100:.1f}%;"
-        " background: rgba(31,111,235,0.70);'></div>"
+def _(doc_badges, view):
+    doc_badges(
+        [
+            f"Notebook view: <strong>{view}</strong>",
+        ]
+    )
+    return
+
+
+@app.cell
+def _(mo, show_overview):
+    mo.stop(not show_overview)
+    from _style import header
+
+    header(
+        mo,
+        title="PDK MZI layout (KLayout + SiEPIC)",
+        subtitle=(
+            "Build a first MZI layout using the SiEPIC-EBeam PDK workflow in KLayout. "
+            "Use modelling targets (ΔL ↔ FSR) to guide geometry choices, then save your work in the openEBL repo."
+        ),
+        badges=["Week 2", "Lab companion", "PDK", "KLayout", "openEBL workflow"],
+        toc=[
+            ("Overview", "overview"),
+            ("Targets", "targets"),
+            ("KLayout + PDK", "klayout"),
+            ("Layout skeleton", "skeleton"),
+            ("Submission", "submission"),
+        ],
+        build="2025-12-16",
+    )
+    return
+
+
+@app.cell
+def _(doc_callout_list, mo, show_overview):
+    mo.stop(not show_overview)
+    mo.md(r"""
+    <a id="overview"></a>
+    ## Overview
+
+    This is the **PDK + compact-model + layout** companion for Week 2. The modelling companion is:
+    `marimo_course/lessons/w02_mzi_modelling.py`, where you derived and explored the ideal MZI transfer function.
+
+    In this notebook, you’ll connect three ideas that show up in every photonics workflow:
+
+    - **Compact models:** fast, circuit-level models of components (couplers, waveguides, phase shifters) that let you
+      simulate a whole photonic circuit without solving Maxwell’s equations everywhere.
+    - **PDK (process design kit):** a foundry/technology “package” that defines the **design rules**, **layers**, and
+      **parameterized building blocks** (plus their compact models) so your design is manufacturable and checkable.
+    - **Reproducibility across views:** build the *same* MZI you modelled last lesson, first as a **circuit** from compact
+      models and then as a **layout** in KLayout using PDK cells.
+
+    In lab, you will:
+
+    1. Decide on a **target** (FSR → ΔL) near **1550 nm**.
+    2. Build an MZI from **compact models** (component → circuit) and sanity-check it against the Week 2 model.
+    3. Assemble the same MZI from **PDK building blocks** in KLayout (splitter, waveguides, combiner, I/O).
+    4. Add the **conventions** required for downstream checks (ports/pins, DevRec, labels/floorplan as required).
+    5. Save your design in the **openEBL** submission repo and keep CI green.
+    """)
+
+    doc_callout_list(
+        "info",
+        tag="Learning goals",
+        title="What you should be able to do after this notebook",
+        items=[
+            "Explain what a compact model is and why we use them for circuit-level photonics design.",
+            "Describe what a PDK provides (layers, rules, cells, models) and why it matters for manufacturable layouts.",
+            "Create an MZI from compact-model building blocks and connect ΔL ↔ FSR back to the modelling notebook.",
+            "Implement the same MZI in KLayout using PDK-accurate cells so it passes downstream checks.",
+        ],
+    )
+
+    doc_callout_list(
+        "warning",
+        tag="Where is the graded work?",
+        title="Lab companion vs homework",
+        items=[
+            "This notebook is a lab companion (workflow + checklists + reference).",
+            "Graded work should live in a homework notebook under `marimo_course/assignments/`.",
+        ],
+    )
+    return
+
+
+@app.cell
+def _(mo, show_overview):
+    mo.stop(not show_overview)
+    klayout_open = mo.ui.checkbox(label="KLayout open with SiEPIC-EBeam PDK", value=False)
+    placed_blocks = mo.ui.checkbox(label="Placed I/O + splitter/combiner cells", value=False)
+    routed = mo.ui.checkbox(label="Routed an MZI skeleton with ΔL", value=False)
+    annotated = mo.ui.checkbox(label="Added pins/DevRec/labels as required", value=False)
+    saved = mo.ui.checkbox(label="Saved in openEBL repo + CI checked", value=False)
+    mo.vstack([klayout_open, placed_blocks, routed, annotated, saved])
+    return
+
+
+@app.cell
+def _(mo, set_view, show_overview):
+    mo.stop(not show_overview)
+    go_targets = mo.ui.button(
+        value=0,
+        kind="success",
+        label="Go to Targets",
+        on_click=lambda v: (set_view("Targets"), (v or 0) + 1)[-1],
+    )
+    go_klayout = mo.ui.button(
+        value=0,
+        kind="neutral",
+        label="Go to KLayout + PDK",
+        on_click=lambda v: (set_view("KLayout + PDK"), (v or 0) + 1)[-1],
+    )
+    go_skeleton = mo.ui.button(
+        value=0,
+        kind="neutral",
+        label="Go to Layout skeleton",
+        on_click=lambda v: (set_view("Layout skeleton"), (v or 0) + 1)[-1],
+    )
+    go_submission = mo.ui.button(
+        value=0,
+        kind="neutral",
+        label="Go to Submission",
+        on_click=lambda v: (set_view("Submission"), (v or 0) + 1)[-1],
+    )
+    mo.hstack([go_targets, go_klayout, go_skeleton, go_submission], justify="start", gap=1)
+    return
+
+
+@app.cell
+def _(doc_callout_html, mo, show_targets):
+    mo.stop(not show_targets)
+    mo.md(r"""
+    <a id="targets"></a>
+    ## Targets: pick ΔL from an FSR target (1550 nm default)
+
+    Use the Week 2 modelling notebook to build intuition and sanity-check values:
+    `marimo_course/lessons/w02_mzi_modelling.py`.
+
+    Rule-of-thumb near λ0:
+
+    $$
+    \mathrm{FSR} \approx \frac{\lambda_0^2}{n_g\,\Delta L}.
+    $$
+    """)
+
+    doc_callout_html(
+        "info",
+        tag="Tip",
+        title="What matters for FSR",
+        html=(
+            "- ΔL sets fringe spacing (FSR) approximately as `1/ΔL`.\n"
+            "- Base length doesn’t change FSR in the ideal model.\n"
+            "- Use **1550 nm** by default; treat **1310 nm** as an extension."
+        ),
+    )
+    return
+
+
+@app.cell
+def _(mo, show_targets):
+    mo.stop(not show_targets)
+    wl0_nm = mo.ui.number(value=1550.0, label="λ0 (nm)")
+    ng = mo.ui.number(value=4.19, label="ng (group index)")
+    deltaL_um = mo.ui.number(value=50.0, label="Planned ΔL (µm)")
+    mo.hstack([wl0_nm, ng, deltaL_um])
+    return deltaL_um, ng, wl0_nm
+
+
+@app.cell
+def _(deltaL_um, mo, ng, show_targets, wl0_nm):
+    mo.stop(not show_targets)
+    wl0_um = float(wl0_nm.value) / 1e3
+    ng_val = float(ng.value)
+    delta_L_um = float(deltaL_um.value)
+    fsr_nm = (
+        None
+        if (delta_L_um <= 0 or ng_val <= 0)
+        else (wl0_um * wl0_um) / (ng_val * delta_L_um) * 1e3
+    )
+    mo.md(
+        "FSR estimate: (enter positive ΔL and ng)"
+        if fsr_nm is None
+        else f"FSR estimate: **{fsr_nm:.2f} nm**"
+    )
+    return
+
+
+@app.cell
+def _(deltaL_um, mo, show_targets):
+    mo.stop(not show_targets)
+    import base64 as b64
+
+    delta_L_um_vis = float(deltaL_um.value)
+    extra = max(0.0, min(80.0, delta_L_um_vis))  # purely visual; does not affect calculations
+    dy = 26
+    x0, x1, x2, x3 = 20, 110, 310, 400
+    y_mid = 65
+    y_top = y_mid - dy
+    y_bot = y_mid + dy
+
+    # The upper arm is drawn a bit longer (extra) to visually suggest ΔL.
+    x2_top = x2 + extra
+
+    svg = f"""
+    <svg xmlns="http://www.w3.org/2000/svg" width="520" height="140" viewBox="0 0 520 140">
+      <style>
+        .wg {{ fill: none; stroke: #111; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }}
+        .box {{ fill: #f6f6f6; stroke: #999; stroke-width: 1.5; }}
+        .txt {{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-size: 12px; fill: #111; }}
+        .sub {{ font-size: 11px; fill: #444; }}
+      </style>
+
+      <!-- input / output -->
+      <path class="wg" d="M {x0} {y_mid} L {x1} {y_mid}" />
+      <path class="wg" d="M {x3} {y_mid} L 500 {y_mid}" />
+
+      <!-- coupler boxes -->
+      <rect class="box" x="{x1}" y="{y_mid-18}" width="70" height="36" rx="6"/>
+      <rect class="box" x="{x3-70}" y="{y_mid-18}" width="70" height="36" rx="6"/>
+      <text class="txt" x="{x1+10}" y="{y_mid-2}">Splitter</text>
+      <text class="txt" x="{x3-60}" y="{y_mid-2}">Combiner</text>
+
+      <!-- arms -->
+      <path class="wg" d="M {x1+70} {y_top} L {x2_top} {y_top} L {x3-70} {y_top}" />
+      <path class="wg" d="M {x1+70} {y_bot} L {x2} {y_bot} L {x3-70} {y_bot}" />
+      <path class="wg" d="M {x1+70} {y_mid} L {x1+70} {y_top}" />
+      <path class="wg" d="M {x1+70} {y_mid} L {x1+70} {y_bot}" />
+      <path class="wg" d="M {x3-70} {y_mid} L {x3-70} {y_top}" />
+      <path class="wg" d="M {x3-70} {y_mid} L {x3-70} {y_bot}" />
+
+      <!-- labels -->
+      <text class="txt" x="20" y="20">Circuit schematic (conceptual)</text>
+      <text class="txt sub" x="20" y="38">Upper arm longer by ΔL ≈ {delta_L_um_vis:.1f} µm (visual only)</text>
+    </svg>
+    """.strip()
+
+    svg_b64 = b64.b64encode(svg.encode("utf-8")).decode("ascii")
+    mo.md(
+        "<div style='max-width:100%; overflow:auto;'>"
+        f"<img src='data:image/svg+xml;base64,{svg_b64}' style='max-width:100%; height:auto;'/>"
         "</div>"
     )
     return
 
 
 @app.cell
-def _():
+def _(doc_callout_list, mo, show_klayout):
+    mo.stop(not show_klayout)
+    mo.md(r"""
+    <a id="klayout"></a>
+    ## KLayout + SiEPIC-EBeam PDK setup
+
+    This section is intentionally procedural: the goal is to reduce “where do I click?” friction in lab.
+    """)
+
+    doc_callout_list(
+        "info",
+        tag="Checklist",
+        title="Setup and sanity checks",
+        ordered=True,
+        items=[
+            "Install KLayout and the SiEPIC-EBeam PDK (confirm the technology loads).",
+            "Confirm the correct process/run assumptions for this semester (default: **1550 nm** structures).",
+            "Open an example layout from the PDK and verify layers look sensible.",
+            "Create a new layout inside the run repo using the required filename conventions.",
+        ],
+    )
     return
 
 
 @app.cell
-def _(mo):
-    center_wl = mo.ui.slider(
-        start=1.50,
-        stop=1.60,
-        value=1.55,
-        step=0.001,
-        label="Target center wavelength (µm)",
+def _(doc_callout_list, mo, show_skeleton):
+    mo.stop(not show_skeleton)
+    mo.md(r"""
+    <a id="skeleton"></a>
+    ## Layout skeleton (MZI) — build first, refine later
+
+    Build a simple MZI skeleton using PDK cells (splitter/combiner + waveguides + I/O).
+    Keep it **simple and clean**: symmetry, straight segments where possible, and a clear way to implement ΔL.
+
+    Optional: generate a quick “geometry-only” MZI skeleton using gdsfactory to visualize the idea,
+    then recreate it with PDK-accurate cells in KLayout.
+    """)
+
+    doc_callout_list(
+        "warning",
+        tag="Important",
+        title="PDK vs generic geometry",
+        items=[
+            "For openEBL submissions, your final design must follow the PDK cell conventions expected by the run repo.",
+            "A gdsfactory skeleton is useful for intuition, but it is not a substitute for a PDK-accurate KLayout design.",
+        ],
     )
-    ng = mo.ui.slider(
-        start=2.0,
-        stop=5.0,
-        value=4.19,
-        step=0.01,
-        label="Estimated group index (ng)",
-    )
-    delta_length = mo.ui.slider(
-        start=1.0,
-        stop=1000.0,
-        value=50.0,
-        step=1.0,
-        label="Planned ΔL in layout (µm)",
-    )
-    return (delta_length,)
-
-
-app._unparsable_cell(
-    r"""
-
-        lam0 = float(center_wl.value)
-        n_g = float(ng.value)
-        dL = float(delta_length.value)
-
-        if dL <= 0:
-            return mo.md(\\"Choose a non-zero ΔL to estimate the FSR.\\")
-
-        fsr_um = lam0 * lam0 / (n_g * dL)
-        fsr_nm = fsr_um * 1e3
-        summary = (
-            f\\"For ΔL = **{dL:.1f} µm** and ng = **{n_g:.2f}** at \\"
-            f\\"λ0 = **{lam0:.3f} µm**, the ideal FSR is ≈ **{fsr_nm:.1f} nm**.\\"
-        )
-    
-    """,
-    name="_"
-)
+    return
 
 
 @app.cell
-def _():
+def _(mo, show_skeleton):
+    mo.stop(not show_skeleton)
+    from _notebook_template import optional_import
+
+    gf_mod, gf_error = optional_import("gdsfactory")
+    available = gf_mod is not None
+
+    doc = (
+        "Optional gdsfactory helper: **available**"
+        if available
+        else f"Optional gdsfactory helper: **not available** (`{gf_error}`)"
+    )
+    mo.md(doc)
+    return available, gf_mod
+
+
+@app.cell
+def _(available, mo, show_skeleton):
+    mo.stop(not show_skeleton)
+    mo.stop(not available)
+
+    gds_out = mo.ui.text(value="marimo_course/build/week2_mzi_skeleton.gds", label="GDS output path")
+    delta_length = mo.ui.number(value=50.0, label="ΔL (µm)")
+    length_x = mo.ui.number(value=60.0, label="length_x (µm)")
+    length_y = mo.ui.number(value=10.0, label="length_y (µm)")
+    write = mo.ui.button(value=0, label="Write GDS", kind="success", on_click=lambda v: (v or 0) + 1)
+    mo.vstack([mo.hstack([gds_out, write]), mo.hstack([delta_length, length_x, length_y])])
+    return
+
+
+@app.cell
+def _(available, gf_mod, mo, show_skeleton):
+    mo.stop(not show_skeleton)
+    mo.stop(not available)
+
     from pathlib import Path
-    return (Path,)
 
-
-@app.cell
-def _():
-    try:
-        import gdsfactory as gf  # type: ignore
-
-        gf_import_error = None
-    except Exception as e:  # pragma: no cover
-        gf = None
-        gf_import_error = f"{type(e).__name__}: {e}"
-    return gf, gf_import_error
-
-
-@app.cell
-def _():
-    return
-
-
-@app.cell
-def _(mo):
-    workflow_stage = mo.ui.radio(
-        options={
-            "spec": "1) Pick targets (FSR ↔ ΔL)",
-            "gen": "2) Generate a skeleton GDS (gdsfactory)",
-            "klayout": "3) Open in KLayout + load PDK",
-            "annotate": "4) Add pins/labels/floorplan",
-            "save": "5) Save into openEBL repo",
-        },
-        value="spec",
-        label="Workflow step",
-    )
-    return (workflow_stage,)
-
-
-@app.cell
-def _(Path, mo):
-    default_out = Path("marimo_course/build/week2_mzi_skeleton.gds")
-    gds_path = mo.ui.text(
-        value=str(default_out),
-        label="GDS output path",
-    )
-    length_x = mo.ui.slider(
-        start=1.0,
-        stop=200.0,
-        value=60.0,
-        step=1.0,
-        label="MZI base length_x (µm)",
-    )
-    length_y = mo.ui.slider(
-        start=1.0,
-        stop=50.0,
-        value=10.0,
-        step=0.5,
-        label="MZI base length_y (µm)",
-    )
-    export_gds = mo.ui.button(
-        value=0,
-        on_click=lambda v: (v or 0) + 1,
-        kind="success",
-        label="Generate / overwrite GDS",
-    )
-    controls = mo.vstack([gds_path, length_x, length_y, export_gds])
-    return controls, export_gds, gds_path, length_x, length_y
+    def write_mzi_skeleton(*, out: Path, delta_length_um: float, length_x_um: float, length_y_um: float) -> Path:
+        gf = gf_mod
+        mzi = gf.components.mzi(
+            delta_length=float(delta_length_um),
+            length_x=float(length_x_um),
+            length_y=float(length_y_um),
+        )
+        out.parent.mkdir(parents=True, exist_ok=True)
+        written = mzi.write_gds(gdspath=out)
+        return Path(written)
+    return Path, write_mzi_skeleton
 
 
 @app.cell
 def _(
     Path,
-    controls,
+    available,
     delta_length,
-    export_gds,
-    gds_path,
-    gf,
-    gf_import_error,
+    gds_out,
     length_x,
     length_y,
     mo,
-    workflow_stage,
+    show_skeleton,
+    write,
+    write_mzi_skeleton,
 ):
-    import inspect
+    mo.stop(not show_skeleton)
+    mo.stop(not available)
 
-    stage = workflow_stage.value
     blocks = []
-
-    if stage == "spec":
+    if int(write.value or 0) <= 0:
         blocks.append(
-            mo.md(
-                r"""
-                **Goal:** pick a ΔL that gives a reasonable FSR for the wavelength range you care about.
-
-                Use the sliders above (λ0, ng, ΔL) and sanity-check against the Week 2 modelling notebook.
-                """
-            )
+            mo.md("Click **Write GDS** to export a skeleton you can inspect in KLayout.")
         )
-
-    elif stage == "gen":
-        if gf is None:
-            blocks.extend(
-                [
-                    mo.md(
-                        r"""
-                        <div class="pb-callout">
-                        <strong>gdsfactory not available in this environment.</strong><br/>
-                        This step requires a local Python environment with <code>gdsfactory</code> installed.
-                        </div>
-                        """
-                    ),
-                    mo.md(f"Import error: `{gf_import_error}`"),
-                    mo.md("Suggested install (local venv): `pip install gdsfactory`"),
-                ]
+    else:
+        out = Path(str(gds_out.value)).expanduser()
+        try:
+            written = write_mzi_skeleton(
+                out=out,
+                delta_length_um=float(delta_length.value),
+                length_x_um=float(length_x.value),
+                length_y_um=float(length_y.value),
             )
-        else:
-            blocks.extend(
-                [
-                    mo.md(
-                        r"""
-                        **What this generates:** a parametric MZI skeleton using gdsfactory’s standard components.
+            blocks.append(mo.md(f"Wrote: `{written}`"))
+            blocks.append(mo.md(f"Open in KLayout: `klayout {written}`"))
+        except Exception as e:  # pragma: no cover
+            blocks.append(mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)"))
 
-                        - Units: gdsfactory lengths are in **µm**
-                        - Ports: the exported cell will have optical ports like `o1`, `o2`
-                        """
-                    ),
-                    controls,
-                ]
-            )
-
-            mzi_factory = gf.components.mzi
-            sig = inspect.signature(mzi_factory)
-            param_names = set(sig.parameters)
-
-            kwargs: dict[str, float] = {}
-            if "delta_length" in param_names:
-                kwargs["delta_length"] = float(delta_length.value)
-            elif "delta_length_um" in param_names:
-                kwargs["delta_length_um"] = float(delta_length.value)
-
-            if "length_x" in param_names:
-                kwargs["length_x"] = float(length_x.value)
-            if "length_y" in param_names:
-                kwargs["length_y"] = float(length_y.value)
-
-            c = mzi_factory(**kwargs)
-
-            if export_gds.value is None or export_gds.value <= 0:
-                blocks.append(mo.md("Click **Generate / overwrite GDS** to write the file."))
-            else:
-                out_path = Path(gds_path.value).expanduser()
-                out_path.parent.mkdir(parents=True, exist_ok=True)
-
-                written = c.write_gds(gdspath=out_path)
-                blocks.extend(
-                    [
-                        mo.md(f"Wrote: `{written}`"),
-                        mo.md(f"Next: open it in KLayout: `klayout {written}`"),
-                    ]
-                )
-
-    elif stage == "klayout":
-        blocks.append(
-            mo.md(
-                r"""
-                **KLayout steps:**
-                1. Launch KLayout.
-                2. Ensure the **SiEPIC-EBeam-PDK** is installed and selected.
-                3. Open the generated GDS (or your design GDS) and inspect geometry + layers.
-                4. Keep this notebook open to cross-check ΔL and expected FSR.
-                """
-            )
-        )
-
-    elif stage == "annotate":
-        blocks.append(
-            mo.md(
-                r"""
-                **Annotation steps (what CI/tools typically need):**
-                - Add/verify **Pins** (PinRec) and **Device recognition** (DevRec) on the top-level cell.
-                - Add text labels for device name, student ID, and ports (if your flow expects it).
-                - Add a **floorplan** / die boundary if required by the openEBL submission rules.
-                """
-            )
-        )
-
-    elif stage == "save":
-        blocks.append(
-            mo.md(
-                r"""
-                **Save + repo steps:**
-                - Place your final GDS in the `openEBL-2026-02` repo (per the course instructions).
-                - Run whatever verification/CI checks are required by the run repo.
-                - Keep a copy of the “skeleton” parameters (ΔL, length_x, length_y) in your notes.
-                """
-            )
-        )
+    mo.vstack(blocks)
     return
 
 
 @app.cell
-def _():
-    import marimo as mo
-    return (mo,)
+def _(doc_callout_list, mo, show_submission):
+    mo.stop(not show_submission)
+    mo.md(r"""
+    <a id="submission"></a>
+    ## Save + submission workflow (openEBL)
 
+    The details depend on the specific openEBL run repository used this semester, but the structure is consistent:
+    save designs in the right folder, run checks, fix failures, and submit via PR.
+    """)
 
-@app.cell
-def _():
+    doc_callout_list(
+        "info",
+        tag="Checklist",
+        title="Before you push",
+        ordered=True,
+        items=[
+            "Confirm your layout file is inside the run repo (e.g., `openEBL-2026-02/submissions/...`).",
+            "Verify naming conventions and top-level cell structure match the run instructions.",
+            "Run local verification in KLayout if available (press V / run scripts).",
+            "Push to your fork and check GitHub Actions results; download artifacts when something fails.",
+        ],
+    )
     return
 
 

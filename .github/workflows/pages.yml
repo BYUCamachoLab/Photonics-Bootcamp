@@ -28,10 +28,18 @@ jobs:
       run: |
         pip install -r requirements-docs.txt
 
+    - name: Install marimo export dependencies
+      run: |
+        pip install marimo==0.18.4 altair==6.0.0 polars pyzmq
+
     # Build the book
     - name: Build the book
       run: |
         jb build book
+
+    - name: Build marimo next site
+      run: |
+        bash marimo_course/scripts/build_next_site.sh book/_build/html/next
 
     - name: Configure the Chat Tutor
       run: |

@@ -32,6 +32,18 @@ Notes:
 - Requires `uv` installed (`uv --version`).
 - The first run may take a few minutes while dependencies install.
 
+## Editing safety (recommended)
+
+Marimo notebooks can become corrupted if saved/exported with an incompatible marimo version; the symptom is usually `app._unparsable_cell(...)` and errors like `SyntaxError: 'return' outside function`.
+
+After editing a lesson:
+- Run `marimo check marimo_course/lessons/<lesson>.py`
+- Run `python3 marimo_course/lessons/check_notebook_health.py marimo_course/lessons/<lesson>.py`
+
+If a lesson gets corrupted:
+- Recover with `git -C Photonics-Bootcamp restore marimo_course/lessons/<lesson>.py`
+- Restart marimo
+
 ## Option B: course virtual environment (instructor / power users)
 
 1. Create and activate a virtual environment

@@ -454,7 +454,7 @@ def _(metadata, mo, sys):
 
 @app.cell
 def _(mo):
-    platform = mo.ui.radio(
+    platform_choice = mo.ui.radio(
         options={
             "macOS / Linux": "unix",
             "Windows (PowerShell)": "win",
@@ -462,13 +462,13 @@ def _(mo):
         value="macOS / Linux",
         label="Platform",
     )
-    mo.vstack([mo.md('<a id="commands"></a>\n## Common commands'), platform])
-    return (platform,)
+    mo.vstack([mo.md('<a id="commands"></a>\n## Common commands'), platform_choice])
+    return (platform_choice,)
 
 
 @app.cell
-def _(mo, platform):
-    if platform.value == "win":
+def _(mo, platform_choice):
+    if platform_choice.value == "win":
         local = mo.md(
             r"""
             **Local venv (course-wide):**

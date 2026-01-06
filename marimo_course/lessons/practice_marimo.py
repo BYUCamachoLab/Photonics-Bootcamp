@@ -53,11 +53,11 @@ def _(mo):
 
 @app.cell
 def _(delta_length, mo):
-    dl = float(delta_length.value)
+    dl_schematic = float(delta_length.value)
     mo.md(
         f"""
 ```text
-                     upper arm (extra length = ΔL = {dl:.1f} µm)
+                     upper arm (extra length = ΔL = {dl_schematic:.1f} µm)
           ┌────────┐
 Input ──▶ │ 50/50  │───────────────────────────────────────────┐
           └───┬────┘                                           │
@@ -174,9 +174,9 @@ def _(alt, center_wl, delta_length, mo, ng, np, pl, y_scale):
         ]
     )
 
-    dl = float(delta_length.value)
-    if dl > 0:
-        fsr_nm = (float(center_wl.value) ** 2) / (float(ng.value) * dl) * 1e3
+    dl_fsr = float(delta_length.value)
+    if dl_fsr > 0:
+        fsr_nm = (float(center_wl.value) ** 2) / (float(ng.value) * dl_fsr) * 1e3
         fsr_line = mo.md(f"Estimated ideal FSR: **{fsr_nm:.2f} nm**")
     else:
         fsr_line = mo.md("Estimated ideal FSR: **(ΔL = 0 → no fringes)**")

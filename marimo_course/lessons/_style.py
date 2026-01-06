@@ -1,6 +1,20 @@
 from __future__ import annotations
 
+from textwrap import dedent
 from typing import Iterable, Sequence
+
+
+def _escape_html(value: str) -> str:
+    return (
+        value.replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def _escape_attr(value: str) -> str:
+    return _escape_html(value)
 
 
 def inject_css(mo) -> object:
@@ -95,6 +109,11 @@ def inject_css(mo) -> object:
           .callout.warning { border-left: 5px solid #b45309; }
           .callout.exercise { border-left: 5px solid #059669; }
 
+          /* Slightly more compact widgets (sliders/buttons/inputs) */
+          label, input, select, textarea, button {
+            font-size: 0.92rem;
+          }
+
           @media (max-width: 980px) {
             .markdown.prose { padding-right: 1rem; }
           }
@@ -104,13 +123,73 @@ def inject_css(mo) -> object:
 
 
 def _badge_html(label: str) -> str:
-    safe = (
-        label.replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace('"', "&quot;")
+    return f'<span class="doc-badge">{_escape_html(label)}</span>'
+
+
+def doc_badges(
+    mo,
+    badges: list[str],
+    *,
+    style: str | None = None,
+) -> object:
+    style_attr = f' style="{_escape_attr(style)}"' if style else ""
+    inner = "".join(_badge_html(b) for b in badges)
+    return mo.md(f'<div class="doc-badges"{style_attr}>{inner}</div>')
+
+
+def doc_callout_list(
+    mo,
+    kind: str,
+    *,
+    tag: str,
+    title: str,
+    items: list[str],
+    ordered: bool = False,
+    items_are_html: bool = True,
+) -> object:
+    list_tag = "ol" if ordered else "ul"
+    if items_are_html:
+        inner = "".join(f"<li>{item}</li>" for item in items)
+    else:
+        inner = "".join(f"<li>{_escape_html(item)}</li>" for item in items)
+    return mo.md(
+        dedent(
+            f"""
+            <div class="callout {kind}">
+              <div class="callout-title">
+                <span class="tag">{_escape_html(tag)}</span>
+                <span>{_escape_html(title)}</span>
+              </div>
+              <{list_tag}>
+                {inner}
+              </{list_tag}>
+            </div>
+            """
+        )
     )
-    return f'<span class="doc-badge">{safe}</span>'
+
+
+def doc_callout_html(
+    mo,
+    kind: str,
+    *,
+    tag: str,
+    title: str,
+    html: str,
+) -> object:
+    return mo.md(
+        dedent(
+            f"""
+            <div class="callout {kind}">
+              <div class="callout-title">
+                <span class="tag">{_escape_html(tag)}</span>
+                <span>{_escape_html(title)}</span>
+              </div>
+              {html}
+            </div>
+            """
+        )
+    )
 
 
 def header(
@@ -124,10 +203,13 @@ def header(
 ) -> object:
     badges_html = "\n".join(_badge_html(b) for b in badges)
     toc_items = "\n".join(
-        f'<li><a href="#{anchor}">{label}</a></li>' for label, anchor in toc
+        f'<li><a href="#{_escape_attr(anchor)}">{_escape_html(label)}</a></li>'
+        for label, anchor in toc
     )
     build_html = (
-        f"<p><small><em>Notebook build: {build}</em></small></p>" if build else ""
+        f"<p><small><em>Notebook build: {_escape_html(build)}</em></small></p>"
+        if build
+        else ""
     )
 
     hero = f"""
@@ -135,8 +217,8 @@ def header(
       <div class="doc-badges">
         {badges_html}
       </div>
-      <h1>{title}</h1>
-      <p>{subtitle}</p>
+      <h1>{_escape_html(title)}</h1>
+      <p>{_escape_html(subtitle)}</p>
       {build_html}
     </div>
     """
