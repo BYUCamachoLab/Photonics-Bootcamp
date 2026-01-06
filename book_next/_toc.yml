@@ -1,0 +1,11 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: index
+chapters:
+  - file: week1
+  - file: week2_mzi_modelling
+  - file: week2_pdk_mzi_layout
+  - file: practice
+  - file: hw02

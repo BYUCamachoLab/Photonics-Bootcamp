@@ -4,15 +4,6 @@
 format: jb-book
 root: index
 parts:
-  - caption: Marimo Course (Next)
-    chapters:
-    - file: next/index
-      sections:
-      - file: next/week1
-      - file: next/week2_mzi_modelling
-      - file: next/week2_pdk_mzi_layout
-      - file: next/practice
-      - file: next/hw02
   - caption: Front Matter
     chapters:
     - file: pages/introduction

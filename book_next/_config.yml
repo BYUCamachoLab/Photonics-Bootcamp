@@ -1,0 +1,56 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: CamachoLab Photonics Bootcamp (marimo)
+author: CamachoLab and Google
+copyright: "2026"
+logo: images/logo.png
+
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
+only_build_toc_files: true
+
+execute:
+  execute_notebooks: off
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify
+    - substitution
+    - tasklist
+  myst_url_schemes: [mailto, http, https]
+  myst_dmath_double_inline: true
+
+html:
+  favicon: "images/favicon-laser.svg"
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
+  use_multitoc_numbering: false
+  extra_navbar: Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+  extra_footer: ""
+  google_analytics_id: ""
+  home_page_in_navbar: false
+  baseurl: "https://byucamacholab.github.io/Photonics-Bootcamp/next/"
+  comments:
+    hypothesis: false
+    utterances: false
+  announcement: ""
+
+launch_buttons:
+  notebook_interface: classic
+  binderhub_url: https://mybinder.org
+  jupyterhub_url: ""
+  thebe: false
+  colab_url: "https://colab.research.google.com"
+
+repository:
+  url: https://github.com/BYUCamachoLab/Photonics-Bootcamp
+  path_to_book: book_next
+  branch: main
+
+sphinx:
+  config:
+    language: en
