@@ -1,135 +1,420 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Photonics Bootcamp (marimo) — Next</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f7f5f2;
-        --panel: #ffffff;
-        --ink: #1a1a1a;
-        --muted: #5b5b5b;
-        --accent: #1f6feb;
-        --border: #d7d2c9;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: "Georgia", "Times New Roman", serif;
-        color: var(--ink);
-        background: radial-gradient(circle at top, #fffef9 0%, var(--bg) 55%, #efece6 100%);
-        line-height: 1.6;
-      }
-      header {
-        padding: 48px 20px 24px;
-        text-align: center;
-      }
-      header h1 {
-        margin: 0 0 10px;
-        font-size: 2.2rem;
-      }
-      header p {
-        margin: 0 auto;
-        max-width: 720px;
-        color: var(--muted);
-      }
-      main {
-        max-width: 960px;
-        margin: 0 auto 60px;
-        padding: 0 20px;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 16px;
-      }
-      .card {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 16px 18px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-      }
-      .card h2 {
-        margin: 0 0 8px;
-        font-size: 1.1rem;
-      }
-      .card p {
-        margin: 0 0 10px;
-        color: var(--muted);
-      }
-      a {
-        color: var(--accent);
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-      .note {
-        margin: 20px 0 28px;
-        padding: 12px 14px;
-        border-left: 4px solid var(--accent);
-        background: rgba(31, 111, 235, 0.08);
-        border-radius: 10px;
-      }
-      code {
-        background: rgba(0, 0, 0, 0.05);
-        padding: 2px 6px;
-        border-radius: 6px;
-        font-size: 0.95em;
-      }
-      footer {
-        text-align: center;
-        color: var(--muted);
-        padding: 12px 20px 40px;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Photonics Bootcamp — marimo (Next)</h1>
-      <p>
-        Preview of the marimo-first course site. The main course runs locally in marimo; these
-        exports are for browsing and quick reference.
-      </p>
-    </header>
-    <main>
-      <div class="note">
-        For full interactivity and hardware tooling, run locally:
-        <code>marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py</code>
-      </div>
-      <section class="grid">
-        <div class="card">
-          <h2>Week 1</h2>
-          <p>Orientation, setup checklist, and course calendar.</p>
-          <a href="lessons/w01_orientation_tooling.html">Open Week 1 lesson</a>
-        </div>
-        <div class="card">
-          <h2>Week 2 (Modelling)</h2>
-          <p>MZI transfer function, FSR intuition, and Simphony optional overlay.</p>
-          <a href="lessons/w02_mzi_modelling.html">Open Week 2 modelling</a>
-        </div>
-        <div class="card">
-          <h2>Week 2 (Layout)</h2>
-          <p>PDK + KLayout companion for the MZI lab workflow.</p>
-          <a href="lessons/w02_pdk_mzi_layout.html">Open Week 2 layout</a>
-        </div>
-        <div class="card">
-          <h2>Practice marimo</h2>
-          <p>Small sandbox for UI + reactivity basics.</p>
-          <a href="lessons/practice_marimo.html">Open practice notebook</a>
-        </div>
-        <div class="card">
-          <h2>HW02</h2>
-          <p>Homework scaffold for FSR and ΔL.</p>
-          <a href="assignments/hw02_mzi_modelling.html">Open HW02</a>
-        </div>
-      </section>
-    </main>
-    <footer>
-      This is the "next" marimo site. The current public site remains at the root URL.
-    </footer>
-  </body>
+
+<!DOCTYPE html>
+
+<html data-content_root="" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
+<title>Photonics Bootcamp (marimo, next) — CamachoLab Photonics Bootcamp</title>
+<script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+<!-- Loaded before other Sphinx assets -->
+<link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet"/>
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet"/>
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet"/>
+<link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" rel="preload" type="font/woff2"/>
+<link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" rel="stylesheet" type="text/css"/>
+<link href="../_static/togglebutton.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/copybutton.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/sphinx-thebe.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" rel="stylesheet" type="text/css"/>
+<!-- Pre-loaded scripts that we'll load fully later -->
+<link as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" rel="preload"/>
+<link as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" rel="preload"/>
+<script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script>
+<script src="../_static/underscore.js"></script>
+<script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+<script src="../_static/doctools.js"></script>
+<script src="../_static/clipboard.min.js"></script>
+<script src="../_static/copybutton.js"></script>
+<script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+<script>let toggleHintShow = 'Click to show';</script>
+<script>let toggleHintHide = 'Click to hide';</script>
+<script>let toggleOpenOnPrint = 'true';</script>
+<script src="../_static/togglebutton.js"></script>
+<script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+<script src="../_static/design-tabs.js"></script>
+<script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+<script async="async" src="../_static/sphinx-thebe.js"></script>
+<script>DOCUMENTATION_OPTIONS.pagename = 'next/index';</script>
+<link href="https://byucamacholab.github.io/Photonics-Bootcamp/next/index.html" rel="canonical"/>
+<link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
+<link href="../genindex.html" rel="index" title="Index"/>
+<link href="../search.html" rel="search" title="Search"/>
+<link href="week1.html" rel="next" title="Week 1 — Orientation and Tooling (marimo)"/>
+<link href="../index.html" rel="prev" title="CamachoLab Photonics Bootcamp"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="en" name="docsearch:language"/>
+<link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
+<body data-bs-root-margin="0px 0px -60%" data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-default-mode="" data-offset="180">
+<div class="skip-link d-print-none" id="pst-skip-link"><a href="#main-content">Skip to main content</a></div>
+<div id="pst-scroll-pixel-helper"></div>
+<button class="btn rounded-pill" id="pst-back-to-top" type="button">
+<i class="fa-solid fa-arrow-up"></i>Back to top</button>
+<input class="sidebar-toggle" id="pst-primary-sidebar-checkbox" type="checkbox"/>
+<label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+<input class="sidebar-toggle" id="pst-secondary-sidebar-checkbox" type="checkbox"/>
+<label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+<div class="search-button__wrapper">
+<div class="search-button__overlay"></div>
+<div class="search-button__search-container">
+<form action="../search.html" class="bd-search d-flex align-items-center" method="get">
+<i class="fa-solid fa-magnifying-glass"></i>
+<input aria-label="Search this book..." autocapitalize="off" autocomplete="off" autocorrect="off" class="form-control" id="search-input" name="q" placeholder="Search this book..." spellcheck="false" type="search"/>
+<span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+</div>
+<div class="pst-async-banner-revealer d-none">
+<aside aria-label="Version warning" class="d-none d-print-none" id="bd-header-version-warning"></aside>
+</div>
+<header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+</header>
+<div class="bd-container">
+<div class="bd-container__inner bd-page-width">
+<div class="bd-sidebar-primary bd-sidebar">
+<div class="sidebar-header-items sidebar-primary__section">
+</div>
+<div class="sidebar-primary-items__start sidebar-primary__section">
+<div class="sidebar-primary-item">
+<a class="navbar-brand logo" href="../index.html">
+<img alt="CamachoLab Photonics Bootcamp - Home" class="logo__image only-light" src="../_static/logo.png"/>
+<script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="CamachoLab Photonics Bootcamp - Home"/>`);</script>
+</a></div>
+<div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links" id="bd-docs-nav">
+<div class="bd-toc-item navbar-nav active">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Marimo Course (Next)</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Photonics Bootcamp (marimo, next)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="week1.html">Week 1 — Orientation and Tooling (marimo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week2_mzi_modelling.html">Week 2 — MZI Modelling (marimo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week2_pdk_mzi_layout.html">Week 2 — PDK MZI Layout (marimo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="practice.html">Practice marimo (sandbox)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hw02.html">HW02 — MZI Modelling (marimo)</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/credits.html">Credits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Environment</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/open_source.html">Open source software</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/software.html">Software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/wsl.html">WSL (Windows-only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/git_and_github.html">Git (and GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/python.html">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/klayout.html">KLayout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/laboratory_tools.html">Laboratory Tools</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/photonic_devices.html">What are photonic devices?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/layer_stack.html">Defining the layer stack</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/components.html">Components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/gds_to_meep.html">GDS to Meep</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/waveguides.html">Waveguides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_tir.html">Total Internal Reflection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_polarization.html">Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/ray_optic_model.html">Improving the Ray-optic Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_mode_solvers.html">Waveguide modes</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/passive_components.html">Passive Components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/directional_couplers.html">Directional couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/y_branch.html">Y-Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/ring_resonators.html">Ring Resonators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/mmis.html">Multimode Interferometers (MMIs)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/optical_io.html">Optical I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/grating_couplers.html">Grating couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/edge_couplers.html">Edge couplers</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/optimization.html">Optimization and inverse design</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/shape_optimization.html">Shape optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/adjoint_optimization.html">Adjoint optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/meep_to_gds.html">Meep to GDS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/compact_models.html">Compact models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/scattering_parameters.html">Scattering parameters</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/drc.html">Design rule checks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/pdks.html">Process design kits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/mzi.html">Mach-Zehnder interferometers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/mzi_layout.html">Laying out a Mach-Zehnder Interferometer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/layout_demo.html">Layout Demo</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/advanced_components.html">Advanced Components</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/phase_shifters.html">Phase Shifters</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/phase_shifters_heaters.html">Heaters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/phase_shifters_pn.html">PN and PIN Junctions</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/analyzing_circuits.html">Analyzing circuits</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">PDK Documentation</a></li>
+</ul>
+</div>
+</nav></div>
+</div>
+<div class="sidebar-primary-items__end sidebar-primary__section">
+</div>
+<div id="rtd-footer-container"></div>
+</div>
+<main class="bd-main" id="main-content" role="main">
+<div class="sbt-scroll-pixel-helper"></div>
+<div class="bd-content">
+<div class="bd-article-container">
+<div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+<div class="header-article-items__start">
+<div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__primary" title="Toggle primary sidebar">
+<span class="fa-solid fa-bars"></span>
+</label></div>
+</div>
+<div class="header-article-items__end">
+<div class="header-article-item">
+<div class="article-header-buttons">
+<div class="dropdown dropdown-source-buttons">
+<button aria-expanded="false" aria-label="Source repositories" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+<i class="fab fa-github"></i>
+</button>
+<ul class="dropdown-menu">
+<li><a class="btn btn-sm btn-source-repository-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp" target="_blank" title="Source repository">
+<span class="btn__icon-container">
+<i class="fab fa-github"></i>
+</span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/next/index.md" target="_blank" title="Suggest edit">
+<span class="btn__icon-container">
+<i class="fas fa-pencil-alt"></i>
+</span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fnext/index.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
+<span class="btn__icon-container">
+<i class="fas fa-lightbulb"></i>
+</span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="dropdown dropdown-download-buttons">
+<button aria-expanded="false" aria-label="Download this page" class="btn dropdown-toggle" data-bs-toggle="dropdown" type="button">
+<i class="fas fa-download"></i>
+</button>
+<ul class="dropdown-menu">
+<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/next/index.md" target="_blank" title="Download source file">
+<span class="btn__icon-container">
+<i class="fas fa-file"></i>
+</span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+<li>
+<button class="btn btn-sm btn-download-pdf-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" onclick="window.print()" title="Print to PDF">
+<span class="btn__icon-container">
+<i class="fas fa-file-pdf"></i>
+</span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+</ul>
+</div>
+<button class="btn btn-sm btn-fullscreen-button" data-bs-placement="bottom" data-bs-toggle="tooltip" onclick="toggleFullScreen()" title="Fullscreen mode">
+<span class="btn__icon-container">
+<i class="fas fa-expand"></i>
+</span>
+</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" data-bs-placement="bottom" data-bs-toggle="tooltip" for="__secondary" title="Toggle secondary sidebar">
+<span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+</div>
+</div>
+</div>
+<div class="onlyprint" id="jb-print-docs-body">
+<h1>Photonics Bootcamp (marimo, next)</h1>
+<!-- Table of contents -->
+<div id="print-main-content">
+<div id="jb-print-toc">
+<div>
+<h2> Contents </h2>
+</div>
+<nav aria-label="Page">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository">Repository</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div id="searchbox"></div>
+<article class="bd-article">
+<section class="tex2jax_ignore mathjax_ignore" id="photonics-bootcamp-marimo-next">
+<h1>Photonics Bootcamp (marimo, next)<a class="headerlink" href="#photonics-bootcamp-marimo-next" title="Permalink to this heading">#</a></h1>
+<p>This section wraps the marimo-first course materials in the JupyterBook shell so the site looks consistent.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These pages embed read-only marimo exports for quick browsing. For full interactivity, run locally:
+<code class="docutils literal notranslate"><span class="pre">marimo</span> <span class="pre">edit</span> <span class="pre">--sandbox</span> <span class="pre">marimo_course/lessons/w01_orientation_tooling.py</span></code></p>
+</div>
+<section id="quick-links">
+<h2>Quick links<a class="headerlink" href="#quick-links" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="week1.html"><span class="doc std std-doc">Week 1: Orientation and tooling</span></a></p></li>
+<li><p><a class="reference internal" href="week2_mzi_modelling.html"><span class="doc std std-doc">Week 2: MZI modelling</span></a></p></li>
+<li><p><a class="reference internal" href="week2_pdk_mzi_layout.html"><span class="doc std std-doc">Week 2: PDK MZI layout</span></a></p></li>
+<li><p><a class="reference internal" href="practice.html"><span class="doc std std-doc">Practice marimo</span></a></p></li>
+<li><p><a class="reference internal" href="hw02.html"><span class="doc std std-doc">HW02: MZI modelling</span></a></p></li>
+</ul>
+</section>
+<section id="repository">
+<h2>Repository<a class="headerlink" href="#repository" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>GitHub repo: <a class="github reference external" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp">BYUCamachoLab/Photonics-Bootcamp</a></p></li>
+<li><p>Marimo entry point: <code class="docutils literal notranslate"><span class="pre">marimo_course/</span></code></p></li>
+</ul>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./next"
+        },
+        predefinedOutput: true
+    }
+    </script>
+<script>kernelName = 'python3'</script>
+</article>
+<footer class="prev-next-footer d-print-none">
+<div class="prev-next-area">
+<a class="left-prev" href="../index.html" title="previous page">
+<i class="fa-solid fa-angle-left"></i>
+<div class="prev-next-info">
+<p class="prev-next-subtitle">previous</p>
+<p class="prev-next-title">CamachoLab Photonics Bootcamp</p>
+</div>
+</a>
+<a class="right-next" href="week1.html" title="next page">
+<div class="prev-next-info">
+<p class="prev-next-subtitle">next</p>
+<p class="prev-next-title">Week 1 — Orientation and Tooling (marimo)</p>
+</div>
+<i class="fa-solid fa-angle-right"></i>
+</a>
+</div>
+</footer>
+</div>
+<div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+<div class="sidebar-secondary-item">
+<div class="page-toc tocsection onthispage">
+<i class="fa-solid fa-list"></i> Contents
+  </div>
+<nav class="bd-toc-nav page-toc">
+<ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-links">Quick links</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repository">Repository</a></li>
+</ul>
+</nav></div>
+</div></div>
+</div>
+<footer class="bd-footer-content">
+<div class="bd-footer-content__inner container">
+<div class="footer-item">
+<p class="component-author">
+By CamachoLab and Google
+</p>
+</div>
+<div class="footer-item">
+<p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+</p>
+</div>
+<div class="footer-item">
+</div>
+<div class="footer-item">
+</div>
+</div>
+</footer>
+</main>
+</div>
+</div>
+<!-- Scripts loaded after <body> so the DOM is not blocked -->
+<script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+<footer class="bd-footer">
+</footer>
+<script src="../_static/scripts/chattutor.config.js"></script><script src="../_static/scripts/chattutor.min.js" type="module"></script></body>
 </html>

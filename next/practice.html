@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Optical I/O — CamachoLab Photonics Bootcamp</title>
+<title>Practice marimo (sandbox) — CamachoLab Photonics Bootcamp</title>
 <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
@@ -49,13 +49,13 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
 <script async="async" src="../_static/sphinx-thebe.js"></script>
-<script>DOCUMENTATION_OPTIONS.pagename = 'pages/optical_io';</script>
-<link href="https://byucamacholab.github.io/Photonics-Bootcamp/pages/optical_io.html" rel="canonical"/>
+<script>DOCUMENTATION_OPTIONS.pagename = 'next/practice';</script>
+<link href="https://byucamacholab.github.io/Photonics-Bootcamp/next/practice.html" rel="canonical"/>
 <link href="../_static/favicon-laser.svg" rel="shortcut icon"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="../search.html" rel="search" title="Search"/>
-<link href="grating_couplers.html" rel="next" title="Grating couplers"/>
-<link href="mmis.html" rel="prev" title="Multimode Interferometers (MMIs)"/>
+<link href="hw02.html" rel="next" title="HW02 — MZI Modelling (marimo)"/>
+<link href="week2_pdk_mzi_layout.html" rel="prev" title="Week 2 — PDK MZI Layout (marimo)"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="en" name="docsearch:language"/>
 <link href="../_static/styles/chattutor.style.css" rel="stylesheet" type="text/css"/></head>
@@ -96,97 +96,97 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="sidebar-primary-item"><nav aria-label="Main" class="bd-links" id="bd-docs-nav">
 <div class="bd-toc-item navbar-nav active">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Marimo Course (Next)</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../next/index.html">Photonics Bootcamp (marimo, next)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../next/week1.html">Week 1 — Orientation and Tooling (marimo)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../next/week2_mzi_modelling.html">Week 2 — MZI Modelling (marimo)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../next/week2_pdk_mzi_layout.html">Week 2 — PDK MZI Layout (marimo)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../next/practice.html">Practice marimo (sandbox)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../next/hw02.html">HW02 — MZI Modelling (marimo)</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Photonics Bootcamp (marimo, next)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="week1.html">Week 1 — Orientation and Tooling (marimo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week2_mzi_modelling.html">Week 2 — MZI Modelling (marimo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="week2_pdk_mzi_layout.html">Week 2 — PDK MZI Layout (marimo)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Practice marimo (sandbox)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hw02.html">HW02 — MZI Modelling (marimo)</a></li>
 </ul>
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/credits.html">Credits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Environment</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="open_source.html">Open source software</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="software.html">Software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="wsl.html">WSL (Windows-only)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vscode.html">Visual Studio Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="git_and_github.html">Git (and GitHub)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="python.html">Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="klayout.html">KLayout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="laboratory_tools.html">Laboratory Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/open_source.html">Open source software</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/software.html">Software</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/wsl.html">WSL (Windows-only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/vscode.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/git_and_github.html">Git (and GitHub)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/python.html">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/klayout.html">KLayout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/laboratory_tools.html">Laboratory Tools</a></li>
 </ul>
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Passive Device Design and Simulation</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="photonic_devices.html">What are photonic devices?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="layer_stack.html">Defining the layer stack</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="components.html">Components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="gds_to_meep.html">GDS to Meep</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../pages/photonic_devices.html">What are photonic devices?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/layer_stack.html">Defining the layer stack</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/components.html">Components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/gds_to_meep.html">GDS to Meep</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="waveguides.html">Waveguides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_tir.html">Total Internal Reflection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_polarization.html">Polarization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ray_optic_model.html">Improving the Ray-optic Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_modelling.html">Modelling Wavegudies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="waveguides_mode_solvers.html">Waveguide modes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/waveguides.html">Waveguides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_tir.html">Total Internal Reflection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_polarization.html">Polarization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/ray_optic_model.html">Improving the Ray-optic Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_modelling.html">Modelling Wavegudies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/waveguides_mode_solvers.html">Waveguide modes</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="passive_components.html">Passive Components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="directional_couplers.html">Directional couplers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="y_branch.html">Y-Branches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ring_resonators.html">Ring Resonators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mmis.html">Multimode Interferometers (MMIs)</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/passive_components.html">Passive Components</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/directional_couplers.html">Directional couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/y_branch.html">Y-Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/ring_resonators.html">Ring Resonators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/mmis.html">Multimode Interferometers (MMIs)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Optical I/O</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="grating_couplers.html">Grating couplers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="edge_couplers.html">Edge couplers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/optical_io.html">Optical I/O</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/grating_couplers.html">Grating couplers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/edge_couplers.html">Edge couplers</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="optimization.html">Optimization and inverse design</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="shape_optimization.html">Shape optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adjoint_optimization.html">Adjoint optimization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="meep_to_gds.html">Meep to GDS</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/optimization.html">Optimization and inverse design</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/shape_optimization.html">Shape optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/adjoint_optimization.html">Adjoint optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/meep_to_gds.html">Meep to GDS</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="compact_models.html">Compact models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="scattering_parameters.html">Scattering parameters</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/compact_models.html">Compact models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/scattering_parameters.html">Scattering parameters</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="drc.html">Design rule checks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/drc.html">Design rule checks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Circuit Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="pdks.html">Process design kits</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mzi.html">Mach-Zehnder interferometers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mzi_layout.html">Laying out a Mach-Zehnder Interferometer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="layout_demo.html">Layout Demo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/pdks.html">Process design kits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/mzi.html">Mach-Zehnder interferometers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/mzi_layout.html">Laying out a Mach-Zehnder Interferometer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/layout_demo.html">Layout Demo</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Active Device Design and Simulation</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="advanced_components.html">Advanced Components</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="phase_shifters.html">Phase Shifters</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="phase_shifters_heaters.html">Heaters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="phase_shifters_pn.html">PN and PIN Junctions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/advanced_components.html">Advanced Components</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../pages/phase_shifters.html">Phase Shifters</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pages/phase_shifters_heaters.html">Heaters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pages/phase_shifters_pn.html">PN and PIN Junctions</a></li>
 </ul>
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="analyzing_circuits.html">Analyzing circuits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/analyzing_circuits.html">Analyzing circuits</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pages/glossary.html">Glossary</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph">Repository</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/BYUCamachoLab/sky130ph/docs">PDK Documentation</a></li>
 </ul>
@@ -223,14 +223,14 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="btn__text-container">Repository</span>
 </a>
 </li>
-<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/pages/optical_io.md" target="_blank" title="Suggest edit">
+<li><a class="btn btn-sm btn-source-edit-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/edit/main/book/next/practice.md" target="_blank" title="Suggest edit">
 <span class="btn__icon-container">
 <i class="fas fa-pencil-alt"></i>
 </span>
 <span class="btn__text-container">Suggest edit</span>
 </a>
 </li>
-<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fpages/optical_io.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
+<li><a class="btn btn-sm btn-source-issues-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="https://github.com/BYUCamachoLab/Photonics-Bootcamp/issues/new?title=Issue%20on%20page%20%2Fnext/practice.html&amp;body=Your%20issue%20content%20here." target="_blank" title="Open an issue">
 <span class="btn__icon-container">
 <i class="fas fa-lightbulb"></i>
 </span>
@@ -244,7 +244,7 @@ const thebe_selector_output = ".output, .cell_output"
 <i class="fas fa-download"></i>
 </button>
 <ul class="dropdown-menu">
-<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/pages/optical_io.md" target="_blank" title="Download source file">
+<li><a class="btn btn-sm btn-download-source-button dropdown-item" data-bs-placement="left" data-bs-toggle="tooltip" href="../_sources/next/practice.md" target="_blank" title="Download source file">
 <span class="btn__icon-container">
 <i class="fas fa-file"></i>
 </span>
@@ -287,7 +287,7 @@ document.write(`
 </div>
 </div>
 <div class="onlyprint" id="jb-print-docs-body">
-<h1>Optical I/O</h1>
+<h1>Practice marimo (sandbox)</h1>
 <!-- Table of contents -->
 <div id="print-main-content">
 <div id="jb-print-toc">
@@ -296,17 +296,23 @@ document.write(`
 </div>
 <div id="searchbox"></div>
 <article class="bd-article">
-<section class="tex2jax_ignore mathjax_ignore" id="optical-i-o">
-<h1>Optical I/O<a class="headerlink" href="#optical-i-o" title="Permalink to this heading">#</a></h1>
-<p>Using the shapes that we made in the <span class="xref myst">physical shapes</span> section, we can now make different passive components. We will walk through the design of these components:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="grating_couplers.html"><span class="doc std std-doc">Grating couplers</span></a></p></li>
-<li><p><a class="reference internal" href="edge_couplers.html"><span class="doc std std-doc">Edge couplers</span></a></p></li>
-</ul>
-<p>To skip the explanation of these shapes and to go onto the simulation step click <span class="xref myst">here</span></p>
-<div class="toctree-wrapper compound">
+<section class="tex2jax_ignore mathjax_ignore" id="practice-marimo-sandbox">
+<h1>Practice marimo (sandbox)<a class="headerlink" href="#practice-marimo-sandbox" title="Permalink to this heading">#</a></h1>
+<style>
+.pb-embed iframe {
+  width: 100%;
+  height: 80vh;
+  border: 1px solid #d0d0d0;
+  border-radius: 12px;
+}
+</style><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the embedded view feels slow or incomplete, open the export directly:
+<code class="docutils literal notranslate"><span class="pre">exports/lessons/practice_marimo.html</span></code></p>
 </div>
-</section>
+<div class="pb-embed">
+<iframe loading="lazy" src="exports/lessons/practice_marimo.html"></iframe>
+</div></section>
 <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -320,7 +326,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./pages"
+            path: "./next"
         },
         predefinedOutput: true
     }
@@ -329,17 +335,17 @@ document.write(`
 </article>
 <footer class="prev-next-footer d-print-none">
 <div class="prev-next-area">
-<a class="left-prev" href="mmis.html" title="previous page">
+<a class="left-prev" href="week2_pdk_mzi_layout.html" title="previous page">
 <i class="fa-solid fa-angle-left"></i>
 <div class="prev-next-info">
 <p class="prev-next-subtitle">previous</p>
-<p class="prev-next-title">Multimode Interferometers (MMIs)</p>
+<p class="prev-next-title">Week 2 — PDK MZI Layout (marimo)</p>
 </div>
 </a>
-<a class="right-next" href="grating_couplers.html" title="next page">
+<a class="right-next" href="hw02.html" title="next page">
 <div class="prev-next-info">
 <p class="prev-next-subtitle">next</p>
-<p class="prev-next-title">Grating couplers</p>
+<p class="prev-next-title">HW02 — MZI Modelling (marimo)</p>
 </div>
 <i class="fa-solid fa-angle-right"></i>
 </a>
