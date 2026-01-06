@@ -29,7 +29,7 @@ html:
   use_repository_button: true
   use_issues_button: true
   use_multitoc_numbering: false
-  extra_navbar: Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+  extra_navbar: <a href="https://byucamacholab.github.io/Photonics-Bootcamp/">Return to main course site</a> · Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
   extra_footer: ""
   google_analytics_id: ""
   home_page_in_navbar: false
