@@ -32,6 +32,88 @@ Notes:
 - Requires `uv` installed (`uv --version`).
 - The first run may take a few minutes while dependencies install.
 
+## Step-by-step setup (first time)
+
+Pick **Option A (sandbox)** or **Option B (local venv)**, then follow the steps for your OS.
+
+### macOS
+
+1. Install **Python 3.11+** from https://www.python.org/downloads/
+2. Install **uv** (required for sandbox mode):
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+3. Clone the course repo and enter it:
+   ```bash
+   git clone https://github.com/BYUCamachoLab/Photonics-Bootcamp.git
+   cd Photonics-Bootcamp
+   ```
+4. Run the Week 1 notebook in sandbox mode:
+   ```bash
+   marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py
+   ```
+5. If you prefer a single course-wide environment (Option B):
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r marimo_course/requirements.txt
+   marimo edit marimo_course/lessons/w01_orientation_tooling.py
+   ```
+
+### Linux
+
+1. Install **Python 3.11+** and **pip** (package manager varies by distro).
+2. Install **uv**:
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+3. Clone the course repo and enter it:
+   ```bash
+   git clone https://github.com/BYUCamachoLab/Photonics-Bootcamp.git
+   cd Photonics-Bootcamp
+   ```
+4. Run the Week 1 notebook in sandbox mode:
+   ```bash
+   marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py
+   ```
+5. Option B (single venv):
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r marimo_course/requirements.txt
+   marimo edit marimo_course/lessons/w01_orientation_tooling.py
+   ```
+
+### Windows (PowerShell)
+
+1. Install **Python 3.11+** from https://www.python.org/downloads/ and ensure "Add Python to PATH" is checked.
+2. Install **uv**:
+   ```powershell
+   irm https://astral.sh/uv/install.ps1 | iex
+   ```
+3. Clone the course repo and enter it:
+   ```powershell
+   git clone https://github.com/BYUCamachoLab/Photonics-Bootcamp.git
+   cd Photonics-Bootcamp
+   ```
+4. Run the Week 1 notebook in sandbox mode:
+   ```powershell
+   marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py
+   ```
+5. Option B (single venv):
+   ```powershell
+   py -3 -m venv .venv
+   .venv\Scripts\Activate.ps1
+   pip install -r marimo_course/requirements.txt
+   marimo edit marimo_course/lessons/w01_orientation_tooling.py
+   ```
+
+### If something fails
+
+- Run `marimo check marimo_course/lessons/w01_orientation_tooling.py`
+- Restart marimo and re-open the notebook
+- Ask for help in class
+
 ## Editing safety (recommended)
 
 Marimo notebooks can become corrupted if saved/exported with an incompatible marimo version; the symptom is usually `app._unparsable_cell(...)` and errors like `SyntaxError: 'return' outside function`.
