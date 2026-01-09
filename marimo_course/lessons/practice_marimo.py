@@ -32,6 +32,120 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.md(r"""
+    ## 0) Basics (first-time users)
+
+    These cells show how marimo connects UI controls to live output.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    name = mo.ui.text(value="Ada", label="Your name")
+    excited = mo.ui.checkbox(value=True, label="Add excitement")
+    clicks = mo.ui.button(value=0, label="Click me", kind="success")
+    mo.hstack([name, excited, clicks])
+    return clicks, excited, name
+
+
+@app.cell
+def _(clicks, excited, mo, name):
+    suffix = "!" if excited.value else "."
+    mo.md(
+        f"Hello **{name.value}**{suffix} Button clicks: **{clicks.value}**"
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## 0b) Simple math (reactive)
+
+    Change the sliders and watch the math update.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    radius = mo.ui.slider(start=0.0, stop=5.0, value=2.0, step=0.1, label="Radius (cm)")
+    scale = mo.ui.slider(start=1, stop=10, value=3, step=1, label="Scale factor")
+    mo.hstack([radius, scale])
+    return radius, scale
+
+
+@app.cell
+def _(mo, radius, scale):
+    r = float(radius.value)
+    area = 3.14159 * r * r
+    scaled = area * float(scale.value)
+    mo.md(
+        f"Circle area: **{area:.2f} cm²**  |  Scaled area: **{scaled:.2f} cm²**"
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## 0c) Small table
+
+    A tiny table built from Python data.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    rows = [
+        {"task": "Install Python", "time_min": 10, "done": False},
+        {"task": "Run marimo", "time_min": 5, "done": False},
+        {"task": "Open Week 1", "time_min": 5, "done": False},
+    ]
+    mo.ui.table(rows)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## 0d) Tiny plot
+
+    A small reactive plot using Altair.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    points = mo.ui.slider(start=5, stop=50, value=12, step=1, label="Number of points")
+    mo.hstack([points])
+    return (points,)
+
+
+@app.cell
+def _(alt, mo, np, points, pl):
+    n = int(points.value)
+    x = np.linspace(0, 2 * np.pi, n)
+    df = pl.DataFrame({"x": x, "y": np.sin(x)})
+    chart = (
+        alt.Chart(df)
+        .mark_line(point=True)
+        .encode(
+            x=alt.X("x:Q", title="x"),
+            y=alt.Y("y:Q", title="sin(x)"),
+            tooltip=[alt.Tooltip("x:Q", format=".2f"), alt.Tooltip("y:Q", format=".2f")],
+        )
+        .properties(width=420, height=220)
+    )
+    mo.vstack([chart])
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
     ## 1) ASCII schematic (reactive)
 
     Use the slider to choose a path-length difference ΔL and see it reflected in the schematic.
