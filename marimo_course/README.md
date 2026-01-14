@@ -11,7 +11,7 @@ Tooling for the marimo course (students):
 - `marimo` for notebooks/apps (this repo currently targets **marimo 0.18.4**; using a very different marimo version to *edit/save* notebooks can sometimes corrupt exports).
 - `gdsfactory[full]` for parametric layout and device-level modelling.
 - `simphony` for circuit-level modelling and simulation.
-- KLayout + SiEPIC-EBeam-PDK for verification and final openEBL layout checks.
+- KLayout + SiEPIC_EBeam_PDK_public for verification and final openEBL layout checks.
 
 The high-level plan and timeline are documented in `COURSE_PLAN.md` at the repo root.
 
@@ -149,6 +149,10 @@ If a lesson gets corrupted:
    - From the repo root with the venv active:
      - `marimo edit marimo_course/index.py`
 
-5. Install KLayout + SiEPIC-EBeam-PDK
-   - Follow the SiEPIC-EBeam-PDK installation instructions linked from the openEBL README.
-   - Verify that KLayout opens and that you can load example layouts from the PDK.
+5. Install KLayout + SiEPIC_EBeam_PDK_public
+   - Clone the public PDK repo:
+     ```bash
+     git clone https://github.com/SiEPIC/SiEPIC_EBeam_PDK_public.git
+     ```
+   - Follow the SiEPIC_EBeam_PDK_public installation instructions linked from the openEBL README.
+   - Verify that KLayout opens and that you can load example layouts from the public PDK.

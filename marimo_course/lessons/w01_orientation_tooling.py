@@ -115,6 +115,7 @@ def _(mo):
 
     - Photonics-Bootcamp repository (this repo).
     - SiEPIC openEBL 2026-02: https://github.com/SiEPIC/openEBL-2026-02
+    - SiEPIC_EBeam_PDK_public (public PDK repo): https://github.com/SiEPIC/SiEPIC_EBeam_PDK_public
     - BYU Academic Calendar 2026: https://academiccalendar.byu.edu/?y=2026
     - Textbook: *Silicon Photonics Design* by Chrostowski and Hochberg.
     """)
@@ -250,7 +251,7 @@ def _(mo):
     - `marimo` installed and `marimo edit` works.
     - `gdsfactory[full]` installed and importable (e.g., `import gdsfactory as gf`).
     - `simphony` installed and importable.
-    - KLayout + SiEPIC-EBeam-PDK installed and able to open example layouts.
+    - KLayout + SiEPIC_EBeam_PDK_public installed and able to open example layouts.
 
     In this lesson, we will walk through these steps and ensure everyone can run the course materials.
     """)
@@ -320,11 +321,15 @@ def _(mo):
        git clone https://github.com/BYUCamachoLab/Photonics-Bootcamp.git
        cd Photonics-Bootcamp
        ```
-    4. Run the Week 1 notebook in sandbox mode:
+    4. Clone the public SiEPIC PDK repo (next to the course repo is fine):
+       ```bash
+       git clone https://github.com/SiEPIC/SiEPIC_EBeam_PDK_public.git
+       ```
+    5. Run the Week 1 notebook in sandbox mode:
        ```bash
        marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py
        ```
-    5. If you prefer a single course-wide environment (Option B):
+    6. If you prefer a single course-wide environment (Option B):
        ```bash
        python3 -m venv .venv
        source .venv/bin/activate
@@ -344,11 +349,15 @@ def _(mo):
        git clone https://github.com/BYUCamachoLab/Photonics-Bootcamp.git
        cd Photonics-Bootcamp
        ```
-    4. Run the Week 1 notebook in sandbox mode:
+    4. Clone the public SiEPIC PDK repo (next to the course repo is fine):
+       ```bash
+       git clone https://github.com/SiEPIC/SiEPIC_EBeam_PDK_public.git
+       ```
+    5. Run the Week 1 notebook in sandbox mode:
        ```bash
        marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py
        ```
-    5. Option B (single venv):
+    6. Option B (single venv):
        ```bash
        python3 -m venv .venv
        source .venv/bin/activate
@@ -368,11 +377,15 @@ def _(mo):
        git clone https://github.com/BYUCamachoLab/Photonics-Bootcamp.git
        cd Photonics-Bootcamp
        ```
-    4. Run the Week 1 notebook in sandbox mode:
+    4. Clone the public SiEPIC PDK repo (next to the course repo is fine):
+       ```powershell
+       git clone https://github.com/SiEPIC/SiEPIC_EBeam_PDK_public.git
+       ```
+    5. Run the Week 1 notebook in sandbox mode:
        ```powershell
        marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py
        ```
-    5. Option B (single venv):
+    6. Option B (single venv):
        ```powershell
        py -3 -m venv .venv
        .venv\Scripts\Activate.ps1
@@ -397,7 +410,7 @@ def _(mo):
     has_gdsfactory = mo.ui.checkbox(label="gdsfactory import works", value=False)
     has_simphony = mo.ui.checkbox(label="simphony import works", value=False)
     has_klayout = mo.ui.checkbox(
-        label="KLayout + SiEPIC-EBeam-PDK installed (manual check)", value=False
+        label="KLayout + SiEPIC_EBeam_PDK_public installed (manual check)", value=False
     )
     return (
         has_gdsfactory,
