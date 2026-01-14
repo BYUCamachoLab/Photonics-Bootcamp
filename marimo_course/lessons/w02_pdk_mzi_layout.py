@@ -104,18 +104,18 @@ def _(mo, show_overview):
 @app.cell
 def _(doc_callout_list, mo, show_overview):
     mo.stop(not show_overview)
-    mo.md(r"""
+    overview_md = mo.md(r"""
     <a id="overview"></a>
     ## Overview
 
     This is the **PDK + compact-model + layout** companion for Week 2. The modelling companion is:
     `marimo_course/lessons/w02_mzi_modelling.py`, where you derived and explored the ideal MZI transfer function.
 
-    In this notebook, you’ll connect three ideas that show up in every photonics workflow:
+    In this notebook, you'll connect three ideas that show up in every photonics workflow:
 
     - **Compact models:** fast, circuit-level models of components (couplers, waveguides, phase shifters) that let you
-      simulate a whole photonic circuit without solving Maxwell’s equations everywhere.
-    - **PDK (process design kit):** a foundry/technology “package” that defines the **design rules**, **layers**, and
+      simulate a whole photonic circuit without solving Maxwell's equations everywhere.
+    - **PDK (process design kit):** a foundry/technology "package" that defines the **design rules**, **layers**, and
       **parameterized building blocks** (plus their compact models) so your design is manufacturable and checkable.
     - **Reproducibility across views:** build the *same* MZI you modelled last lesson, first as a **circuit** from compact
       models and then as a **layout** in KLayout using PDK cells.
@@ -129,7 +129,7 @@ def _(doc_callout_list, mo, show_overview):
     5. Save your design in the **openEBL** submission repo and keep CI green.
     """)
 
-    doc_callout_list(
+    goals = doc_callout_list(
         "info",
         tag="Learning goals",
         title="What you should be able to do after this notebook",
@@ -141,7 +141,7 @@ def _(doc_callout_list, mo, show_overview):
         ],
     )
 
-    doc_callout_list(
+    grading_note = doc_callout_list(
         "warning",
         tag="Where is the graded work?",
         title="Lab companion vs homework",
@@ -150,6 +150,7 @@ def _(doc_callout_list, mo, show_overview):
             "Graded work should live in a homework notebook under `marimo_course/assignments/`.",
         ],
     )
+    mo.vstack([overview_md, goals, grading_note])
     return
 
 
@@ -369,15 +370,26 @@ def _(mo, show_skeleton):
     mo.stop(not show_skeleton)
     from _notebook_template import optional_import
 
-    gf_mod, gf_error = optional_import("gdsfactory")
-    available = gf_mod is not None
-
-    doc = (
-        "Optional gdsfactory helper: **available**"
-        if available
-        else f"Optional gdsfactory helper: **not available** (`{gf_error}`)"
+    enable_gdsfactory = mo.ui.checkbox(
+        label="Enable gdsfactory helper (may take a while to import)",
+        value=False,
     )
-    mo.md(doc)
+    enable_gdsfactory
+
+    gf_mod = None
+    available = False
+    if not enable_gdsfactory.value:
+        mo.md(
+            "Optional gdsfactory helper: **disabled** (enable the checkbox to import)"
+        )
+    else:
+        gf_mod, gf_error = optional_import("gdsfactory")
+        available = gf_mod is not None
+        mo.md(
+            "Optional gdsfactory helper: **available**"
+            if available
+            else f"Optional gdsfactory helper: **not available** (`{gf_error}`)"
+        )
     return available, gf_mod
 
 
@@ -392,7 +404,7 @@ def _(available, mo, show_skeleton):
     length_y = mo.ui.number(value=10.0, label="length_y (µm)")
     write = mo.ui.button(value=0, label="Write GDS", kind="success", on_click=lambda v: (v or 0) + 1)
     mo.vstack([mo.hstack([gds_out, write]), mo.hstack([delta_length, length_x, length_y])])
-    return
+    return delta_length, gds_out, length_x, length_y, write
 
 
 @app.cell
