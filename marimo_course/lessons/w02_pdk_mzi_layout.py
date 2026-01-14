@@ -2,14 +2,16 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "marimo>=0.17.0",
+#   "marimo>=0.19.0",
 #   "pyzmq",
+#   "gdsfactory",
+#   "matplotlib",
 # ]
 # ///
 
 import marimo
 
-__generated_with = "0.18.4"
+__generated_with = "0.19.2"
 app = marimo.App()
 
 
@@ -41,7 +43,7 @@ def _(mo):
 
     section_tabs, view_state, set_view = make_section_tabs(
         mo,
-        options=("All", "Overview", "Targets", "KLayout + PDK", "Layout skeleton", "Submission"),
+        options=("All", "Overview", "Build MZI + Targets", "Layout skeleton", "Submission"),
         value="All",
     )
     section_tabs
@@ -52,18 +54,10 @@ def _(mo):
 def _(view_state):
     view = view_state()
     show_overview = view in ["All", "Overview"]
-    show_targets = view in ["All", "Targets"]
-    show_klayout = view in ["All", "KLayout + PDK"]
+    show_targets = view in ["All", "Build MZI + Targets"]
     show_skeleton = view in ["All", "Layout skeleton"]
     show_submission = view in ["All", "Submission"]
-    return (
-        show_klayout,
-        show_overview,
-        show_skeleton,
-        show_submission,
-        show_targets,
-        view,
-    )
+    return show_overview, show_skeleton, show_submission, show_targets, view
 
 
 @app.cell
@@ -83,16 +77,15 @@ def _(mo, show_overview):
 
     header(
         mo,
-        title="PDK MZI layout (KLayout + SiEPIC)",
+        title="PDK MZI layout (SiEPIC PDK)",
         subtitle=(
-            "Build a first MZI layout using the SiEPIC-EBeam PDK workflow in KLayout. "
+            "Build a first MZI layout using the SiEPIC-EBeam PDK workflow in Python. "
             "Use modelling targets (ΔL ↔ FSR) to guide geometry choices, then save your work in the openEBL repo."
         ),
-        badges=["Week 2", "Lab companion", "PDK", "KLayout", "openEBL workflow"],
+        badges=["Week 2", "Lab companion", "PDK", "openEBL workflow"],
         toc=[
             ("Overview", "overview"),
-            ("Targets", "targets"),
-            ("KLayout + PDK", "klayout"),
+            ("Build MZI + Targets", "targets"),
             ("Layout skeleton", "skeleton"),
             ("Submission", "submission"),
         ],
@@ -118,13 +111,13 @@ def _(doc_callout_list, mo, show_overview):
     - **PDK (process design kit):** a foundry/technology "package" that defines the **design rules**, **layers**, and
       **parameterized building blocks** (plus their compact models) so your design is manufacturable and checkable.
     - **Reproducibility across views:** build the *same* MZI you modelled last lesson, first as a **circuit** from compact
-      models and then as a **layout** in KLayout using PDK cells.
+      models and then as a **layout** using PDK cells.
 
     In lab, you will:
 
-    1. Decide on a **target** (FSR → ΔL) near **1550 nm**.
-    2. Build an MZI from **compact models** (component → circuit) and sanity-check it against the Week 2 model.
-    3. Assemble the same MZI from **PDK building blocks** in KLayout (splitter, waveguides, combiner, I/O).
+    1. Build an MZI from **compact models** (component → circuit) and sanity-check it against the Week 2 model.
+    2. Decide on a **target** (FSR → ΔL) near **1550 nm**.
+    3. Assemble the same MZI from **PDK building blocks** (splitter, waveguides, combiner, I/O).
     4. Add the **conventions** required for downstream checks (ports/pins, DevRec, labels/floorplan as required).
     5. Save your design in the **openEBL** submission repo and keep CI green.
     """)
@@ -137,7 +130,7 @@ def _(doc_callout_list, mo, show_overview):
             "Explain what a compact model is and why we use them for circuit-level photonics design.",
             "Describe what a PDK provides (layers, rules, cells, models) and why it matters for manufacturable layouts.",
             "Create an MZI from compact-model building blocks and connect ΔL ↔ FSR back to the modelling notebook.",
-            "Implement the same MZI in KLayout using PDK-accurate cells so it passes downstream checks.",
+            "Implement the same MZI using PDK-accurate cells so it passes downstream checks.",
         ],
     )
 
@@ -157,12 +150,11 @@ def _(doc_callout_list, mo, show_overview):
 @app.cell
 def _(mo, show_overview):
     mo.stop(not show_overview)
-    klayout_open = mo.ui.checkbox(label="KLayout open with SiEPIC-EBeam PDK", value=False)
     placed_blocks = mo.ui.checkbox(label="Placed I/O + splitter/combiner cells", value=False)
     routed = mo.ui.checkbox(label="Routed an MZI skeleton with ΔL", value=False)
     annotated = mo.ui.checkbox(label="Added pins/DevRec/labels as required", value=False)
     saved = mo.ui.checkbox(label="Saved in openEBL repo + CI checked", value=False)
-    mo.vstack([klayout_open, placed_blocks, routed, annotated, saved])
+    mo.vstack([placed_blocks, routed, annotated, saved])
     return
 
 
@@ -172,14 +164,8 @@ def _(mo, set_view, show_overview):
     go_targets = mo.ui.button(
         value=0,
         kind="success",
-        label="Go to Targets",
-        on_click=lambda v: (set_view("Targets"), (v or 0) + 1)[-1],
-    )
-    go_klayout = mo.ui.button(
-        value=0,
-        kind="neutral",
-        label="Go to KLayout + PDK",
-        on_click=lambda v: (set_view("KLayout + PDK"), (v or 0) + 1)[-1],
+        label="Go to Build MZI + Targets",
+        on_click=lambda v: (set_view("Build MZI + Targets"), (v or 0) + 1)[-1],
     )
     go_skeleton = mo.ui.button(
         value=0,
@@ -193,7 +179,247 @@ def _(mo, set_view, show_overview):
         label="Go to Submission",
         on_click=lambda v: (set_view("Submission"), (v or 0) + 1)[-1],
     )
-    mo.hstack([go_targets, go_klayout, go_skeleton, go_submission], justify="start", gap=1)
+    mo.hstack([go_targets, go_skeleton, go_submission], justify="start", gap=1)
+    return
+
+
+@app.cell
+def _(mo, show_targets):
+    mo.stop(not show_targets)
+    mo.md(r"""
+    <a id="targets"></a>
+    ## Build the MZI + targets
+
+    Build the MZI from PDK components, render the layout, and then pick a ΔL that
+    matches your target FSR near 1550 nm.
+    """)
+    return
+
+
+@app.cell
+def _(mo, show_targets):
+    mo.stop(not show_targets)
+    import textwrap
+
+    layout_code = textwrap.dedent(
+        """
+        ```python
+        # Build MZI, add pins/DevRec/labels/floorplan, and export a GDS.
+        from pathlib import Path
+        import gdsfactory as gf
+        from gdsfactory.add_ports import add_ports_from_markers_center
+        from gdsfactory.read import import_gds
+        from gdsfactory.port import auto_rename_ports_orientation
+
+        if hasattr(gf, "gpdk") and hasattr(gf.gpdk, "PDK"):
+            gf.gpdk.PDK.activate()
+
+        # 1) Define the waveguide cross-section used for routing the MZI arms.
+        xs = gf.cross_section.strip(layer=(1, 0), width=0.5)
+        pdk_gds = Path(
+            "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_bdc_te1550.gds"
+        )
+        # 2) Load the splitter PDK cell from the SiEPIC GDS and add ports from PinRec.
+        splitter = import_gds(pdk_gds, cellname="ebeam_bdc_te1550")
+        add_ports_from_markers_center(splitter, pin_layer=(1, 10), port_layer=(1, 0))
+        auto_rename_ports_orientation(splitter)
+
+        # 3) Build the MZI by connecting two splitters with routed waveguide arms.
+        mzi = gf.components.mzi(
+            splitter=splitter,
+            combiner=splitter,
+            cross_section=xs,
+            port_e1_splitter="oE1",
+            port_e0_splitter="oE0",
+            port_e1_combiner="oE1",
+            port_e0_combiner="oE0",
+            delta_length=50.0,
+            length_x=60.0,
+            length_y=10.0,
+        )
+
+        gc_gds = Path(
+            "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_gc_te1550.gds"
+        )
+        # 4) Load the grating coupler cell and add ports so we can connect to I/O.
+        gc = import_gds(gc_gds, cellname="ebeam_gc_te1550")
+        add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
+        auto_rename_ports_orientation(gc)
+
+        def pick_port(component, orientation, *, fallback_first=False):
+            ports = component.ports
+            port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
+            for port in port_list:
+                if port.orientation is not None and int(round(port.orientation)) == orientation:
+                    return port
+            if fallback_first and port_list:
+                return port_list[0]
+            raise ValueError(f"No port with orientation {orientation} on {component.name}")
+
+        # 5) Assemble the final layout by connecting two GCs to the MZI I/O ports.
+        c = gf.Component()
+        mzi_ref = c << mzi
+        mzi_in = pick_port(mzi_ref, 180)
+        mzi_out = pick_port(mzi_ref, 0)
+        gc_port = pick_port(gc, 180, fallback_first=True)
+        gc_in = c << gc
+        gc_in.connect(gc_port.name, mzi_in)
+        gc_out = c << gc
+        gc_out.connect(gc_port.name, mzi_out)
+
+        # 6) Add PinRec markers on each external port (required by openEBL).
+        pin_layer = (1, 10)
+        pin_w = 2.0
+        pin_h = 1.0
+        for port in c.ports.values():
+            cx, cy = port.center
+            c.add_polygon(
+                [
+                    (cx - pin_w / 2, cy - pin_h / 2),
+                    (cx + pin_w / 2, cy - pin_h / 2),
+                    (cx + pin_w / 2, cy + pin_h / 2),
+                    (cx - pin_w / 2, cy + pin_h / 2),
+                ],
+                layer=pin_layer,
+            )
+
+        # 7) Add DevRec and Floorplan boxes around the full layout bbox.
+        xmin, ymin = c.bbox[0]
+        xmax, ymax = c.bbox[1]
+        pad = 5.0
+        c.add_polygon(
+            [
+                (xmin - pad, ymin - pad),
+                (xmax + pad, ymin - pad),
+                (xmax + pad, ymax + pad),
+                (xmin - pad, ymax + pad),
+            ],
+            layer=(68, 0),
+        )
+        c.add_polygon(
+            [
+                (xmin - pad, ymin - pad),
+                (xmax + pad, ymin - pad),
+                (xmax + pad, ymax + pad),
+                (xmin - pad, ymax + pad),
+            ],
+            layer=(99, 0),
+        )
+
+        # 8) Add Text labels for top cell and measurement tags.
+        c.add_label(text="TOP", position=(xmin, ymax + 10.0), layer=(10, 0))
+        c.add_label(text="MZI", position=(xmin, ymin - 10.0), layer=(10, 0))
+
+        # 9) Export a submission-ready GDS to the openEBL submissions folder.
+        out = Path("openEBL-2026-02/submissions/EBeam_username.gds")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        c.write_gds(out)
+        ```
+        """
+    ).strip()
+    mo.md(layout_code)
+    return
+
+
+@app.cell
+def _(mo, show_targets):
+    mo.stop(not show_targets)
+
+    from _notebook_template import optional_import as optional_import_preview
+
+    gf_preview = None
+    gf_preview, gf_preview_error = optional_import_preview("gdsfactory")
+    preview_output = None
+    if gf_preview is None:
+        preview_notice = [mo.md("Layout preview: `gdsfactory` is not available in this environment.")]
+        if gf_preview_error:
+            preview_notice.append(mo.md(f"Details: `{gf_preview_error}`"))
+        preview_output = mo.vstack(preview_notice)
+    else:
+        try:
+            import pathlib as pathlib_preview
+            from gdsfactory.add_ports import add_ports_from_markers_center
+            from gdsfactory.read import import_gds
+            from gdsfactory.port import auto_rename_ports_orientation
+
+            if hasattr(gf_preview, "gpdk") and hasattr(gf_preview.gpdk, "PDK"):
+                gf_preview.gpdk.PDK.activate()
+
+            # Build the MZI layout from PDK cells and prepare a preview image.
+            xs = gf_preview.cross_section.strip(layer=(1, 0), width=0.5)
+            pdk_gds = pathlib_preview.Path(
+                "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_bdc_te1550.gds"
+            )
+            if not pdk_gds.exists():
+                raise FileNotFoundError(f"SiEPIC PDK GDS not found at {pdk_gds}")
+
+            splitter = import_gds(pdk_gds, cellname="ebeam_bdc_te1550")
+            add_ports_from_markers_center(splitter, pin_layer=(1, 10), port_layer=(1, 0))
+            auto_rename_ports_orientation(splitter)
+
+            # Route the MZI using the SiEPIC splitter for both couplers.
+            mzi = gf_preview.components.mzi(
+                splitter=splitter,
+                combiner=splitter,
+                cross_section=xs,
+                port_e1_splitter="oE1",
+                port_e0_splitter="oE0",
+                port_e1_combiner="oE1",
+                port_e0_combiner="oE0",
+                delta_length=50.0,
+                length_x=60.0,
+                length_y=10.0,
+            )
+
+            gc_gds = pathlib_preview.Path(
+                "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_gc_te1550.gds"
+            )
+            if not gc_gds.exists():
+                raise FileNotFoundError(f"SiEPIC PDK GDS not found at {gc_gds}")
+            gc = import_gds(gc_gds, cellname="ebeam_gc_te1550")
+            add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
+            auto_rename_ports_orientation(gc)
+
+            # Attach grating couplers to the MZI input and output.
+            def pick_port(component, orientation, *, fallback_first=False):
+                ports = component.ports
+                port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
+                for port in port_list:
+                    if port.orientation is not None and int(round(port.orientation)) == orientation:
+                        return port
+                if fallback_first and port_list:
+                    return port_list[0]
+                raise ValueError(f"No port with orientation {orientation} on {component.name}")
+
+            c = gf_preview.Component()
+            mzi_ref = c << mzi
+            mzi_in = pick_port(mzi_ref, 180)
+            mzi_out = pick_port(mzi_ref, 0)
+            gc_port = pick_port(gc, 180, fallback_first=True)
+            gc_in = c << gc
+            gc_in.connect(gc_port.name, mzi_in)
+            gc_out = c << gc
+            gc_out.connect(gc_port.name, mzi_out)
+
+            # Render the layout as a PNG for display in the notebook.
+            fig = c.plot()
+            if fig is None:
+                import matplotlib.pyplot as plt
+                fig = plt.gcf()
+            from io import BytesIO
+
+            buf = BytesIO()
+            fig.savefig(buf, format="png", bbox_inches="tight")
+            buf.seek(0)
+            preview_output = mo.vstack(
+                [
+                    mo.md("### Final rendering (complete MZI cell)"),
+                    mo.image(buf),
+                ]
+            )
+        except Exception as e:  # pragma: no cover
+            preview_output = mo.md(f"(Could not build preview: `{type(e).__name__}: {e}`)")
+    preview_output
     return
 
 
@@ -201,8 +427,7 @@ def _(mo, set_view, show_overview):
 def _(doc_callout_html, mo, show_targets):
     mo.stop(not show_targets)
     mo.md(r"""
-    <a id="targets"></a>
-    ## Targets: pick ΔL from an FSR target (1550 nm default)
+    ### Targets: pick ΔL from an FSR target (1550 nm default)
 
     Use the Week 2 modelling notebook to build intuition and sanity-check values:
     `marimo_course/lessons/w02_mzi_modelling.py`.
@@ -257,139 +482,263 @@ def _(deltaL_um, mo, ng, show_targets, wl0_nm):
 
 
 @app.cell
-def _(deltaL_um, mo, show_targets):
+def _(mo, show_targets):
     mo.stop(not show_targets)
-    import base64 as b64
+    mo.md(r"""
+    ### Notebook version of the openEBL pre-submission steps
 
-    delta_L_um_vis = float(deltaL_um.value)
-    extra = max(0.0, min(80.0, delta_L_um_vis))  # purely visual; does not affect calculations
-    dy = 26
-    x0, x1, x2, x3 = 20, 110, 310, 400
-    y_mid = 65
-    y_top = y_mid - dy
-    y_bot = y_mid + dy
-
-    # The upper arm is drawn a bit longer (extra) to visually suggest ΔL.
-    x2_top = x2 + extra
-
-    svg = f"""
-    <svg xmlns="http://www.w3.org/2000/svg" width="520" height="140" viewBox="0 0 520 140">
-      <style>
-        .wg {{ fill: none; stroke: #111; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }}
-        .box {{ fill: #f6f6f6; stroke: #999; stroke-width: 1.5; }}
-        .txt {{ font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-size: 12px; fill: #111; }}
-        .sub {{ font-size: 11px; fill: #444; }}
-      </style>
-
-      <!-- input / output -->
-      <path class="wg" d="M {x0} {y_mid} L {x1} {y_mid}" />
-      <path class="wg" d="M {x3} {y_mid} L 500 {y_mid}" />
-
-      <!-- coupler boxes -->
-      <rect class="box" x="{x1}" y="{y_mid-18}" width="70" height="36" rx="6"/>
-      <rect class="box" x="{x3-70}" y="{y_mid-18}" width="70" height="36" rx="6"/>
-      <text class="txt" x="{x1+10}" y="{y_mid-2}">Splitter</text>
-      <text class="txt" x="{x3-60}" y="{y_mid-2}">Combiner</text>
-
-      <!-- arms -->
-      <path class="wg" d="M {x1+70} {y_top} L {x2_top} {y_top} L {x3-70} {y_top}" />
-      <path class="wg" d="M {x1+70} {y_bot} L {x2} {y_bot} L {x3-70} {y_bot}" />
-      <path class="wg" d="M {x1+70} {y_mid} L {x1+70} {y_top}" />
-      <path class="wg" d="M {x1+70} {y_mid} L {x1+70} {y_bot}" />
-      <path class="wg" d="M {x3-70} {y_mid} L {x3-70} {y_top}" />
-      <path class="wg" d="M {x3-70} {y_mid} L {x3-70} {y_bot}" />
-
-      <!-- labels -->
-      <text class="txt" x="20" y="20">Circuit schematic (conceptual)</text>
-      <text class="txt sub" x="20" y="38">Upper arm longer by ΔL ≈ {delta_L_um_vis:.1f} µm (visual only)</text>
-    </svg>
-    """.strip()
-
-    svg_b64 = b64.b64encode(svg.encode("utf-8")).decode("ascii")
-    mo.md(
-        "<div style='max-width:100%; overflow:auto;'>"
-        f"<img src='data:image/svg+xml;base64,{svg_b64}' style='max-width:100%; height:auto;'/>"
-        "</div>"
-    )
+    These mirror the typical PDK workflow, but are implemented directly in Python.
+    Use the toggles below to add required layers before exporting a GDS.
+    """)
     return
 
 
 @app.cell
-def _(doc_callout_list, mo, show_klayout):
-    mo.stop(not show_klayout)
-    mo.md(r"""
-    <a id="klayout"></a>
-    ## KLayout + SiEPIC-EBeam PDK setup
-
-    This section is intentionally procedural: the goal is to reduce “where do I click?” friction in lab.
-    """)
-
-    doc_callout_list(
-        "info",
-        tag="Checklist",
-        title="Setup and sanity checks",
-        ordered=True,
-        items=[
-            "Install KLayout and the SiEPIC-EBeam PDK (confirm the technology loads).",
-            "Confirm the correct process/run assumptions for this semester (default: **1550 nm** structures).",
-            "Open an example layout from the PDK and verify layers look sensible.",
-            "Create a new layout inside the run repo using the required filename conventions.",
-        ],
+def _(mo, show_targets):
+    mo.stop(not show_targets)
+    add_pins = mo.ui.checkbox(label="Add PinRec markers (1/10)", value=True)
+    add_devrec = mo.ui.checkbox(label="Add DevRec box (68/0)", value=True)
+    add_floorplan = mo.ui.checkbox(label="Add Floorplan box (99/0)", value=False)
+    add_labels = mo.ui.checkbox(label="Add Text labels (10/0)", value=True)
+    export_path = mo.ui.text(
+        value="openEBL-2026-02/submissions/EBeam_username.gds",
+        label="Export path",
     )
-    return
+    mo.vstack(
+        [
+            mo.hstack([add_pins, add_devrec, add_floorplan, add_labels]),
+            export_path,
+        ]
+    )
+    return add_devrec, add_floorplan, add_labels, add_pins, export_path
 
 
 @app.cell
-def _(doc_callout_list, mo, show_skeleton):
-    mo.stop(not show_skeleton)
-    mo.md(r"""
-    <a id="skeleton"></a>
-    ## Layout skeleton (MZI) — build first, refine later
+def _(
+    add_devrec,
+    add_floorplan,
+    add_labels,
+    add_pins,
+    export_path,
+    mo,
+    show_targets,
+):
+    mo.stop(not show_targets)
 
-    Build a simple MZI skeleton using PDK cells (splitter/combiner + waveguides + I/O).
-    Keep it **simple and clean**: symmetry, straight segments where possible, and a clear way to implement ΔL.
+    from _notebook_template import optional_import as optional_import_export
 
-    Optional: generate a quick “geometry-only” MZI skeleton using gdsfactory to visualize the idea,
-    then recreate it with PDK-accurate cells in KLayout.
-    """)
+    gf_export = None
+    gf_export, gf_export_error = optional_import_export("gdsfactory")
+    build_export_output = None
+    if gf_export is None:
+        export_notice = [mo.md("Build/export: `gdsfactory` is not available in this environment.")]
+        if gf_export_error:
+            export_notice.append(mo.md(f"Details: `{gf_export_error}`"))
+        build_export_output = mo.vstack(export_notice)
+    else:
+        try:
+            import pathlib as pathlib_export
+            from gdsfactory.add_ports import add_ports_from_markers_center as add_ports_export
+            from gdsfactory.read import import_gds as import_gds_export
+            from gdsfactory.port import auto_rename_ports_orientation as rename_ports_export
 
-    doc_callout_list(
-        "warning",
-        tag="Important",
-        title="PDK vs generic geometry",
-        items=[
-            "For openEBL submissions, your final design must follow the PDK cell conventions expected by the run repo.",
-            "A gdsfactory skeleton is useful for intuition, but it is not a substitute for a PDK-accurate KLayout design.",
-        ],
-    )
+            if hasattr(gf_export, "gpdk") and hasattr(gf_export.gpdk, "PDK"):
+                gf_export.gpdk.PDK.activate()
+
+            # Build the base MZI layout (same as preview) and then add submission layers.
+            xs_export = gf_export.cross_section.strip(layer=(1, 0), width=0.5)
+            pdk_gds_export = pathlib_export.Path(
+                "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_bdc_te1550.gds"
+            )
+            if not pdk_gds_export.exists():
+                build_export_output = mo.md(
+                    f"(Build/export failed: SiEPIC splitter GDS not found at `{pdk_gds_export}`)"
+                )
+            else:
+                # Load the splitter cell from the PDK and make sure ports are available.
+                splitter_export = import_gds_export(
+                    pdk_gds_export,
+                    cellname="ebeam_bdc_te1550",
+                    rename_duplicated_cells=True,
+                )
+                add_ports_export(splitter_export, pin_layer=(1, 10), port_layer=(1, 0))
+                rename_ports_export(splitter_export)
+                splitter_export.name = "ebeam_bdc_te1550_splitter"
+
+                mzi_export = gf_export.components.mzi(
+                    splitter=splitter_export,
+                    combiner=splitter_export,
+                    cross_section=xs_export,
+                    port_e1_splitter="oE1",
+                    port_e0_splitter="oE0",
+                    port_e1_combiner="oE1",
+                    port_e0_combiner="oE0",
+                    delta_length=50.0,
+                    length_x=60.0,
+                    length_y=10.0,
+                )
+
+                gc_gds_export = pathlib_export.Path(
+                    "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_gc_te1550.gds"
+                )
+                if not gc_gds_export.exists():
+                    build_export_output = mo.md(
+                        f"(Build/export failed: SiEPIC GC GDS not found at `{gc_gds_export}`)"
+                    )
+                else:
+                    # Load the grating coupler cell for I/O.
+                    gc_export = import_gds_export(
+                        gc_gds_export,
+                        cellname="ebeam_gc_te1550",
+                        rename_duplicated_cells=True,
+                    )
+                    add_ports_export(gc_export, pin_layer=(1, 10), port_layer=(1, 0))
+                    rename_ports_export(gc_export)
+                    gc_export.name = "ebeam_gc_te1550_gc"
+
+                    def pick_port_export(component, orientation, *, fallback_first=False):
+                        ports = component.ports
+                        port_list = (
+                            list(ports.values()) if hasattr(ports, "values") else list(ports)
+                        )
+                        for port in port_list:
+                            if port.orientation is not None and int(round(port.orientation)) == orientation:
+                                return port
+                        if fallback_first and port_list:
+                            return port_list[0]
+                        raise ValueError(
+                            f"No port with orientation {orientation} on {component.name}"
+                        )
+
+                    # Assemble the final layout by connecting GCs to the MZI ports.
+                    c_export = gf_export.Component()
+                    mzi_ref_export = c_export << mzi_export
+                    mzi_in_export = pick_port_export(mzi_ref_export, 180)
+                    mzi_out_export = pick_port_export(mzi_ref_export, 0)
+                    gc_port_export = pick_port_export(gc_export, 180, fallback_first=True)
+                    gc_in_export = c_export << gc_export
+                    gc_in_export.connect(gc_port_export.name, mzi_in_export)
+                    gc_out_export = c_export << gc_export
+                    gc_out_export.connect(gc_port_export.name, mzi_out_export)
+
+                    # Add PinRec markers for all external ports (required for openEBL).
+                    if add_pins.value:
+                        pin_layer = (1, 10)
+                        pin_w = 2.0
+                        pin_h = 1.0
+                        ports = c_export.ports
+                        port_list = (
+                            list(ports.values()) if hasattr(ports, "values") else list(ports)
+                        )
+                        for port in port_list:
+                            cx, cy = port.center
+                            c_export.add_polygon(
+                                [
+                                    (cx - pin_w / 2, cy - pin_h / 2),
+                                    (cx + pin_w / 2, cy - pin_h / 2),
+                                    (cx + pin_w / 2, cy + pin_h / 2),
+                                    (cx - pin_w / 2, cy + pin_h / 2),
+                                ],
+                                layer=pin_layer,
+                            )
+
+                    def get_bbox(component):
+                        bbox = component.bbox() if callable(getattr(component, "bbox", None)) else component.bbox
+                        if hasattr(bbox, "left"):
+                            return bbox.left, bbox.bottom, bbox.right, bbox.top
+                        if hasattr(bbox, "__getitem__"):
+                            (xmin, ymin), (xmax, ymax) = bbox[0], bbox[1]
+                            return xmin, ymin, xmax, ymax
+                        raise TypeError("Unsupported bbox type")
+
+                    # Add DevRec and optional Floorplan around the layout bbox.
+                    if add_devrec.value or add_floorplan.value:
+                        xmin, ymin, xmax, ymax = get_bbox(c_export)
+                        pad = 5.0
+                        if add_devrec.value:
+                            c_export.add_polygon(
+                                [
+                                    (xmin - pad, ymin - pad),
+                                    (xmax + pad, ymin - pad),
+                                    (xmax + pad, ymax + pad),
+                                    (xmin - pad, ymax + pad),
+                                ],
+                                layer=(68, 0),
+                            )
+                        if add_floorplan.value:
+                            c_export.add_polygon(
+                                [
+                                    (xmin - pad, ymin - pad),
+                                    (xmax + pad, ymin - pad),
+                                    (xmax + pad, ymax + pad),
+                                    (xmin - pad, ymax + pad),
+                                ],
+                                layer=(99, 0),
+                            )
+
+                    # Add Text labels for top-cell naming and identification.
+                    if add_labels.value:
+                        xmin, ymin, xmax, ymax = get_bbox(c_export)
+                        c_export.add_label(
+                            text="TOP",
+                            position=(xmin, ymax + 10.0),
+                            layer=(10, 0),
+                        )
+                        c_export.add_label(
+                            text="MZI",
+                            position=(xmin, ymin - 10.0),
+                            layer=(10, 0),
+                        )
+
+                    # Export the final GDS to the openEBL submissions folder.
+                    out_export = pathlib_export.Path(str(export_path.value)).expanduser()
+                    out_export.parent.mkdir(parents=True, exist_ok=True)
+                    written_export = c_export.write_gds(out_export)
+                    build_export_output = mo.vstack(
+                        [
+                            mo.md(f"Wrote: `{written_export}`"),
+                            mo.md(
+                                "Reminder: verify the top-cell name and port labels in your layout viewer."
+                            ),
+                        ]
+                    )
+        except Exception as e:  # pragma: no cover
+            build_export_output = mo.md(f"(Build/export failed: `{type(e).__name__}: {e}`)")
+    build_export_output
     return
 
 
 @app.cell
 def _(mo, show_skeleton):
     mo.stop(not show_skeleton)
-    from _notebook_template import optional_import
-
     enable_gdsfactory = mo.ui.checkbox(
         label="Enable gdsfactory helper (may take a while to import)",
         value=False,
     )
     enable_gdsfactory
+    return (enable_gdsfactory,)
+
+
+@app.cell
+def _(enable_gdsfactory, mo, show_skeleton):
+    mo.stop(not show_skeleton)
+    from _notebook_template import optional_import as optional_import_skeleton
 
     gf_mod = None
     available = False
     if not enable_gdsfactory.value:
-        mo.md(
+        msg = mo.md(
             "Optional gdsfactory helper: **disabled** (enable the checkbox to import)"
         )
     else:
-        gf_mod, gf_error = optional_import("gdsfactory")
+        gf_mod, gf_error = optional_import_skeleton("gdsfactory")
         available = gf_mod is not None
-        mo.md(
+        msg = mo.md(
             "Optional gdsfactory helper: **available**"
             if available
             else f"Optional gdsfactory helper: **not available** (`{gf_error}`)"
         )
+    msg
     return available, gf_mod
 
 
@@ -398,6 +747,7 @@ def _(available, mo, show_skeleton):
     mo.stop(not show_skeleton)
     mo.stop(not available)
 
+    # Parameters for a quick, generic MZI skeleton export.
     gds_out = mo.ui.text(value="marimo_course/build/week2_mzi_skeleton.gds", label="GDS output path")
     delta_length = mo.ui.number(value=50.0, label="ΔL (µm)")
     length_x = mo.ui.number(value=60.0, label="length_x (µm)")
@@ -416,6 +766,7 @@ def _(available, gf_mod, mo, show_skeleton):
 
     def write_mzi_skeleton(*, out: Path, delta_length_um: float, length_x_um: float, length_y_um: float) -> Path:
         gf = gf_mod
+        # Create a generic MZI to visualize geometry only (not PDK-accurate).
         mzi = gf.components.mzi(
             delta_length=float(delta_length_um),
             length_x=float(length_x_um),
@@ -446,11 +797,12 @@ def _(
     blocks = []
     if int(write.value or 0) <= 0:
         blocks.append(
-            mo.md("Click **Write GDS** to export a skeleton you can inspect in KLayout.")
+            mo.md("Click **Write GDS** to export a skeleton you can inspect in a layout viewer.")
         )
     else:
         out = Path(str(gds_out.value)).expanduser()
         try:
+            # Write the skeleton GDS file and report the path.
             written = write_mzi_skeleton(
                 out=out,
                 delta_length_um=float(delta_length.value),
@@ -458,7 +810,7 @@ def _(
                 length_y_um=float(length_y.value),
             )
             blocks.append(mo.md(f"Wrote: `{written}`"))
-            blocks.append(mo.md(f"Open in KLayout: `klayout {written}`"))
+            blocks.append(mo.md(f"Open in your layout viewer: `{written}`"))
         except Exception as e:  # pragma: no cover
             blocks.append(mo.md(f"(GDS write failed: `{type(e).__name__}: {e}`)"))
 
@@ -485,7 +837,7 @@ def _(doc_callout_list, mo, show_submission):
         items=[
             "Confirm your layout file is inside the run repo (e.g., `openEBL-2026-02/submissions/...`).",
             "Verify naming conventions and top-level cell structure match the run instructions.",
-            "Run local verification in KLayout if available (press V / run scripts).",
+            "Run local verification in your layout viewer if available.",
             "Push to your fork and check GitHub Actions results; download artifacts when something fails.",
         ],
     )
