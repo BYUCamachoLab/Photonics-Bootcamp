@@ -77,12 +77,15 @@ def _(mo):
     ng_check = 4.19
 
     delta_L_um_values = (10.0, 20.0, 50.0)
+    md_str = ""
     for delta_L_um_i in delta_L_um_values:
         fsr_nm_i = fsr_estimate_nm(wl0_nm=wl0_nm_check, ng=ng_check, delta_L_um=delta_L_um_i)
-        mo.md(
+        md_str += (
             f"- λ0={wl0_nm_check:.0f} nm, ng={ng_check:.2f}, ΔL={delta_L_um_i:.0f} µm → "
-            f"FSR = `{fsr_nm_i}` nm"
+            f"FSR = `{fsr_nm_i}` nm\n"
         )
+
+    mo.md(md_str)
     return
 
 
