@@ -125,12 +125,12 @@ def _(mo):
 
 
 @app.cell
-def _(alt, mo, np, points, pl):
+def _(alt, mo, np, pl, points):
     n = int(points.value)
     x = np.linspace(0, 2 * np.pi, n)
-    df = pl.DataFrame({"x": x, "y": np.sin(x)})
-    chart = (
-        alt.Chart(df)
+    df1 = pl.DataFrame({"x": x, "y": np.sin(x)})
+    chart1 = (
+        alt.Chart(df1)
         .mark_line(point=True)
         .encode(
             x=alt.X("x:Q", title="x"),
@@ -139,7 +139,7 @@ def _(alt, mo, np, points, pl):
         )
         .properties(width=420, height=220)
     )
-    mo.vstack([chart])
+    mo.vstack([chart1])
     return
 
 
@@ -246,7 +246,7 @@ def _(alt, center_wl, delta_length, mo, ng, np, pl, y_scale):
     log_floor = 1e-6
     T_plot = np.clip(T, log_floor, None) if semilog else T
 
-    df = pl.DataFrame(
+    df2 = pl.DataFrame(
         {
             "wavelength_nm": wl * 1e3,
             "T": T,
@@ -260,8 +260,8 @@ def _(alt, center_wl, delta_length, mo, ng, np, pl, y_scale):
         scale=alt.Scale(type="log") if semilog else alt.Scale(zero=False),
     )
 
-    chart = (
-        alt.Chart(df)
+    chart2 = (
+        alt.Chart(df2)
         .mark_line()
         .encode(
             x=alt.X("wavelength_nm:Q", title="Wavelength (nm)"),
@@ -295,7 +295,7 @@ def _(alt, center_wl, delta_length, mo, ng, np, pl, y_scale):
     else:
         fsr_line = mo.md("Estimated ideal FSR: **(ΔL = 0 → no fringes)**")
 
-    mo.vstack([fsr_line, mo.hstack([controls, chart])])
+    mo.vstack([fsr_line, mo.hstack([controls, chart2])])
     return
 
 
