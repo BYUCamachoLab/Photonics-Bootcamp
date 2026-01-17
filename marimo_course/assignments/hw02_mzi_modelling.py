@@ -111,7 +111,7 @@ def _(mo):
     # === EDIT THIS CELL ===
     wl0_nm = 1550.0
     ng = 4.19
-    measurement_span_nm = 60.0
+    measurement_span_nm = 100.0
 
     chosen_delta_L_um = 25.0
     justification = "Replace this with a short paragraph."
