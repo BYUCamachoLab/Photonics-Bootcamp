@@ -13,13 +13,13 @@ __generated_with = "0.18.4"
 app = marimo.App()
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     import marimo as mo
     return (mo,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     # HW02 — MZI modelling (FSR and ΔL)
@@ -57,7 +57,7 @@ def fsr_estimate_nm(*, wl0_nm: float, ng: float, delta_L_um: float) -> float | N
     return None
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## Task 1 — Implement `fsr_estimate_nm`
@@ -71,7 +71,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     wl0_nm_check = 1550.0
     ng_check = 4.19
@@ -89,7 +89,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## Task 2 — Choose ΔL (a design decision)
@@ -98,7 +98,7 @@ def _(mo):
 
     For this homework, assume:
     - center wavelength: **1550 nm**
-    - measurement span: **60 nm** (adjust to match what you used in the lab notebook if different)
+    - measurement span: **100 nm** (adjust to match what you used in the lab notebook if different)
     - desired fringes visible across the span: **≥ 3**
 
     Edit the variables in the next cell to record your choice and justification.
