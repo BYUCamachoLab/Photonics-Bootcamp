@@ -11,40 +11,27 @@
 
 import marimo
 
-__generated_with = "0.19.2"
+__generated_with = "0.18.4"
 app = marimo.App()
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     import marimo as mo
-    return (mo,)
-
-
-@app.cell
-def _():
     from _assignment_template import load_lesson_template, _ensure_lessons_on_path
 
     _ensure_lessons_on_path()
     from _notebook_template import optional_import
 
     inject_css, make_doc_helpers, make_health_refresh_button, header = load_lesson_template()
-    return header, inject_css, make_doc_helpers, optional_import
 
-
-@app.cell
-def _(inject_css, mo):
     inject_css(mo)
-    return
 
-
-@app.cell
-def _(make_doc_helpers, mo):
     doc_badges, doc_callout_html, doc_callout_list = make_doc_helpers(mo)
-    return (doc_callout_list,)
+    return doc_callout_list, header, mo
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(header, mo):
     header(
         mo,
@@ -60,12 +47,12 @@ def _(header, mo):
             ("Add Submission Layers", "layers"),
             ("Export", "export"),
         ],
-        build="2025-12-16",
+        build="2026-01-16",
     )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(doc_callout_list, mo):
     overview_md = mo.md(r"""
     <a id="overview"></a>
@@ -94,13 +81,13 @@ def _(doc_callout_list, mo):
     return (overview_md,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(overview_md):
     overview_md
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## Tasks (do these in order)
@@ -115,7 +102,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     <a id="build"></a>
@@ -129,35 +116,30 @@ def _(mo):
 
 @app.cell
 def _(mo):
-    mo.md("**EDIT HERE — set your MZI parameters**")
-    # === EDIT THIS CELL ===
-    username = "username"
+    # EDIT HERE — set your MZI parameters
+    username = "username" # put your GitHub username here
+    ebeam_pdk_path = "../SiEPIC_EBeam_PDK" # change these paths if you have cloned these repos elsewhere
+    openebl_path = "../openEBL-2026-02"
 
     delta_length_um = 300.0
     length_x_um = 60.0
     length_y_um = 10.0
 
-    splitter_gds = (
-        "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_bdc_te1550.gds"
-    )
+    splitter_gds = f"{ebeam_pdk_path}/klayout/EBeam/gds/EBeam/ebeam_bdc_te1550.gds"
     splitter_cell = "ebeam_bdc_te1550"
 
-    gc_gds = "SiEPIC_EBeam_PDK_public/klayout/EBeam/gds/EBeam/ebeam_gc_te1550.gds"
+    gc_gds = f"{ebeam_pdk_path}/klayout/EBeam/gds/EBeam/ebeam_gc_te1550.gds"
     gc_cell = "ebeam_gc_te1550"
 
-    export_gds = f"openEBL-2026-02/submissions/EBeam_{username}.gds"
+    export_gds = f"{openebl_path}/submissions/EBeam_{username}.gds"
 
     mo.md(
-        "\n".join(
-            [
-                f"- ΔL: `{delta_length_um}` µm",
-                f"- length_x: `{length_x_um}` µm",
-                f"- length_y: `{length_y_um}` µm",
-                f"- splitter cell: `{splitter_cell}`",
-                f"- GC cell: `{gc_cell}`",
-                f"- export path: `{export_gds}`",
-            ]
-        )
+        f"- ΔL: `{delta_length_um}` µm\n"
+        f"- length_x: `{length_x_um}` µm\n"
+        f"- length_y: `{length_y_um}` µm\n"
+        f"- splitter cell: `{splitter_cell}`\n"
+        f"- GC cell: `{gc_cell}`\n"
+        f"- export path: `{export_gds}`\n"
     )
     return (
         delta_length_um,
@@ -179,100 +161,82 @@ def _(
     length_x_um,
     length_y_um,
     mo,
-    optional_import,
     splitter_cell,
     splitter_gds,
 ):
-    gf_mod = None
-    gf_mod, gf_error = optional_import("gdsfactory")
+    import pathlib as pathlib_hw
+    import gdsfactory as gf
+    from gdsfactory.add_ports import add_ports_from_markers_center
+    from gdsfactory.read import import_gds
+    from gdsfactory.port import auto_rename_ports_orientation
+
+    gf.clear_cache()
+    gf.gpdk.PDK.activate()
     c = None
-    preview = None
-    if gf_mod is None:
-        preview = mo.md(f"`gdsfactory` not available: `{gf_error}`")
-    else:
-        import pathlib as pathlib_hw
-        from io import BytesIO
-        from gdsfactory.add_ports import add_ports_from_markers_center
-        from gdsfactory.read import import_gds
-        from gdsfactory.port import auto_rename_ports_orientation
 
-        if hasattr(gf_mod, "gpdk") and hasattr(gf_mod.gpdk, "PDK"):
-            gf_mod.gpdk.PDK.activate()
+    xs = gf.cross_section.strip(layer=(1, 0), width=0.5)
 
-        xs = gf_mod.cross_section.strip(layer=(1, 0), width=0.5)
+    # Check for GDS files
+    splitter_path = pathlib_hw.Path(splitter_gds)
+    gc_path = pathlib_hw.Path(gc_gds)
+    mo.stop(
+        not splitter_path.exists(),
+        mo.md(f"Error: Splitter GDS not found: `{splitter_path}`")
+    )
+    mo.stop(
+        not gc_path.exists(),
+        mo.md(f"Error: GC GDS not found: `{gc_path}`")
+    )
 
-        splitter_path = pathlib_hw.Path(splitter_gds)
-        gc_path = pathlib_hw.Path(gc_gds)
-        if not splitter_path.exists():
-            preview = mo.md(f"(Splitter GDS not found: `{splitter_path}`)")
-        elif not gc_path.exists():
-            preview = mo.md(f"(GC GDS not found: `{gc_path}`)")
-        else:
-            splitter = import_gds(
-                splitter_path, cellname=splitter_cell, rename_duplicated_cells=True
-            )
-            add_ports_from_markers_center(splitter, pin_layer=(1, 10), port_layer=(1, 0))
-            auto_rename_ports_orientation(splitter)
-            splitter.name = f"{splitter_cell}_splitter"
+    splitter = import_gds(splitter_path, cellname=splitter_cell, rename_duplicated_cells=True)
+    add_ports_from_markers_center(splitter, pin_layer=(1, 10), port_layer=(1, 0))
+    auto_rename_ports_orientation(splitter)
+    splitter.name = f"{splitter_cell}_splitter"
 
-            gc = import_gds(gc_path, cellname=gc_cell, rename_duplicated_cells=True)
-            add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
-            auto_rename_ports_orientation(gc)
-            gc.name = f"{gc_cell}_gc"
+    gc = import_gds(gc_path, cellname=gc_cell, rename_duplicated_cells=True)
+    add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
+    auto_rename_ports_orientation(gc)
+    gc.name = f"{gc_cell}_gc"
 
-            mzi = gf_mod.components.mzi(
-                splitter=splitter,
-                combiner=splitter,
-                cross_section=xs,
-                port_e1_splitter="oE1",
-                port_e0_splitter="oE0",
-                port_e1_combiner="oE1",
-                port_e0_combiner="oE0",
-                delta_length=float(delta_length_um),
-                length_x=float(length_x_um),
-                length_y=float(length_y_um),
-            )
+    mzi = gf.components.mzi(
+        splitter=splitter,
+        combiner=splitter,
+        cross_section=xs,
+        port_e1_splitter="oE1",
+        port_e0_splitter="oE0",
+        port_e1_combiner="oE1",
+        port_e0_combiner="oE0",
+        delta_length=float(delta_length_um),
+        length_x=float(length_x_um),
+        length_y=float(length_y_um),
+    )
 
-            def pick_port(component, orientation, *, fallback_first=False):
-                ports = component.ports
-                port_list = (
-                    list(ports.values()) if hasattr(ports, "values") else list(ports)
-                )
-                for port in port_list:
-                    if port.orientation is not None and int(round(port.orientation)) == orientation:
-                        return port
-                if fallback_first and port_list:
-                    return port_list[0]
-                raise ValueError(f"No port with orientation {orientation} on {component.name}")
+    # Port indices of MZI are as follows:
+    # 1        ________        3
+    #   \    /          \    /
+    #    ----            ----
+    #    ----            ----
+    #   /    \          /    \
+    # 0        --------        2
 
-            c = gf_mod.Component()
-            mzi_ref = c << mzi
-            mzi_in = pick_port(mzi_ref, 180)
-            mzi_out = pick_port(mzi_ref, 0)
-            gc_port = pick_port(gc, 180, fallback_first=True)
-            gc_in = c << gc
-            gc_in.connect(gc_port.name, mzi_in)
-            gc_out = c << gc
-            gc_out.connect(gc_port.name, mzi_out)
+    c = gf.Component()
+    mzi_ref = c << mzi
+    mzi_in = mzi_ref.ports[0]
+    mzi_out = mzi_ref.ports[2]
+    gc_port = gc.ports[0]
+    gc_in = c << gc
+    gc_in.connect(gc_port.name, mzi_in)
+    gc_out = c << gc
+    gc_out.connect(gc_port.name, mzi_out)
 
-            fig = c.plot()
-            if fig is None:
-                import matplotlib.pyplot as plt
-                fig = plt.gcf()
-            buf = BytesIO()
-            fig.savefig(buf, format="png", bbox_inches="tight")
-            buf.seek(0)
-            preview = mo.vstack(
-                [
-                    mo.md("### Layout preview (MZI + grating couplers)"),
-                    mo.image(buf),
-                ]
-            )
-    preview
+    import matplotlib.pyplot as plt
+    fig = c.plot()
+    plt.show()
+    mo.md("### Layout preview (MZI + grating couplers)")
     return (c,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## Add second output port (layout)
@@ -288,13 +252,13 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     <a id="layers"></a>
     ## Add submission layers
 
-    These layers are required for openEBL checks. In this homework, add them in Python:
+    These layers are required for openEBL checks. In this homework, we will add them for you:
 
     - **PinRec (1/10)** for ports
     - **DevRec (68/0)** around the device
@@ -304,63 +268,64 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(c, mo):
-    layers_output = None
-    if c is None:
-        layers_output = mo.md("(No layout available yet.)")
+    mo.stop(
+        c is None,
+        mo.md("No layout available yet.")
+    )
+
+    pin_layer = (1, 10)
+    pin_w = 2.0
+    pin_h = 1.0
+    ports = c.ports
+    port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
+    for port in port_list:
+        cx, cy = port.center
+        c.add_polygon(
+            [
+                (cx - pin_w / 2, cy - pin_h / 2),
+                (cx + pin_w / 2, cy - pin_h / 2),
+                (cx + pin_w / 2, cy + pin_h / 2),
+                (cx - pin_w / 2, cy + pin_h / 2),
+            ],
+            layer=pin_layer,
+        )
+
+    bbox = c.bbox() if callable(getattr(c, "bbox", None)) else c.bbox
+    if hasattr(bbox, "left"):
+        xmin, ymin, xmax, ymax = bbox.left, bbox.bottom, bbox.right, bbox.top
     else:
-        pin_layer = (1, 10)
-        pin_w = 2.0
-        pin_h = 1.0
-        ports = c.ports
-        port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
-        for port in port_list:
-            cx, cy = port.center
-            c.add_polygon(
-                [
-                    (cx - pin_w / 2, cy - pin_h / 2),
-                    (cx + pin_w / 2, cy - pin_h / 2),
-                    (cx + pin_w / 2, cy + pin_h / 2),
-                    (cx - pin_w / 2, cy + pin_h / 2),
-                ],
-                layer=pin_layer,
-            )
+        (xmin, ymin), (xmax, ymax) = bbox[0], bbox[1]
 
-        bbox = c.bbox() if callable(getattr(c, "bbox", None)) else c.bbox
-        if hasattr(bbox, "left"):
-            xmin, ymin, xmax, ymax = bbox.left, bbox.bottom, bbox.right, bbox.top
-        else:
-            (xmin, ymin), (xmax, ymax) = bbox[0], bbox[1]
+    pad = 5.0
+    c.add_polygon(
+        [
+            (xmin - pad, ymin - pad),
+            (xmax + pad, ymin - pad),
+            (xmax + pad, ymax + pad),
+            (xmin - pad, ymax + pad),
+        ],
+        layer=(68, 0),
+    )
+    c.add_polygon(
+        [
+            (xmin - pad, ymin - pad),
+            (xmax + pad, ymin - pad),
+            (xmax + pad, ymax + pad),
+            (xmin - pad, ymax + pad),
+        ],
+        layer=(99, 0),
+    )
 
-        pad = 5.0
-        c.add_polygon(
-            [
-                (xmin - pad, ymin - pad),
-                (xmax + pad, ymin - pad),
-                (xmax + pad, ymax + pad),
-                (xmin - pad, ymax + pad),
-            ],
-            layer=(68, 0),
-        )
-        c.add_polygon(
-            [
-                (xmin - pad, ymin - pad),
-                (xmax + pad, ymin - pad),
-                (xmax + pad, ymax + pad),
-                (xmin - pad, ymax + pad),
-            ],
-            layer=(99, 0),
-        )
+    c.add_label(text="TOP", position=(xmin, ymax + 10.0), layer=(10, 0))
+    c.add_label(text="MZI", position=(xmin, ymin - 10.0), layer=(10, 0))
 
-        c.add_label(text="TOP", position=(xmin, ymax + 10.0), layer=(10, 0))
-        c.add_label(text="MZI", position=(xmin, ymin - 10.0), layer=(10, 0))
-        layers_output = mo.md("Added PinRec/DevRec/Text/Floorplan layers to the layout.")
-    layers_output
+    mo.md("Added PinRec/DevRec/Text/Floorplan layers to the layout.")
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## Simphony spectrum (blank cell — student work)
@@ -378,7 +343,7 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
+def _():
     # === STUDENT: WRITE YOUR SIMPHONY/SAX CODE HERE ===
     # Example imports (uncomment as needed):
     # import numpy as np
@@ -391,27 +356,32 @@ def _(mo):
     # 3) Plot the single output (through) that matches the starter layout.
     # 4) After adding a second output to your layout, plot both through + cross.
     pass
+    return
 
 
-@app.cell
-def _(c, export_gds, mo):
+@app.cell(hide_code=True)
+def _(mo):
     mo.md(r"""
     <a id="export"></a>
     ## Export for submission
 
-    Export the final GDS to your openEBL submissions folder.
+    Run this cell to export the final GDS to your openEBL submissions folder.
     """)
-    export_output = None
-    if c is None:
-        export_output = mo.md("(No layout available yet.)")
-    else:
-        import pathlib
+    return
 
-        out = pathlib.Path(str(export_gds)).expanduser()
-        out.parent.mkdir(parents=True, exist_ok=True)
-        written = c.write_gds(out)
-        export_output = mo.md(f"Wrote: `{written}`")
-    export_output
+
+@app.cell(hide_code=True)
+def _(c, export_gds, mo):
+    mo.stop(
+        c is None,
+        mo.md("No layout available yet.")
+    )
+    import pathlib
+
+    out = pathlib.Path(str(export_gds)).expanduser()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    written = c.write_gds(out)
+    mo.md(f"Wrote: `{written}`")
     return
 
 
