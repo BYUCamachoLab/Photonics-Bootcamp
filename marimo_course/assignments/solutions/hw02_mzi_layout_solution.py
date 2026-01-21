@@ -235,7 +235,7 @@ def _(
     gc = import_gds(gc_path, cellname=gc_cell, rename_duplicated_cells=True)
     add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
     auto_rename_ports_orientation(gc)
-    gc.remove_layers(layers=[(68, 0)], recursive=True)
+    gc.remove_layers(layers=[(1, 10), (68, 0)], recursive=True)
     gc.name = f"{gc_cell}_gc"
 
     mzi = gf.components.mzi(
@@ -366,7 +366,34 @@ def _(c, mo):
         mo.md("No layout available yet.")
     )
 
-    # PinRec markers are provided by the grating coupler cells.
+    pin_layer = (1, 10)
+    pin_w = 2.0
+    pin_h = 1.0
+    ports = c.ports
+    port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
+    for port in port_list:
+        cx, cy = port.center
+        c.add_polygon(
+            [
+                (cx - pin_w / 2, cy - pin_h / 2),
+                (cx + pin_w / 2, cy - pin_h / 2),
+                (cx + pin_w / 2, cy + pin_h / 2),
+                (cx - pin_w / 2, cy + pin_h / 2),
+            ],
+            layer=pin_layer,
+        )
+        # Add a small Si stub so PinRec overlaps waveguide material for DRC.
+        stub_w = max(float(getattr(port, "width", 0.5)), 0.5)
+        stub_l = 2.0
+        c.add_polygon(
+            [
+                (cx - stub_l / 2, cy - stub_w / 2),
+                (cx + stub_l / 2, cy - stub_w / 2),
+                (cx + stub_l / 2, cy + stub_w / 2),
+                (cx - stub_l / 2, cy + stub_w / 2),
+            ],
+            layer=(1, 0),
+        )
 
     layout_bbox = c.bbox() if callable(getattr(c, "bbox", None)) else c.bbox
     if hasattr(layout_bbox, "left"):
