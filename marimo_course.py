@@ -38,8 +38,8 @@ def _(mo):
     - **Week 2 (Jan 12–16)** – PDKs and basic MZI layout
       openEBL process, SiEPIC-EBeam-PDK, and first MZI layout skeleton in KLayout.
 
-    - **Week 3 (Jan 19–23)** – Sizing and verifying the MZI
-      Connect layout parameters to behavior; local DRC/verification in KLayout.
+    - **Week 3 (Jan 19–23)** – MZI verification workflow
+      Local DRC/verification in KLayout; DFT and CI checks for openEBL.
 
     - **Week 4 (Jan 26–30)** – Towards manufacturable designs
       Layout polishing, floorplans, DevRec/PinRec, and verification concepts.
@@ -69,7 +69,7 @@ def _(mo):
     - `lessons/w01_orientation_tooling.py` – Course overview, openEBL goals, and environment setup.
     - `lessons/w02_pdk_mzi_layout.py` – PDK and first MZI layout.
     - `lessons/w02_mzi_modelling.py` – Analytic / simulated MZI model and design targets.
-    - `lessons/w03_verification_and_github.py` – Verification workflow and GitHub CI.
+    - `lessons/w03_verification.py` – Verification workflow for openEBL.
     - Additional lessons for theory and measurement analysis in later weeks.
     """)
     return

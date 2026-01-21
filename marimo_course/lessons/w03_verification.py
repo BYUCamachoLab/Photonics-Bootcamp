@@ -4,6 +4,8 @@
 # dependencies = [
 #   "marimo>=0.17.0",
 #   "numpy",
+#   "openai==2.15.0",
+#   "pydantic-ai==1.44.0",
 #   "pyzmq",
 # ]
 # ///
@@ -12,6 +14,12 @@ import marimo
 
 __generated_with = "0.18.4"
 app = marimo.App()
+
+
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
 
 
 @app.cell
@@ -27,7 +35,7 @@ def _(mo):
     from _notebook_template import make_doc_helpers
 
     doc_badges, doc_callout_html, doc_callout_list = make_doc_helpers(mo)
-    return doc_badges, doc_callout_html, doc_callout_list
+    return doc_badges, doc_callout_list
 
 
 @app.cell
@@ -36,7 +44,7 @@ def _(mo):
 
     section_tabs, view_state, set_view = make_section_tabs(
         mo,
-        options=("All", "Overview", "Sizing", "Verification", "Next"),
+        options=("All", "Overview", "Verification", "Next"),
         value="All",
     )
     section_tabs
@@ -47,28 +55,19 @@ def _(mo):
 def _(view_state):
     view = view_state()
     show_overview = view in ["All", "Overview"]
-    show_sizing = view in ["All", "Sizing"]
     show_verification = view in ["All", "Verification"]
     show_next = view in ["All", "Next"]
-    return show_next, show_overview, show_sizing, show_verification, view
+    return show_next, show_overview, show_verification, view
 
 
 @app.cell
-def _(
-    doc_badges,
-    show_next,
-    show_overview,
-    show_sizing,
-    show_verification,
-    view,
-):
+def _(doc_badges, show_next, show_overview, show_verification, view):
     doc_badges(
         [
             f"Notebook view: <strong>{view}</strong>",
             (
                 "Flags: "
                 f"overview={show_overview}, "
-                f"sizing={show_sizing}, "
                 f"verification={show_verification}, "
                 f"next={show_next}"
             ),
@@ -84,15 +83,14 @@ def _(mo, show_overview):
 
     header(
         mo,
-        title="Sizing and verifying the MZI",
+        title="Verifying the MZI layout",
         subtitle=(
-            "Turn a modelling target (FSR, extinction, loss) into concrete layout parameters, "
-            "then run the checks that keep your openEBL submission green."
+            "Use the openEBL verification workflow to ensure your layout passes checks "
+            "before you push to GitHub."
         ),
-        badges=["Week 3", "Lab companion", "Sizing", "Verification", "openEBL workflow"],
+        badges=["Week 3", "Lab companion", "Verification", "openEBL workflow"],
         toc=[
             ("Overview", "overview"),
-            ("Sizing", "sizing"),
             ("Verification", "verification"),
             ("What’s next", "next"),
         ],
@@ -106,62 +104,47 @@ def _(mo):
     from _notebook_template import make_health_refresh_button
 
     health_refresh = make_health_refresh_button(mo)
-    return (health_refresh,)
-
-
-@app.cell
-def _(doc_callout_html, health_refresh, mo):
-    from _notebook_template import safe_editing_panel
-
-    safe_editing_panel(
-        mo,
-        doc_callout_html,
-        health_refresh,
-        restore_command="git -C Photonics-Bootcamp restore marimo_course/lessons/w03_sizing_and_verification.py",
-        external_check_command="python3 marimo_course/lessons/check_notebook_health.py marimo_course/lessons/w03_sizing_and_verification.py",
-    )
-    return
-
-
-@app.cell
-def _(doc_badges, doc_callout_html, health_refresh):
-    from _notebook_template import notebook_self_check_view
-
-    _self_check_view = notebook_self_check_view(
-        doc_badges=doc_badges,
-        doc_callout_html=doc_callout_html,
-        notebook_path=__file__,
-        refresh_token=health_refresh.value,
-    )
-    _self_check_view
     return
 
 
 @app.cell
 def _(doc_callout_list, mo, show_overview):
     mo.stop(not show_overview)
-    mo.md(r"""
+    overview_md = mo.md(r"""
     <a id="overview"></a>
     ## Overview
 
     Week 2 helped you connect **ΔL ↔ FSR** and build basic intuition for an MZI spectrum.
-    This week is about translating that intuition into **design choices** and then passing the
-    **verification pipeline** for openEBL.
+    This week is about the **verification pipeline** that keeps your openEBL submission green.
+
+    Week 2 references:
+    - `marimo_course/lessons/w02_mzi_modelling.py` (rule-of-thumb, spectrum intuition)
+    - `marimo_course/lessons/w02_pdk_mzi_layout.py` (PDK layout workflow + submission layers)
     """)
 
-    doc_callout_list(
+    definitions = doc_callout_list(
+        "info",
+        tag="Definitions",
+        title="What we mean by verification",
+        items=[
+            "<strong>Verification</strong>: checking that the layout obeys PDK/openEBL rules so it passes automated checks "
+            "(ports, labels, floorplan, DFT rules, and CI).",
+        ],
+    )
+
+    goals = doc_callout_list(
         "info",
         tag="Goals (lab)",
         title="What you should be able to do by the end",
         ordered=True,
         items=[
-            "Choose a target FSR and compute a corresponding ΔL (rule-of-thumb).",
-            "Recognize which parameters change fringe spacing vs fringe contrast (qualitatively).",
             "Run a verification checklist before pushing to GitHub/openEBL.",
+            "Understand why CI checks fail and how to debug them in KLayout.",
+            "Validate DFT requirements (pitch, orientation, opt_in placement).",
         ],
     )
 
-    doc_callout_list(
+    submission_note = doc_callout_list(
         "warning",
         tag="Where do I submit work?",
         title="Lab companion vs homework",
@@ -170,76 +153,20 @@ def _(doc_callout_list, mo, show_overview):
             "Graded work should live in the week-aligned homework notebook (e.g., `marimo_course/assignments/hw03_...`).",
         ],
     )
-    return
-
-
-@app.cell
-def _(doc_callout_html, mo, show_sizing):
-    mo.stop(not show_sizing)
-    mo.md(r"""
-    <a id="sizing"></a>
-    ## Sizing: choose ΔL from an FSR target
-
-    The Week 2 rule-of-thumb (near λ0) is:
-
-    $$
-    \mathrm{FSR} \approx \frac{\lambda_0^2}{n_g \, \Delta L}.
-    $$
-
-    Use it to pick a ΔL that gives enough fringes over a measurement span without making fringes so dense
-    that they’re hard to measure.
-    """)
-
-    doc_callout_html(
-        "info",
-        tag="Rule of thumb",
-        title="What changes what?",
-        html=r"""
-        <ul>
-          <li><strong>Fringe spacing (FSR):</strong> mainly set by ΔL (and ng).</li>
-          <li><strong>Fringe contrast (visibility):</strong> affected by loss imbalance and non-ideal splitters.</li>
-          <li><strong>Absolute phase:</strong> shifts fringes left/right but does not change spacing.</li>
-        </ul>
-        """,
-    )
+    mo.vstack([overview_md, definitions, goals, submission_note])
     return
 
 
 @app.cell
 def _():
     import numpy as np
-    return (np,)
-
-
-@app.cell
-def _(mo, np, show_sizing):
-    mo.stop(not show_sizing)
-
-    wl0_nm = mo.ui.number(value=1550.0, label="λ0 (nm, default 1550)")
-    ng = mo.ui.number(value=4.19, label="ng (group index)")
-    target_fsr_nm = mo.ui.number(value=25.0, label="Target FSR (nm)")
-
-    wl0_um = float(wl0_nm.value) / 1e3
-    fsr_nm = float(target_fsr_nm.value)
-    ng_val = float(ng.value)
-
-    deltaL_um = None
-    if fsr_nm > 0 and ng_val > 0:
-        deltaL_um = (wl0_um * wl0_um) / (ng_val * (fsr_nm / 1e3))
-
-    text = (
-        f"ΔL estimate: **{deltaL_um:.1f} µm**"
-        if isinstance(deltaL_um, float) and np.isfinite(deltaL_um)
-        else "ΔL estimate: (enter positive `ng` and `FSR`)"
-    )
-    mo.vstack([mo.hstack([wl0_nm, ng, target_fsr_nm]), mo.md(text)])
     return
 
 
 @app.cell
 def _(doc_callout_list, mo, show_verification):
     mo.stop(not show_verification)
-    mo.md(r"""
+    verification_md = mo.md(r"""
     <a id="verification"></a>
     ## Verification: before you push to GitHub/openEBL
 
@@ -247,7 +174,21 @@ def _(doc_callout_list, mo, show_verification):
     This section is a checklist you can follow every time before committing.
     """)
 
-    doc_callout_list(
+    klayout_intro = doc_callout_list(
+        "info",
+        tag="KLayout primer",
+        title="First-time verification workflow",
+        ordered=True,
+        items=[
+            "Install KLayout + SiEPIC-EBeam PDK (see `marimo_course/README.md`).",
+            "Open your exported GDS/OAS in KLayout.",
+            "Load the EBeam technology (verify layers, DevRec/PinRec).",
+            "Run verification: press **V** or use the SiEPIC menu for verification.",
+            "Inspect the error markers and fix layout issues before pushing.",
+        ],
+    )
+
+    checklist = doc_callout_list(
         "info",
         tag="Checklist",
         title="Pre-push verification (starter list)",
@@ -262,14 +203,64 @@ def _(doc_callout_list, mo, show_verification):
         ],
     )
 
-    doc_callout_list(
+    sizing_bridge = doc_callout_list(
+        "info",
+        tag="Week 2 → Verification",
+        title="What to carry forward from Week 2",
+        items=[
+            "Keep the compact-model vs layout mismatch in mind (loss, splitter imbalance).",
+            "Check that your PDK layout uses PDK cells and adds PinRec/DevRec/Floorplan/labels.",
+        ],
+    )
+
+    dft_rules = doc_callout_list(
+        "info",
+        tag="DFT rules (EBeam)",
+        title="Grating coupler + opt_in checks from DFT.xml",
+        ordered=True,
+        items=[
+            "Grating couplers are vertically aligned on a **127 µm pitch**.",
+            "Minimum grating-coupler spacing is **60 µm**.",
+            "GC array orientation is **90°** (vertical array).",
+            "At most **1** GC above the opt_in label and at most **2** below.",
+            "GC orientation is **0°** for `ebeam_gc_te1550` and `ebeam_gc_tm1550`.",
+            "opt_in label is within **10 µm** of the GC tip (cell origin).",
+        ],
+    )
+
+    common_failures = doc_callout_list(
+        "warning",
+        tag="Common CI failures",
+        title="Issues students hit most often",
+        items=[
+            "Missing or misaligned PinRec markers on external ports.",
+            "GCs off the 127 µm pitch or wrong orientation for the DFT rules.",
+            "Layout outside the floorplan or missing DevRec/Floorplan.",
+            "Top-cell name mismatch or unintended extra top cells.",
+            "Modified black-box cells (GCs) or renamed PDK cells.",
+        ],
+    )
+
+    todo = doc_callout_list(
         "warning",
         tag="TODO",
         title="Fill in run-specific links",
         items=[
             "Add links to the specific openEBL run repository and its technical summary for this semester.",
             "Add screenshots of the CI failure modes students most often hit (missing pins, wrong cell names, floorplan issues).",
+            "Confirm these DFT rules against `SiEPIC_EBeam_PDK_public/klayout/EBeam/DFT.xml` for the active PDK version.",
         ],
+    )
+    mo.vstack(
+        [
+            verification_md,
+            klayout_intro,
+            checklist,
+            sizing_bridge,
+            dft_rules,
+            common_failures,
+            todo,
+        ]
     )
     return
 
