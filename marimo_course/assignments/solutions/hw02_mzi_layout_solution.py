@@ -223,16 +223,19 @@ def _(
     splitter = import_gds(splitter_path, cellname=splitter_cell, rename_duplicated_cells=True)
     add_ports_from_markers_center(splitter, pin_layer=(1, 10), port_layer=(1, 0))
     auto_rename_ports_orientation(splitter)
+    splitter.remove_layers(layers=[(1, 10), (68, 0)], recursive=True)
     splitter.name = f"{splitter_cell}_splitter"
 
     combiner = import_gds(combiner_path, cellname=combiner_cell, rename_duplicated_cells=True)
     add_ports_from_markers_center(combiner, pin_layer=(1, 10), port_layer=(1, 0))
     auto_rename_ports_orientation(combiner)
+    combiner.remove_layers(layers=[(1, 10), (68, 0)], recursive=True)
     combiner.name = f"{combiner_cell}_combiner"
 
     gc = import_gds(gc_path, cellname=gc_cell, rename_duplicated_cells=True)
     add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
     auto_rename_ports_orientation(gc)
+    gc.remove_layers(layers=[(68, 0)], recursive=True)
     gc.name = f"{gc_cell}_gc"
 
     mzi = gf.components.mzi(
@@ -257,56 +260,34 @@ def _(
     # 0        --------        2
 
     c = gf.Component()
+
     def _ports_list(component):
         ports = component.ports
         return list(ports.values()) if hasattr(ports, "values") else list(ports)
 
     def _pick_gc_port(component):
         ports = _ports_list(component)
-        optical = [p for p in ports if getattr(p, "port_type", None) in (None, "optical")]
+        optical = [
+            p for p in ports if getattr(p, "port_type", None) in (None, "optical")
+        ]
         ports = optical or ports
         for port in ports:
             if port.orientation is not None and abs((port.orientation - 180) % 360) < 1e-3:
                 return port
         return ports[0]
 
-    def _port_with_orientation(port, orientation):
-        if port.orientation is not None:
-            return port
-        return gf.Port(
-            name=port.name,
-            center=port.center,
-            width=port.width,
-            orientation=orientation,
-            layer=port.layer,
-            port_type=port.port_type,
-        )
-
-    mzi_ref = c << mzi
-    mzi_ports = _ports_list(mzi_ref)
-    if hasattr(mzi_ref.ports, "get") and all(
-        name in mzi_ref.ports for name in ("o1", "o2", "o3")
-    ):
-        mzi_input = mzi_ref.ports["o1"]
-        mzi_out_through = mzi_ref.ports["o2"]
-        mzi_out_cross = mzi_ref.ports["o3"]
+    mzi_ports = _ports_list(mzi)
+    if hasattr(mzi.ports, "get") and all(name in mzi.ports for name in ("o1", "o2", "o3")):
+        mzi_input = mzi.ports["o1"]
+        mzi_out_through = mzi.ports["o2"]
+        mzi_out_cross = mzi.ports["o3"]
     else:
         optical_ports = [
-            p
-            for p in mzi_ports
-            if getattr(p, "port_type", None) in (None, "optical")
+            p for p in mzi_ports if getattr(p, "port_type", None) in (None, "optical")
         ]
         mzi_ports = optical_ports or mzi_ports
         mzi_input = min(mzi_ports, key=lambda p: p.center[0])
         mzi_outputs = [p for p in mzi_ports if p is not mzi_input]
-        mzi_outputs = [p for p in mzi_outputs if p.orientation in (0, None)]
-        if len(mzi_outputs) < 2:
-            max_x = max(p.center[0] for p in mzi_ports)
-            x_tol = 1.0
-            mzi_outputs = [
-                p for p in mzi_ports if abs(p.center[0] - max_x) <= x_tol
-            ]
-            mzi_outputs = [p for p in mzi_outputs if p is not mzi_input]
         mzi_outputs = sorted(mzi_outputs, key=lambda p: p.center[1])
         if len(mzi_outputs) >= 2:
             mzi_out_cross, mzi_out_through = mzi_outputs[0], mzi_outputs[-1]
@@ -314,108 +295,30 @@ def _(
             mzi_out_through = mzi_outputs[0]
             mzi_out_cross = mzi_outputs[0]
 
-    mzi_input = _port_with_orientation(mzi_input, 180)
-    mzi_out_through = _port_with_orientation(mzi_out_through, 0)
-    mzi_out_cross = _port_with_orientation(mzi_out_cross, 0)
-
     gc_port = _pick_gc_port(gc)
-    gc_pitch = 127.0
-    gc_offset_x = 120.0
+    gc_port_name = gc_port.name
+    if gc.ports[gc_port_name].orientation is not None:
+        rotation = (180 - gc.ports[gc_port_name].orientation) % 360
+        if rotation:
+            gc = gf.functions.rotate(gc, rotation)
 
-    def place_gc_at(x: float, y: float):
-        gc_ref = c << gc
-        port_name = gc_port.name
-        gc_ref_port = gc_ref.ports[port_name]
-        if gc_ref_port.orientation is not None:
-            rotation = (180 - gc_ref_port.orientation) % 360
-            if rotation:
-                gc_ref.rotate(rotation, center=gc_ref_port.center)
-                gc_ref_port = gc_ref.ports[port_name]
-        gc_ref.move((x - gc_ref_port.center[0], y - gc_ref_port.center[1]))
-        gc_ref_port = gc_ref.ports[port_name]
-        gc_ref_port = _port_with_orientation(gc_ref_port, 180)
-        return gc_ref, gc_ref_port
+    port_names = [mzi_input.name, mzi_out_through.name, mzi_out_cross.name]
+    if any(name is None for name in port_names):
+        port_names = None
 
-    mzi_bbox = (
-        mzi_ref.bbox()
-        if callable(getattr(mzi_ref, "bbox", None))
-        else mzi_ref.bbox
-    )
-    if hasattr(mzi_bbox, "left"):
-        mzi_xmin, mzi_ymin, mzi_xmax, mzi_ymax = (
-            mzi_bbox.left,
-            mzi_bbox.bottom,
-            mzi_bbox.right,
-            mzi_bbox.top,
-        )
-    else:
-        (mzi_xmin, mzi_ymin), (mzi_xmax, mzi_ymax) = mzi_bbox[0], mzi_bbox[1]
-    gc_column_x = mzi_xmax + gc_offset_x
-    gc_center_y = mzi_input.center[1]
-
-    # Place input GC on top, outputs on middle/bottom to reduce crossings.
-    gc_in, gc_in_port = place_gc_at(
-        gc_column_x,
-        gc_center_y + gc_pitch,
-    )
-    gc_out_through, gc_out_through_port = place_gc_at(
-        gc_column_x,
-        gc_center_y,
-    )
-    gc_out_cross, gc_out_cross_port = place_gc_at(
-        gc_column_x,
-        gc_center_y - gc_pitch,
-    )
-
-    def route_on_track(start_port, end_port, track_y):
-        start_x, start_y = start_port.center
-        end_x, end_y = end_port.center
-        x1 = start_x + 20.0
-        x2 = end_x - 20.0
-        if x2 <= x1:
-            x_mid = (start_x + end_x) / 2
-            waypoints = [(x_mid, start_y), (x_mid, track_y), (x_mid, end_y)]
-        else:
-            waypoints = [(x1, start_y), (x1, track_y), (x2, track_y), (x2, end_y)]
-        return gf.routing.route_single(
-            c,
-            start_port,
-            end_port,
-            cross_section=xs,
-            waypoints=waypoints,
-            start_straight_length=0.0,
-            end_straight_length=0.0,
-        )
-
-    # Route on explicit tracks to avoid overlaps and mirror the example's intent.
-    route_top_y = mzi_ymax + 40.0
-    route_mid_y = gc_center_y
-    route_bot_y = mzi_ymin - 40.0
-
-    input_stub_x = mzi_xmin - 40.0
-    input_waypoints = [
-        (gc_in_port.center[0] - 20.0, gc_in_port.center[1]),
-        (gc_in_port.center[0] - 20.0, route_top_y),
-        (input_stub_x, route_top_y),
-        (input_stub_x, mzi_input.center[1]),
-        (mzi_input.center[0] - 5.0, mzi_input.center[1]),
-    ]
-    gf.routing.route_single(
-        c,
-        gc_in_port,
-        mzi_input,
-        cross_section=xs,
-        waypoints=input_waypoints,
+    c = gf.routing.add_fiber_array(
+        component=mzi,
+        grating_coupler=gc,
+        gc_port_name=gc_port_name,
+        gc_port_name_fiber=gc_port_name,
+        port_names=port_names,
+        pitch=127.0,
+        radius=20.0,
+        with_loopback=False,
         start_straight_length=0.0,
         end_straight_length=0.0,
+        force_manhattan=True,
     )
-
-    route_on_track(mzi_out_through, gc_out_through_port, route_mid_y)
-    route_on_track(mzi_out_cross, gc_out_cross_port, route_bot_y)
-
-    c.add_port("o_in", port=gc_in_port)
-    c.add_port("o_through", port=gc_out_through_port)
-    c.add_port("o_cross", port=gc_out_cross_port)
 
     import matplotlib.pyplot as plt_layout
     fig_layout = c.plot()
@@ -463,22 +366,7 @@ def _(c, mo):
         mo.md("No layout available yet.")
     )
 
-    pin_layer = (1, 10)
-    pin_w = 2.0
-    pin_h = 1.0
-    ports = c.ports
-    port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
-    for port in port_list:
-        cx, cy = port.center
-        c.add_polygon(
-            [
-                (cx - pin_w / 2, cy - pin_h / 2),
-                (cx + pin_w / 2, cy - pin_h / 2),
-                (cx + pin_w / 2, cy + pin_h / 2),
-                (cx - pin_w / 2, cy + pin_h / 2),
-            ],
-            layer=pin_layer,
-        )
+    # PinRec markers are provided by the grating coupler cells.
 
     layout_bbox = c.bbox() if callable(getattr(c, "bbox", None)) else c.bbox
     if hasattr(layout_bbox, "left"):
@@ -623,11 +511,24 @@ def _(c, export_gds, mo):
         mo.md("No layout available yet.")
     )
     import pathlib
+    import subprocess
 
     out = pathlib.Path(str(export_gds)).expanduser()
     out.parent.mkdir(parents=True, exist_ok=True)
     written = c.write_gds(out)
-    mo.md(f"Wrote: `{written}`")
+    script = pathlib.Path(__file__).resolve().parents[2] / "scripts" / "run_klayout_drc.sh"
+    report = out.with_suffix(".lyrdb")
+    if script.exists():
+        try:
+            subprocess.run(
+                [str(script), str(out), str(report)],
+                check=True,
+            )
+            mo.md(f"Wrote: `{written}`\n\nDRC report: `{report}`")
+        except subprocess.CalledProcessError as exc:
+            mo.md(f"Wrote: `{written}`\n\nDRC failed: `{exc}`")
+    else:
+        mo.md(f"Wrote: `{written}`\n\nDRC script not found: `{script}`")
     return
 
 
