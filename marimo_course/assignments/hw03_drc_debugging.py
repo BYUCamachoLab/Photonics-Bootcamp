@@ -138,55 +138,58 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
     from pathlib import Path as _Path
     import xml.etree.ElementTree as _ET
 
-    _view = mo.md("Click **Run DRC on HW02 submission** to generate a `.lyrdb` report.")
+    drc_output = []
 
     if run_hw02_drc.value > 0:
-        _out = []
-
         _gds_path = _Path(hw02_gds_path.value).expanduser()
+
         if not _gds_path.exists():
-            _out.append(
+            drc_output.append(
                 mo.callout(mo.md(f"**GDS not found:** `{_gds_path}`"), kind="danger")
             )
-            _view = mo.vstack(_out)
         else:
             _drc_script = _Path("marimo_course/scripts/run_klayout_drc.sh").resolve()
             _lyrdb_path = _gds_path.with_suffix(".lyrdb")
 
-            _result = _subprocess.run(
-                ["bash", str(_drc_script), str(_gds_path), str(_lyrdb_path)],
-                capture_output=True,
-                text=True,
-                timeout=240,
-            )
-            if _result.returncode != 0:
-                _out.append(
-                    mo.callout(
-                        mo.md(f"**DRC failed:**\n```\n{_result.stderr.strip()}\n```"),
-                        kind="danger",
-                    )
+            try:
+                _result = _subprocess.run(
+                    ["bash", str(_drc_script), str(_gds_path), str(_lyrdb_path)],
+                    capture_output=True,
+                    text=True,
+                    timeout=240,
                 )
-                _view = mo.vstack(_out)
+            except Exception as e:
+                drc_output.append(
+                    mo.callout(mo.md(f"**DRC exception:** {type(e).__name__}: {e}"), kind="danger")
+                )
             else:
-                _counts = {}
-                if _lyrdb_path.exists():
-                    root = _ET.parse(_lyrdb_path).getroot()
-                    for item in root.findall(".//item"):
-                        cat = item.find("category")
-                        if cat is None or cat.text is None:
-                            continue
-                        name = cat.text.strip("'")
-                        _counts[name] = _counts.get(name, 0) + 1
+                if _result.returncode != 0:
+                    drc_output.append(
+                        mo.callout(
+                            mo.md(f"**DRC failed:**\n```\n{_result.stderr.strip()}\n```"),
+                            kind="danger",
+                        )
+                    )
+                else:
+                    _counts = {}
+                    if _lyrdb_path.exists():
+                        root = _ET.parse(_lyrdb_path).getroot()
+                        for item in root.findall(".//item"):
+                            cat = item.find("category")
+                            if cat is None or cat.text is None:
+                                continue
+                            name = cat.text.strip("'")
+                            _counts[name] = _counts.get(name, 0) + 1
 
-                _total = sum(_counts.values())
-                _kind = "success" if _total == 0 else "warn"
+                    _total = sum(_counts.values())
+                    _kind = "success" if _total == 0 else "warn"
 
-                _rows = "".join(
-                    f"<tr><td style='padding:6px;border:1px solid #ddd'>{k}</td>"
-                    f"<td style='padding:6px;border:1px solid #ddd;text-align:center'>{v}</td></tr>"
-                    for k, v in sorted(_counts.items())
-                )
-                _table = f"""
+                    _rows = "".join(
+                        f"<tr><td style='padding:6px;border:1px solid #ddd'>{k}</td>"
+                        f"<td style='padding:6px;border:1px solid #ddd;text-align:center'>{v}</td></tr>"
+                        for k, v in sorted(_counts.items())
+                    )
+                    _table = f"""
 <table style="width: 100%; border-collapse: collapse; margin-top: 8px;">
   <thead>
     <tr style="background:#f0f0f0">
@@ -197,24 +200,28 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
   <tbody>{_rows or "<tr><td colspan='2' style='padding:6px;border:1px solid #ddd'>No items</td></tr>"}</tbody>
 </table>
 """
-                _out.append(
-                    mo.callout(
-                        mo.md(
-                            f"**DRC completed.** Total items: **{_total}**\n\n"
-                            f"- GDS: `{_gds_path}`\n"
-                            f"- Report: `{_lyrdb_path}`"
-                        ),
-                        kind=_kind,
-                    )
-                )
-                _out.append(
-                    doc_callout_html(
-                        "info", tag="Counts", title="DRC report summary", html=_table
-                    )
-                )
-                _view = mo.vstack(_out)
 
-    _view
+                    drc_output.append(
+                        mo.callout(
+                            mo.md(
+                                f"**DRC completed.** Total items: **{_total}**\n\n"
+                                f"- GDS: `{_gds_path}`\n"
+                                f"- Report: `{_lyrdb_path}`"
+                            ),
+                            kind=_kind,
+                        )
+                    )
+                    drc_output.append(
+                        doc_callout_html(
+                            "info", tag="Counts", title="DRC report summary", html=_table
+                        )
+                    )
+    else:
+        drc_output.append(
+            mo.md("Click **Run DRC on HW02 submission** to generate a `.lyrdb` report.")
+        )
+
+    mo.vstack(drc_output)
     return
 
 
