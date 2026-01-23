@@ -139,7 +139,7 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
     import xml.etree.ElementTree as _ET
 
     _out = []
-    mo.stop(run_hw02_drc.value == 0, mo.md(""))
+    mo.stop(run_hw02_drc.value == 0)
 
     _gds_path = _Path(hw02_gds_path.value).expanduser()
     if not _gds_path.exists():
@@ -208,7 +208,6 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
     )
     _out.append(doc_callout_html("info", tag="Counts", title="DRC report summary", html=_table))
     _view = mo.vstack(_out)
-    mo.output.replace(_view)
     _view
     return
 
@@ -340,7 +339,7 @@ def _(mo):
 def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
     import gdsfactory as _gf
 
-    mo.stop(make_c1.value == 0 and run_c1.value == 0, mo.md(""))
+    mo.stop(make_c1.value == 0 and run_c1.value == 0)
 
     _gds = out_path("c1_si_width")
     _display = mo.md("")
@@ -363,7 +362,6 @@ def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
                 mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"), kind="info"
             )
 
-    mo.output.replace(_display)
     _display
     return
 
@@ -407,7 +405,7 @@ def _(mo):
 def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
     import gdsfactory as _gf
 
-    mo.stop(make_c2.value == 0 and run_c2.value == 0, mo.md(""))
+    mo.stop(make_c2.value == 0 and run_c2.value == 0)
 
     _gds = out_path("c2_si_space")
     _display = mo.md("")
@@ -433,7 +431,6 @@ def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
                 mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"), kind="info"
             )
 
-    mo.output.replace(_display)
     _display
     return
 
@@ -477,7 +474,7 @@ def _(mo):
 def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
     import gdsfactory as _gf
 
-    mo.stop(make_c3.value == 0 and run_c3.value == 0, mo.md(""))
+    mo.stop(make_c3.value == 0 and run_c3.value == 0)
 
     _gds = out_path("c3_pinrec")
     _display = mo.md("")
@@ -504,7 +501,6 @@ def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
                 mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"), kind="info"
             )
 
-    mo.output.replace(_display)
     _display
     return
 
