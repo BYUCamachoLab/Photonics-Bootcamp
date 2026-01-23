@@ -138,53 +138,55 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
     from pathlib import Path as _Path
     import xml.etree.ElementTree as _ET
 
-    _out = []
-    mo.stop(run_hw02_drc.value == 0)
+    _view = mo.md("Click **Run DRC on HW02 submission** to generate a `.lyrdb` report.")
 
-    _gds_path = _Path(hw02_gds_path.value).expanduser()
-    if not _gds_path.exists():
-        _out.append(mo.callout(mo.md(f"**GDS not found:** `{_gds_path}`"), kind="danger"))
-        mo.output.replace(mo.vstack(_out))
-        mo.stop(True)
+    if run_hw02_drc.value > 0:
+        _out = []
 
-    _drc_script = _Path("marimo_course/scripts/run_klayout_drc.sh").resolve()
-    _lyrdb_path = _gds_path.with_suffix(".lyrdb")
-
-    _result = _subprocess.run(
-        ["bash", str(_drc_script), str(_gds_path), str(_lyrdb_path)],
-        capture_output=True,
-        text=True,
-        timeout=240,
-    )
-    if _result.returncode != 0:
-        _out.append(
-            mo.callout(
-                mo.md(f"**DRC failed:**\n```\n{_result.stderr.strip()}\n```"),
-                kind="danger",
+        _gds_path = _Path(hw02_gds_path.value).expanduser()
+        if not _gds_path.exists():
+            _out.append(
+                mo.callout(mo.md(f"**GDS not found:** `{_gds_path}`"), kind="danger")
             )
-        )
-        mo.output.replace(mo.vstack(_out))
-        mo.stop(True)
+            _view = mo.vstack(_out)
+        else:
+            _drc_script = _Path("marimo_course/scripts/run_klayout_drc.sh").resolve()
+            _lyrdb_path = _gds_path.with_suffix(".lyrdb")
 
-    _counts = {}
-    if _lyrdb_path.exists():
-        root = _ET.parse(_lyrdb_path).getroot()
-        for item in root.findall(".//item"):
-            cat = item.find("category")
-            if cat is None or cat.text is None:
-                continue
-            name = cat.text.strip("'")
-            _counts[name] = _counts.get(name, 0) + 1
+            _result = _subprocess.run(
+                ["bash", str(_drc_script), str(_gds_path), str(_lyrdb_path)],
+                capture_output=True,
+                text=True,
+                timeout=240,
+            )
+            if _result.returncode != 0:
+                _out.append(
+                    mo.callout(
+                        mo.md(f"**DRC failed:**\n```\n{_result.stderr.strip()}\n```"),
+                        kind="danger",
+                    )
+                )
+                _view = mo.vstack(_out)
+            else:
+                _counts = {}
+                if _lyrdb_path.exists():
+                    root = _ET.parse(_lyrdb_path).getroot()
+                    for item in root.findall(".//item"):
+                        cat = item.find("category")
+                        if cat is None or cat.text is None:
+                            continue
+                        name = cat.text.strip("'")
+                        _counts[name] = _counts.get(name, 0) + 1
 
-    _total = sum(_counts.values())
-    _kind = "success" if _total == 0 else "warn"
+                _total = sum(_counts.values())
+                _kind = "success" if _total == 0 else "warn"
 
-    _rows = "".join(
-        f"<tr><td style='padding:6px;border:1px solid #ddd'>{k}</td>"
-        f"<td style='padding:6px;border:1px solid #ddd;text-align:center'>{v}</td></tr>"
-        for k, v in sorted(_counts.items())
-    )
-    _table = f"""
+                _rows = "".join(
+                    f"<tr><td style='padding:6px;border:1px solid #ddd'>{k}</td>"
+                    f"<td style='padding:6px;border:1px solid #ddd;text-align:center'>{v}</td></tr>"
+                    for k, v in sorted(_counts.items())
+                )
+                _table = f"""
 <table style="width: 100%; border-collapse: collapse; margin-top: 8px;">
   <thead>
     <tr style="background:#f0f0f0">
@@ -195,19 +197,23 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
   <tbody>{_rows or "<tr><td colspan='2' style='padding:6px;border:1px solid #ddd'>No items</td></tr>"}</tbody>
 </table>
 """
+                _out.append(
+                    mo.callout(
+                        mo.md(
+                            f"**DRC completed.** Total items: **{_total}**\n\n"
+                            f"- GDS: `{_gds_path}`\n"
+                            f"- Report: `{_lyrdb_path}`"
+                        ),
+                        kind=_kind,
+                    )
+                )
+                _out.append(
+                    doc_callout_html(
+                        "info", tag="Counts", title="DRC report summary", html=_table
+                    )
+                )
+                _view = mo.vstack(_out)
 
-    _out.append(
-        mo.callout(
-            mo.md(
-                f"**DRC completed.** Total items: **{_total}**\n\n"
-                f"- GDS: `{_gds_path}`\n"
-                f"- Report: `{_lyrdb_path}`"
-            ),
-            kind=_kind,
-        )
-    )
-    _out.append(doc_callout_html("info", tag="Counts", title="DRC report summary", html=_table))
-    _view = mo.vstack(_out)
     _view
     return
 
@@ -339,10 +345,8 @@ def _(mo):
 def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
     import gdsfactory as _gf
 
-    mo.stop(make_c1.value == 0 and run_c1.value == 0)
-
     _gds = out_path("c1_si_width")
-    _display = mo.md("")
+    _display = mo.md("Click **Write Circuit 1 GDS** then **Run DRC (Circuit 1)**.")
     if make_c1.value > 0:
         _c = _gf.Component("c1_si_width")
         # Floorplan
@@ -405,10 +409,8 @@ def _(mo):
 def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
     import gdsfactory as _gf
 
-    mo.stop(make_c2.value == 0 and run_c2.value == 0)
-
     _gds = out_path("c2_si_space")
-    _display = mo.md("")
+    _display = mo.md("Click **Write Circuit 2 GDS** then **Run DRC (Circuit 2)**.")
     if make_c2.value > 0:
         _c = _gf.Component("c2_si_space")
         _c.add_polygon([(-100, -100), (100, -100), (100, 100), (-100, 100)], layer=(99, 0))
@@ -474,10 +476,8 @@ def _(mo):
 def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
     import gdsfactory as _gf
 
-    mo.stop(make_c3.value == 0 and run_c3.value == 0)
-
     _gds = out_path("c3_pinrec")
-    _display = mo.md("")
+    _display = mo.md("Click **Write Circuit 3 GDS** then **Run DRC (Circuit 3)**.")
     if make_c3.value > 0:
         _c = _gf.Component("c3_pinrec")
         _c.add_polygon([(-100, -100), (100, -100), (100, 100), (-100, 100)], layer=(99, 0))
