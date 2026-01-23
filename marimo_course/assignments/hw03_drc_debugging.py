@@ -353,7 +353,7 @@ def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
     import gdsfactory as _gf
 
     _gds = out_path("c1_si_width")
-    _display = mo.md("Click **Write Circuit 1 GDS** then **Run DRC (Circuit 1)**.")
+    c1_output = []
     if make_c1.value > 0:
         _c = _gf.Component("c1_si_width")
         # Floorplan
@@ -362,18 +362,24 @@ def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
         _w = float(width_um.value)
         _c.add_polygon([(-20, -_w / 2), (20, -_w / 2), (20, _w / 2), (-20, _w / 2)], layer=(1, 0))
         _c.write_gds(_gds)
-        _display = mo.callout(mo.md(f"Wrote `{_gds}`"), kind="success")
+        c1_output.append(mo.callout(mo.md(f"Wrote `{_gds}`"), kind="success"))
 
     if run_c1.value > 0:
         _lyrdb, _total, _counts, _err = run_drc(_gds)
         if _err:
-            _display = mo.callout(mo.md(f"DRC stderr:\n```\n{_err}\n```"), kind="warn")
+            c1_output.append(mo.callout(mo.md(f"DRC stderr:\n```\n{_err}\n```"), kind="warn"))
         else:
-            _display = mo.callout(
-                mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"), kind="info"
+            c1_output.append(
+                mo.callout(
+                    mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"),
+                    kind="info",
+                )
             )
 
-    _display
+    if not c1_output:
+        c1_output.append(mo.md("Click **Write Circuit 1 GDS** then **Run DRC (Circuit 1)**."))
+
+    mo.vstack(c1_output)
     return
 
 
@@ -417,7 +423,7 @@ def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
     import gdsfactory as _gf
 
     _gds = out_path("c2_si_space")
-    _display = mo.md("Click **Write Circuit 2 GDS** then **Run DRC (Circuit 2)**.")
+    c2_output = []
     if make_c2.value > 0:
         _c = _gf.Component("c2_si_space")
         _c.add_polygon([(-100, -100), (100, -100), (100, 100), (-100, 100)], layer=(99, 0))
@@ -429,18 +435,24 @@ def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
         _c.add_polygon([(-20, _y0 - _w / 2), (20, _y0 - _w / 2), (20, _y0 + _w / 2), (-20, _y0 + _w / 2)], layer=(1, 0))
         _c.add_polygon([(-20, _y1 - _w / 2), (20, _y1 - _w / 2), (20, _y1 + _w / 2), (-20, _y1 + _w / 2)], layer=(1, 0))
         _c.write_gds(_gds)
-        _display = mo.callout(mo.md(f"Wrote `{_gds}`"), kind="success")
+        c2_output.append(mo.callout(mo.md(f"Wrote `{_gds}`"), kind="success"))
 
     if run_c2.value > 0:
         _lyrdb, _total, _counts, _err = run_drc(_gds)
         if _err:
-            _display = mo.callout(mo.md(f"DRC stderr:\n```\n{_err}\n```"), kind="warn")
+            c2_output.append(mo.callout(mo.md(f"DRC stderr:\n```\n{_err}\n```"), kind="warn"))
         else:
-            _display = mo.callout(
-                mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"), kind="info"
+            c2_output.append(
+                mo.callout(
+                    mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"),
+                    kind="info",
+                )
             )
 
-    _display
+    if not c2_output:
+        c2_output.append(mo.md("Click **Write Circuit 2 GDS** then **Run DRC (Circuit 2)**."))
+
+    mo.vstack(c2_output)
     return
 
 
@@ -484,7 +496,7 @@ def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
     import gdsfactory as _gf
 
     _gds = out_path("c3_pinrec")
-    _display = mo.md("Click **Write Circuit 3 GDS** then **Run DRC (Circuit 3)**.")
+    c3_output = []
     if make_c3.value > 0:
         _c = _gf.Component("c3_pinrec")
         _c.add_polygon([(-100, -100), (100, -100), (100, 100), (-100, 100)], layer=(99, 0))
@@ -497,18 +509,24 @@ def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
         # DevRec (optional, for realism)
         _c.add_polygon([(-25, -5), (25, -5), (25, 5), (-25, 5)], layer=(68, 0))
         _c.write_gds(_gds)
-        _display = mo.callout(mo.md(f"Wrote `{_gds}`"), kind="success")
+        c3_output.append(mo.callout(mo.md(f"Wrote `{_gds}`"), kind="success"))
 
     if run_c3.value > 0:
         _lyrdb, _total, _counts, _err = run_drc(_gds)
         if _err:
-            _display = mo.callout(mo.md(f"DRC stderr:\n```\n{_err}\n```"), kind="warn")
+            c3_output.append(mo.callout(mo.md(f"DRC stderr:\n```\n{_err}\n```"), kind="warn"))
         else:
-            _display = mo.callout(
-                mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"), kind="info"
+            c3_output.append(
+                mo.callout(
+                    mo.md(f"`{_gds}` → `{_lyrdb}` (items: **{_total}**) {_counts}"),
+                    kind="info",
+                )
             )
 
-    _display
+    if not c3_output:
+        c3_output.append(mo.md("Click **Write Circuit 3 GDS** then **Run DRC (Circuit 3)**."))
+
+    mo.vstack(c3_output)
     return
 
 
