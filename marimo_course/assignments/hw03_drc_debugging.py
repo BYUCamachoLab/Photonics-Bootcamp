@@ -221,8 +221,7 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
             mo.md("Click **Run DRC on HW02 submission** to generate a `.lyrdb` report.")
         )
 
-    mo.vstack(drc_output)
-    return
+    return mo.vstack(drc_output)
 
 
 @app.cell(hide_code=True)
@@ -379,8 +378,7 @@ def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
     if not c1_output:
         c1_output.append(mo.md("Click **Write Circuit 1 GDS** then **Run DRC (Circuit 1)**."))
 
-    mo.vstack(c1_output)
-    return
+    return mo.vstack(c1_output)
 
 
 @app.cell(hide_code=True)
@@ -452,8 +450,7 @@ def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
     if not c2_output:
         c2_output.append(mo.md("Click **Write Circuit 2 GDS** then **Run DRC (Circuit 2)**."))
 
-    mo.vstack(c2_output)
-    return
+    return mo.vstack(c2_output)
 
 
 @app.cell(hide_code=True)
@@ -526,8 +523,7 @@ def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
     if not c3_output:
         c3_output.append(mo.md("Click **Write Circuit 3 GDS** then **Run DRC (Circuit 3)**."))
 
-    mo.vstack(c3_output)
-    return
+    return mo.vstack(c3_output)
 
 
 @app.cell(hide_code=True)
