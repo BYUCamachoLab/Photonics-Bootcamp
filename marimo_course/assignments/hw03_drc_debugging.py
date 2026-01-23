@@ -379,7 +379,9 @@ def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
     if not c1_output:
         c1_output.append(mo.md("Click **Write Circuit 1 GDS** then **Run DRC (Circuit 1)**."))
 
-    mo.vstack(c1_output)
+    _view = mo.vstack(c1_output)
+    mo.output.replace(_view)
+    _view
     return
 
 
@@ -452,7 +454,9 @@ def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
     if not c2_output:
         c2_output.append(mo.md("Click **Write Circuit 2 GDS** then **Run DRC (Circuit 2)**."))
 
-    mo.vstack(c2_output)
+    _view = mo.vstack(c2_output)
+    mo.output.replace(_view)
+    _view
     return
 
 
@@ -526,7 +530,9 @@ def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
     if not c3_output:
         c3_output.append(mo.md("Click **Write Circuit 3 GDS** then **Run DRC (Circuit 3)**."))
 
-    mo.vstack(c3_output)
+    _view = mo.vstack(c3_output)
+    mo.output.replace(_view)
+    _view
     return
 
 
