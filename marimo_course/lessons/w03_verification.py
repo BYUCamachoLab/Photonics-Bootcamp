@@ -2121,7 +2121,7 @@ def _(doc_callout_list, mo, show_klayout):
         ordered=True,
         items=[
             "Open your GDS file: File → Open",
-            "Load the EBeam technology: SiEPIC → Technology → Load EBeam",
+            'Load the EBeam technology: File → Layout Properties, set Technology to "EBeam - x.x.x"',
             "Press <strong>V</strong> on your keyboard (or SiEPIC → Verification → Layout Check)",
             "Review any error markers that appear on the layout",
             "For detailed DRC: SiEPIC → Verification → DRC (batch)",
