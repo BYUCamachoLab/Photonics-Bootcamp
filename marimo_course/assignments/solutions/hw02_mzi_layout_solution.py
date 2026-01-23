@@ -198,7 +198,10 @@ def _(
     from gdsfactory.port import auto_rename_ports_orientation
 
     gf.clear_cache()
-    gf.gpdk.PDK.activate()
+    if hasattr(gf, "gpdk") and hasattr(gf.gpdk, "PDK"):
+        gf.gpdk.PDK.activate()
+    else:
+        gf.pdk.get_generic_pdk().activate()
     c = None
 
     xs = gf.cross_section.strip(layer=(1, 0), width=0.5)
@@ -366,33 +369,43 @@ def _(c, mo):
         mo.md("No layout available yet.")
     )
 
+    import math
+
     pin_layer = (1, 10)
-    pin_w = 2.0
-    pin_h = 1.0
+    # PinRec must be fully inside the waveguide material (Si/SiN) to pass the deck:
+    # keep it smaller than the waveguide width and inset from the GC interface.
+    pin_length = 0.6
+    pin_inset = 0.2
     ports = c.ports
     port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
     for port in port_list:
         cx, cy = port.center
+        orientation = getattr(port, "orientation", None)
+        if orientation is None:
+            orientation = 0.0
+
+        theta = float(orientation) * math.pi / 180.0
+        # Move the PinRec rectangle into the waveguide (opposite the port normal)
+        dx = -math.cos(theta) * (pin_length / 2 + pin_inset)
+        dy = -math.sin(theta) * (pin_length / 2 + pin_inset)
+        px, py = cx + dx, cy + dy
+
+        # Rectangle defined in local coords; long axis along +x, then rotate.
+        phi = (float(orientation) + 180.0) * math.pi / 180.0
+        cphi, sphi = math.cos(phi), math.sin(phi)
+
+        wg_w = float(getattr(port, "width", 0.5))
+        w = max(0.2, min(wg_w * 0.8, wg_w - 0.05))
+        local = [
+            (-pin_length / 2, -w / 2),
+            (pin_length / 2, -w / 2),
+            (pin_length / 2, w / 2),
+            (-pin_length / 2, w / 2),
+        ]
+        pts = [(px + lx * cphi - ly * sphi, py + lx * sphi + ly * cphi) for lx, ly in local]
         c.add_polygon(
-            [
-                (cx - pin_w / 2, cy - pin_h / 2),
-                (cx + pin_w / 2, cy - pin_h / 2),
-                (cx + pin_w / 2, cy + pin_h / 2),
-                (cx - pin_w / 2, cy + pin_h / 2),
-            ],
+            pts,
             layer=pin_layer,
-        )
-        # Add a small Si stub so PinRec overlaps waveguide material for DRC.
-        stub_w = max(float(getattr(port, "width", 0.5)), 0.5)
-        stub_l = 2.0
-        c.add_polygon(
-            [
-                (cx - stub_l / 2, cy - stub_w / 2),
-                (cx + stub_l / 2, cy - stub_w / 2),
-                (cx + stub_l / 2, cy + stub_w / 2),
-                (cx - stub_l / 2, cy + stub_w / 2),
-            ],
-            layer=(1, 0),
         )
 
     layout_bbox = c.bbox() if callable(getattr(c, "bbox", None)) else c.bbox
