@@ -207,7 +207,9 @@ def _(doc_callout_html, hw02_gds_path, mo, run_hw02_drc):
         )
     )
     _out.append(doc_callout_html("info", tag="Counts", title="DRC report summary", html=_table))
-    mo.output.replace(mo.vstack(_out))
+    _view = mo.vstack(_out)
+    mo.output.replace(_view)
+    _view
     return
 
 
@@ -362,6 +364,7 @@ def _(make_c1, mo, out_path, run_c1, run_drc, width_um):
             )
 
     mo.output.replace(_display)
+    _display
     return
 
 
@@ -431,6 +434,7 @@ def _(gap_um, make_c2, mo, out_path, run_c2, run_drc):
             )
 
     mo.output.replace(_display)
+    _display
     return
 
 
@@ -501,6 +505,7 @@ def _(make_c3, mo, out_path, pin_offset_um, run_c3, run_drc):
             )
 
     mo.output.replace(_display)
+    _display
     return
 
 
