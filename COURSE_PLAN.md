@@ -63,10 +63,10 @@ Fridays are reserved as lab/work days (no new core concepts, just guided project
 - Wed: Connect layout parameters to behavior: target FSR, ΔL, coupler splitting ratio, expected extinction. Use a marimo analytic MZI app to pick reasonable design targets.
 - Fri (lab): Update student MZI layouts to implement chosen ΔL and couplers; run local DRC/verification in KLayout and fix basic errors.
 
-### Week 4 (Jan 26–30) – Towards manufacturable designs
-- Mon: Layout polish: waveguide bends, minimum radius, avoiding sharp corners; how floorplans and text/DevRec/PinRec layers affect automated tests.
-- Wed: Introduce openEBL verification concepts and how automated tests will exercise their designs (manufacturing vs functional checks).
-- Fri (lab): Iterate on layouts to satisfy local checks; ensure filenames follow openEBL conventions; prepare designs for repository submission.
+### Week 4 (Jan 26–30) – Ring resonators + adding extra structures
+- Mon: Ring resonators (layout-first): resonance condition, FSR, Q, and coupling regimes. Pick a radius and sketch a clean bus + ring floorplan that is easy to probe.
+- Wed: Add “interesting structures” to the design: at least one ring (or ring sweep) plus practical test structures (straight/spiral waveguides, references). Emphasize probe-friendly I/O placement and routing discipline.
+- Fri (lab): Implement the added structures in layout, keep the floorplan tidy, and ensure the design remains compatible with openEBL conventions and downstream checks.
 
 ### Week 5 (Feb 2–6) – GitHub and openEBL checks
 - Mon: Git/GitHub workflow for openEBL: forking `openEBL-2026-02`, turning on Actions, and understanding CI status and artifacts.

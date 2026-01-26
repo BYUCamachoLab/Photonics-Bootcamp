@@ -7,7 +7,7 @@ Planned structure:
 - `lessons/`: marimo lesson files (one per topic or class meeting), replacing the old Jupyter notebooks as the canonical source.
 
 Tooling for the marimo course (students):
-- Python 3.11+ with a course virtual environment.
+- Python 3.12 recommended (3.11 OK); some optional lessons use JAX and may not work on Python 3.13 yet.
 - `marimo` for notebooks/apps (this repo currently targets **marimo 0.18.4**; using a very different marimo version to *edit/save* notebooks can sometimes corrupt exports).
 - `gdsfactory[full]` for parametric layout and device-level modelling.
 - `simphony` for circuit-level modelling and simulation.

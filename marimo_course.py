@@ -41,8 +41,8 @@ def _(mo):
     - **Week 3 (Jan 19–23)** – MZI verification workflow
       Local DRC/verification in KLayout; DFT and CI checks for openEBL.
 
-    - **Week 4 (Jan 26–30)** – Towards manufacturable designs
-      Layout polishing, floorplans, DevRec/PinRec, and verification concepts.
+    - **Week 4 (Jan 26–30)** – Ring resonators + adding extra structures
+      Add rings and other useful test structures; keep a clean, probe-friendly floorplan.
 
     - **Week 5 (Feb 2–6)** – GitHub and openEBL checks
       Forking `openEBL-2026-02`, CI checks, and artifact-based debugging.
