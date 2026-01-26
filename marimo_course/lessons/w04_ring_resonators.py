@@ -684,36 +684,24 @@ def _(
             _gf.gpdk.PDK.activate()
 
             _c = _gf.Component(f"mzi_plus_ring_demo_{_uuid.uuid4().hex[:8]}")
-            _mzi = _gf.components.mzi(
+            # Use a 2x2 MZI so the layout has two outputs (matching the two outputs plotted above).
+            _mzi = _gf.components.mzi2x2_2x2(
                 delta_length=float(delta_L_um.value),
                 add_optical_ports_arms=True,
             )
-            _ring = _gf.components.ring_single(
-                radius=float(radius_um.value),
-                gap=0.2,
-                length_x=4.0,
-            )
-
             _rmzi = _c << _mzi
-            _rring = _c << _ring
 
-            # Place the ring above-right of the MZI arm break, then route the arm through the ring bus.
-            _x0, _y0 = _rmzi.ports["o3"].center
-            _rring.move((_x0 + 60.0, _y0 + 50.0))
-            _gf.routing.route_single(
-                _c,
-                _rmzi.ports["o3"],
-                _rring.ports["o1"],
-                cross_section="strip",
-            )
-            _gf.routing.route_single(
-                _c,
-                _rring.ports["o2"],
-                _rmzi.ports["o4"],
-                cross_section="strip",
-            )
+            # Place a standalone ring (no bus waveguide) near the upper arm for a clean visual.
+            _x4, _y4 = _rmzi.ports["o4"].center
+            _x5, _y5 = _rmzi.ports["o5"].center
+            _R = float(radius_um.value)
+            _gap = 0.2
+            _ring_ref = _c << _gf.components.ring(radius=_R)
+            _xmid = 0.5 * float(_x4 + _x5)
+            _ymid = float(_y4 + _y5) * 0.5
+            _ring_ref.move((_xmid, _ymid + _R + _gap + 0.5))
 
-            _layout_fig = _c.plot(show_labels=False, show_ruler=False)
+            _layout_fig = _c.plot(show_labels=True, show_ruler=False)
             if _layout_fig is None:
                 _layout_fig = _plt.gcf()
 
