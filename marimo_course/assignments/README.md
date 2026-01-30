@@ -9,3 +9,4 @@ Assignments in this repo:
 - `marimo_course/assignments/hw02_mzi_modelling.py`
 - `marimo_course/assignments/hw02_mzi_layout.py`
 - `marimo_course/assignments/hw03_drc_debugging.py`
+- `marimo_course/assignments/hw04_ring_resonators.py`

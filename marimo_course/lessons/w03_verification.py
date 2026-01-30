@@ -2273,7 +2273,7 @@ def _(mo, show_klayout):
     mo.md(r"""
     ### What's Next
 
-    - **Week 4**: Advanced layout techniques and routing discipline
+    - **Week 4**: Ring resonators
     - **Homework**: Implement the verification workflow on your own MZI design
     - **Resources**:
         - [SiEPIC-EBeam PDK Documentation](https://github.com/SiEPIC/SiEPIC_EBeam_PDK)

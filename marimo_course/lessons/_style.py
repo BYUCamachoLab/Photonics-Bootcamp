@@ -232,4 +232,5 @@ def header(
     </div>
     """
 
-    return mo.vstack([mo.md(hero), mo.md(toc_html)])
+    # Dedent to avoid markdown treating the HTML as a code block.
+    return mo.vstack([mo.md(dedent(hero).strip()), mo.md(dedent(toc_html).strip())])

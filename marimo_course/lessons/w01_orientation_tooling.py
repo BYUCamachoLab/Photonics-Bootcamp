@@ -168,7 +168,7 @@ def _(date, timedelta):
         1: "Orientation and tooling",
         2: "PDKs and basic MZI layout",
         3: "MZI verification workflow",
-        4: "Routing and floorplanning",
+        4: "Ring resonators",
         5: "Submission workflow and CI checks",
         6: "Submission buffer and bridge to theory",
         7: "Waveguide fundamentals",
