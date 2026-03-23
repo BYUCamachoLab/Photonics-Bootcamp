@@ -108,6 +108,7 @@ def _(mo, show_overview):
             ("Why quantum here?", "why-quantum"),
             ("Glossary", "glossary"),
             ("Theory", "theory"),
+            ("Phase-space view", "phase-space-view"),
             ("Interactive studio", "interactive"),
             ("Entanglement preview", "entanglement"),
             ("Useful circuit example", "application"),
@@ -399,6 +400,39 @@ def _(doc_callout_html, mo, show_theory):
 
 
 @app.cell
+def _(doc_callout_html, mo, plot_phase_space_progression, show_theory):
+    mo.stop(not show_theory)
+    mo.md(
+        r"""
+        <a id="phase-space-view"></a>
+        ## Phase-space picture: point to blob to squeezed ellipse
+
+        This is the visual progression to keep in mind throughout the notebook:
+
+        - A **classical phasor** is just a point or arrow in phase space.
+        - A **Gaussian quantum state** keeps that same mean location, but now adds a spread around it.
+        - A **squeezed state** keeps the Gaussian shape, but stretches it in one direction and compresses it in the other.
+
+        In the figure below, the mean field is the same in every panel. Only the uncertainty changes.
+        """
+    )
+    doc_callout_html(
+        "info",
+        tag="How to read this",
+        title="What squeezing looks like",
+        html=(
+            "<p>The arrow tip marks the mean field.</p>"
+            "<p>The blue cloud shows where the state is spread in phase space.</p>"
+            "<p>A circular cloud means similar uncertainty in <code>X</code> and <code>P</code>. "
+            "An ellipse means the uncertainty is direction-dependent.</p>"
+            "<p>Changing the squeeze angle rotates that ellipse without moving the mean.</p>"
+        ),
+    )
+    plot_phase_space_progression()
+    return
+
+
+@app.cell
 def _(mo, show_theory):
     mo.stop(not show_theory)
     mo.md(
@@ -583,6 +617,102 @@ def _(math):
         ax.set_xlabel("X quadrature")
         ax.set_ylabel("P quadrature")
         ax.set_title(title)
+        fig.tight_layout()
+        return fig
+
+    def plot_phase_space_progression():
+        from matplotlib.patches import Ellipse
+
+        def _gaussian_density(mean, cov, x_grid, p_grid):
+            mean = np.asarray(mean, dtype=float)
+            cov = np.asarray(cov, dtype=float)
+            cov = cov + 1e-12 * np.eye(2)
+            inv_cov = np.linalg.inv(cov)
+            det_cov = np.linalg.det(cov)
+            dx = x_grid - mean[0]
+            dp = p_grid - mean[1]
+            quad = (
+                inv_cov[0, 0] * dx**2
+                + 2.0 * inv_cov[0, 1] * dx * dp
+                + inv_cov[1, 1] * dp**2
+            )
+            return np.exp(-0.5 * quad) / (2.0 * np.pi * np.sqrt(det_cov))
+
+        def _squeezed_covariance(r, phi_deg):
+            phi = np.deg2rad(phi_deg)
+            rot = np.array(
+                [
+                    [np.cos(phi), -np.sin(phi)],
+                    [np.sin(phi), np.cos(phi)],
+                ]
+            )
+            base = 0.25 * np.diag([np.exp(-2.0 * r), np.exp(2.0 * r)])
+            return rot @ base @ rot.T
+
+        def _add_uncertainty_ellipse(ax, mean, cov):
+            evals, evecs = np.linalg.eigh(cov)
+            order = np.argsort(evals)[::-1]
+            evals = evals[order]
+            evecs = evecs[:, order]
+            angle_deg = np.degrees(np.arctan2(evecs[1, 0], evecs[0, 0]))
+            ellipse = Ellipse(
+                xy=mean,
+                width=4.0 * np.sqrt(max(evals[0], 0.0)),
+                height=4.0 * np.sqrt(max(evals[1], 0.0)),
+                angle=angle_deg,
+                fill=False,
+                edgecolor="#1d4ed8",
+                lw=2,
+            )
+            ax.add_patch(ellipse)
+
+        mean = np.array([1.2, 0.6], dtype=float)
+        coherent_cov = 0.25 * np.eye(2)
+        squeezed_x_cov = _squeezed_covariance(0.9, 0.0)
+        squeezed_rot_cov = _squeezed_covariance(0.9, 35.0)
+
+        x = np.linspace(-2.5, 2.5, 220)
+        p = np.linspace(-2.5, 2.5, 220)
+        xx, pp = np.meshgrid(x, p)
+
+        panels = [
+            ("Classical point", None, "#dc2626"),
+            ("Quantum Gaussian", coherent_cov, "#2563eb"),
+            ("X-squeezed", squeezed_x_cov, "#2563eb"),
+            ("Rotated squeeze", squeezed_rot_cov, "#2563eb"),
+        ]
+
+        fig, axes = plt.subplots(1, 4, figsize=(13.0, 3.4))
+        for ax, (title, cov, point_color) in zip(axes, panels):
+            ax.axhline(0.0, color="0.82", lw=1)
+            ax.axvline(0.0, color="0.82", lw=1)
+            ax.quiver(
+                0.0,
+                0.0,
+                mean[0],
+                mean[1],
+                angles="xy",
+                scale_units="xy",
+                scale=1,
+                color=point_color,
+                width=0.012,
+            )
+            ax.scatter([mean[0]], [mean[1]], color=point_color, s=34, zorder=3)
+
+            if cov is not None:
+                density = _gaussian_density(mean, cov, xx, pp)
+                ax.contourf(xx, pp, density, levels=8, cmap="Blues", alpha=0.9)
+                _add_uncertainty_ellipse(ax, mean, cov)
+
+            ax.set_xlim(-2.5, 2.5)
+            ax.set_ylim(-2.5, 2.5)
+            ax.set_aspect("equal")
+            ax.set_title(title, fontsize=10)
+            ax.set_xlabel("X")
+            if ax is axes[0]:
+                ax.set_ylabel("P")
+
+        fig.suptitle("Same mean field, different phase-space pictures", y=1.02, fontsize=13)
         fig.tight_layout()
         return fig
 
@@ -771,6 +901,7 @@ def _(math):
         np,
         photon_number_from_state,
         plot_covariance_matrix,
+        plot_phase_space_progression,
         plot_phasor_with_uncertainty,
         plot_single_mode,
         plt,
