@@ -2017,8 +2017,7 @@ def _(
     )
     bias_index = len(delta_neff_values) // 2
 
-    app_fig, _app_axes = plt.subplots(2, 1, figsize=(7.2, 6.4), sharex=True)
-    _app_ax0, _app_ax1 = _app_axes
+    app_signal_fig, _app_ax0 = plt.subplots(figsize=(7.2, 3.6))
     _app_ax0.plot(delta_neff_values, coherent_readout_mean, color="#2563eb", label="Coherent readout mean")
     _app_ax0.fill_between(
         delta_neff_values,
@@ -2038,10 +2037,13 @@ def _(
         label="Squeezed +/- 1 sigma",
     )
     _app_ax0.set_ylabel("Projected homodyne readout")
+    _app_ax0.set_xlabel("delta n_eff")
     _app_ax0.set_title(f"MZI readout at {app_readout_port.value}")
     _app_ax0.grid(alpha=0.2)
     _app_ax0.legend(fontsize=8, ncol=2)
+    app_signal_fig.tight_layout()
 
+    app_proxy_fig, _app_ax1 = plt.subplots(figsize=(7.2, 3.8))
     _app_ax1.plot(delta_neff_values, coherent_proxy, color="#2563eb", label="Coherent min detectable delta n_eff")
     _app_ax1.plot(delta_neff_values, squeezed_proxy, color="#b45309", label="Squeezed min detectable delta n_eff")
     _app_ax1.set_xlabel("delta n_eff")
@@ -2049,7 +2051,23 @@ def _(
     _app_ax1.set_title("Smaller is better: minimum detectable index change")
     _app_ax1.grid(alpha=0.2)
     _app_ax1.legend(fontsize=8)
-    app_fig.tight_layout()
+    _app_ax1.text(
+        0.02,
+        0.02,
+        "\n".join(
+            [
+                f"Best coherent: {float(np.min(coherent_proxy)):.3e}",
+                f"Best squeezed: {float(np.min(squeezed_proxy)):.3e}",
+                f"Improvement: {float(np.min(coherent_proxy) / max(np.min(squeezed_proxy), 1e-12)):.2f}x",
+            ]
+        ),
+        transform=_app_ax1.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=9,
+        bbox={"boxstyle": "round,pad=0.35", "facecolor": "white", "alpha": 0.9, "edgecolor": "#cbd5e1"},
+    )
+    app_proxy_fig.tight_layout()
 
     app_summary_md = "\n".join(
         [
@@ -2068,13 +2086,13 @@ def _(
             f"- Improvement factor (coherent / squeezed): `{float(np.min(coherent_proxy) / max(np.min(squeezed_proxy), 1e-12)):.2f}x`",
         ]
     )
-    return app_fig, app_summary_md
+    return app_proxy_fig, app_signal_fig, app_summary_md
 
 
 @app.cell
-def _(app_fig, app_summary_md, mo, show_application):
+def _(app_proxy_fig, app_signal_fig, app_summary_md, mo, show_application):
     mo.stop(not show_application)
-    mo.vstack([app_fig, mo.md(app_summary_md)], gap=1.0)
+    mo.vstack([app_signal_fig, app_proxy_fig, mo.md(app_summary_md)], gap=1.0)
     return
 
 
