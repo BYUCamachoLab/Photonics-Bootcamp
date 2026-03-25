@@ -2072,16 +2072,9 @@ def _(
 
 
 @app.cell
-def _(app_fig, mo, show_application):
+def _(app_fig, app_summary_md, mo, show_application):
     mo.stop(not show_application)
-    app_fig
-    return
-
-
-@app.cell
-def _(app_summary_md, mo, show_application):
-    mo.stop(not show_application)
-    mo.md(app_summary_md)
+    mo.vstack([app_fig, mo.md(app_summary_md)], gap=1.0)
     return
 
 
