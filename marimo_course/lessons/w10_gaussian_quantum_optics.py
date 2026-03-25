@@ -1802,7 +1802,7 @@ def _(mo, show_application):
         start=0.0,
         stop=180.0,
         step=5.0,
-        value=0.0,
+        value=90.0,
         label="Squeezing angle phi (deg)",
     )
     app_sensor_length_um = mo.ui.slider(
@@ -1868,6 +1868,7 @@ def _(
     app_sensor_length_um,
     build_mzi_circuit,
     compose_qstate,
+    get_ports,
     jnp,
     np,
     photon_number_from_state,
@@ -1881,15 +1882,16 @@ def _(
         31,
     )
     _wl_um = jnp.array([1.55])
-    port_index = 0 if app_readout_port.value == "out0" else 1
+    physical_ports = list(get_ports(mzi_circuit))
+    port_index = physical_ports.index(app_readout_port.value)
     base_neff = 2.34
     sensor_length_um = float(app_sensor_length_um.value)
     bias_delta_l = float(app_bias_delta_l.value)
 
-    coherent_mean_x = []
-    coherent_sigma_x = []
-    squeezed_mean_x = []
-    squeezed_sigma_x = []
+    coherent_means = []
+    coherent_covariances = []
+    squeezed_means = []
+    squeezed_covariances = []
 
     for delta_neff in delta_neff_values:
         _coherent_sim = QuantumSim(
@@ -1914,9 +1916,9 @@ def _(
         _coherent_sim.add_qstate(coherent_in)
         coherent_result = _coherent_sim.run().state(0)
         coherent_result.to_xpxp()
-        coherent_means, coherent_cov = coherent_result.modes(port_index)
-        coherent_mean_x.append(float(coherent_means[0]))
-        coherent_sigma_x.append(float(np.sqrt(max(coherent_cov[0, 0], 0.0))))
+        _coherent_mode_means, coherent_cov = coherent_result.modes(port_index)
+        coherent_means.append(np.asarray(_coherent_mode_means, dtype=float))
+        coherent_covariances.append(np.asarray(coherent_cov, dtype=float))
 
         _squeezed_sim = QuantumSim(
             mzi_circuit,
@@ -1944,41 +1946,98 @@ def _(
         _squeezed_sim.add_qstate(squeezed_in)
         squeezed_result = _squeezed_sim.run().state(0)
         squeezed_result.to_xpxp()
-        squeezed_means, squeezed_cov = squeezed_result.modes(port_index)
-        squeezed_mean_x.append(float(squeezed_means[0]))
-        squeezed_sigma_x.append(float(np.sqrt(max(squeezed_cov[0, 0], 0.0))))
+        _squeezed_mode_means, squeezed_cov = squeezed_result.modes(port_index)
+        squeezed_means.append(np.asarray(_squeezed_mode_means, dtype=float))
+        squeezed_covariances.append(np.asarray(squeezed_cov, dtype=float))
 
-    coherent_mean_x = np.asarray(coherent_mean_x)
-    coherent_sigma_x = np.asarray(coherent_sigma_x)
-    squeezed_mean_x = np.asarray(squeezed_mean_x)
-    squeezed_sigma_x = np.asarray(squeezed_sigma_x)
+    coherent_means = np.asarray(coherent_means)
+    coherent_covariances = np.asarray(coherent_covariances)
+    squeezed_means = np.asarray(squeezed_means)
+    squeezed_covariances = np.asarray(squeezed_covariances)
 
-    coherent_slope = np.gradient(coherent_mean_x, delta_neff_values)
-    squeezed_slope = np.gradient(squeezed_mean_x, delta_neff_values)
-    coherent_proxy = coherent_sigma_x / np.maximum(np.abs(coherent_slope), 1e-12)
-    squeezed_proxy = squeezed_sigma_x / np.maximum(np.abs(squeezed_slope), 1e-12)
+    coherent_slope = np.gradient(coherent_means, delta_neff_values, axis=0)
+    squeezed_slope = np.gradient(squeezed_means, delta_neff_values, axis=0)
+
+    def _optimal_readout_metrics(means, covariances, slopes):
+        readout_means = []
+        readout_sigmas = []
+        sensitivity_proxy = []
+        readout_angles_deg = []
+
+        for mode_means, mode_cov, mode_slope in zip(means, covariances, slopes):
+            slope_norm = float(np.linalg.norm(mode_slope))
+            if slope_norm < 1e-12:
+                readout_direction = np.array([1.0, 0.0])
+                readout_sigma = float(np.sqrt(max(mode_cov[0, 0], 0.0)))
+                readout_proxy = np.inf
+            else:
+                regularized_cov = mode_cov + 1e-12 * np.eye(2)
+                candidate_direction = np.linalg.solve(regularized_cov, mode_slope)
+                candidate_norm = float(np.linalg.norm(candidate_direction))
+                if candidate_norm < 1e-12:
+                    readout_direction = mode_slope / slope_norm
+                else:
+                    readout_direction = candidate_direction / candidate_norm
+                readout_variance = float(readout_direction @ mode_cov @ readout_direction)
+                readout_sigma = float(np.sqrt(max(readout_variance, 0.0)))
+                response = float(abs(readout_direction @ mode_slope))
+                readout_proxy = readout_sigma / max(response, 1e-12)
+
+            readout_means.append(float(readout_direction @ mode_means))
+            readout_sigmas.append(readout_sigma)
+            sensitivity_proxy.append(readout_proxy)
+            readout_angles_deg.append(float(np.degrees(np.arctan2(readout_direction[1], readout_direction[0]))))
+
+        return (
+            np.asarray(readout_means),
+            np.asarray(readout_sigmas),
+            np.asarray(sensitivity_proxy),
+            np.asarray(readout_angles_deg),
+        )
+
+    (
+        coherent_readout_mean,
+        coherent_readout_sigma,
+        coherent_proxy,
+        coherent_readout_angle_deg,
+    ) = _optimal_readout_metrics(
+        coherent_means,
+        coherent_covariances,
+        coherent_slope,
+    )
+    (
+        squeezed_readout_mean,
+        squeezed_readout_sigma,
+        squeezed_proxy,
+        squeezed_readout_angle_deg,
+    ) = _optimal_readout_metrics(
+        squeezed_means,
+        squeezed_covariances,
+        squeezed_slope,
+    )
+    bias_index = len(delta_neff_values) // 2
 
     app_fig, _app_axes = plt.subplots(2, 1, figsize=(7.2, 6.4), sharex=True)
     _app_ax0, _app_ax1 = _app_axes
-    _app_ax0.plot(delta_neff_values, coherent_mean_x, color="#2563eb", label="Coherent mean X")
+    _app_ax0.plot(delta_neff_values, coherent_readout_mean, color="#2563eb", label="Coherent readout mean")
     _app_ax0.fill_between(
         delta_neff_values,
-        coherent_mean_x - coherent_sigma_x,
-        coherent_mean_x + coherent_sigma_x,
+        coherent_readout_mean - coherent_readout_sigma,
+        coherent_readout_mean + coherent_readout_sigma,
         color="#93c5fd",
         alpha=0.45,
         label="Coherent +/- 1 sigma",
     )
-    _app_ax0.plot(delta_neff_values, squeezed_mean_x, color="#b45309", label="Squeezed mean X")
+    _app_ax0.plot(delta_neff_values, squeezed_readout_mean, color="#b45309", label="Squeezed readout mean")
     _app_ax0.fill_between(
         delta_neff_values,
-        squeezed_mean_x - squeezed_sigma_x,
-        squeezed_mean_x + squeezed_sigma_x,
+        squeezed_readout_mean - squeezed_readout_sigma,
+        squeezed_readout_mean + squeezed_readout_sigma,
         color="#fdba74",
         alpha=0.35,
         label="Squeezed +/- 1 sigma",
     )
-    _app_ax0.set_ylabel("Output X quadrature")
+    _app_ax0.set_ylabel("Projected homodyne readout")
     _app_ax0.set_title(f"MZI readout at {app_readout_port.value}")
     _app_ax0.grid(alpha=0.2)
     _app_ax0.legend(fontsize=8, ncol=2)
@@ -1986,7 +2045,7 @@ def _(
     _app_ax1.plot(delta_neff_values, coherent_proxy, color="#2563eb", label="Coherent min detectable delta n_eff")
     _app_ax1.plot(delta_neff_values, squeezed_proxy, color="#b45309", label="Squeezed min detectable delta n_eff")
     _app_ax1.set_xlabel("delta n_eff")
-    _app_ax1.set_ylabel("sigma_X / |d<X>/d(delta n_eff)|")
+    _app_ax1.set_ylabel("sigma_readout / |d<readout>/d(delta n_eff)|")
     _app_ax1.set_title("Smaller is better: minimum detectable index change")
     _app_ax1.grid(alpha=0.2)
     _app_ax1.legend(fontsize=8)
@@ -1997,10 +2056,13 @@ def _(
             "### Why this matters",
             "",
             "- This models a practical photonic sensor: a small change in `n_eff` changes the interferometer phase.",
-            "- The top plot shows the readout signal together with its uncertainty band.",
-            "- The lower plot estimates the smallest resolvable `delta n_eff` from the ratio of uncertainty to readout slope.",
+            "- The top plot shows the best homodyne readout for each state together with its uncertainty band.",
+            "- At each sweep point, the notebook chooses the homodyne angle that maximizes sensitivity for that state's local mean-response vector and covariance.",
+            "- The lower plot estimates the smallest resolvable `delta n_eff` using that optimal Gaussian readout.",
             "- If the squeezed curve sits lower than the coherent curve, the squeezed input is giving you a better sensing limit.",
             "",
+            f"- Bias-point coherent readout angle: `{float(coherent_readout_angle_deg[bias_index]):.1f} deg`",
+            f"- Bias-point squeezed readout angle: `{float(squeezed_readout_angle_deg[bias_index]):.1f} deg`",
             f"- Best coherent limit in this sweep: `{float(np.min(coherent_proxy)):.3e}`",
             f"- Best squeezed limit in this sweep: `{float(np.min(squeezed_proxy)):.3e}`",
             f"- Improvement factor (coherent / squeezed): `{float(np.min(coherent_proxy) / max(np.min(squeezed_proxy), 1e-12)):.2f}x`",
