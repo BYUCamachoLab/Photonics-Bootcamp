@@ -2070,6 +2070,35 @@ def _(
         )
         app_proxy_fig.tight_layout()
 
+        app_improvement_fig, _app_ax2 = plt.subplots(figsize=(7.2, 3.2))
+        improvement_factor = coherent_proxy / np.maximum(squeezed_proxy, 1e-12)
+        _app_ax2.plot(
+            delta_neff_values,
+            improvement_factor,
+            color="#0f766e",
+            linewidth=2.0,
+            label="Coherent / squeezed limit",
+        )
+        _app_ax2.axhline(1.0, color="#7c2d12", linestyle="--", linewidth=1.2, label="Parity")
+        _app_ax2.fill_between(
+            delta_neff_values,
+            1.0,
+            improvement_factor,
+            where=improvement_factor >= 1.0,
+            color="#99f6e4",
+            alpha=0.4,
+        )
+        _app_ax2.set_xlabel("delta n_eff")
+        _app_ax2.set_ylabel("Improvement factor")
+        _app_ax2.set_title("Zoomed comparison: where squeezing helps")
+        _app_ax2.grid(alpha=0.2)
+        _app_ax2.legend(fontsize=8)
+        _app_ax2.set_ylim(
+            max(0.95, float(np.min(improvement_factor)) - 0.05),
+            float(np.max(improvement_factor)) + 0.05,
+        )
+        app_improvement_fig.tight_layout()
+
         app_status_md = "\n".join(
             [
                 "### Application Status",
@@ -2078,6 +2107,7 @@ def _(
                 f"- Best coherent limit: `{float(np.min(coherent_proxy)):.3e}`",
                 f"- Best squeezed limit: `{float(np.min(squeezed_proxy)):.3e}`",
                 f"- Improvement factor (coherent / squeezed): `{float(np.min(coherent_proxy) / max(np.min(squeezed_proxy), 1e-12)):.2f}x`",
+                f"- Best zoomed improvement on the curve: `{float(np.max(improvement_factor)):.2f}x`",
             ]
         )
         app_summary_md = "\n".join(
@@ -2094,9 +2124,9 @@ def _(
                 f"- Bias-point squeezed readout angle: `{float(squeezed_readout_angle_deg[bias_index]):.1f} deg`",
             ]
         )
-        return app_proxy_fig, app_signal_fig, app_status_md, app_summary_md
+        return app_improvement_fig, app_proxy_fig, app_signal_fig, app_status_md, app_summary_md
     try:
-        app_proxy_fig, app_signal_fig, app_status_md, app_summary_md = _build_application_outputs()
+        app_improvement_fig, app_proxy_fig, app_signal_fig, app_status_md, app_summary_md = _build_application_outputs()
     except Exception as e:
         app_error_md = "\n".join(
             [
@@ -2107,13 +2137,14 @@ def _(
                 "- Use `marimo edit --sandbox marimo_course/lessons/w10_gaussian_quantum_optics.py` so Simphony and its dependencies run in an isolated environment.",
             ]
         )
-        app_proxy_fig, app_signal_fig, app_status_md, app_summary_md = (
+        app_improvement_fig, app_proxy_fig, app_signal_fig, app_status_md, app_summary_md = (
+            None,
             None,
             None,
             app_error_md,
             app_error_md,
         )
-    return app_proxy_fig, app_signal_fig, app_status_md, app_summary_md
+    return app_improvement_fig, app_proxy_fig, app_signal_fig, app_status_md, app_summary_md
 
 
 @app.cell
@@ -2134,6 +2165,13 @@ def _(app_signal_fig, mo, show_application):
 def _(app_proxy_fig, mo, show_application):
     mo.stop(not show_application or app_proxy_fig is None)
     app_proxy_fig
+    return
+
+
+@app.cell
+def _(app_improvement_fig, mo, show_application):
+    mo.stop(not show_application or app_improvement_fig is None)
+    app_improvement_fig
     return
 
 
