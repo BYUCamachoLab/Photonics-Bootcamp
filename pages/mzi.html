@@ -377,18 +377,18 @@ on a CPU.</p>
 <h2>The MZI from it’s components<a class="headerlink" href="#the-mzi-from-it-s-components" title="Permalink to this heading">#</a></h2>
 <p>In an MZI, light entering the circuit is split and travels down two paths of differing lengths. When the light is recombined, it interferes, and the output is frequency-dependent.</p>
 <figure class="align-center" id="id3">
-<img alt="Mach-Zehnder Interferometer (MZI) layout." src="../_images/mzi.png">
+<img alt="Mach-Zehnder Interferometer (MZI) layout." src="../_images/mzi.png"/>
 <figcaption>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Chip layout of a Mach-Zehnder Interferometer (MZI).</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
-</img></figure>
+</figure>
 <p>The MZI we’ll create can be broken down into constituent parts. Simphony includes models for these building blocks below:</p>
 <figure class="align-center" id="id4">
-<img alt="Mach-Zehnder Interferometer (MZI) block diagram" src="../_images/mzi_outline_ports_marked.png">
+<img alt="Mach-Zehnder Interferometer (MZI) block diagram" src="../_images/mzi_outline_ports_marked.png"/>
 <figcaption>
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">Block diagram of a Mach-Zehnder Interferometer (MZI) with the components labeled.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
 </figcaption>
-</img></figure>
+</figure>
 <p>The grating couplers are the input and output for light in the circuit. The Y-branch can split and recombine light, and because the waveguides which carry light across the circuit have a different length relative to each other, this produces interference when the light is recombined at the second Y-branch. We can now begin defining our circuit in Simphony using the components we have identified.</p>
 </section>
 <section id="models">
@@ -746,7 +746,7 @@ I_{output} = \frac{I_{input}}{2}(1 + cos(\beta \Delta L))
 </section>
 <section id="thermo-optic-effect">
 <h2>Thermo-optic effect<a class="headerlink" href="#thermo-optic-effect" title="Permalink to this heading">#</a></h2>
-<p>While a balanced MZI will not experience a phase shift due to a difference in path length, we can introduce a phasae shift by utilizing other methods. The thermo-optic effect describes the effect of heat on the phase of light. By heating up one of the waveguide in the MZI, we can control the phase shift of that waveguide and therefor the intensity of the output. This is a practical way to turn our otherwise static MZI in to a switch that we can control.</p>
+<p>While a balanced MZI will not experience a phase shift due to a difference in path length, we can introduce a phase shift by utilizing other methods. The thermo-optic effect describes the effect of heat on the phase of light. By heating up one of the waveguide in the MZI, we can control the phase shift of that waveguide and therefor the intensity of the output. This is a practical way to turn our otherwise static MZI in to a switch that we can control.</p>
 <p><img alt="Image of a thermo-optic switch" src="https://raw.githubusercontent.com/BYUCamachoLab/Photonics-Bootcamp/main/book/images/Notebook_Images/thermo_optic_switch.png"/></p>
 <p>Introducing a phase shift in this way will affect the propogation constant ‘β’ and since we are assuming that the path lengths are equal, we can modify our previous equation like this:</p>
 <div class="math notranslate nohighlight">

@@ -398,16 +398,16 @@ components of the magnetic field, or the waveguide itself.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/79863c6e0faf982118348954e8eed9a9022ee27a6cd15764e219c71dd1745d89.png" src="../_images/79863c6e0faf982118348954e8eed9a9022ee27a6cd15764e219c71dd1745d89.png">
-</img></div>
+<img alt="../_images/79863c6e0faf982118348954e8eed9a9022ee27a6cd15764e219c71dd1745d89.png" src="../_images/79863c6e0faf982118348954e8eed9a9022ee27a6cd15764e219c71dd1745d89.png"/>
+</div>
 </div>
 <p>Let’s walk through some of the visual features of these modes.</p>
 <ol class="arabic simple">
 <li><p>The first thing to notice is that, just like a violin string, there exists a fundamental mode and higher order modes.  The mode in the upper plot is the fundamental, or 0th order mode.  It has a half-wave distributed along the y-axis inside the waveguide.  The mode in the lower plot is the 1st order mode.  It has a full wavelength distributed along the y-axis inside the waveguide.  Notice that the x-axis is out of the page.  In general, inside the waveguide the spatial distribution of the mode will have a sinusoidal dependence, and the mode order is determined by the number of half waves contained in the waveguide.</p></li>
 <li><p>The second thing to notice is that the mode also has non-zero electric field <em>outside</em> of the waveguide.  This part of the mode is called the evanescent field, and decays exponentially.  In order to visualize both the sinusoidal and exponentially decaying parts of the modes, a slice of the mode is also plotted in blue just above the waveguide.  This slice is the magnitude of the electric field, which can be positive and negative, at <span class="math notranslate nohighlight">\(z=0\)</span>.</p></li>
-<li><p>The third thing to notice is that the electric field is discontinuous in the y-direction when it crosses a dielectric interface.  This turns out to be a boundary condition that is a fundamental property of Maxwell’s equations, but depends on the direction the field is pointing.  Any component of the field perpindicular to the boundary will be discontinous, and any component of the field parallel to the boundary will be continuous.  Since we have plotted just the y-component of the field, it is discontinuous when it crosses vertical boundaries, but continous when it crosses horizontal boundaries.</p></li>
+<li><p>The third thing to notice is that the electric field is discontinuous in the y-direction when it crosses a dielectric interface.  This turns out to be a boundary condition that is a fundamental property of Maxwell’s equations, but depends on the direction the field is pointing.  Any component of the field perpendicular to the boundary will be discontinous, and any component of the field parallel to the boundary will be continuous.  Since we have plotted just the y-component of the field, it is discontinuous when it crosses vertical boundaries, but continous when it crosses horizontal boundaries.</p></li>
 </ol>
-<p>Modes that are dominately polarized in the y-direction are called transverse electric (TE) modes.  TE modes are polarized parallel to the substrate and perpindicular (transverse) to the direction of propagation.</p>
+<p>Modes that are dominately polarized in the y-direction are called transverse electric (TE) modes.  TE modes are polarized parallel to the substrate and perpendicular (transverse) to the direction of propagation.</p>
 <p>Now let’s plot the electric field mode 2 and mode 3, which are mostly polarized in the z-direction:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -447,8 +447,8 @@ components of the magnetic field, or the waveguide itself.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e4d5136c3aafe65d2ea1c6d0ca73f08535c2e1563b81a2a0767904c238963595.png" src="../_images/e4d5136c3aafe65d2ea1c6d0ca73f08535c2e1563b81a2a0767904c238963595.png">
-</img></div>
+<img alt="../_images/e4d5136c3aafe65d2ea1c6d0ca73f08535c2e1563b81a2a0767904c238963595.png" src="../_images/e4d5136c3aafe65d2ea1c6d0ca73f08535c2e1563b81a2a0767904c238963595.png"/>
+</div>
 </div>
 <p>Notice that the slice of the electric field through <span class="math notranslate nohighlight">\(z = 0\)</span> is now continuous at the boundaries.  You can also see a slight numerical error at the boundary that arises from the finite resolution of the mode solver.</p>
 <p>We can also extract useful values related to the waveguide from the models we have created. Below are some of the functions, and more can be found in the <a class="reference external" href="https://gdsfactory.github.io/gplugins/notebooks/mpb_001_mpb_waveguide.html">gplugins mode solver docs</a></p>
