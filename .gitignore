@@ -172,3 +172,9 @@ poetry.toml
 # Developer
 .vscode/
 .DS_Store
+
+# marimo runtime/session state
+__marimo__/
+
+# debug artifacts
+marimo_course/scripts/debug_mzi_data.csv

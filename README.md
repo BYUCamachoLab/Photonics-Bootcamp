@@ -4,6 +4,15 @@ The CamachoLab Photonics Bootcamp, with support from Google.
 
 This book can be viewed [online](https://byucamacholab.github.io/Photonics-Bootcamp/).
 
+## Winter 2026 (marimo-based course)
+
+The Winter 2026 ECEN 562 offering uses **marimo** notebooks/apps under `marimo_course/`.
+
+- Student quickstart: `START_HERE.md`
+- Week-by-week schedule: `COURSE_PLAN.md` (Week 4 Monday focuses on ring resonators)
+- marimo course setup/details: `marimo_course/README.md`
+
+
 ## Installation
 
 If you wish to create a virtual Python environment for your book (recommended),

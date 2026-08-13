@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Photonics Bootcamp (marimo) — Next</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f5f2;
+        --panel: #ffffff;
+        --ink: #1a1a1a;
+        --muted: #5b5b5b;
+        --accent: #1f6feb;
+        --border: #d7d2c9;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Georgia", "Times New Roman", serif;
+        color: var(--ink);
+        background: radial-gradient(circle at top, #fffef9 0%, var(--bg) 55%, #efece6 100%);
+        line-height: 1.6;
+      }
+      header {
+        padding: 48px 20px 24px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0 0 10px;
+        font-size: 2.2rem;
+      }
+      header p {
+        margin: 0 auto;
+        max-width: 720px;
+        color: var(--muted);
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto 60px;
+        padding: 0 20px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 1.1rem;
+      }
+      .card p {
+        margin: 0 0 10px;
+        color: var(--muted);
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .note {
+        margin: 20px 0 28px;
+        padding: 12px 14px;
+        border-left: 4px solid var(--accent);
+        background: rgba(31, 111, 235, 0.08);
+        border-radius: 10px;
+      }
+      code {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 0.95em;
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        padding: 12px 20px 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Photonics Bootcamp — marimo (Next)</h1>
+      <p>
+        Preview of the marimo-first course site. The main course runs locally in marimo; these
+        exports are for browsing and quick reference.
+      </p>
+    </header>
+    <main>
+      <div class="note">
+        For full interactivity and hardware tooling, run locally:
+        <code>marimo edit --sandbox marimo_course/lessons/w01_orientation_tooling.py</code>
+      </div>
+      <section class="grid">
+        <div class="card">
+          <h2>Week 1</h2>
+          <p>Orientation, setup checklist, and course calendar.</p>
+          <a href="lessons/w01_orientation_tooling.html">Open Week 1 lesson</a>
+        </div>
+        <div class="card">
+          <h2>Week 2 (Modelling)</h2>
+          <p>MZI transfer function, FSR intuition, and Simphony optional overlay.</p>
+          <a href="lessons/w02_mzi_modelling.html">Open Week 2 modelling</a>
+        </div>
+        <div class="card">
+          <h2>Week 2 (Layout)</h2>
+          <p>PDK + KLayout companion for the MZI lab workflow.</p>
+          <a href="lessons/w02_pdk_mzi_layout.html">Open Week 2 layout</a>
+        </div>
+        <div class="card">
+          <h2>Practice marimo</h2>
+          <p>Small sandbox for UI + reactivity basics.</p>
+          <a href="lessons/practice_marimo.html">Open practice notebook</a>
+        </div>
+        <div class="card">
+          <h2>HW02</h2>
+          <p>Homework scaffold for FSR and ΔL.</p>
+          <a href="assignments/hw02_mzi_modelling.html">Open HW02</a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      This is the "next" marimo site. The current public site remains at the root URL.
+    </footer>
+  </body>
+</html>

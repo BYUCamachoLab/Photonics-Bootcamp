@@ -28,20 +28,42 @@ jobs:
       run: |
         pip install -r requirements-docs.txt
 
+    - name: Install marimo export dependencies
+      run: |
+        pip install marimo==0.18.4 altair==6.0.0 polars pyzmq
+
     # Build the book
     - name: Build the book
       run: |
         jb build book
+
+    - name: Build marimo JupyterBook (next)
+      run: |
+        jb build book_next
+
+    - name: Build marimo exports (next)
+      run: |
+        bash marimo_course/scripts/build_next_site.sh book_next/_build/html
 
     - name: Configure the Chat Tutor
       run: |
         python ./book/chattutor_setup/install.py
         
     # Configures GitHub Pages
-    - name: Deploy 🚀
+    - name: Deploy root site 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: book/_build/html # The folder the action should deploy.
+        clean: true
+        clean-exclude: |
+          .nojekyll
+          next
+
+    - name: Deploy next site 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: book_next/_build/html
+        target-folder: next
         clean: true
         clean-exclude: |
           .nojekyll

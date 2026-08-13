@@ -1,0 +1,414 @@
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "marimo>=0.19.0",
+#   "pyzmq",
+#   "gdsfactory",
+#   "matplotlib",
+# ]
+# ///
+
+import marimo
+
+__generated_with = "0.18.4"
+app = marimo.App()
+
+
+@app.cell(hide_code=True)
+def _():
+    import marimo as mo
+    from _assignment_template import load_lesson_template, _ensure_lessons_on_path
+
+    _ensure_lessons_on_path()
+    from _notebook_template import optional_import
+
+    inject_css, make_doc_helpers, make_health_refresh_button, header = load_lesson_template()
+
+    inject_css(mo)
+
+    doc_badges, doc_callout_html, doc_callout_list = make_doc_helpers(mo)
+    return doc_callout_list, header, mo
+
+
+@app.cell(hide_code=True)
+def _(header, mo):
+    header(
+        mo,
+        title="HW02 — MZI layout + openEBL prep",
+        subtitle=(
+            "Build a student-owned MZI layout in Python using the SiEPIC-EBeam PDK cells, "
+            "then add PinRec/DevRec/labels and export a submission-ready GDS."
+        ),
+        badges=["Week 2", "Homework", "PDK layout", "openEBL prep"],
+        toc=[
+            ("Overview", "overview"),
+            ("Build MZI", "build"),
+            ("Add Submission Layers", "layers"),
+            ("Export", "export"),
+        ],
+        build="2026-01-16",
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(doc_callout_list, mo):
+    overview_md = mo.md(r"""
+    <a id="overview"></a>
+    ## Overview
+
+    This homework guides you through **building your own MZI layout** and preparing it
+    for openEBL submission. You will:
+
+    1. Choose PDK cells for the splitter/combiner and grating couplers.
+    2. Build an MZI with a chosen ΔL.
+    3. Add PinRec, DevRec, and Text labels.
+    4. Export a submission-ready GDS.
+    """)
+
+    doc_callout_list(
+        "info",
+        tag="What to submit",
+        title="Submission checklist",
+        items=[
+            "Your exported GDS in `openEBL-2026-02/submissions/` (named per run rules).",
+            "A screenshot of the final layout (showing ports + DevRec).",
+            "Both output ports are present and labeled in the final GDS.",
+            "Short note: your ΔL and target FSR.",
+        ],
+    )
+    return (overview_md,)
+
+
+@app.cell(hide_code=True)
+def _(overview_md):
+    overview_md
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Tasks (do these in order)
+
+    1. **Simphony (single output):** Use Simphony + SAX to plot the spectrum for the
+       single output port in the starter layout.
+    2. **Layout update:** Add a second output port to your layout GDS and make the
+       layout submission‑ready (PinRec, DevRec, labels, Floorplan if required).
+    3. **Simphony (both outputs):** Update your circuit model to expose both outputs
+       and plot both spectra (through + cross).
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <a id="build"></a>
+    ## Build MZI (PDK cells + routing)
+
+    **Edit the parameters below.** The starter layout exposes a single output;
+    you will add a second output port later in the assignment.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    # EDIT HERE — set your MZI parameters
+    username = "username" # put your GitHub username here
+    ebeam_pdk_path = "../SiEPIC_EBeam_PDK" # change these paths if you have cloned these repos elsewhere
+    openebl_path = "../openEBL-2026-02"
+
+    delta_length_um = 300.0
+    length_x_um = 60.0
+    length_y_um = 10.0
+
+    splitter_gds = f"{ebeam_pdk_path}/klayout/EBeam/gds/EBeam/ebeam_bdc_te1550.gds"
+    splitter_cell = "ebeam_bdc_te1550"
+
+    gc_gds = f"{ebeam_pdk_path}/klayout/EBeam/gds/EBeam/ebeam_gc_te1550.gds"
+    gc_cell = "ebeam_gc_te1550"
+
+    export_gds = f"{openebl_path}/submissions/EBeam_{username}.gds"
+
+    mo.md(
+        f"- ΔL: `{delta_length_um}` µm\n"
+        f"- length_x: `{length_x_um}` µm\n"
+        f"- length_y: `{length_y_um}` µm\n"
+        f"- splitter cell: `{splitter_cell}`\n"
+        f"- GC cell: `{gc_cell}`\n"
+        f"- export path: `{export_gds}`\n"
+    )
+    return (
+        delta_length_um,
+        export_gds,
+        gc_cell,
+        gc_gds,
+        length_x_um,
+        length_y_um,
+        splitter_cell,
+        splitter_gds,
+    )
+
+
+@app.cell
+def _(
+    delta_length_um,
+    gc_cell,
+    gc_gds,
+    length_x_um,
+    length_y_um,
+    mo,
+    splitter_cell,
+    splitter_gds,
+):
+    import pathlib as pathlib_hw
+    import gdsfactory as gf
+    from gdsfactory.add_ports import add_ports_from_markers_center
+    from gdsfactory.read import import_gds
+    from gdsfactory.port import auto_rename_ports_orientation
+
+    gf.clear_cache()
+    if hasattr(gf, "gpdk") and hasattr(gf.gpdk, "PDK"):
+        gf.gpdk.PDK.activate()
+    else:
+        gf.pdk.get_generic_pdk().activate()
+    c = None
+
+    xs = gf.cross_section.strip(layer=(1, 0), width=0.5)
+
+    # Check for GDS files
+    splitter_path = pathlib_hw.Path(splitter_gds)
+    gc_path = pathlib_hw.Path(gc_gds)
+    mo.stop(
+        not splitter_path.exists(),
+        mo.md(f"Error: Splitter GDS not found: `{splitter_path}`")
+    )
+    mo.stop(
+        not gc_path.exists(),
+        mo.md(f"Error: GC GDS not found: `{gc_path}`")
+    )
+
+    splitter = import_gds(splitter_path, cellname=splitter_cell, rename_duplicated_cells=True)
+    add_ports_from_markers_center(splitter, pin_layer=(1, 10), port_layer=(1, 0))
+    auto_rename_ports_orientation(splitter)
+    splitter.name = f"{splitter_cell}_splitter"
+
+    gc = import_gds(gc_path, cellname=gc_cell, rename_duplicated_cells=True)
+    add_ports_from_markers_center(gc, pin_layer=(1, 10), port_layer=(1, 0))
+    auto_rename_ports_orientation(gc)
+    gc.name = f"{gc_cell}_gc"
+
+    mzi = gf.components.mzi(
+        splitter=splitter,
+        combiner=splitter,
+        cross_section=xs,
+        port_e1_splitter="oE1",
+        port_e0_splitter="oE0",
+        port_e1_combiner="oE1",
+        port_e0_combiner="oE0",
+        delta_length=float(delta_length_um),
+        length_x=float(length_x_um),
+        length_y=float(length_y_um),
+    )
+
+    # Port indices of MZI are as follows:
+    # 1        ________        3
+    #   \    /          \    /
+    #    ----            ----
+    #    ----            ----
+    #   /    \          /    \
+    # 0        --------        2
+
+    c = gf.Component()
+    mzi_ref = c << mzi
+    mzi_in = mzi_ref.ports[0]
+    mzi_out = mzi_ref.ports[2]
+    gc_port = gc.ports[0]
+    gc_in = c << gc
+    gc_in.connect(gc_port.name, mzi_in)
+    gc_out = c << gc
+    gc_out.connect(gc_port.name, mzi_out)
+
+    import matplotlib.pyplot as plt
+    fig = c.plot()
+    plt.show()
+    mo.md("### Layout preview (MZI + grating couplers)")
+    return (c,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Add second output port (layout)
+
+    Your initial layout only exposes **one output**. Before submission, add a second
+    output port to the GDS (cross port) so your layout has both through + cross outputs.
+
+    **Checklist**
+    - The second port is on PinRec (1/10).
+    - Port names are distinct (e.g., `o_through`, `o_cross` or similar).
+    - The port orientation is correct for the output waveguide.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <a id="layers"></a>
+    ## Add submission layers
+
+    These layers are required for openEBL checks. In this homework, we will add them for you:
+
+    - **PinRec (1/10)** for ports
+    - **DevRec (68/0)** around the device
+    - **Text (10/0)** for labels
+    - **Floorplan (99/0)** if required by your run
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(c, mo):
+    mo.stop(
+        c is None,
+        mo.md("No layout available yet.")
+    )
+
+    import math
+
+    pin_layer = (1, 10)
+    # PinRec must be fully inside the waveguide material (Si/SiN) to pass the deck:
+    # keep it smaller than the waveguide width and inset from the GC interface.
+    pin_length = 0.6
+    pin_inset = 0.2
+    ports = c.ports
+    port_list = list(ports.values()) if hasattr(ports, "values") else list(ports)
+    for port in port_list:
+        cx, cy = port.center
+        orientation = getattr(port, "orientation", None)
+        if orientation is None:
+            orientation = 0.0
+
+        theta = float(orientation) * math.pi / 180.0
+        # Move the PinRec rectangle into the waveguide (opposite the port normal)
+        dx = -math.cos(theta) * (pin_length / 2 + pin_inset)
+        dy = -math.sin(theta) * (pin_length / 2 + pin_inset)
+        px, py = cx + dx, cy + dy
+
+        # Rectangle defined in local coords; long axis along +x, then rotate.
+        phi = (float(orientation) + 180.0) * math.pi / 180.0
+        cphi, sphi = math.cos(phi), math.sin(phi)
+
+        wg_w = float(getattr(port, "width", 0.5))
+        w = max(0.2, min(wg_w * 0.8, wg_w - 0.05))
+        local = [
+            (-pin_length / 2, -w / 2),
+            (pin_length / 2, -w / 2),
+            (pin_length / 2, w / 2),
+            (-pin_length / 2, w / 2),
+        ]
+        pts = [(px + lx * cphi - ly * sphi, py + lx * sphi + ly * cphi) for lx, ly in local]
+        c.add_polygon(
+            pts,
+            layer=pin_layer,
+        )
+
+    bbox = c.bbox() if callable(getattr(c, "bbox", None)) else c.bbox
+    if hasattr(bbox, "left"):
+        xmin, ymin, xmax, ymax = bbox.left, bbox.bottom, bbox.right, bbox.top
+    else:
+        (xmin, ymin), (xmax, ymax) = bbox[0], bbox[1]
+
+    pad = 5.0
+    c.add_polygon(
+        [
+            (xmin - pad, ymin - pad),
+            (xmax + pad, ymin - pad),
+            (xmax + pad, ymax + pad),
+            (xmin - pad, ymax + pad),
+        ],
+        layer=(68, 0),
+    )
+    c.add_polygon(
+        [
+            (xmin - pad, ymin - pad),
+            (xmax + pad, ymin - pad),
+            (xmax + pad, ymax + pad),
+            (xmin - pad, ymax + pad),
+        ],
+        layer=(99, 0),
+    )
+
+    c.add_label(text="TOP", position=(xmin, ymax + 10.0), layer=(10, 0))
+    c.add_label(text="MZI", position=(xmin, ymin - 10.0), layer=(10, 0))
+
+    mo.md("Added PinRec/DevRec/Text/Floorplan layers to the layout.")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Simphony spectrum (blank cell — student work)
+
+    Use Simphony + SAX to build an MZI circuit model and plot spectra.
+    Leave your code in this cell for grading.
+
+    **Requirements**
+    1. Use SiEPIC compact models (`simphony.libraries.siepic`).
+    2. Plot **one output port** that matches the starter layout (single output).
+    3. After you add a second output port to your layout GDS, plot **both outputs** (through + cross).
+    4. Sweep wavelength near 1550 nm (e.g., 1.53–1.57 µm).
+    """)
+    return
+
+
+@app.cell
+def _():
+    # === STUDENT: WRITE YOUR SIMPHONY/SAX CODE HERE ===
+    # Example imports (uncomment as needed):
+    # import numpy as np
+    # import sax
+    # from simphony.libraries import siepic
+    #
+    # Your task:
+    # 1) Define a netlist (splitter -> two arms -> combiner).
+    # 2) Build the circuit with sax.circuit.
+    # 3) Plot the single output (through) that matches the starter layout.
+    # 4) After adding a second output to your layout, plot both through + cross.
+    pass
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    <a id="export"></a>
+    ## Export for submission
+
+    Run this cell to export the final GDS to your openEBL submissions folder.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(c, export_gds, mo):
+    mo.stop(
+        c is None,
+        mo.md("No layout available yet.")
+    )
+    import pathlib
+
+    out = pathlib.Path(str(export_gds)).expanduser()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    written = c.write_gds(out)
+    mo.md(f"Wrote: `{written}`")
+    return
+
+
+if __name__ == "__main__":
+    app.run()

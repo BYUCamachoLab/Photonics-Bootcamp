@@ -46,7 +46,7 @@ html:
   comments:
     hypothesis: false
     utterances: false
-  announcement: "" # A banner announcement at the top of the site.
+  announcement: "New marimo course available: <a href=\"https://byucamacholab.github.io/Photonics-Bootcamp/next/\">/next/</a>" # A banner announcement at the top of the site.
 
 # Define the name of the latex output file for PDF builds
 latex:
