@@ -24,6 +24,9 @@ parts:
       # - file: pages/meep
       # - file: pages/simphony
       # - file: pages/emepy
+  - caption: Photonics Design Process
+    chapters:
+    - file: pages/layout_components
   - caption: Passive Device Design and Simulation
     chapters:
     - file: pages/photonic_devices
@@ -71,7 +74,6 @@ parts:
     # - file: pages/design_for_testing
     - file: pages/mzi
     - file: pages/mzi_layout
-    - file: pages/layout_demo
   - caption: Active Device Design and Simulation
     chapters:
     - file: pages/advanced_components
