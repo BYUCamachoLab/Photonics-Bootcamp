@@ -1,0 +1,126 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 696536eb-ea30-4cb6-b110-4f1be8382049
+  # title:
+  # description:
+  # keywords: []
+  # authors: []
+  github: https://github.com/BYUCamachoLab/Photonics-Bootcamp
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+  toc:
+    - file: index
+    - title: Front Matter
+      children:
+      - file: pages/introduction
+      - file: pages/credits
+    - title: Development Environment
+      children:
+      - file: pages/open_source
+      - file: pages/software
+        children:
+        - file: pages/software_wsl
+        - file: pages/software_vscode
+        - file: pages/software_git_and_github
+        - file: pages/software_python
+        - file: pages/software_klayout
+        - file: pages/software_laboratory_tools
+        # - file: pages/code_in_the_cloud
+        # - file: pages/gdsfactory
+        # - file: pages/meep
+        # - file: pages/simphony
+        # - file: pages/emepy
+    - title: Photonics Design Process
+      children:
+      - file: pages/layout_components
+    - title: Passive Device Design and Simulation
+      children:
+      - file: pages/photonic_devices
+      - file: pages/layer_stack
+      - file: pages/components
+        children:
+        - file: pages/gds_to_meep
+      - file: pages/waveguides
+        children:
+        - file: pages/waveguides_tir
+        - file: pages/waveguides_polarization
+        - file: pages/ray_optic_model
+        - file: pages/waveguides_modelling
+        - file: pages/waveguides_mode_solvers
+        - file: pages/waveguides_fdtd_solvers
+      - file: pages/passive_components
+        children:
+        # - file: pages/tapers
+        - file: pages/directional_couplers
+        - file: pages/y_branch
+        - file: pages/ring_resonators
+        - file: pages/mmis
+        # - file: pages/bragg_gratings
+        # - file: pages/pbsr
+      - file: pages/optical_io
+        children:
+        - file: pages/grating_couplers
+        - file: pages/edge_couplers
+      - file: pages/optimization
+        children:
+        - file: pages/shape_optimization
+        - file: pages/adjoint_optimization
+        - file: pages/meep_to_gds
+      - file: pages/compact_models
+        children:
+        - file: pages/scattering_parameters
+        # - file: pages/passive_models
+      - file: pages/drc
+    - title: Circuit Design and Simulation
+      children:
+      # - file: pages/photonic_circuit_modeling
+      - file: pages/pdks
+      # - file: pages/layout
+      # - file: pages/subcircuits
+      # - file: pages/design_for_testing
+      - file: pages/mzi
+      - file: pages/mzi_layout
+    - title: Active Device Design and Simulation
+      children:
+      - file: pages/advanced_components
+      - file: pages/phase_shifters
+        children:
+        - file: pages/phase_shifters_heaters
+        - file: pages/phase_shifters_pn
+      # - file: pages/voas
+      # - file: pages/photodetectors
+        # children:
+        # - file: pages/responsivity
+        # - file: pages/bandwidth
+      # - file: pages/lasers
+      # - file: pages/compact_models
+      #   children:
+      #   - file: pages/active_models
+    - title: Testing
+      children:
+      # - file: pages/equipment
+      # - file: pages/sweeps
+      - file: pages/analyzing_circuits
+    - title: References
+      numbered: false
+      children:
+      - file: pages/glossary
+        title: Glossary
+      # - file: pages/components_appendix
+      #   title: Drawing components
+      # - file: pages/meep_appendix
+      #   title: FDTD simulation with Meep
+      # - file: pages/compact_models_appendix
+      #   title: Compact models in SAX and Simphony
+      - file: pages/component_convenience
+        title: Component
+      - url: https://github.com/BYUCamachoLab/sky130ph
+        title: Repository
+      - url: https://github.com/BYUCamachoLab/sky130ph/docs
+        title: PDK Documentation
+
+site:
+  template: book-theme
+  # options:
+  #   favicon: favicon.ico
+  #   logo: site_logo.png
