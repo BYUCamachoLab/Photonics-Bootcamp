@@ -12,19 +12,19 @@ project:
     - file: index
     - title: Front Matter
       children:
-      - file: pages/introduction
-      - file: pages/credits
+      - file: pages/introduction.md
+      - file: pages/credits.md
     - title: Development Environment
       children:
-      - file: pages/open_source
-      - file: pages/software
+      - file: pages/open_source.md
+      - file: pages/software.md
         children:
-        - file: pages/software_wsl
-        - file: pages/software_vscode
-        - file: pages/software_git_and_github
-        - file: pages/software_python
-        - file: pages/software_klayout
-        - file: pages/software_laboratory_tools
+        - file: pages/software_wsl.md
+        - file: pages/software_vscode.md
+        - file: pages/software_git_and_github.md
+        - file: pages/software_python.md
+        - file: pages/software_klayout.md
+        - file: pages/software_laboratory_tools.ipynb
         # - file: pages/code_in_the_cloud
         # - file: pages/gdsfactory
         # - file: pages/meep
@@ -32,61 +32,60 @@ project:
         # - file: pages/emepy
     - title: Photonics Design Process
       children:
-      - file: pages/layout_components
+      - file: pages/layout_components.ipynb
     - title: Passive Device Design and Simulation
       children:
-      - file: pages/photonic_devices
-      - file: pages/layer_stack
+      - file: pages/photonic_devices.ipynb
+      - file: pages/layer_stack.ipynb
       - file: pages/components
         children:
-        - file: pages/gds_to_meep
-      - file: pages/waveguides
+        - file: pages/gds_to_meep.ipynb
+      - file: pages/waveguides.ipynb
         children:
-        - file: pages/waveguides_tir
-        - file: pages/waveguides_polarization
-        - file: pages/ray_optic_model
-        - file: pages/waveguides_modelling
-        - file: pages/waveguides_mode_solvers
-        - file: pages/waveguides_fdtd_solvers
-      - file: pages/passive_components
+        - file: pages/waveguides_tir.ipynb
+        - file: pages/waveguides_polarization.ipynb
+        - file: pages/ray_optic_model.ipynb
+        - file: pages/waveguides_modelling.ipynb
+        - file: pages/waveguides_mode_solvers.ipynb
+      - file: pages/passive_components.md
         children:
         # - file: pages/tapers
-        - file: pages/directional_couplers
-        - file: pages/y_branch
-        - file: pages/ring_resonators
-        - file: pages/mmis
+        - file: pages/directional_couplers.ipynb
+        - file: pages/y_branch.ipynb
+        - file: pages/ring_resonators.ipynb
+        - file: pages/mmis.ipynb
         # - file: pages/bragg_gratings
         # - file: pages/pbsr
-      - file: pages/optical_io
+      - file: pages/optical_io.md
         children:
-        - file: pages/grating_couplers
-        - file: pages/edge_couplers
-      - file: pages/optimization
+        - file: pages/grating_couplers.ipynb
+        - file: pages/edge_couplers.ipynb
+      - file: pages/optimization.ipynb
         children:
-        - file: pages/shape_optimization
-        - file: pages/adjoint_optimization
-        - file: pages/meep_to_gds
-      - file: pages/compact_models
+        - file: pages/shape_optimization.ipynb
+        - file: pages/adjoint_optimization.ipynb
+        - file: pages/meep_to_gds.ipynb
+      - file: pages/compact_models.ipynb
         children:
-        - file: pages/scattering_parameters
+        - file: pages/scattering_parameters.ipynb
         # - file: pages/passive_models
-      - file: pages/drc
+      - file: pages/drc.ipynb
     - title: Circuit Design and Simulation
       children:
       # - file: pages/photonic_circuit_modeling
-      - file: pages/pdks
+      - file: pages/pdks.ipynb
       # - file: pages/layout
       # - file: pages/subcircuits
       # - file: pages/design_for_testing
-      - file: pages/mzi
-      - file: pages/mzi_layout
+      - file: pages/mzi.ipynb
+      - file: pages/mzi_layout.ipynb
     - title: Active Device Design and Simulation
       children:
-      - file: pages/advanced_components
-      - file: pages/phase_shifters
+      - file: pages/advanced_components.ipynb
+      - file: pages/phase_shifters.ipynb
         children:
-        - file: pages/phase_shifters_heaters
-        - file: pages/phase_shifters_pn
+        - file: pages/phase_shifters_heaters.ipynb
+        - file: pages/phase_shifters_pn.ipynb
       # - file: pages/voas
       # - file: pages/photodetectors
         # children:
@@ -100,11 +99,11 @@ project:
       children:
       # - file: pages/equipment
       # - file: pages/sweeps
-      - file: pages/analyzing_circuits
+      - file: pages/analyzing_circuits.ipynb
     - title: References
       numbered: false
       children:
-      - file: pages/glossary
+      - file: pages/glossary.md
         title: Glossary
       # - file: pages/components_appendix
       #   title: Drawing components
@@ -112,7 +111,7 @@ project:
       #   title: FDTD simulation with Meep
       # - file: pages/compact_models_appendix
       #   title: Compact models in SAX and Simphony
-      - file: pages/component_convenience
+      - file: pages/component_convenience.ipynb
         title: Component
       - url: https://github.com/BYUCamachoLab/sky130ph
         title: Repository
