@@ -1,5 +1,4 @@
 jupyter-book
-Sphinx
 docutils
 numpy
 scipy
@@ -7,7 +6,6 @@ matplotlib
 ipywidgets
 notebook
 gdsfactory[full]
-gplugins
 tqdm
 nlopt
 simphony
