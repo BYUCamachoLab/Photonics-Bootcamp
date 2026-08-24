@@ -7,7 +7,6 @@ project:
   # keywords: []
   # authors: []
   github: https://github.com/BYUCamachoLab/Photonics-Bootcamp
-  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
   toc:
     - file: index
     - title: Front Matter
@@ -31,9 +30,9 @@ project:
       - file: pages/layout_layer_stack.ipynb
       - file: pages/layout_components.ipynb
       - file: pages/layout_pdks.ipynb
-# Files below this have been reorganized but the code has not been verified as working.
       - file: pages/simulation_scattering_parameters.ipynb
-      - file: pages/analysis_analyzing_circuits.ipynb
+# Files below this have been reorganized but the code has not been verified as working.
+      - file: pages/analysis_analyzing_circuits.ipynb # Oscilloscope data file missing.
     - title: Passive Devices
       children:
       - file: pages/waveguides.ipynb
