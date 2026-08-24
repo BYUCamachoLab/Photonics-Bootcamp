@@ -1,0 +1,77 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: 696536eb-ea30-4cb6-b110-4f1be8382049
+  # title:
+  # description:
+  # keywords: []
+  # authors: []
+  github: https://github.com/BYUCamachoLab/Photonics-Bootcamp
+  toc:
+    - file: index
+    - title: Front Matter
+      children:
+      - file: pages/introduction.md
+      - file: pages/credits.md
+    - title: Development Environment
+      children:
+      - file: pages/open_source.md
+      - file: pages/software.md
+        children:
+        - file: pages/software_wsl.md
+        - file: pages/software_vscode.md
+        - file: pages/software_git_and_github.md
+        - file: pages/software_python.md
+        - file: pages/software_klayout.md
+        - file: pages/software_laboratory_tools.ipynb
+    - title: Photonics Design Process
+      children:
+      - file: pages/photonic_devices.ipynb
+      - file: pages/layout_layer_stack.ipynb
+      - file: pages/layout_components.ipynb
+      - file: pages/layout_pdks.ipynb
+      - file: pages/simulation_scattering_parameters.ipynb
+# Files below this have been reorganized but the code has not been verified as working.
+      - file: pages/analysis_analyzing_circuits.ipynb # Oscilloscope data file missing.
+    - title: Passive Devices
+      children:
+      - file: pages/waveguides.ipynb
+        children:
+        - file: pages/waveguides_tir.ipynb
+        - file: pages/waveguides_polarization.ipynb
+        - file: pages/waveguides_ray_optical_model.ipynb
+        - file: pages/waveguides_modelling.ipynb
+        - file: pages/waveguides_mode_solvers.ipynb
+      - file: pages/passive_components.md
+        children:
+        - file: pages/directional_couplers.ipynb
+        - file: pages/y_branch.ipynb
+        - file: pages/ring_resonators.ipynb
+        - file: pages/mmis.ipynb
+      - file: pages/optical_io.md
+        children:
+        - file: pages/grating_couplers.ipynb
+      - title: Mach-Zehnder Interferometer Example
+        children:
+        - file: pages/mzi.ipynb
+        - file: pages/mzi_layout.ipynb
+    - title: Active Devices
+      children:
+      - file: pages/phase_shifters.ipynb
+        children:
+        - file: pages/phase_shifters_heaters.ipynb
+        - file: pages/phase_shifters_pn.ipynb
+    - title: References
+      numbered: false
+      children:
+      - file: pages/glossary.md
+        title: Glossary
+      - file: pages/component_convenience.ipynb
+        title: Component
+      - url: https://github.com/BYUCamachoLab/sky130ph
+        title: Repository
+      - url: https://github.com/BYUCamachoLab/sky130ph/docs
+        title: PDK Documentation
+
+site:
+  template: book-theme
