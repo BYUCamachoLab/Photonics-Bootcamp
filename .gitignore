@@ -178,3 +178,6 @@ __marimo__/
 
 # debug artifacts
 marimo_course/scripts/debug_mzi_data.csv
+
+# MyST build outputs
+_build
