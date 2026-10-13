@@ -33,7 +33,7 @@ going to install in the next few sections:
     installed.
 2. A code editor. The recommended code editor is 
     [Visual Studio Code](https://code.visualstudio.com/), (installation 
-    instructions [here](/pages/vscode.md)).
+    instructions [here](software_vscode.md)).
 3. Miniconda. Most of the tools are installable through the 
     [Python Package Index (PyPI)](https://pypi.org/), i.e. "pip" installable, 
     while some precompiled packages are only available through Conda 

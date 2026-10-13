@@ -2,11 +2,19 @@
 version: 1
 project:
   id: 696536eb-ea30-4cb6-b110-4f1be8382049
-  # title:
+  title: CamachoLab Photonics Bootcamp
   # description:
   # keywords: []
   # authors: []
+  copyright: "2023 CamachoLab and Google"
   github: https://github.com/BYUCamachoLab/Photonics-Bootcamp
+  bibliography:
+    - references.bib
+  exclude:
+    - _build/**
+    - pages/archive/**
+    - pages/unfinished_notebooks/**
+    - chattutor_setup/**
   toc:
     - file: index
     - title: Front Matter
@@ -66,8 +74,6 @@ project:
       children:
       - file: pages/glossary.md
         title: Glossary
-      - file: pages/component_convenience.ipynb
-        title: Component
       - url: https://github.com/BYUCamachoLab/sky130ph
         title: Repository
       - url: https://github.com/BYUCamachoLab/sky130ph/docs
@@ -75,3 +81,6 @@ project:
 
 site:
   template: book-theme
+  options:
+    logo: images/logo.png
+    favicon: images/favicon-laser.svg
