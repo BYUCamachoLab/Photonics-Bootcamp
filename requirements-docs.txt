@@ -1,7 +1,1 @@
-jupyter-book
-docutils
-numpy
-scipy
-matplotlib
-ipywidgets
-tensorflow
+jupyter-book>=2

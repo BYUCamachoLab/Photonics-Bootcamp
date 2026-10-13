@@ -1,5 +1,10 @@
+.PHONY: book serve clean
+
 book:
-	jupyter book build book
+	cd book && jupyter book build --html
 
 serve:
-	cd book/_build/html && python -m http.server
+	cd book && jupyter book start
+
+clean:
+	cd book && jupyter book clean --all --yes

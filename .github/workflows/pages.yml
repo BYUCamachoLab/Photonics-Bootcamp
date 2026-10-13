@@ -1,55 +1,43 @@
 name: deploy-book
 
-# Only run this when the master branch changes
+# Only run this when the main branch changes
 on:
   push:
     branches:
     - main
-    # If your git repository has the Jupyter Book within some-subfolder next to
-    # unrelated files, you can make this run only if a file within that specific
-    # folder has been modified.
-    #
-    # paths:
-    # - photonics_bootcamp/**
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10' 
+        python-version: '3.12'
+
+    - name: Set up Node.js (required by Jupyter Book 2)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
 
     - name: Install dependencies
       run: |
         pip install -r requirements-docs.txt
 
-    - name: Install marimo export dependencies
-      run: |
-        pip install marimo==0.18.4 altair==6.0.0 polars pyzmq
-
-    # Build the book
+    # Build the book. BASE_URL is needed because the site is served from
+    # https://byucamacholab.github.io/Photonics-Bootcamp/ rather than the domain root.
     - name: Build the book
+      working-directory: book
+      env:
+        BASE_URL: /${{ github.event.repository.name }}
       run: |
-        jb build book
+        jupyter book build --html
 
-    - name: Build marimo JupyterBook (next)
-      run: |
-        jb build book_next
-
-    - name: Build marimo exports (next)
-      run: |
-        bash marimo_course/scripts/build_next_site.sh book_next/_build/html
-
-    - name: Configure the Chat Tutor
-      run: |
-        python ./book/chattutor_setup/install.py
-        
-    # Configures GitHub Pages
+    # Configures GitHub Pages. The previously published marimo site under /next/
+    # is kept in place (its sources now live in archive/ and are no longer rebuilt).
     - name: Deploy root site 🚀
       uses: JamesIves/github-pages-deploy-action@v4
       with:
@@ -58,12 +46,3 @@ jobs:
         clean-exclude: |
           .nojekyll
           next
-
-    - name: Deploy next site 🚀
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: book_next/_build/html
-        target-folder: next
-        clean: true
-        clean-exclude: |
-          .nojekyll
